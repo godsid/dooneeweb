@@ -1,0 +1,138 @@
+<script src="js/superfish.js"></script>
+<script src="js/jquery.flexslider.js"></script>
+<script src="js/jquery.nicescroll.min.js"></script>
+
+<script src="js/jquery.mousewheel-3.0.6.pack.js"></script>
+<!--<script src="js/jquery.fancybox.js?v=2.1.5"></script>-->
+
+<script>
+/* Hide Header on on scroll down*/
+var didScroll;
+var lastScrollTop = 0;
+var delta = 5;
+var navbarHeight = $('#header').outerHeight();
+
+$(window).scroll(function(event){
+    didScroll = true;
+});
+
+setInterval(function() {
+    if (didScroll) {
+        hasScrolled();
+        didScroll = false;
+    }
+}, 250);
+
+function hasScrolled() {
+    var st = $(this).scrollTop();
+    
+    // Make sure they scroll more than delta
+    if(Math.abs(lastScrollTop - st) <= delta)
+        return;
+    
+    // If they scrolled down and are past the navbar, add class .nav-up.
+    // This is necessary so you never see what is "behind" the navbar.
+    if (st > lastScrollTop && st > navbarHeight){
+        // Scroll Down
+        $('#header').removeClass('nav-down').addClass('nav-up');
+    } else {
+        // Scroll Up
+        if(st + $(window).height() < $(document).height()) {
+            $('#header').removeClass('nav-up').addClass('nav-down');
+        }
+    }
+    
+    lastScrollTop = st;
+}
+/*hover cat*/
+$('#sl-cat').superfish().find('ul');
+  			$('#sl-cat').superfish({
+					animation:{
+						opacity:'show',height:'show'
+						}, speed:1, dropShadows: false
+});
+/*FlexSlider*/
+$(window).load(function() {
+   /*Big*/
+  $('#slider').flexslider({
+    animation: "slide",
+    controlNav: false,
+    animationLoop: true,
+    slideshow: false,
+    sync: "#carousel"
+  });
+  /*Thumb*/
+  $('#carousel').flexslider({
+    animation: "slide",
+    controlNav: false,
+    animationLoop: true,
+    slideshow: false,
+    itemWidth: 180,
+    itemMargin: 20,
+    minItems: 2,
+    maxItems: 5,
+    asNavFor: '#slider'
+  });
+  
+});
+
+$(document).ready(function() {
+	/*$(".nav-main ul li a").click(function() {
+		$(".nav-main ul li a").removeClass("selected");
+		$(this).addClass("selected");
+	});*/
+	/*scrollbar*/
+	$(".js-v-scroll").niceScroll({
+		styler:"fb",
+		cursorwidth:"7px",
+		cursorcolor:"#000",
+		cursorborder: "0",
+		background:"rgba(0,0,0,0.5)",
+		autohidemode:false,
+	});
+	/*$(".js-h-scroll").niceScroll({
+		styler:"fb",
+		cursorwidth:"7px",
+		cursorcolor:"#000",
+		cursorborder: "0",
+		background:"rgba(0,0,0,0.5)",
+		autohidemode:false,
+		horizrailenabled:true	
+	});*/
+	
+});
+</script>
+
+<script>
+$(document).ready(function(){
+	/*back to top*/
+	 $(".btn-back2top a").click(function () {
+	   $("html, body").animate({scrollTop: 0}, 200);
+	});
+	/*Lightbox*/
+	/*$(".fancybox").fancybox({
+		width     : 800,
+		height    : 600,
+		autoSize   : true,
+		scrolling: 'no',
+		helpers:  {
+			title:  null
+		}
+	});*/
+	/*lightbox player*/
+	/*$(".various").fancybox({
+		maxWidth	: 800,
+		maxHeight	: 600,
+		fitToView	: false,
+		width		: '70%',
+		height		: '70%',
+		autoSize	: false,
+		closeClick	: false,
+		openEffect	: 'none',
+		closeEffect	: 'none',
+		helpers:  {
+			title:  null
+		}
+	});*/
+}); 
+</script>
