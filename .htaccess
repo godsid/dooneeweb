@@ -1,0 +1,2 @@
+#RewriteBase /doonee.tv/
+RewriteRule ^backoffice/([css|js|img]+.*) /doonee.tv/assets/backoffice/$1 [L]

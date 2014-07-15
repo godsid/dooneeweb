@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "welcome";
+$route['default_controller'] = "home";
 $route['404_override'] = '';
 $route['docs/(:any)'] = 'docs/index/$1';
 $route['api/(:any)/(:num)'] = 'api/$1/index/$2';

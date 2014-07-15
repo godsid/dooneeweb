@@ -14,7 +14,9 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/doonee.tv/index.php/';
+$config['base_url']	= 'http://localhost/doonee.tv';
+$config['static_url']	= 'http://localhost/doonee.tv';
+$config['backoffice_url']	= 'http://localhost/doonee.tv/ci2.php/backoffice';
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +28,7 @@ $config['base_url']	= 'http://localhost/doonee.tv/index.php/';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = 'ci2.php';
 
 /*
 |--------------------------------------------------------------------------
