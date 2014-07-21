@@ -20,108 +20,36 @@
 							  </tr>
 						  </thead>   
 						  <tbody>
+						  <?php foreach($members['items'] as $member){ ?>
 							<tr>
-								<td>David R</td>
-								<td class="center">2012/01/01</td>
-								<td class="center">Member</td>
+								<td><?=$member['email']?></td>
+								<td class="center"><?=$member['create_date']?></td>
+								<td class="center"></td>
 								<td class="center">
+									<?php if($member['status']=='ACTIVE'){?>
 									<span class="label label-success">Active</span>
+									<?php }else{?>
+									<span class="label">InActive</span>
+									<?php }?>
 								</td>
 								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>  
-										View                                            
+									<?php if($member['status']=='ACTIVE'){?>
+									<a class="btn btn-danger" href="<?=backoffice_url('/member/inactive/'.$member['user_id'])?>">
+										<i class="icon-lock icon-white"></i> 
+										InActive
 									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>  
-										Edit                                            
+									<?php }else{?>
+									<a class="btn btn-success" href="<?=backoffice_url('/member/active/'.$member['user_id'])?>">
+										<i class="icon-ok-circle icon-white"></i>  
+										Active                                            
 									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-										Delete
-									</a>
+									<?php }?>
 								</td>
 							</tr>
-							<tr>
-								<td>Helen Garner</td>
-								<td class="center">2012/02/01</td>
-								<td class="center">Staff</td>
-								<td class="center">
-									<span class="label label-important">Banned</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>  
-										View                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>  
-										Edit                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-										Delete
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Ahemd Saruar</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-warning">Pending</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>  
-										View                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>  
-										Edit                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-										Delete
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Ifrah Jannat</td>
-								<td class="center">2012/06/01</td>
-								<td class="center">Admin</td>
-								<td class="center">
-									<span class="label">Inactive</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>  
-										View                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>  
-										Edit                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-										Delete
-									</a>
-								</td>
-							</tr>
+							<?php }?>
 						  </tbody>
 					  </table>       
-					  <div class="pagination pagination-centered">
-						  <ul>
-							<li><a href="#">Prev</a></li>
-							<li class="active">
-							  <a href="#">1</a>
-							</li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">Next</a></li>
-						  </ul>
-						</div>          
+					  <div class="pagination pagination-centered"><?=$pageing?></div>
 					</div>
 				</div><!--/span-->
 			</div><!--/row-->

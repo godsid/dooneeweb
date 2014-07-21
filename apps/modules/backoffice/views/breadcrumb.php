@@ -5,13 +5,19 @@
 		</li>
 		<?php
 		if(isset($breadcrumb)){
-			foreach ($breadcrumb as $value) {
+
+			for($i=0,$j=count($breadcrumb)-1;$i<$j;$i++) {
 		?>
 			<li>
-				 <span class="divider">/</span> <a href="<?=$value['url']?>"><?=$value['title']?></a>
+				 <span class="divider">/</span> <a href="<?=$breadcrumb[$i]['url']?>"><?=$breadcrumb[$i]['title']?></a>
 			</li>
 		<?php	
 			}
+		?>
+			<li>
+				 <span class="divider">/</span> <span><?=$breadcrumb[$i]['title']?></span>
+			</li>
+		<?php
 		}
 		?>
 		

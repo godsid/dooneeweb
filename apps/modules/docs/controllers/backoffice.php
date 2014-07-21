@@ -1,10 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class Backoffice extends CI_Controller {
 
-	public function index($page)
+	public function index()
 	{
-		$this->load->view($page);
+		
+		$this->load->view('backoffice/index');
 	}
 }
 

@@ -1,4 +1,4 @@
-<!<?=backoffice_url('/docs/DOCTYPE')?>>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<!--
@@ -44,9 +44,9 @@
 	<link href="<?=static_url('/backoffice/css/opa-icons.css')?>" rel='stylesheet'>
 	<link href="<?=static_url('/backoffice/css/uploadify.css')?>" rel='stylesheet'>
 
-	<!-- <?=backoffice_url('/docs/The')?>5 shim, for IE6-8 support <?=backoffice_url('/docs/of')?>5 elements -->
+	<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
-	  <script src="http://html5shim.googlecode.com/svn/<?=backoffice_url('/docs/trunk')?>5.js"></script>
+	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 
 	<!-- The fav icon -->
@@ -96,7 +96,7 @@
 					<ul class="dropdown-menu">
 						<li><a href="#">Profile</a></li>
 						<li class="divider"></li>
-						<li><a href="<?=backoffice_url('/docs/login')?>">Logout</a></li>
+						<li><a href="login.html">Logout</a></li>
 					</ul>
 				</div>
 				<!-- user dropdown ends -->
@@ -131,23 +131,23 @@
 						<li><a class="ajax-link" href="<?=backoffice_url('/package')?>"><i class="icon-eye-open"></i><span class="hidden-tablet"> Packages</span></a></li>
 						<li><a class="ajax-link" href="<?=backoffice_url('/banner')?>"><i class="icon-eye-open"></i><span class="hidden-tablet"> Banners</span></a></li>
 						<li><a class="ajax-link" href="<?=backoffice_url('/category')?>"><i class="icon-eye-open"></i><span class="hidden-tablet"> Category</span></a></li>
-						<li class="nav-header hidden-tablet">Document Section</li>
 
 
-						<li><a class="ajax-link" href="<?=backoffice_url('/docs/ui')?>"><i class="icon-eye-open"></i><span class="hidden-tablet"> UI Features</span></a></li>
-						<li><a class="ajax-link" href="<?=backoffice_url('/docs/form')?>"><i class="icon-edit"></i><span class="hidden-tablet"> Forms</span></a></li>
-						<li><a class="ajax-link" href="<?=backoffice_url('/docs/chart')?>"><i class="icon-list-alt"></i><span class="hidden-tablet"> Charts</span></a></li>
-						<li><a class="ajax-link" href="<?=backoffice_url('/docs/typography')?>"><i class="icon-font"></i><span class="hidden-tablet"> Typography</span></a></li>
-						<li><a class="ajax-link" href="<?=backoffice_url('/docs/gallery')?>"><i class="icon-picture"></i><span class="hidden-tablet"> Gallery</span></a></li>
+
+						<li><a class="ajax-link" href="ui.html"><i class="icon-eye-open"></i><span class="hidden-tablet"> UI Features</span></a></li>
+						<li><a class="ajax-link" href="form.html"><i class="icon-edit"></i><span class="hidden-tablet"> Forms</span></a></li>
+						<li><a class="ajax-link" href="chart.html"><i class="icon-list-alt"></i><span class="hidden-tablet"> Charts</span></a></li>
+						<li><a class="ajax-link" href="typography.html"><i class="icon-font"></i><span class="hidden-tablet"> Typography</span></a></li>
+						<li><a class="ajax-link" href="gallery.html"><i class="icon-picture"></i><span class="hidden-tablet"> Gallery</span></a></li>
 						<li class="nav-header hidden-tablet">Sample Section</li>
-						<li><a class="ajax-link" href="<?=backoffice_url('/docs/table')?>"><i class="icon-align-justify"></i><span class="hidden-tablet"> Tables</span></a></li>
-						<li><a class="ajax-link" href="<?=backoffice_url('/docs/calendar')?>"><i class="icon-calendar"></i><span class="hidden-tablet"> Calendar</span></a></li>
-						<li><a class="ajax-link" href="<?=backoffice_url('/docs/grid')?>"><i class="icon-th"></i><span class="hidden-tablet"> Grid</span></a></li>
-						<li><a class="ajax-link" href="file-<?=backoffice_url('/docs/manager')?>"><i class="icon-folder-open"></i><span class="hidden-tablet"> File Manager</span></a></li>
-						<li><a href="<?=backoffice_url('/docs/tour')?>"><i class="icon-globe"></i><span class="hidden-tablet"> Tour</span></a></li>
-						<li><a class="ajax-link" href="<?=backoffice_url('/docs/icon')?>"><i class="icon-star"></i><span class="hidden-tablet"> Icons</span></a></li>
-						<li><a href="<?=backoffice_url('/docs/error')?>"><i class="icon-ban-circle"></i><span class="hidden-tablet"> Error Page</span></a></li>
-						<li><a href="<?=backoffice_url('/docs/login')?>"><i class="icon-lock"></i><span class="hidden-tablet"> Login Page</span></a></li>
+						<li><a class="ajax-link" href="table.html"><i class="icon-align-justify"></i><span class="hidden-tablet"> Tables</span></a></li>
+						<li><a class="ajax-link" href="calendar.html"><i class="icon-calendar"></i><span class="hidden-tablet"> Calendar</span></a></li>
+						<li><a class="ajax-link" href="grid.html"><i class="icon-th"></i><span class="hidden-tablet"> Grid</span></a></li>
+						<li><a class="ajax-link" href="file-manager.html"><i class="icon-folder-open"></i><span class="hidden-tablet"> File Manager</span></a></li>
+						<li><a href="tour.html"><i class="icon-globe"></i><span class="hidden-tablet"> Tour</span></a></li>
+						<li><a class="ajax-link" href="icon.html"><i class="icon-star"></i><span class="hidden-tablet"> Icons</span></a></li>
+						<li><a href="error.html"><i class="icon-ban-circle"></i><span class="hidden-tablet"> Error Page</span></a></li>
+						<li><a href="login.html"><i class="icon-lock"></i><span class="hidden-tablet"> Login Page</span></a></li>
 					</ul>
 					<label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><input id="is-ajax" type="checkbox"> Ajax on menu</label>
 				</div><!--/.well -->

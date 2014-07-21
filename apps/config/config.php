@@ -14,9 +14,9 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/doonee.tv';
-$config['static_url']	= 'http://localhost/doonee.tv';
-$config['backoffice_url']	= 'http://localhost/doonee.tv/ci2.php/backoffice';
+$config['base_url']	= 'http://'.$_SERVER['HTTP_HOST'];
+$config['static_url']	= 'http://'.$_SERVER['HTTP_HOST'].'/assets';
+$config['backoffice_url']	= 'http://'.$_SERVER['HTTP_HOST'].'/backoffice';
 
 /*
 |--------------------------------------------------------------------------
