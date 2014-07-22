@@ -42,6 +42,7 @@ $route['default_controller'] = "home";
 $route['404_override'] = '';
 #$route['docs/(:any)'] = 'docs/index/$1';
 $route['api/(:any)/(:num)'] = 'api/$1/index/$2';
+$route['backoffice/'] = 'backoffice/home/index';
 $route['backoffice/([a-z]+)/(:num)'] = 'backoffice/$1/index/$2';
 $route['backoffice/docs/([a-z]+)'] = 'backoffice/home/index/$1/';
 

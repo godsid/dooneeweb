@@ -76,7 +76,7 @@
 								<div class="control-group">
 									<label class="control-label">เรื่องย่อ</label>
 									<div class="controls">
-										<textarea class="input-xlarge" name="description" rows="5"><?=(isset($movie['description'])?nl2br($movie['description']):'')?></textarea>
+										<textarea class="input-xlarge span11" name="description" rows="5"><?=(isset($movie['description'])?nl2br($movie['description']):'')?></textarea>
 									</div>
 								</div>
 								<div class="control-group">

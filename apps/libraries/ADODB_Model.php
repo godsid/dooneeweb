@@ -34,12 +34,13 @@ class ADODB_Model extends CI_Model {
 	function table($name,$as=''){
 		return $this->prefix.$name.(empty($as)?'':' AS '.$as);
 	}
-	function fetchPage($sql,$limit=30,$page=1){
-		$rs = $this->adodb->PageExecute($sql,$page,$limit);
-
+	function fetchPage($sql,$page=1,$limit=30){
+		$rs = $this->adodb->PageExecute($sql,$limit,$page);
 		$resp['pageing']  = array(
 								'page'=>(int)$rs->AbsolutePage(),
-								'maxItem'=>(int)$rs->RecordCount(),
+								'maxPage'=>(int)ceil($rs->MaxRecordCount()/$limit),
+								'itemPerPage'=>(int)$limit,
+								'allItem'=>(int)$rs->MaxRecordCount()
 							);
 		//$resp['pageing']['maxPage'] = ceil($resp['pageing'] / $limit);
 		$resp['items'] = $rs->GetAll();

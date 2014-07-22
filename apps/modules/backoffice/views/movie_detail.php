@@ -10,7 +10,7 @@
 						</div>
 					</div>
 					<div class="box-content">
-							<div><span class="span2">ภาพปก: </span><span class="span10"><img src="<?=$movie['cover']?>" width="100" /></span></div>
+							<div><span class="span2">ภาพปก: </span><span class="span10"><img src="<?=static_url($movie['cover'])?>" width="100" /></span></div>
 							<div><span class="span2">ชื่อหนัง (ภาษาไทย): </span><span class="span10"><?=$movie['title']?></span></div>
 							<div><span class="span2">ชื่อหนัง (ภาษาอังกฤษ): </span><span class="span10"><?=$movie['title_en']?></span></div>
 							

@@ -1,21 +1,10 @@
-<ul>
-	
-	<li><a href="#">Prev</a></li>
-	<li class="active">
-	  <a href="#">1</a>
-	</li>
-	<li><a href="#">2</a></li>
-	<li><a href="#">3</a></li>
-	<li><a href="#">4</a></li>
-	<li><a href="#">Next</a></li>
-</ul>
 <?php
-$page = $_GET['page'];
+//$page = $_GET['page'];
 $stages = 3;
 $targetpage  ="";
-$total_pages  = 50;
-$limit = 3;
-$link="?";
+$total_pages  = $maxPage;
+$limit = $itemPerPage;
+$link=$url."?";
 // Initial page num setup
 if ($page == 0){$page = 1;}
 $prev = $page - 1;

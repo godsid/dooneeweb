@@ -8,7 +8,7 @@ class Movie extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->page = $this->input->get('page');
-		$this->limit = $this->input->get('page');
+		$this->limit = $this->input->get('limit');
 		$this->page = $this->page?$this->page:1;
 		$this->limit = $this->limit?$this->limit:30;
 
