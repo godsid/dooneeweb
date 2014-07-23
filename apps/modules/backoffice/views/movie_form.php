@@ -7,7 +7,7 @@
 						<h2><i class="icon-film"></i> Movies</h2>
 					</div>
 					<div class="box-content">
-						<form class="form-horizontal" method="post" action="<?=backoffice_url('/movie/submit/').(isset($movie['movie_id'])?$movie['movie_id']:'')?>">
+						<form class="form-horizontal" method="post" enctype="multipart/form-data" action="<?=backoffice_url('/movie/submit/').(isset($movie['movie_id'])?$movie['movie_id']:'')?>">
 							<fieldset>
 								<?php
 								if(isset($movie['movie_id'])){
@@ -24,7 +24,6 @@
 											echo '<span class="help-inline">',$movie['title_error'],'</span>';
 										}
 										?>
-										
 									</div>
 								</div>
 								<div class="control-group<?=isset($movie['title_en_error'])?' error':''?>">
@@ -45,6 +44,7 @@
 										<?php
 										if(isset($movie['cover'])){
 											echo '<img src="',$movie['cover'],'" /><br/><br/>';
+											echo '<input type="hidden" name="cover_tmp" value="',$movie['cover'],'" />';
 										}
 										?>
 										<input class="input-xlarge" name="cover" type="file" value="">

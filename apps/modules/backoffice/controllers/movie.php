@@ -14,7 +14,6 @@ class Movie extends CI_Controller {
 
 		$this->breadcrumb[] = array('title'=>'Movies','url'=>backoffice_url('/movie'));
 		$this->load->model('movie_model','mMovie');
-
 	}
 
 	public function index($movieID=""){
@@ -55,6 +54,8 @@ class Movie extends CI_Controller {
 		$this->load->view('movie_form',$data);
 	}
 	public function submit($movieID=false){
+		$this->load->library('image_lib');
+
 		$isError = false;
 		$movie = $this->input->post();
 
@@ -66,6 +67,32 @@ class Movie extends CI_Controller {
 			$isError = true;
 			$movie['title_en_error'] = "ยังไม่ได้ใส่ข้อมูล";
 		}
+		
+		//var_dump($_FILES["cover"]);
+		if(isset($_FILES["cover"])&&!empty($_FILES["cover"]['tmp_name'])){
+			//if($_FILES['cover']['error']){
+				//var_dump($_FILES);
+				//$isError = true;
+				//$movie['cover_error'] = $_FILES['cover']['error'];
+			//}else{
+				$destinationPath = static_path(substr(md5(time()),0,5).".jpg");
+				if(move_uploaded_file($_FILES['cover']['tmp_name'],$destinationPath)){
+					$imageSize = $this->config->item('cover');
+					$config["source_image"] = $destinationPath;
+		            $config['new_image'] = $destinationPath;
+		            $config["width"] = $imageSize['medium'][0];
+		            $config["height"] = $imageSize['medium'][1];
+		            $config["dynamic_output"] = FALSE; // always save as cache
+		            
+					$this->image_lib->initialize($config);
+		            $this->image_lib->fit();
+		            unlink(preg_replace("#.*".$this->config->item('static_path')."#",$this->config->item('static_path'),$movie['cover_tmp']));
+		            $movie['cover'] = '/'.$destinationPath;
+				}
+				
+			//}
+		}
+
 		$data['movie'] = $movie;
 		unset($movie);
 		if($isError){

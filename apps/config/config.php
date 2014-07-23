@@ -18,6 +18,8 @@ $config['base_url']	= 'http://'.$_SERVER['HTTP_HOST'];
 $config['static_url']	= 'http://'.$_SERVER['HTTP_HOST'].'/assets';
 $config['backoffice_url']	= 'http://'.$_SERVER['HTTP_HOST'].'/backoffice';
 
+$config['static_path'] = 'files';
+
 /*
 |--------------------------------------------------------------------------
 | Index File
