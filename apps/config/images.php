@@ -28,3 +28,11 @@ $config["image_sizes"]["large"]  = array(800, 0);
 $config['cover']['small'] = array(800,1200);
 $config['cover']['medium'] = array(200,300);
 $config['cover']['large'] = array(800,1200);
+
+$config['package_banner']['small'] = array(800,1200);
+$config['package_banner']['medium'] = array(500,200);
+$config['package_banner']['large'] = array(1148,374);
+
+$config['banner']['small'] = array(800,1200);
+$config['banner']['medium'] = array(500,200);
+$config['banner']['large'] = array(1148,374);

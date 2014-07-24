@@ -7,7 +7,7 @@
 						<h2><i class="icon-film"></i> Movies</h2>
 					</div>
 					<div class="box-content">
-						<form class="form-horizontal" method="post" action="<?=backoffice_url('/package/submit/').(isset($package['package_id'])?$package['package_id']:'')?>">
+						<form class="form-horizontal" method="post" enctype="multipart/form-data" action="<?=backoffice_url('/package/submit/').(isset($package['package_id'])?$package['package_id']:'')?>">
 							<fieldset>
 								<!--<legend>Datepicker, Autocomplete, WYSIWYG</legend>-->
 								<div class="control-group<?=isset($package['title_error'])?' error':''?>">
@@ -40,6 +40,7 @@
 										<?php
 										if(isset($package['banner'])){
 											echo '<img src="',$package['banner'],'" /><br/><br/>';
+											echo '<input type="hidden" name="banner_tmp" value="',$package['banner'],'" />';
 										}
 										?>
 										<input class="input-xlarge" name="banner" type="file" value="">

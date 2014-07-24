@@ -13,7 +13,7 @@
 					</div>
 					<div class="box-content">
 						<div class="row-fluid">
-							<div><span class="span2">ฺBanner: </span><span class="span10"><img src="<?=static_url($package['banner'])?>" height="100" /></span></div>
+							<div><span class="span2">Banner: </span><span class="span10"><img src="<?=static_url($package['banner'])?>" height="100" /></span></div>
 							<div><span class="span2">ชื่อ: </span><span class="span10"><?=$package['title']?></span></div>
 							<div><span class="span2">ชื่อรหัส: </span><span class="span10"><?=$package['name']?></span></div>
 							<div><span class="span2">ราคา: </span><span class="span10"><?=$package['price']?> บาท</span></div>

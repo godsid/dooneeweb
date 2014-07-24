@@ -36,6 +36,11 @@ class Package extends CI_Controller {
 		$data['breadcrumb'] = $this->breadcrumb;
 		$this->load->view('package_detail',$data);
 	}
+	public function create(){
+		$this->breadcrumb[] = array('title'=>'New','url'=>'');
+		$data['breadcrumb'] = $this->breadcrumb;
+		$this->load->view('package_form',$data);
+	}
 	public function edit($packageID=""){
 		$data['package'] = $this->mPackage->getPackage($packageID);
 		$this->breadcrumb[] = array('title'=>$data['package']['title'],'url'=>backoffice_url('/package/'.$packageID));
@@ -44,6 +49,7 @@ class Package extends CI_Controller {
 		$this->load->view('package_form',$data);
 	}
 	public function submit($packageID=false){
+		$this->load->library('image_lib');
 		$isError = false;
 		$package = $this->input->post();
 
@@ -54,6 +60,29 @@ class Package extends CI_Controller {
 		if(empty($package['name'])){
 			$isError = true;
 			$package['name_error'] = "ยังไม่ได้ใส่ข้อมูล";
+		}
+		if(isset($_FILES["banner"])&&!empty($_FILES["banner"]['tmp_name'])){
+			//if($_FILES['cover']['error']){
+				//var_dump($_FILES);
+				//$isError = true;
+				//$movie['cover_error'] = $_FILES['cover']['error'];
+			//}else{
+				$destinationPath = static_path('package'.substr(md5(time()),0,5).".jpg");
+				if(move_uploaded_file($_FILES['banner']['tmp_name'],$destinationPath)){
+					$imageSize = $this->config->item('package_banner');
+					$config["source_image"] = $destinationPath;
+		            $config['new_image'] = $destinationPath;
+		            $config["width"] = $imageSize['large'][0];
+		            $config["height"] = $imageSize['large'][1];
+		            $config["dynamic_output"] = FALSE; // always save as cache
+		            
+					$this->image_lib->initialize($config);
+		            $this->image_lib->fit();
+		            unlink(preg_replace("#.*".$this->config->item('static_path')."#",$this->config->item('static_path'),$package['banner_tmp']));
+		            $package['banner'] = '/'.$destinationPath;
+				}
+				
+			//}
 		}
 		$data['package'] = $package;
 		unset($package);
