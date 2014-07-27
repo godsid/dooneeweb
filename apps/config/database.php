@@ -49,9 +49,9 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
+$db['default']['username'] = '';
 $db['default']['password'] = '';
-$db['default']['database'] = 'doonee';
+$db['default']['database'] = '';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = 'do_';
 $db['default']['pconnect'] = TRUE;
@@ -79,10 +79,16 @@ switch (ENVIRONMENT) {
 		$db['api']['database'] = 'doonee';
 		break;
 	case 'development':
+		$db['default']['hostname'] = 'localhost';
+		$db['default']['username'] = 'doonee';
+		$db['default']['password'] = '1234qwer';
+		$db['default']['database'] = 'doonee';
+
+
 		$db['api'] = $db['default'];
 		$db['api']['hostname'] = 'localhost';
-		$db['api']['username'] = 'root';
-		$db['api']['password'] = '';
+		$db['api']['username'] = 'doonee';
+		$db['api']['password'] = '1234qwer';
 		$db['api']['database'] = 'doonee';
 		$db['api']['db_debug'] = TRUE;
 	default:
