@@ -22,6 +22,7 @@ class Movie extends CI_Controller {
 			$data['movie'] = $this->mMovie->getMovie($movieID);
 			$this->breadcrumb[] = array('title'=>$data['movie']['title'],'url'=>'');
 			$data['breadcrumb'] = $this->breadcrumb;	
+			$data['movie']['path'] = str_replace('{path}',$data['movie']['path'],$this->config->item('clip_path'));
 			$this->load->view('movie_detail',$data);
 		}else{
 			$data['movies'] = $this->mMovie->getMovies($this->page,$this->limit);
@@ -39,6 +40,7 @@ class Movie extends CI_Controller {
 	public function detail($movieID=""){
 		$this->breadcrumb[] = array('title'=>'MovieName','url'=>'#');
 		$data['breadcrumb'] = $this->breadcrumb;
+		
 		$this->load->view('movie_detail',$data);
 	}
 	public function edit($movieID=""){
@@ -101,6 +103,7 @@ class Movie extends CI_Controller {
 			if(is_numeric($movieID)){
 				$this->mMovie->updateMovie($movieID,$data['movie']);
 			}else{
+				$data['movie']['path'] = substr(md5($data['movie']['title']+time()),0,10);
 				$movieID = $this->mMovie->setMovie($data['movie']);
 			}
 			redirect(backoffice_url('/movie'));	

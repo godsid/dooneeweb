@@ -13,7 +13,7 @@
 							<div><span class="span2">ภาพปก: </span><span class="span10"><img src="<?=static_url($movie['cover'])?>" width="100" /></span></div>
 							<div><span class="span2">ชื่อหนัง (ภาษาไทย): </span><span class="span10"><?=$movie['title']?></span></div>
 							<div><span class="span2">ชื่อหนัง (ภาษาอังกฤษ): </span><span class="span10"><?=$movie['title_en']?></span></div>
-							
+							<div><span class="span2">Clip url: </span><span class="span10"><a href="<?=$movie['path']?>"><?=$movie['path']?></a></span></div>
 							<div><span class="span2">Rating/คะแนน: </span><span class="span10"><?=$movie['rating']?> / <?=$movie['score']?></span></div>
 							<div><span class="span2">นักแสดง: </span><span class="span10"><?=$movie['cast']?></span></div>
 							<div><span class="span2">ผู้กำกับ: </span><span class="span10"><?=$movie['director']?></span></div>

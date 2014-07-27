@@ -20,6 +20,8 @@ $config['backoffice_url']	= 'http://'.$_SERVER['HTTP_HOST'].'/backoffice';
 
 $config['static_path'] = 'files';
 
+$config['clip_path'] = 'http://122.155.197.142:1935/vod/mp4:movies/{path}.mp4/playlist.m3u8';
+
 /*
 |--------------------------------------------------------------------------
 | Index File
@@ -228,7 +230,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = '*%q:J8q!:=4_EYX';
+$config['encryption_key'] = '*%q:ejd8q!:=4_dYX';
 
 /*
 |--------------------------------------------------------------------------

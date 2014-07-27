@@ -12,9 +12,14 @@ class Member extends CI_Controller {
 
 		$this->breadcrumb[] = array('title'=>'Members','url'=>backoffice_url('/member'));
 		$this->load->model('user_model','mUser');
+
+		if(!$this->mUser->auth()){
+			redirect(backoffice_url('/user/login'));
+		}
 	}
 
 	public function index($memberID=""){
+		$this->mUser->auth();
 		if($memberID){
 			$data['member'] = $this->mUser->getUser($memberID);
 			$this->breadcrumb[] = array('title'=>$data['member']['username'],'url'=>'');

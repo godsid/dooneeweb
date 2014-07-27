@@ -57,18 +57,10 @@ class Banner extends CI_Controller {
 			$isError = true;
 			$banner['title_error'] = "ยังไม่ได้ใส่ข้อมูล";
 		}
-		if(empty($banner['name'])){
-			$isError = true;
-			$banner['name_error'] = "ยังไม่ได้ใส่ข้อมูล";
-		}
-		if(isset($_FILES["banner"])&&!empty($_FILES["banner"]['tmp_name'])){
-			//if($_FILES['cover']['error']){
-				//var_dump($_FILES);
-				//$isError = true;
-				//$movie['cover_error'] = $_FILES['cover']['error'];
-			//}else{
-				$destinationPath = static_path('banner'.substr(md5(time()),0,5).".jpg");
-				if(move_uploaded_file($_FILES['banner']['tmp_name'],$destinationPath)){
+		if(isset($_FILES["cover"])&&!empty($_FILES["cover"]['tmp_name'])){
+		
+				$destinationPath = static_path('cover'.substr(md5(time()),0,5).".jpg");
+				if(move_uploaded_file($_FILES['cover']['tmp_name'],$destinationPath)){
 					$imageSize = $this->config->item('banner_banner');
 					$config["source_image"] = $destinationPath;
 		            $config['new_image'] = $destinationPath;
@@ -78,8 +70,8 @@ class Banner extends CI_Controller {
 		            
 					$this->image_lib->initialize($config);
 		            $this->image_lib->fit();
-		            unlink(preg_replace("#.*".$this->config->item('static_path')."#",$this->config->item('static_path'),$banner['banner_tmp']));
-		            $banner['banner'] = '/'.$destinationPath;
+		            unlink(preg_replace("#.*".$this->config->item('static_path')."#",$this->config->item('static_path'),$banner['cover_tmp']));
+		            $banner['cover'] = '/'.$destinationPath;
 				}
 				
 			//}

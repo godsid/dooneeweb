@@ -7,6 +7,28 @@ class User_model extends ADODB_model {
 		parent::__construct();
 	}
 
+	public function auth(){
+		$CI = & get_instance();
+		$CI->load->library('session');
+		$email = $CI->session->userdata('email');
+		$permission = $CI->session->userdata('permission');
+		if($email&&$permission=='ADMIN'){
+			return true;
+		}else{
+			return false;	
+		}
+	}
+
+	public function login($username,$password){
+		$sql = "SELECT user_id,email,avatar,permission 
+				FROM ".$this->table('user')."
+				WHERE email='".$username."' 
+				AND password=MD5('".$password."')
+				AND permission = 'ADMIN' 
+				AND status='ACTIVE' ";
+		return $this->adodb->GetRow($sql);
+	}
+
 	public function getUser($userID){
 		$sql = "SELECT * 
 				FROM ".$this->table('user')."
