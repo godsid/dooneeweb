@@ -76,7 +76,16 @@ class Category extends CI_Controller {
 			redirect(backoffice_url('/category'));	
 		}
 	}
-	
+	public function submitSort(){
+		$sort = $this->input->post('sort');
+		for($i=0,$j=count($sort['category_id']);$i<$j;$i++){
+			$this->mCategory->updateCategory($sort['category_id'][$i],array('sort'=>$sort['order'][$i]));
+		
+			
+		}
+		redirect(backoffice_url('/category'));
+		
+	}
 	public function active($categoryID){
 		if(is_numeric($categoryID)){
 			$this->mCategory->updateCategory($categoryID,array('status'=>'ACTIVE'));

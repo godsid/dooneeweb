@@ -24,7 +24,7 @@
 								</div>
 
 								<div class="control-group">
-									<label class="control-label">แบนเนอร์</label>
+									<label class="control-label">Category หลัก</label>
 									<div class="controls">
 										<select name="parent_id">
 											<option value="0">Category หลัก</option>
