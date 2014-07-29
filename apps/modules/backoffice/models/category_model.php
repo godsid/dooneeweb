@@ -10,14 +10,16 @@ class Category_model extends ADODB_model {
 	public function getCategory($categoryID){
 		$sql = "SELECT * 
 				FROM ".$this->table('category')."
-				WHERE category_id = ".$categoryID." ";
+				WHERE category_id = ".$categoryID." 
+				ORDER BY sort ASC ,category_id ASC ";
 		return $this->adodb->GetRow($sql);
 	}
 
 	public function getCategories($page=1,$limit=30){
 		$sql ="SELECT * 
 				FROM ".$this->table('category')." 
-				ORDER BY parent_id ASC";
+				ORDER BY sort ASC ,category_id ASC ";
+				
 		return $this->fetchPage($sql,$page,$limit);
 	}	
 

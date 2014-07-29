@@ -68,7 +68,7 @@
 				<a class="brand" href="<?=backoffice_url('/home')?>"> <img alt="Doonee Logo" src="<?=static_url('/backoffice/img/logo20.png')?>" /> <span>Doonee.TV</span></a>
 				
 				<!-- theme selector starts -->
-				<div class="btn-group pull-right theme-container" >
+				<?php /*<div class="btn-group pull-right theme-container" >
 					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 						<i class="icon-tint"></i><span class="hidden-phone"> Change Theme / Skin</span>
 						<span class="caret"></span>
@@ -85,12 +85,13 @@
 						<li><a data-value="united" href="#"><i class="icon-blank"></i> United</a></li>
 					</ul>
 				</div>
+				*/ ?>
 				<!-- theme selector ends -->
 				
 				<!-- user dropdown starts -->
 				<div class="btn-group pull-right" >
 					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-						<i class="icon-user"></i><span class="hidden-phone"> admin</span>
+						<i class="icon-user"></i><span class="hidden-phone"> Admin</span>
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
@@ -101,7 +102,7 @@
 				</div>
 				<!-- user dropdown ends -->
 				
-				<div class="top-nav nav-collapse">
+				<?php /*<div class="top-nav nav-collapse">
 					<ul class="nav">
 						<li><a href="#">Visit Site</a></li>
 						<li>
@@ -111,6 +112,7 @@
 						</li>
 					</ul>
 				</div><!--/.nav-collapse -->
+				*/?>
 			</div>
 		</div>
 	</div>
@@ -131,9 +133,10 @@
 						<li><a class="ajax-link" href="<?=backoffice_url('/package')?>"><i class="icon-eye-open"></i><span class="hidden-tablet"> Packages</span></a></li>
 						<li><a class="ajax-link" href="<?=backoffice_url('/banner')?>"><i class="icon-eye-open"></i><span class="hidden-tablet"> Banners</span></a></li>
 						<li><a class="ajax-link" href="<?=backoffice_url('/category')?>"><i class="icon-eye-open"></i><span class="hidden-tablet"> Category</span></a></li>
+						<li><a class="ajax-link" href="<?=backoffice_url('/user/logout')?>"><i class="icon-eye-open"></i><span class="hidden-tablet"> Logout</span></a></li>
+
+						<?php /*
 						<li class="nav-header hidden-tablet">Document Section</li>
-
-
 						<li><a class="ajax-link" href="<?=backoffice_url('/docs/ui')?>"><i class="icon-eye-open"></i><span class="hidden-tablet"> UI Features</span></a></li>
 						<li><a class="ajax-link" href="<?=backoffice_url('/docs/form')?>"><i class="icon-edit"></i><span class="hidden-tablet"> Forms</span></a></li>
 						<li><a class="ajax-link" href="<?=backoffice_url('/docs/chart')?>"><i class="icon-list-alt"></i><span class="hidden-tablet"> Charts</span></a></li>
@@ -148,8 +151,9 @@
 						<li><a class="ajax-link" href="<?=backoffice_url('/docs/icon')?>"><i class="icon-star"></i><span class="hidden-tablet"> Icons</span></a></li>
 						<li><a href="<?=backoffice_url('/docs/error')?>"><i class="icon-ban-circle"></i><span class="hidden-tablet"> Error Page</span></a></li>
 						<li><a href="<?=backoffice_url('/docs/login')?>"><i class="icon-lock"></i><span class="hidden-tablet"> Login Page</span></a></li>
+						*/ ?>
 					</ul>
-					<label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><input id="is-ajax" type="checkbox"> Ajax on menu</label>
+					
 				</div><!--/.well -->
 			</div><!--/span-->
 			<!-- left menu ends -->

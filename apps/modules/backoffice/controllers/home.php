@@ -2,9 +2,13 @@
 
 class Home extends CI_Controller {
 
-	public function index($page="")
+	public function index(
 	{
-		$this->load->view($page);
+		//redirect('');
+	}
+	public function example($page="")
+	{
+		$this->load->view('example/'.$page);
 	}
 }
 
