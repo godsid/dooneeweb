@@ -33,8 +33,15 @@ class Movie extends CI_Controller {
 		}
 	}
 	public function search(){
-		$this->breadcrumb[] = array('title'=>'Search','url'=>backoffice_url('/movie/search'));
+		$q = $this->input->get('q');
+		$data['movies'] = $this->mMovie->searchMovies($q,$this->page,$this->limit);
+		$data['movies']['pageing']['url'] = base_url('/movie/search?q='.$q);
+		$data['pageing'] = $this->load->view('pageing',$data['movies']['pageing'],true);
+		$data['q'] = $q;
+		$this->breadcrumb[] = array('title'=>'Search','url'=>backoffice_url('/movie/search/?q='.$q));
+		$this->breadcrumb[] = array('title'=>$q);
 		$data['breadcrumb'] = $this->breadcrumb;
+
 		$this->load->view('movie',$data);
 	}
 	public function detail($movieID=""){

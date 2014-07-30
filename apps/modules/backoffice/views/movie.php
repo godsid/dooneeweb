@@ -5,12 +5,20 @@
 				<div class="box span12">
 					<div class="box-header well" data-original-title>
 						<h2><i class="icon-film"></i> Movies</h2>
+
 						<div class="box-icon">
 							<a href="<?=backoffice_url('/movie/create/')?>" title="เพิ่มภาพยนต์ใหม่" class="btn btn-edit btn-round"><i class="icon-plus-sign"></i></a>
 						</div>
 					</div>
 					<div class="box-content">
-						<table class="table table-striped table-bordered bootstrap-datatable datatable">
+
+						<div>
+							<form method="GET" id="searchForm" action="<?=backoffice_url('/movie/search')?>">
+								<input type="submit" value="Search" style="display:none;" />
+								<input type="text" name="q" value="<?=(isset($q)?$q:"")?>" > <a href="javascript:$('#searchForm').submit();" class="btn"><i class="glyphicon icon-search"></i> Search</a>
+							</form>
+						</div>		
+						<table class="table table-striped table-bordered">
 						  <thead>
 							  <tr>
 								  <th>Name</th>

@@ -4,6 +4,7 @@ RewriteEngine on
 DirectoryIndex index.html index.php ci2.php
 
 RewriteRule ^assets/files/(.*) /files/$1 [L]
+RewriteRule ^backoffice/(js|css|img)/(.*) /assets/backoffice/$1/$2 [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

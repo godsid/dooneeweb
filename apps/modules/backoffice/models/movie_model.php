@@ -19,6 +19,14 @@ class Movie_model extends ADODB_model {
 				FROM ".$this->table('movie')." 
 				ORDER BY movie_id DESC";
 		return $this->fetchPage($sql,$page,$limit);
+	}
+
+	public function searchMovies($q,$page=1,$limit=30){
+		$sql ="SELECT * 
+				FROM ".$this->table('movie')." 
+				WHERE title LIKE '%".$q."%' OR title_en LIKE '%".$q."%' 
+				ORDER BY movie_id DESC";
+		return $this->fetchPage($sql,$page,$limit);	
 	}	
 
 	public function setMovie($data){
