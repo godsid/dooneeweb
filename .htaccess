@@ -1,6 +1,7 @@
 #RewriteBase /doonee.tv/
 RewriteEngine on
 
+DirectoryIndex index.html index.php ci2.php
 RewriteRule ^assets/files/(.*) /files/$1 [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
