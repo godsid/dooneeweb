@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 require_once(APPPATH.'libraries/ADODB_Model.php');
-class Banner_model extends ADODB_model {
+class banner_model extends ADODB_model {
 
 	public function __construct(){
 		parent::__construct();
