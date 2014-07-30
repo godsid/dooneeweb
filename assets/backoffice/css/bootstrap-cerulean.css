@@ -653,11 +653,11 @@ input[type="tel"],
 input[type="color"],
 .uneditable-input {
   display: inline-block;
-  height: 18px;
+  height: 30px;
   padding: 4px;
   margin-bottom: 9px;
   font-size: 13px;
-  line-height: 18px;
+  line-height: 30px;
   color: #555555;
 }
 input,
