@@ -14,7 +14,13 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/doonee.tv/index.php/';
+$config['base_url']	= 'http://'.$_SERVER['HTTP_HOST'];
+$config['static_url']	= 'http://'.$_SERVER['HTTP_HOST'].'/assets';
+$config['backoffice_url']	= 'http://'.$_SERVER['HTTP_HOST'].'/backoffice';
+
+$config['static_path'] = 'files';
+
+$config['clip_path'] = 'http://122.155.197.142:1935/vod/mp4:movies/{path}.mp4/playlist.m3u8';
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +32,7 @@ $config['base_url']	= 'http://localhost/doonee.tv/index.php/';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = 'ci2.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -224,7 +230,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = '*%q:J8q!:=4_EYX';
+$config['encryption_key'] = '*%q:ejd8q!:=4_dYX';
 
 /*
 |--------------------------------------------------------------------------
