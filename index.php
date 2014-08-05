@@ -189,7 +189,7 @@
 				  } ?>
                 <li>
                   	<article>
-                        <a title="Immortal Masterpiece" href="player.php">
+                        <a title="Immortal Masterpiece" class="lb-popup" href="javascript:;" rel="#popup-login">
                             <img alt="Immortal Masterpiece" src="<? echo $img_url; ?>">
                             <h3><? echo $name; ?></h3>
                             <span class="type <? if($i%5==0) { ?>free <? } ?>"><? echo $type; ?></span>
@@ -208,7 +208,7 @@
           </div>
           
           <div class="container bx-all-movies">
-          	<h2><a href="#" title="หนังมาใหม่ทั้งหมด">หนังมาใหม่ทั้งหมด <i class="icon-double-angle-right"></i></a></h2>
+          	<h2><a href="#" title="หนังทั้งหมด">หนังทั้งหมด <i class="icon-double-angle-right"></i></a></h2>
             <ul class="thm-mv">
                 <? for($i=1;$i<=18;$i++){
 				  $img_url = "img/thumb/movies-10.jpg";
@@ -285,7 +285,7 @@
               </ul>
               
               <div class="ctrl-page">
-                <a class="ui-btn" href="#" title="โหลดเพิ่ม">โหลดเพิ่ม <i class="icon-double-angle-down"></i></a>
+                <a class="load-more" href="#" title="โหลดข้อมูลเพิ่ม">โหลดข้อมูลเพิ่ม <i class="icon-plus"></i></a>
               </div>
           </div>
 		
