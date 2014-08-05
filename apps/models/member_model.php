@@ -39,6 +39,11 @@ class Member_model extends ADODB_model {
 				AND status = 'ACTIVE' ";
 		return $this->adodb->GetRow($sql);
 	}
+	public function setMember($data){
+		$this->adodb->debug=true;
+		$data['date_create'] = date();
+		return $this->adodb->AutoExecute($this->table('movie'),$data,'INSERT');
+	}
 
 	/*
 
@@ -83,10 +88,7 @@ class Member_model extends ADODB_model {
 		return $this->fetchPage($sql,$page,$limit);	
 	}
 
-	public function setMovie($data){
-		$this->adodb->debug=true;
-		return $this->adodb->AutoExecute($this->table('movie'),$data,'INSERT');
-	}
+	
 
 	public function updateMovie($movie_id,$data){
 		$data['edit_date'] = date('Y-m-d H:i:s');

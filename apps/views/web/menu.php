@@ -3,7 +3,7 @@
 <div class="container">
 	<div class="bar-login">
     	<div class="bx-login _sf-col-sm-push-2-xs-10">
-        	<p class="btn"><a href="#" title="เข้าสู่ระบบ">เข้าสู่ระบบ</a> | <a href="#" title="สมัครสมาชิก">สมัครสมาชิก</a> <a class="icon-facebook-sign" href="#" title="Facebook login">Facebook login</a></p>
+        	<p class="btn"><a href="#" title="เข้าสู่ระบบ">เข้าสู่ระบบ</a> | <a href="<?=base_url('/register')?>" title="สมัครสมาชิก">สมัครสมาชิก</a> <a class="icon-facebook-sign" href="#" title="Facebook login">Facebook login</a></p>
             <form action="<?=base_url('/login')?>" method="post">
             <fieldset>
                 <legend class="hid">เข้าสู่ระบบ</legend>
@@ -53,11 +53,11 @@
     
     <nav id="navigation" class="top-nav">
         <ul id="nav-drop">
-              <li><a href="<?=base_url('/')?>">หน้าแรก</a></li>
-              <li><a href="<?=base_url('/')?>">ดูหนัง</a></li>
+              <li><a href="<?=base_url('/home')?>">หน้าแรก</a></li>
+              <li><a href="<?=base_url('/home')?>">ดูหนัง</a></li>
               <li><a href="base_url('/promotion')">โปรโมชั่น</a></li>
               <li><a href="wallet.php">เติมเงิน</a></li>
-              <li><a href="<?=base_url('/help')?>">วิธีการดูหนัง</a></li>    
+              <li><a href="<?=base_url('/help')?>">วิธีการดูหนัง</a></li>
               <li><a href="<?=base_url('/contactus')?>">เกี่ยวกับเรา</a></li>                                                                
           </ul>
                     
