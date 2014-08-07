@@ -8,22 +8,22 @@
 	<meta name="keywords" content="DooneeTV, ดูนี่ทีวี"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-	<link rel="shortcut icon" href="img/ico/favicon.ico">
+	<link rel="shortcut icon" href="<?=static_url('/img/ico/favicon.ico')?>">
 	<title>DooneeTV ดูนี่ทีวี</title>
 	<!-- Custom styles for this template -->
-	<link href="fonts/fontface.css" rel="stylesheet">
+	<link href="<?=static_url('/fonts/fontface.css')?>" rel="stylesheet">
 	<!-- http://fortawesome.github.io/Font-Awesome/3.2.1/icons/ -->
-	<link href="css/font-awesome.min.css" rel="stylesheet">
-	<!--<link href="css/jquery.fancybox.css?v=2.1.5" rel="stylesheet">-->
-	<link href="css/flexslider.css" rel="stylesheet">
-	<link href="css/themes.css" rel="stylesheet">
-	<script src="js/jquery-1.10.1.min.js"></script>
-	<script src="js/jquery.tools.min.js"></script>
+	<link href="<?=static_url('/css/font-awesome.min.css')?>" rel="stylesheet">
+	<!--<link href="<?=static_url('/css/jquery.fancybox.css?v=2.1.5')?>" rel="stylesheet">-->
+	<link href="<?=static_url('/css/flexslider.css')?>" rel="stylesheet">
+	<link href="<?=static_url('/css/themes.css')?>" rel="stylesheet">
+	<script src="<?=static_url('/js/jquery-1.10.1.min.js')?>"></script>
+	<script src="<?=static_url('/js/jquery.tools.min.js')?>"></script>
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<!--[if lt IE 9]>
-	  <script src="js/html5shiv.js"></script>
-	  <script src="js/respond.min.js"></script>
+	  <script src="<?=static_url('/js/html5shiv.js')?>"></script>
+	  <script src="<?=static_url('/js/respond.min.js')?>"></script>
 	<![endif]-->
 	<!--[if lt IE 8]>
 	<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE7.js"></script>
@@ -37,7 +37,7 @@
 			<div class="bar-login">
 		    	<div class="bx-login _sf-col-sm-push-2-xs-10">
 		        	<p class="btn"><a href="#" title="เข้าสู่ระบบ">เข้าสู่ระบบ</a> | <a href="#" title="สมัครสมาชิก">สมัครสมาชิก</a> <a class="icon-facebook-sign" href="#" title="Facebook login">Facebook login</a></p>
-		            <form action="javascript:;" method="post">
+		            <form action="<?=base_url('/login')?>" method="post">
 		            <fieldset>
 		                <legend class="hid">เข้าสู่ระบบ</legend>
 		                <p>
@@ -51,8 +51,8 @@
 		        </div>
 		    </div>
 		    <h1 class="logo" itemscope itemtype="http://schema.org/Organization">
-		        <a href="index.php" itemprop="url">DooneeTV</a>
-		        <img src="img/logo.png" itemprop="logo">
+		        <a href="<?=base_url('/')?>" itemprop="url">DooneeTV</a>
+		        <img src="<?=static_url('/img/logo.png')?>" itemprop="logo">
 		    </h1>
 		    
 		    <div class="tools _cd-col-xs-4">
@@ -87,8 +87,8 @@
 		            </li>
 		        </ul>
 		        <div id="searcharea">
-		            <form action="#" method="get" id="searchForm">
-		                <input type="text" class="txt-box _sf-col-xs-12" placeholder="Search the content" id="terms" name="search">
+		            <form action="<?=base_url('/movie/search')?>" method="get" id="searchForm">
+		                <input type="text" class="txt-box _sf-col-xs-12" placeholder="ค้นหา หนัง/ซีรี่ย์" id="terms" name="q">
 		                <button class="btn-srh icon-search" id="btn-search" type="submit"></button>
 		            </form>							
 		        </div>

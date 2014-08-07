@@ -22,13 +22,13 @@
           		<div class="_sf-col-xs-12-sm-3">
                 	<img src="img/thumb/movies-05.jpg">
                     <p class="_cd-col-xs-12">
-                    	<a class="ui-btn btn-edit-profile" href="#" title="สมัคแพ็คเกจ">สมัคแพ็คเกจ</a>
+                    	<a class="ui-btn btn-profile" href="#" title="เริ่มเล่นทันที">เริ่มเล่นทันที</a>
                         <a class="ui-btn-red btn-fill" href="#" title="เติมเงินดูหนัง"><i class="icon-credit-card"></i> เติมเงินดูหนัง</a>
                         <a class="ui-btn-blue btn-fv" href="#" title="รายการโปรด"><i class="icon-heart-empty"></i> รายการโปรด</a>
                     </p>
                 </div>
                 <div class="detai">
-                	<h1>Daybreakers HD วันแวมไพร์ครองโลก</h1>
+                	<h1>ดูหนังออนไลน์ Daybreakers HD วันแวมไพร์ครองโลก</h1>
                     <p class="name-en">Immortal Masterpiece</p>
                     
                     <h2>เนื้อเรื่องภาพยนตร์ Daybreakers วันแวมไพร์ครองโลก</h2>
@@ -47,34 +47,45 @@
                     
                     <div class="share mt2">
                     	<b class="fL">แชร์หนังเรื่องนี้ : </b> 
-                        <a class="btn-share" href="#"><i class="icon-facebook"></i></a>
-                        <a class="btn-share" href="#"><i class="icon-twitter"></i></a>
-                        <a class="btn-share" href="#"><i class="icon-google-plus"></i></a>
+                        <a class="btn-share fb" href="#"><i class="icon-facebook"></i></a>
+                        <a class="btn-share tw" href="#"><i class="icon-twitter"></i></a>
+                        <a class="btn-share gg" href="#"><i class="icon-google-plus"></i></a>
                         <!--<div class="socialshare-mini"></div>-->
                     </div>
                 </div>
           </article>
           
           <div class="ctrl-player container">
-          		<h2>ดูภาพยนตร์ Immortal Masterpiece</h2>
+          		<h2>ดูหนังออนไลน์ Immortal Masterpiece</h2>
                 <div class="trailer">
-                	<video width="700" height="385" preload controls>
-                      <source type="video/mp4" src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4"></source>
-                      <source type="video/ogg" src="http://www.quirksmode.org/html5/videos/big_buck_bunny.ogg"></source>
+                	<!--<video width="984" height="560" preload controls>
+                      <source type="video/mp4" src="http://122.155.197.142:1935/vod/_definst_/mp4:movies/hawaii-five-o-s4-ep1.mp4/playlist.m3u8"></source>
+                      <source type="video/mp4" src="rtsp://122.155.197.142:1935/vod/_definst_/movies/hawaii-five-o-s4-ep1.mp4"></source>
+			                <source type="video/mp4" src="http://122.155.197.142:1935/vod/_definst_/mp4:movies/hawaii-five-o-s4-ep1.mp4/manifest.f4m"></source>
+                      <source type="video/mp4" src="http://122.155.197.142:1935/vod/mp4:sample.mp4/manifest.mpd"></source>
                       Your browser does not support the video tag.
-                    </video>
-                    <!--<iframe width="700" height="385" frameborder="0" allowfullscreen="" src="//www.youtube.com/embed/IGrpoxBlCNo" class="mp4downloader_embedButtonInitialized mp4downloader_tagChecked "></iframe>-->
+                    </video>-->
+                    <iframe width="984" height="560" frameborder="0" allowfullscreen="" src="//122.155.197.142/jwplayer.php" class="mp4downloader_embedButtonInitialized mp4downloader_tagChecked "></iframe>
                 </div>
           </div>
           
           <div class="frame-fb container mb2">
-                      
-          <iframe id="f2ad8bf703242e" name="f20f6d02f92de4" scrolling="no" style="border: medium none; overflow: hidden; height: 272px; width: 100%;" title="Facebook Social Plugin" class="fb_ltr" src="https://www.facebook.com/plugins/comments.php?api_key=533223390098647&amp;channel_url=http%3A%2F%2Fstatic.ak.facebook.com%2Fconnect%2Fxd_arbiter%2FDhmkJ2TR0QN.js%3Fversion%3D41%23cb%3Df30444a21fd4ca8%26domain%3Dvariety.horoworld.com%26origin%3Dhttp%253A%252F%252Fvariety.horoworld.com%252Ff29ddb32caefc86%26relation%3Dparent.parent&amp;colorscheme=light&amp;href=http%3A%2F%2Fvariety.horoworld.com%2F114547_%E0%B8%94%E0%B8%B9%E0%B8%94%E0%B8%A7%E0%B8%87-%E0%B9%81%E0%B8%97%E0%B8%84-%E0%B8%95%E0%B9%89%E0%B8%99%E0%B8%AB%E0%B8%AD%E0%B8%A1-%E0%B9%83%E0%B8%8A%E0%B9%88%E0%B8%AB%E0%B8%A3%E0%B8%B7%E0%B8%AD%E0%B8%A1%E0%B8%B1%E0%B9%88%E0%B8%A7%E0%B8%8A%E0%B8%B1%E0%B8%A7%E0%B8%A3%E0%B9%8C%E0%B8%AB%E0%B8%A3%E0%B8%B7%E0%B8%AD%E0%B9%84%E0%B8%A1%E0%B9%88&amp;locale=en_US&amp;numposts=10&amp;sdk=joey&amp;skin=light&amp;width=1170"></iframe>
+              <div id="fb-root"></div>
+              <script>(function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+                fjs.parentNode.insertBefore(js, fjs);
+              }(document, 'script', 'facebook-jssdk'));</script>
+              <div class="fb-comments" data-href="http://www.sanook.com" data-width="1170" data-numposts="5" data-colorscheme="light"></div>
+           
+          <!--iframe id="f2ad8bf703242e" name="f20f6d02f92de4" scrolling="no" style="border: medium none; overflow: hidden; height: 272px; width: 100%;" title="Facebook Social Plugin" class="fb_ltr" src="https://www.facebook.com/plugins/comments.php?api_key=533223390098647&amp;channel_url=http%3A%2F%2Fstatic.ak.facebook.com%2Fconnect%2Fxd_arbiter%2FDhmkJ2TR0QN.js%3Fversion%3D41%23cb%3Df30444a21fd4ca8%26domain%3Dvariety.horoworld.com%26origin%3Dhttp%253A%252F%252Fvariety.horoworld.com%252Ff29ddb32caefc86%26relation%3Dparent.parent&amp;colorscheme=light&amp;href=http%3A%2F%2Fvariety.horoworld.com%2F114547_%E0%B8%94%E0%B8%B9%E0%B8%94%E0%B8%A7%E0%B8%87-%E0%B9%81%E0%B8%97%E0%B8%84-%E0%B8%95%E0%B9%89%E0%B8%99%E0%B8%AB%E0%B8%AD%E0%B8%A1-%E0%B9%83%E0%B8%8A%E0%B9%88%E0%B8%AB%E0%B8%A3%E0%B8%B7%E0%B8%AD%E0%B8%A1%E0%B8%B1%E0%B9%88%E0%B8%A7%E0%B8%8A%E0%B8%B1%E0%B8%A7%E0%B8%A3%E0%B9%8C%E0%B8%AB%E0%B8%A3%E0%B8%B7%E0%B8%AD%E0%B9%84%E0%B8%A1%E0%B9%88&amp;locale=en_US&amp;numposts=10&amp;sdk=joey&amp;skin=light&amp;width=1170"></iframe-->
           
           </div>
 
           <div class="container bx-all-movies">
-          	<h2><a href="#" title="ดูหนังอื่นที่เกี่ยวข้อง">ดูหนังอื่นที่เกี่ยวข้อง <i class="icon-double-angle-right"></i></a></h2>
+          	<h2><a href="#" title="ดูหนังเรื่องอื่นที่เกี่ยวข้อง">ดูหนังเรื่องอื่นที่เกี่ยวข้อง <i class="icon-double-angle-right"></i></a></h2>
             <ul class="thm-mv">
                 <? for($i=5;$i<=10;$i++){
 				  $img_url = "img/thumb/movies-10.jpg";
