@@ -51,6 +51,18 @@
 									</div>
 								</div>
 								<div class="control-group">
+									<label class="control-label">หมวดหมู่</label>
+									<div class="controls">
+										<input type="hidden" name="category_tmp" value="<?=implode(',',$movie['category'])?>" />
+										<select name="category[]" multiple="multiple">
+											<?php foreach ($categories as $categorie) {?>
+											<option value="<?=$categorie['category_id']?>" <?=(isset($movie['category'])&&in_array($categorie['category_id'], $movie['category'])?'selected':'')?>><?=$categorie['parent_id']>0?" - ":""?><?=$categorie['title']?></option>
+											<?php }?>
+										</select>
+									</div>
+								</div>
+
+								<div class="control-group">
 									<label class="control-label"></label>
 									<div class="controls">
 										<label class="checkbox inline">
@@ -65,8 +77,18 @@
 									    <label class="checkbox inline">
 											<input type="checkbox" value="YES" name="is_3d" <?=(isset($movie['is_3d'])&&$movie['is_3d']=='YES'?'checked':'')?>> 3D
 									    </label>
+									    <label class="checkbox inline">
+											<input type="checkbox" value="YES" name="is_series" <?=(isset($movie['is_series'])&&$movie['is_series']=='YES'?'checked':'')?>> Series
+									    </label>
 									</div>
 								</div>
+								<?php if(isset($movie['is_series'])&&$movie['is_series']=='YES'){?>
+								<div class="control-group">
+									<label class="control-label"></label>
+									<div class="controls">
+									</div>
+								</div>
+								<?php }?>
 								<div class="control-group">
 									<label class="control-label">ตัวอย่าง</label>
 									<div class="controls">
@@ -76,7 +98,7 @@
 								<div class="control-group">
 									<label class="control-label">เรื่องย่อ</label>
 									<div class="controls">
-										<textarea class="input-xlarge span11" name="description" rows="5"><?=(isset($movie['description'])?nl2br($movie['description']):'')?></textarea>
+										<textarea class="input-xlarge span11" name="description" rows="5"><?=(isset($movie['description'])?$movie['description']:'')?></textarea>
 									</div>
 								</div>
 								<div class="control-group">

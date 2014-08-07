@@ -14,6 +14,7 @@ class Movie extends CI_Controller {
 
 		$this->breadcrumb[] = array('title'=>'Movies','url'=>backoffice_url('/movie'));
 		$this->load->model('movie_model','mMovie');
+
 	}
 
 	public function index($movieID=""){
@@ -51,7 +52,17 @@ class Movie extends CI_Controller {
 		$this->load->view('movie_detail',$data);
 	}
 	public function edit($movieID=""){
+		$this->load->model('category_model','mCategry');
+		$data['categories'] = $this->mCategry->getCategories();
+		$data['categories'] = $data['categories']['items'];
+		
 		$data['movie'] = $this->mMovie->getMovie($movieID);
+		$cateArray = $this->mMovie->getMovieCategory($movieID);
+		$data['movie']['category'] = array();
+		foreach($cateArray as $cateID){
+			$data['movie']['category'][] = $cateID['category_id'];
+		}
+		
 		$this->breadcrumb[] = array('title'=>$data['movie']['title'],'url'=>backoffice_url('/movie/'.$movieID));
 		$this->breadcrumb[] = array('title'=>'Edit','url'=>backoffice_url('/movie/edit/'.$movieID));
 		$data['breadcrumb'] = $this->breadcrumb;
@@ -112,6 +123,18 @@ class Movie extends CI_Controller {
 			}else{
 				$data['movie']['path'] = substr(md5($data['movie']['title']+time()),0,10);
 				$movieID = $this->mMovie->setMovie($data['movie']);
+			}
+			$category_tmp = explode(',',$this->input->post('category_tmp'));
+			$category = $this->input->post('category');
+			
+			$deleteCategory = array_diff($category_tmp,$category);
+			$addCategory = array_diff($category,$category_tmp);
+
+			if(is_array($addCategory)&&count($addCategory)){
+				$this->mMovie->setMovieCategory($movieID,$addCategory);
+			}
+			if(is_array($deleteCategory)&&count($deleteCategory)){
+				$this->mMovie->deleteMovieCategory($movieID,$deleteCategory);
 			}
 			redirect(backoffice_url('/movie'));	
 		}

@@ -28,10 +28,27 @@ class Movie_model extends ADODB_model {
 				ORDER BY movie_id DESC";
 		return $this->fetchPage($sql,$page,$limit);	
 	}	
-
+	public function getMovieCategory($movieID){
+		$sql = "SELECT category_id 
+				FROM ".$this->table('movie_category')." 
+				WHERE movie_id = ".$movieID." 
+				";
+		return $this->adodb->Execute($sql)->GetAll();
+	}
 	public function setMovie($data){
 		$this->adodb->debug=true;
 		return $this->adodb->AutoExecute($this->table('movie'),$data,'INSERT');
+	}
+
+	public function setMovieCategory($movieID,$categories){
+		$insert = " (".$movieID.", ".implode("),(".$movieID.",",$categories).") ";
+		$sql = "INSERT INTO ".$this->table('movie_category')." (movie_id,category_id)VALUES ".$insert;
+		return $this->adodb->Execute($sql);
+	}
+
+	public function deleteMovieCategory($movieID,$categories){
+		$sql = "DELETE FROM ".$this->table('movie_category')." WHERE movie_id = ".$movieID." AND category_id IN (".implode(',',$categories).") LIMIT ".count($categories)." ";
+		return $this->adodb->Execute($sql);
 	}
 
 	public function updateMovie($movie_id,$data){

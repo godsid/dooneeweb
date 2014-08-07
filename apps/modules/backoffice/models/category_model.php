@@ -5,6 +5,7 @@ class Category_model extends ADODB_model {
 
 	public function __construct(){
 		parent::__construct();
+		
 	}
 
 	public function getCategory($categoryID){
