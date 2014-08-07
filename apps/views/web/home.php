@@ -9,7 +9,7 @@
   });
   </script>
 	<?php include('menu.php'); ?>
-  <?php //include('home_slide.php'); ?>
+  <?php include('home_slide.php'); ?>
   <!-- container -->
   <section id="contents">
     <div class="container bx-mv-slide flexslider">
