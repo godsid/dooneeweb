@@ -95,12 +95,12 @@
 										<input class="input-xlarge" type="text" name="trailer" value="<?=(isset($movie['trailer'])?$movie['trailer']:'')?>">
 									</div>
 								</div>
-								<div class="control-group">
+								<!--<div class="control-group">
 									<label class="control-label">เรื่องย่อ</label>
 									<div class="controls">
-										<textarea class="input-xlarge span11" name="description" rows="5"><?=(isset($movie['description'])?$movie['description']:'')?></textarea>
+										<textarea class="input-xlarge span11" name="description" rows="5"><?=(isset($movie['description'])?$movie['description']:'')?></textarea> url: youtube
 									</div>
-								</div>
+								</div>-->
 								<div class="control-group">
 									<label class="control-label">Rating หนัง</label>
 									<div class="controls">

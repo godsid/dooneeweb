@@ -28,10 +28,19 @@ class Movie_model extends ADODB_model {
 				ORDER BY movie_id DESC";
 		return $this->fetchPage($sql,$page,$limit);	
 	}	
-	public function getMovieCategory($movieID){
+	/*public function getMovieCategory($movieID){
 		$sql = "SELECT category_id 
 				FROM ".$this->table('movie_category')." 
 				WHERE movie_id = ".$movieID." 
+				";
+		return $this->adodb->Execute($sql)->GetAll();
+	}*/
+	public function getMovieCategory($movieID){
+		$sql = "SELECT c.category_id,c.title 
+				FROM ".$this->table('movie_category','mc')." 
+				LEFT JOIN ".$this->table('category','c')." ON mc.category_id = c.category_id
+				WHERE mc.movie_id = ".$movieID." 
+				ORDER BY sort ASC
 				";
 		return $this->adodb->Execute($sql)->GetAll();
 	}

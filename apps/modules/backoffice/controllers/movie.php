@@ -21,6 +21,8 @@ class Movie extends CI_Controller {
 		
 		if($movieID){
 			$data['movie'] = $this->mMovie->getMovie($movieID);
+			$data['movie']['category'] = $this->mMovie->getMovieCategory($movieID);
+
 			$this->breadcrumb[] = array('title'=>$data['movie']['title'],'url'=>'');
 			$data['breadcrumb'] = $this->breadcrumb;	
 			$data['movie']['path'] = str_replace('{path}',$data['movie']['path'],$this->config->item('clip_path'));
@@ -45,12 +47,7 @@ class Movie extends CI_Controller {
 
 		$this->load->view('movie',$data);
 	}
-	public function detail($movieID=""){
-		$this->breadcrumb[] = array('title'=>'MovieName','url'=>'#');
-		$data['breadcrumb'] = $this->breadcrumb;
-		
-		$this->load->view('movie_detail',$data);
-	}
+
 	public function edit($movieID=""){
 		$this->load->model('category_model','mCategry');
 		$data['categories'] = $this->mCategry->getCategories();
