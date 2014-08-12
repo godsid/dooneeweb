@@ -32,6 +32,15 @@ class Category_model extends ADODB_model {
 		return $this->adodb->Execute($sql)->GetAll();
 	}
 
+	public function getPackageCategory($category_id){
+		$sql = "SELECT cp.category_id, p.package_id, p.title
+				FROM ".$this->table('category_package','cp')." 
+				WHERE category_id = ".category_id."
+				LEFT JOIN  ".$this->table('package','p')." ON cp.package_id = p.package_id
+				";
+		return $this->adodb->GetAll($sql);
+	}
+
 	public function setCategory($data){
 		return $this->adodb->AutoExecute($this->table('category'),$data,'INSERT');
 	}
