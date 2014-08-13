@@ -46,17 +46,7 @@ class Category extends CI_Controller {
 		$this->load->view('category_form',$data);
 	}
 	public function edit($categoryID=""){
-		$this->load->model('package_model','mPackage');
 		$data['category'] = $this->mCategory->getCategory($categoryID);
-		$data['category']['packages'] = $this->mCategory->getPackageCategory($categoryID);
-		$data['packages'] = $this->mPackage->getPackages();
-		$data['packages'] = $data['packages']['items'];
-		$tmpDataPackage = array();
-		for($i=0,$j=count($data['packages']);$i<$j;$i++){
-			$tmpDataPackage[$data['packages'][$i]['package_id']] = $data['packages'][$i];
-		}
-		$data['packages'] = $tmpDataPackage;
-		unset($tmpDataPackage);
 		$this->breadcrumb[] = array('title'=>$data['category']['title'],'url'=>backoffice_url('/category/'.$categoryID));
 		$this->breadcrumb[] = array('title'=>'Edit','url'=>'');
 		$data['breadcrumb'] = $this->breadcrumb;

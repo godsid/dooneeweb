@@ -33,17 +33,7 @@
 										</select>
 									</div>
 								</div>
-								<div class="control-group">
-									<label class="control-label">Package</label>
-									<div class="controls">
-										<input type="hidden" name="" value="">
-										<select name="packages" multiple="multiple">
-										<?php foreach($packages as $package){?>
-											<option value="<?=$package['package_id']?>" <?=(isset($category['packages'][$category[$category_id]])?"selected":"") ?> ><?=$package['title']?></option>
-										<?php }?>
-										</select>
-									</div>
-								</div>
+								
 								<div class="form-actions">
 								  <button type="submit" class="btn btn-primary">Save changes</button>
 								  <button type="reset" class="btn">Cancel</button>
