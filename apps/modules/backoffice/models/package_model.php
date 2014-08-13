@@ -19,8 +19,26 @@ class Package_model extends ADODB_model {
 				FROM ".$this->table('package')." 
 				ORDER BY package_id DESC";
 		return $this->fetchPage($sql,$page,$limit);
-	}	
+	}
+	public function getPackageCategory($packageID){
+		$sql = "SELECT c.category_id,c.title 
+				FROM ".$this->table('package_category','pc')." 
+				LEFT JOIN ".$this->table('category','c')." ON pc.category_id = c.category_id
+				WHERE pc.package_id = ".$packageID." 
+				ORDER BY c.sort ASC
+				";
+		return $this->adodb->Execute($sql)->GetAll();
+	}
+	public function setPackageCategory($packageID,$categories){
+		$insert = " (".$packageID.", ".implode("),(".$packageID.",",$categories).") ";
+		$sql = "INSERT INTO ".$this->table('package_category')." (package_id,category_id)VALUES ".$insert;
+		return $this->adodb->Execute($sql);
+	}
 
+	public function deletePackageCategory($packageID,$categories){
+		$sql = "DELETE FROM ".$this->table('package_category')." WHERE package_id = ".$packageID." AND category_id IN (".implode(',',$categories).") LIMIT ".count($categories)." ";
+		return $this->adodb->Execute($sql);
+	}
 	public function setPackage($data){
 		return $this->adodb->AutoExecute($this->table('package'),$data,'INSERT');
 	}

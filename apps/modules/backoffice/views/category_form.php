@@ -19,7 +19,6 @@
 											echo '<span class="help-inline">',$category['title_error'],'</span>';
 										}
 										?>
-										
 									</div>
 								</div>
 
