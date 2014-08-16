@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tt xmlns="http://www.w3.org/2006/10/ttaf1" xmlns:ttp="http://www.w3.org/2006/10/ttaf1#parameter" ttp:timeBase="media" xmlns:tts="http://www.w3.org/2006/10/ttaf1#style" xmlns:ttm="http://www.w3.org/2006/10/ttaf1#metadata">
+  <head>
+    <metadata>
+      <ttm:title>games_7_text</ttm:title>
+    </metadata>
+    <styling>
+      <style id="s0" tts:backgroundColor="black" tts:fontStyle="normal" tts:fontSize="16" tts:fontFamily="tahoma" tts:color="red" />
+    </styling>
+  </head>
+  <body tts:textAlign="center" style="s0">
+    <div xml:lang="eng">
+      <p begin="00:00:03.680" id="p0" end="00:00:04.480">one man</p>
+      <p begin="00:00:04.480" id="p1" end="00:00:05.280">on a motorcycle</p>
+      <p begin="00:00:05.280" id="p2" end="00:00:06.880">around the world</p>
+      <p begin="00:00:06.880" id="p3" end="00:00:08.480">in</p>
+      <p begin="00:00:08.480" id="p4" end="00:00:12.480">A Quest for Gameplay</p>
+      <p begin="00:00:13.000" id="p5" end="00:00:14.800">Hello I'm Tim Hull.</p>
+      <p begin="00:00:15.000" id="p6" end="00:00:18.000">I believe the games we play<br />are a fundamental building block</p>
+      <p begin="00:00:18.040" id="p7" end="00:00:19.600">of our civilisation.</p>
+      <p begin="00:00:19.960" id="p8" end="00:00:23.160">I've set out on a global journey<br />that is my personal mission</p>
+      <p begin="00:00:23.200" id="p9" end="00:00:25.920">to seek out, uncover, observe</p>
+      <p begin="00:00:25.960" id="p10" end="00:00:27.280">and play games.</p>
+      <p begin="00:00:27.800" id="p11" end="00:00:32.280">I'm searching for games that tell<br />us about our history culture and psyche.</p>
+      <p begin="00:00:33.200" id="p12" end="00:00:38.000">During my journey I'll reveal stories<br />of the greatest games ever conceived</p>
+      <p begin="00:00:38.040" id="p13" end="00:00:39.600">and why they are still with us today.</p>
+      <p begin="00:00:40.200" id="p14" end="00:00:44.040">From the school playground<br />to the home console I will learn firsthand</p>
+      <p begin="00:00:44.080" id="p15" end="00:00:47.200">what makes a great game,<br />why games are good for us</p>
+      <p begin="00:00:47.240" id="p16" end="00:00:49.040">and what they tell us about ourselves</p>
+      <p begin="00:00:49.240" id="p17" end="00:00:51.800">as well as being lots of fun.</p>
+    </div>
+    <div xml:lang="por">
+      <p begin="00:00:03.680" id="p0" end="00:00:04.480">Un homme</p>
+      <p begin="00:00:04.480" id="p1" end="00:00:05.280">sur une moto</p>
+      <p begin="00:00:05.280" id="p2" end="00:00:06.880">autour du monde</p>
+      <p begin="00:00:06.880" id="p3" end="00:00:08.480">en</p>
+      <p begin="00:00:08.480" id="p4" end="00:00:13.000">quête de jeux</p>
+      <p begin="00:00:13.000" id="p5" end="00:00:15.000">Bonjour. Je suis Tim Hull.</p>
+      <p begin="00:00:15.000" id="p6" end="00:00:18.040">Je crois que les jeux auxquels<br />nous jouons sont un pilier fondamental</p>
+      <p begin="00:00:18.040" id="p7" end="00:00:19.960">de notre civilisation.</p>
+      <p begin="00:00:19.960" id="p8" end="00:00:23.200">Je me suis lancé dans un voyage<br />global qui est ma mission personnelle</p>
+      <p begin="00:00:23.200" id="p9" end="00:00:25.960">pour rechercher, découvrir, observer</p>
+      <p begin="00:00:25.960" id="p10" end="00:00:27.800">et jouer.</p>
+      <p begin="00:00:27.800" id="p11" end="00:00:33.200">Je suis à la recherche de jeux qui nous<br />racontent de notre histoire, culture et psyché.</p>
+      <p begin="00:00:33.200" id="p12" end="00:00:38.040">Pendant mon voyage je dévoilerai<br />les plus grands jeux que l’homme ait conçu</p>
+      <p begin="00:00:38.040" id="p13" end="00:00:40.200">et de pourquoi ils perdurent jusqu’à ce jour.</p>
+      <p begin="00:00:40.200" id="p14" end="00:00:44.080">De la cour de récréation à la console informatique,<br />je vais apprendre de première main</p>
+      <p begin="00:00:44.080" id="p15" end="00:00:47.240">ce qui fait un grand jeu,<br />pourquoi les jeux nous font du bien</p>
+      <p begin="00:00:47.240" id="p16" end="00:00:49.240">et ce qu’ils nous révèlent de nous-mêmes,</p>
+      <p begin="00:00:49.240" id="p17" end="00:00:51.800">tout en étant super amusants.</p>
+    </div>
+    <div xml:lang="spa">
+      <p begin="00:00:03.680" id="p0" end="00:00:04.480">un hombre</p>
+      <p begin="00:00:04.480" id="p1" end="00:00:05.280">en moto</p>
+      <p begin="00:00:05.280" id="p2" end="00:00:06.880">dando la vuelta al mundo</p>
+      <p begin="00:00:06.880" id="p3" end="00:00:08.480">en</p>
+      <p begin="00:00:08.480" id="p4" end="00:00:13.000">búsqueda de juegos</p>
+      <p begin="00:00:13.000" id="p5" end="00:00:15.000">Hola! soy Tim Hull.</p>
+      <p begin="00:00:15.000" id="p6" end="00:00:18.040">Estoy convencido de que los juegos<br />son cimientos fundamentales</p>
+      <p begin="00:00:18.040" id="p7" end="00:00:19.960">de nuestra civilización.</p>
+      <p begin="00:00:19.960" id="p8" end="00:00:23.200">Emprendí este viaje alrededor<br />del mundo como una misión personal</p>
+      <p begin="00:00:23.200" id="p9" end="00:00:25.960">para buscar, descubrir, observar</p>
+      <p begin="00:00:25.960" id="p10" end="00:00:27.800">y jugar a juegos.</p>
+      <p begin="00:00:27.800" id="p11" end="00:00:33.200">Estoy buscando juegos que nos hablen<br />de nuestra historia, cultura y psique.</p>
+      <p begin="00:00:33.200" id="p12" end="00:00:38.040">Durante mi viaje desvelaré historias<br />de los mejores juegos jamás concebidos</p>
+      <p begin="00:00:38.040" id="p13" end="00:00:40.200">y de la razón para que aún sigan con nosotros</p>
+      <p begin="00:00:40.200" id="p14" end="00:00:44.080">Del patio del colegio hasta la consola,<br />aprenderé de sus protagonistas</p>
+      <p begin="00:00:44.080" id="p15" end="00:00:47.240">aquello que hace que un juego sea fenomenal,<br />lo que los hace buenos para nosotros</p>
+      <p begin="00:00:47.240" id="p16" end="00:00:49.240">lo que expresan sobre nosotros mismos</p>
+      <p begin="00:00:49.240" id="p17" end="00:00:51.800">y también porqué son tan divertidos.</p>
+    </div>
+    <div xml:lang="deu">
+      <p begin="00:00:03.680" id="p0" end="00:00:04.480">Ein Mann</p>
+      <p begin="00:00:04.480" id="p1" end="00:00:05.280">auf einem Motorrad</p>
+      <p begin="00:00:05.280" id="p2" end="00:00:06.880">rund um die Welt</p>
+      <p begin="00:00:06.880" id="p3" end="00:00:08.480">auf</p>
+      <p begin="00:00:08.480" id="p4" end="00:00:13.000">einer Suche nach Spielen</p>
+      <p begin="00:00:13.000" id="p5" end="00:00:15.000">Hallo, ich heiße Tim Hull.</p>
+      <p begin="00:00:15.000" id="p6" end="00:00:18.040">Ich glaube, dass unsere Spiele<br />ein wichtiger Grundstein</p>
+      <p begin="00:00:18.040" id="p7" end="00:00:19.960">unserer Zivilisation sind.</p>
+      <p begin="00:00:19.960" id="p8" end="00:00:23.200">Ich reise rund um die Welt,<br />und es ist meine Mission,</p>
+      <p begin="00:00:23.200" id="p9" end="00:00:25.960">Spiele zu entdecken, zu beobachten</p>
+      <p begin="00:00:25.960" id="p10" end="00:00:27.800">und zu spielen.</p>
+      <p begin="00:00:27.800" id="p11" end="00:00:33.200">Ich suche Spiele, die etwas über unsere<br />Geschichte, Kultur und Psyche erzählen.</p>
+      <p begin="00:00:33.200" id="p12" end="00:00:38.040">Unterwegs entdecke ich Geschichten<br />über die besten Spiele, die es jemals gab</p>
+      <p begin="00:00:38.040" id="p13" end="00:00:40.200">und finde heraus, warum es sie bis heute noch gibt.</p>
+      <p begin="00:00:40.200" id="p14" end="00:00:44.080">Vom Spielplatz bis zur ersten<br />Heimspielkonsole lerne ich aus erster Hand,</p>
+      <p begin="00:00:44.080" id="p15" end="00:00:47.240">was ein gutes Spiel auszeichnet,<br />warum Spiele für uns wichtig sind,</p>
+      <p begin="00:00:47.240" id="p16" end="00:00:49.240">was sie über uns aussagen,</p>
+      <p begin="00:00:49.240" id="p17" end="00:00:51.800">und warum sie so viel Spaß machen.</p>
+    </div>
+    <div xml:lang="nor">
+      <p begin="00:00:03.680" id="p0" end="00:00:04.480">en mann</p>
+      <p begin="00:00:04.480" id="p1" end="00:00:05.280">på en motorsykkel</p>
+      <p begin="00:00:05.280" id="p2" end="00:00:06.880">rundt i verden</p>
+      <p begin="00:00:06.880" id="p3" end="00:00:08.480">på</p>
+      <p begin="00:00:08.480" id="p4" end="00:00:13.000">Jakt Etter Leker</p>
+      <p begin="00:00:13.000" id="p5" end="00:00:15.000">Hei, jeg er Tim Hull.</p>
+      <p begin="00:00:15.000" id="p6" end="00:00:18.040">Jeg tror at lekene vi utøver<br />er fundamentale byggestener</p>
+      <p begin="00:00:18.040" id="p7" end="00:00:19.960">for vår sivilisasjon.</p>
+      <p begin="00:00:19.960" id="p8" end="00:00:23.200">Jeg har lagt ut på en<br />reise der mitt personlige mål er</p>
+      <p begin="00:00:23.200" id="p9" end="00:00:25.960">å lete etter, avdekke, observere</p>
+      <p begin="00:00:25.960" id="p10" end="00:00:27.800">og leke.</p>
+      <p begin="00:00:27.800" id="p11" end="00:00:33.200">Jeg er på utkikk etter leker som forteller<br />oss om vår historie, kultur og tenkemåte.</p>
+      <p begin="00:00:33.200" id="p12" end="00:00:38.040">Gjennom reisen min vil jeg avdekke<br />historier om de beste lekene som har oppstått</p>
+      <p begin="00:00:38.040" id="p13" end="00:00:40.200">og hvorfor de fortsatt er med oss i dag.</p>
+      <p begin="00:00:40.200" id="p14" end="00:00:44.080">Fra skolegården til hjemmets fire<br />vegger skal jeg hente førstehåndslæring</p>
+      <p begin="00:00:44.080" id="p15" end="00:00:47.240">om hva som gjør en lek god,<br />hvorfor leker er bra for oss</p>
+      <p begin="00:00:47.240" id="p16" end="00:00:49.240">og hva de forteller om oss selv</p>
+      <p begin="00:00:49.240" id="p17" end="00:00:51.800">i tillegg til å gi oss mye glede.</p>
+    </div>
+    <div xml:lang="tha">
+      <p begin="00:00:03.680" id="p0" end="00:00:04.480">ภาษาไทย1</p>
+      <p begin="00:00:04.480" id="p1" end="00:00:05.280">ภาษาไทย2</p>
+      <p begin="00:00:05.280" id="p2" end="00:00:06.880">ภาษาไทย3</p>
+      <p begin="00:00:06.880" id="p3" end="00:00:08.480">ภาษาไทย4på</p>
+      <p begin="00:00:08.480" id="p4" end="00:00:13.000">ภาษาไทย5Jakt Etter Leker</p>
+      <p begin="00:00:13.000" id="p5" end="00:00:15.000">ภาษาไทย6Hei, jeg er Tim Hull.</p>
+      <p begin="00:00:15.000" id="p6" end="00:00:18.040">ภาษาไทย7Jeg tror at lekene vi utøver<br />er fundamentale byggestener</p>
+      <p begin="00:00:18.040" id="p7" end="00:00:19.960">ภาษาไทย8for vår sivilisasjon.</p>
+      <p begin="00:00:19.960" id="p8" end="00:00:23.200">ภาษาไทย9Jeg har lagt ut på en<br />reise der mitt personlige mål er</p>
+      <p begin="00:00:23.200" id="p9" end="00:00:25.960">ภาษาไทย10å lete etter, avdekke, observere</p>
+      <p begin="00:00:25.960" id="p10" end="00:00:27.800">og leke.</p>
+      <p begin="00:00:27.800" id="p11" end="00:00:33.200">Jeg er på utkikk etter leker som forteller<br />oss om vår historie, kultur og tenkemåte.</p>
+      <p begin="00:00:33.200" id="p12" end="00:00:38.040">Gjennom reisen min vil jeg avdekke<br />historier om de beste lekene som har oppstått</p>
+      <p begin="00:00:38.040" id="p13" end="00:00:40.200">og hvorfor de fortsatt er med oss i dag.</p>
+      <p begin="00:00:40.200" id="p14" end="00:00:44.080">Fra skolegården til hjemmets fire<br />vegger skal jeg hente førstehåndslæring</p>
+      <p begin="00:00:44.080" id="p15" end="00:00:47.240">om hva som gjør en lek god,<br />hvorfor leker er bra for oss</p>
+      <p begin="00:00:47.240" id="p16" end="00:00:49.240">og hva de forteller om oss selv</p>
+      <p begin="00:00:49.240" id="p17" end="00:00:51.800">i tillegg til å gi oss mye glede.</p>
+    </div>
+  </body>
+</tt>
