@@ -34,17 +34,29 @@ class Member_model extends ADODB_model {
 	}
 	public function getMember($memberID){
 		$sql = "SELECT * 
-				FROM ".$this->table('movie')."
+				FROM ".$this->table('user')."
 				WHERE movie_id = ".$movieID." 
 				AND status = 'ACTIVE' ";
 		return $this->adodb->GetRow($sql);
 	}
 	public function setMember($data){
-		$this->adodb->debug=true;
-		$data['date_create'] = date();
-		return $this->adodb->AutoExecute($this->table('movie'),$data,'INSERT');
+		$data['date_create'] = date('Y-m-d H:i:s');
+		return $this->adodb->AutoExecute($this->table('user'),$data,'INSERT');
 	}
-
+	public function isDuplicateEmail($email){
+		
+		$sql = "SELECT count(*) AS count
+				FROM ".$this->table('user')."
+				WHERE email = '".$email."'
+				";
+		$result = $this->adodb->GetRow($sql);
+		if($result['count']){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	/*
 
 	public function getMovies($page=1,$limit=30){

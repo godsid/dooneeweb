@@ -13,13 +13,13 @@
   <!-- container -->
   <section id="contents">
     <div class="container bx-register">
-      <h2><a href="#" title="เข้าสู่ระบบ">เข้าสู่ระบบ<i class="icon-double-angle-right"></i></a></h2>
-      
+      <h2><a href="javascript:;" title="เข้าสู่ระบบ">เข้าสู่ระบบ<i class="icon-double-angle-right"></i></a></h2>
       <div class="inner">
           <div class="left form-contact-register _sf-col-xs-12-md-push-2-md-8">
               <form id="contact-doonee" name="contact-doonee" method="post" action="<?=base_url('/member/auth')?>">
                   <fieldset class="_sf-col-sm-push-1-sm-10 pd0">
                     <legend class="hid">เข้าสู่ระบบ</legend>
+                    <?php if(isset($_GET['formregister'])){ ?><p class="success"> สมัครสมาชิกเรียบร้อยแล้ว กรุณาเข้าสู่ระบบ</p><?php }?>
                     <p>
                       <label for="email" class="hid">อีเมล์</label>
                       <input type="email" class="txt-box email _sf-col-xs-12 required" id="email" name="email" placeholder="อีเมล์">

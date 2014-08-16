@@ -1097,6 +1097,7 @@ body #header .tools>.select-cat{width:77%;float:left;padding:9px 0 0!important}
 @media (max-width:480px){[class*="thm-login"]{max-height:inherit}#footer>section>ul>li .ic-pay li{width:100%!important}#footer>section>ul>li .ic-pay li>a{height:28px;line-height:28px}[class*="form-contact-register"] .ctrl-btn-sub{text-align:center}[class*="form-contact-register"] .ctrl-btn-sub>*{display:block;margin:0 auto 5px}}
 @media (max-width:360px){.bx-all-movies .thm-mv>li{width:50%;margin-right:0}
 [class*="bx-"]>*:first-child>a{white-space:nowrap}
+span.error{color: red;padding: 5px 0 0 10px;display: inline-block;}
 #footer{padding-top:0}
 #footer>section>ul>li>*:first-child{margin-bottom:10px}
 #footer>section>ul>li .ft-profile b{font-size:14px}

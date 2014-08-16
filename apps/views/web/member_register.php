@@ -13,8 +13,7 @@
   <!-- container -->
   <section id="contents">
     <div class="container bx-register">
-      <h2><a href="#" title="สมัครสมาชิก">สมัครสมาชิก <i class="icon-double-angle-right"></i></a></h2>
-      
+      <h2><a href="javascript:;" title="สมัครสมาชิก">สมัครสมาชิก <i class="icon-double-angle-right"></i></a></h2>
       <div class="inner">
           <div class="left form-contact-register _sf-col-xs-12-md-push-2-md-8">
               <form id="contact-doonee" name="contact-doonee" method="post" action="<?=base_url('/member/register_submit')?>">
@@ -22,33 +21,39 @@
                     <legend class="hid">สมัครสมาชิกใหม่</legend>
                     <p>
                       <label for="email" class="hid">อีเมล์</label>
-                      <input type="email" class="txt-box email _sf-col-xs-12 required" id="email" name="email" placeholder="อีเมล์">
+                      <input type="email" class="txt-box email _sf-col-xs-12 required" id="email" name="email" value="<?=isset($member['email'])?$member['email']:''?>" placeholder="อีเมล์">
+                      <?php if(isset($error_message['email'])){?><span class="error"><?=$error_message['email']?></span><?php }?>
                     </p>
                     <p>
                       <label for="firstname" class="hid">ชื่อ</label>
-                      <input type="text" class="txt-box _sf-col-xs-12" id="firstname" name="firstname" placeholder="ชื่อ">
+                      <input type="text" class="txt-box _sf-col-xs-12" id="firstname" name="firstname" value="<?=isset($member['firstname'])?$member['firstname']:''?>" placeholder="ชื่อ">
+                      <?php if(isset($error_message['firstname'])){?><span class="error"><?=$error_message['firstname']?></span><?php }?>
                     </p>
                     <p>
                       <label for="lastname" class="hid">นามสกุล</label>
-                      <input type="text" class="txt-box _sf-col-xs-12" id="lastname" name="lastname" placeholder="นามสกุล">
+                      <input type="text" class="txt-box _sf-col-xs-12" id="lastname" name="lastname" value="<?=isset($member['lastname'])?$member['lastname']:''?>" placeholder="นามสกุล">
+                      <?php if(isset($error_message['lastname'])){?><span class="error"><?=$error_message['lastname']?></span><?php }?>
                     </p>
                     <!--<p>
                       <label for="id-card" class="hid">เลขที่บัตรประชาชน 13 หลัก</label>
                       <input type="text" maxlength="13" class="txt-box _sf-col-xs-12" id="id-card" name="id-card" placeholder="เลขที่บัตรประชาชน 13 หลัก">
                     </p>-->
                     <p>
-                      <label for="sex" >เพศ : </label>
-                      <input type="radio" id="sex1" name="sex" value="MAIL" class="ml2"> <label for="sex1">ชาย</label>
-                      <input type="radio" id="sex2" name="sex" value="FEMAIL" class="ml2"> <label for="sex2">หญิง</label>
+                      <label for="gender" >เพศ : </label>
+                      <input type="radio" id="gender1" name="gender" value="MAIL" class="ml2" <?=(isset($member['gender'])&&$member['gender']=='MAIL')?'checked="checked"':''?>> <label for="gender1">ชาย</label>
+                      <input type="radio" id="gender2" name="gender" value="FEMAIL" class="ml2" <?=(isset($member['gender'])&&$member['gender']=='FEMAIL')?'checked="checked"':''?>> <label for="gender2">หญิง</label>
+                      <?php if(isset($error_message['gender'])){?><br/><span class="error"><?=$error_message['gender']?></span><?php }?>
                     </p>
                     <p>
                       <label for="tel" class="hid">เบอร์โทรศัพท์</label>
-                      <input type="text" maxlength="10" class="txt-box _sf-col-xs-12" id="tel" name="tel" placeholder="เบอร์โทรศัพท์">
+                      <input type="text" maxlength="10" class="txt-box _sf-col-xs-12" id="tel" name="phone" value="<?=isset($member['phone'])?$member['phone']:''?>" placeholder="เบอร์โทรศัพท์">
+                      <?php if(isset($error_message['phone'])){?><span class="error"><?=$error_message['phone']?></span><?php }?>
                     </p>
                     
                     <p>
                       <label for="password" class="hid">รหัสผ่าน</label>
                       <input type="password" class="txt-box _sf-col-xs-12" id="password" name="password" placeholder="รหัสผ่าน">
+                      <?php if(isset($error_message['password'])){?><span class="error"><?=$error_message['password']?></span><?php }?>
                     </p>
                     <p>
                       <label for="rpassword" class="hid">ยืนยันรหัสผ่าน</label>

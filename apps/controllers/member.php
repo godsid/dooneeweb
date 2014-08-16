@@ -12,36 +12,53 @@ class Member extends CI_Controller {
     }
 
     public function register(){
-        $this->load->view('web/member_register');
+        $view['member'] = array();
+        $this->load->view('web/member_register',$view);
     }
     public function register_submit(){
-        $member = $this->input-post();
+        $member = $this->input->post();
         $error = false;
         $message = array();
-        if($member['email']){
+        if(empty($member['email'])){
             $error = true;
-            $message['email_error'] = "ยังไม่ได้ระบุ Email"; 
+            $message['email'] = "ยังไม่ได้ระบุ อีเมล์"; 
         }
-        if($member['password']){
+        if(empty($member['firstname'])){
             $error = true;
-            $message['password_error'] = "ยังไม่ได้ระบุ Email"; 
+            $message['firstname'] = "ยังไม่ได้ระบุ ชื่อ"; 
+        }
+        if(empty($member['lastname'])){
+            $error = true;
+            $message['lastname'] = "ยังไม่ได้ระบุ นามสกุล"; 
+        }
+        if(empty($member['phone'])){
+            $error = true;
+            $message['phone'] = "ยังไม่ได้ระบุ เบอร์โทรศัพท์"; 
+        }
+        if(empty($member['gender'])){
+            $error = true;
+            $message['gender'] = "ยังไม่ได้ระบุ เพศ"; 
+        }
+        if(empty($member['password'])){
+            $error = true;
+            $message['password'] = "ยังไม่ได้ระบุ รหัสผ่าน"; 
         }
         if($member['password']!=$member['rpassword']){
             $error = true;
-            $message['password_error'] = "รหัสผ่านไม่ตรงกัน"; 
+            $message['password'] = "รหัสผ่านไม่ตรงกัน"; 
         }
 
-        if($member['email']&&$member['password']&&$member['rpassword']){
+        if($member['email']){
             //Check Duplicate Email
             if($this->mMember->isDuplicateEmail($member['email'])){
                 $error = true;
-                $message['email_error'] = "Email นี้ถูกใช้งานแล้ว";
+                $message['email'] = "อีเมล์ นี้ถูกใช้งานแล้ว";
             }
         }
-
         if(!$error){
+            $member['password'] = md5($member['password']);
             if($member_id = $this->mMember->setMember($member)){
-                redirect(base_url('/login'));
+                redirect(base_url('/login?formregister'));
             }else{
                 $error = true;
                 $view['error_message']['unknow'] = "เกิดความผิดพลาดกรุณาลองใหม่: 501";
@@ -51,7 +68,7 @@ class Member extends CI_Controller {
         $view['member'] = $member;
         $view['error'] = $error;
         $view['error_message'] = $message;
-        $this->load->view('web/member_register',$view['member']);
+        $this->load->view('web/member_register',$view);
     }
 
     public function login(){
