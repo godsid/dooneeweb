@@ -65,8 +65,8 @@ class Movie_model extends ADODB_model {
 		return $this->adodb->AutoExecute($this->table('movie'),$data,'UPDATE',"movie_id='".$movie_id."'");
 	}
 
-	public function delete($movie_id){
-		return $this->adodb->AutoExecute($this->table('movie'),array('status'=>'INACTIVE'),'UPDATE',"movie_id='".$movie_id."'");	
+	public function deleteMovie($movie_id){
+		return $this->adodb->Execute("DELETE FROM ".$this->table('movie')." WHERE movie_id = '".$movie_id."' LIMIT 1");
 	}
 }
 

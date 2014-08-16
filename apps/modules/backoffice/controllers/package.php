@@ -7,6 +7,10 @@ class Package extends CI_Controller {
 	var $limit;
 	public function __construct(){
 		parent::__construct();
+		$this->load->model('user_model','mUser');
+		if(!$this->mUser->auth()){
+			redirect(backoffice_url('/user/login'));
+		}
 
 		$this->page = $this->input->get('page');
 		$this->limit = $this->input->get('limit');

@@ -22,8 +22,9 @@
 						  <thead>
 							  <tr>
 								  <th>Name</th>
-								  <th>Category</th>
-								  <th>Ratio</th>
+								  <th>Cover</th>
+								  <th>View</th>
+								  <th>Option</th>
 								  <th>Sound</th>
 								  <th>Subtitle</th>
 								  <th>Length</th>
@@ -36,7 +37,12 @@
 						  <?php foreach($movies['items'] as $movie){ ?>
 							<tr>
 								<td><a href="<?=backoffice_url('/movie/'.$movie['movie_id'])?>"><?=$movie['title']?><br/><?=$movie['title_en']?></a></td>
-								<td class="center"></td>
+								<td class="center">
+									<img src="<?=$movie['cover']?>" width="80" />
+								</td>
+								<td class="center">
+									<?=$movie['view']?>
+								</td>
 								<td class="center">
 									<?php
 									if($movie['is_free']){
@@ -59,19 +65,22 @@
 									<a class="btn btn-info" href="<?=backoffice_url('/movie/edit/'.$movie['movie_id'])?>">
 										<i class="icon-edit icon-white"></i>  
 										Edit                                            
-									</a>
+									</a><br/><br/>
 									<?php
 									if($movie['status']=='ACTIVE'){ ?>
 										<a class="btn btn-danger" href="<?=backoffice_url('/movie/inactive/'.$movie['movie_id'])?>">
 										<i class="icon-lock icon-white"></i> 
 										InActive
-									</a>
+									</a><br/><br/>
 									<?php }else{ ?>
 										<a class="btn btn-success" href="<?=backoffice_url('/movie/active/'.$movie['movie_id'])?>">
 										<i class="icon-ok-circle icon-white"></i> 
 										Active
-									</a>
+									</a><br/><br/>
 									<?php } ?>
+									<a class="btn btn-danger" href="<?=backoffice_url('/movie/delete/'.$movie['movie_id'])?>" onclick="javascript:if(!window.confirm('ต้องการลบนี้ข้อมูลใช่หรือไม่')){return false;};">
+									<i class="icon-trash icon-red"></i> 
+									Delete
 								</td>
 							</tr>
 							<?php } ?>

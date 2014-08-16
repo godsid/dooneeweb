@@ -12,10 +12,12 @@
 						</div>
 					</div>
 					<div class="box-content">
+						<form method="post" action="<?=backoffice_url('/banner/submitSort')?>">
 						<table class="table table-striped table-bordered bootstrap-datatable datatable">
 						  <thead>
 							  <tr>
 								  <th>Banner</th>
+								  <th>Order</th>
 								  <th>Status</th>
 								  <th>Actions</th>
 							  </tr>
@@ -24,9 +26,13 @@
 						  <?php foreach($banners['items'] as $banner){ ?>
 							<tr>
 								<td>
-									<img src="<?=static_url($banner['cover'])?>" /> <br/>
-									<a href="<?=$banner['link']?>"><?=$banner['title']?></a>
+									<img src="<?=static_url($banner['cover'])?>" width="200" /> <br/>
+									<a href="<?=$banner['link']?>" target="_blank"><?=$banner['title']?></a>
 
+								</td>
+								<td>
+									<input type="hidden" name="sort[banner_id][]" value="<?=$banner['banner_id']?>" />
+									<input class="span3" type="text" name="sort[order][]" value="<?=$banner['sort']?>" />
 								</td>
 								<td class="center">
 									<?php if($banner['status']=='ACTIVE'){?>
@@ -54,8 +60,15 @@
 								</td>
 							</tr>
 							<?php }?>
+							<tr>
+								<td>&nbsp;</td>
+								<td><input type="submit" value="Save" /></td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+							</tr>
 						  </tbody>
-					  </table>       
+					  </table>    
+					  </form>  
 					  <div class="pagination pagination-centered"><?=$pageing?></div>
 					</div>
 				</div><!--/span-->

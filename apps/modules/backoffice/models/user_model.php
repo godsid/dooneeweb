@@ -43,6 +43,14 @@ class User_model extends ADODB_model {
 		return $this->fetchPage($sql,$page,$limit);
 	}	
 
+	public function searchUser($q,$page=1,$limit=30){
+		$sql ="SELECT * 
+				FROM ".$this->table('user')." 
+				WHERE email LIKE '%".$q."%' OR firstname LIKE '%".$q."%' 
+				ORDER BY user_id DESC";
+		return $this->fetchPage($sql,$page,$limit);	
+	}	
+
 	public function setUser($data){
 		$this->adodb->debug=true;
 		return $this->adodb->AutoExecute($this->table('user'),$data,'INSERT');

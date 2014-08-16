@@ -48,7 +48,7 @@ class Banner extends CI_Controller {
 	}
 	public function edit($bannerID=""){
 		$data['banner'] = $this->mBanner->getBanner($bannerID);
-		$this->breadcrumb[] = array('title'=>$data['banner']['title'],'url'=>backoffice_url('/banner/'.$bannerID));
+		$this->breadcrumb[] = array('title'=>$data['banner']['title'],'url'=>backoffice_url('/banner/edit/'.$bannerID));
 		$this->breadcrumb[] = array('title'=>'Edit','url'=>'');
 		$data['breadcrumb'] = $this->breadcrumb;
 		$this->load->view('banner_form',$data);
@@ -94,7 +94,15 @@ class Banner extends CI_Controller {
 			redirect(backoffice_url('/banner'));	
 		}
 	}
-	
+	public function submitSort(){
+		$sort = $this->input->post('sort');
+		
+		for($i=0,$j=count($sort['banner_id']);$i<$j;$i++){
+			$this->mBanner->updateBanner($sort['banner_id'][$i],array('sort'=>$sort['order'][$i]));
+		}
+		redirect(backoffice_url('/banner'));
+		
+	}
 	public function active($bannerID){
 		if(is_numeric($bannerID)){
 			$this->mBanner->updateBanner($bannerID,array('status'=>'ACTIVE'));

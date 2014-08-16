@@ -7,6 +7,11 @@ class Movie extends CI_Controller {
 	var $limit;
 	public function __construct(){
 		parent::__construct();
+		$this->load->model('user_model','mUser');
+		if(!$this->mUser->auth()){
+			redirect(backoffice_url('/user/login'));
+		}
+
 		$this->page = $this->input->get('page');
 		$this->limit = $this->input->get('limit');
 		$this->page = $this->page?$this->page:1;
@@ -66,8 +71,13 @@ class Movie extends CI_Controller {
 		$this->load->view('movie_form',$data);
 	}
 	public function create(){
+		$this->load->model('category_model','mCategry');
+		$data['categories'] = $this->mCategry->getCategories();
+		$data['categories'] = $data['categories']['items'];
+		
 		$this->breadcrumb[] = array('title'=>'New','url'=>'');
 		$data['breadcrumb'] = $this->breadcrumb;
+		$data['movie']['category'] = array();
 		$this->load->view('movie_form',$data);
 	}
 	public function submit($movieID=false){
@@ -85,6 +95,11 @@ class Movie extends CI_Controller {
 			$movie['title_en_error'] = "ยังไม่ได้ใส่ข้อมูล";
 		}
 		
+		$movie['is_free'] = isset($movie['is_free'])?$movie['is_free']:'NO';
+		$movie['is_hd'] = isset($movie['is_hd'])?$movie['is_hd']:'NO';
+		$movie['is_hot'] = isset($movie['is_hot'])?$movie['is_hot']:'NO';
+		$movie['is_series'] = isset($movie['is_series'])?$movie['is_series']:'NO';
+
 		//var_dump($_FILES["cover"]);
 		if(isset($_FILES["cover"])&&!empty($_FILES["cover"]['tmp_name'])){
 			//if($_FILES['cover']['error']){
@@ -146,6 +161,12 @@ class Movie extends CI_Controller {
 	public function inactive($movieID){
 		if(is_numeric($movieID)){
 			$this->mMovie->updateMovie($movieID,array('status'=>'INACTIVE'));
+		}
+		redirect(backoffice_url('/movie'));
+	}
+	public function delete($movieID){
+		if(is_numeric($movieID)){
+			$this->mMovie->deleteMovie($movieID);
 		}
 		redirect(backoffice_url('/movie'));
 	}

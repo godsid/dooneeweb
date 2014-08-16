@@ -17,7 +17,7 @@ class banner_model extends ADODB_model {
 	public function getBanners($page=1,$limit=30){
 		$sql ="SELECT * 
 				FROM ".$this->table('banner')." 
-				ORDER BY banner_id DESC";
+				ORDER BY sort ASC,banner_id DESC";
 		return $this->fetchPage($sql,$page,$limit);
 	}	
 
