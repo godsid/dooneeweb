@@ -48,6 +48,7 @@
 										}
 										?>
 										<input class="input-xlarge" name="cover" type="file" value="">
+										<p class="help-block">ขนาด 258 x 386</p>
 									</div>
 								</div>
 								<div class="control-group">

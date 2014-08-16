@@ -33,6 +33,7 @@
 										}
 										?>
 										<input class="input-xlarge" name="cover" type="file" value="">
+										<p class="help-block">ขนาด 1170 x 483</p>
 									</div>
 								</div>
 								<div class="control-group">

@@ -44,6 +44,7 @@
 										}
 										?>
 										<input class="input-xlarge" name="banner" type="file" value="">
+										<p class="help-block">ขนาด 1148 x 374</p>
 									</div>
 								</div>
 								<div class="control-group">
