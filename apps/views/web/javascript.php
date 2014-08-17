@@ -4,6 +4,8 @@
 
 <script src="<?=static_url('/js/jquery.mousewheel-3.0.6.pack.js')?>"></script>
 <!--<script src="<?=static_url('/js/jquery.fancybox.js?v=2.1.5')?>"></script>-->
+<script src="<?=static_url('/js/perfect-scrollbar.js')?>"></script>
+
 
 <script>
 $(document).ready(function(){
@@ -13,9 +15,8 @@ $(document).ready(function(){
         
         var st = $(this).scrollTop();
         
-        
         if (st > lastScrollTop){
-            console.log('down');
+            //console.log('down');
             // scrolling down
             if($('#header').data('size') === 'big')
             {
@@ -30,7 +31,7 @@ $(document).ready(function(){
             // scrolling up
             if($('#header').data('size') === 'small')
             {
-                            console.log('up');
+                // console.log('up');
                 $('#header').data('size','big');
                 $('#header').stop().animate({
                     top:'0'
@@ -80,12 +81,19 @@ $(window).load(function() {
     maxItems: 5,
     asNavFor: '#slider'
   });
+  /*silde thumb fix*/
+  $('#slider-fix').flexslider({
+    animation: "slide",
+    controlNav: "thumbnails",	
+    animationLoop: true,
+	slideshowSpeed: 7000
+  });
+
   /*movie slide*/
   $('.bx-mv-slide').flexslider({
     animation: "slide",
+	slideshow: false,
     animationLoop: true,
-	//slideshow: false,
-	slideshowSpeed: 15000,
     itemWidth: 195,
     itemMargin: 0,
     minItems: 2,
@@ -95,28 +103,31 @@ $(window).load(function() {
 });
 
 $(document).ready(function() {
-	/*$(".nav-main ul li a").click(function() {
-		$(".nav-main ul li a").removeClass("selected");
-		$(this).addClass("selected");
-	});*/
+	/*accordion*/
+	/*$("#accordion").tabs(
+	  "#accordion div.pane",
+	  {tabs: '.btn-package', effect: 'slide', initialIndex: 10}
+	);*/
+	/*Accordion*/
+	$('.accordion a.btn-package').click(function() {
+		$(this).parents('.bar').toggleClass('active').next().toggleClass('active').slideToggle(200);
+    });
+	//Lightbox login
+	$("a.lb-popup").overlay({mask: '#FFF', opacity: 0.5, effect: 'apple'});
 	/*scrollbar*/
 	$(".js-v-scroll").niceScroll({
 		styler:"fb",
-		cursorwidth:"7px",
+		cursorwidth:"9px",
 		cursorcolor:"#000",
 		cursorborder: "0",
 		background:"rgba(0,0,0,0.5)",
 		autohidemode:false,
 	});
-	/*$(".js-h-scroll").niceScroll({
-		styler:"fb",
-		cursorwidth:"7px",
-		cursorcolor:"#000",
-		cursorborder: "0",
-		background:"rgba(0,0,0,0.5)",
-		autohidemode:false,
-		horizrailenabled:true	
-	});*/
+	$('#scroll-cat, .js-scroll').perfectScrollbar({
+	  suppressScrollX: true,
+	  wheelSpeed: 100,
+	  wheelPropagation: false
+	});
 	
 });
 </script>
@@ -135,30 +146,5 @@ $(document).ready(function(){
 		$('html, body').animate({scrollTop: '0px'}, 200);
 		return false;
 	});
-	/*Lightbox*/
-	/*$(".fancybox").fancybox({
-		width     : 800,
-		height    : 600,
-		autoSize   : true,
-		scrolling: 'no',
-		helpers:  {
-			title:  null
-		}
-	});*/
-	/*lightbox player*/
-	/*$(".various").fancybox({
-		maxWidth	: 800,
-		maxHeight	: 600,
-		fitToView	: false,
-		width		: '70%',
-		height		: '70%',
-		autoSize	: false,
-		closeClick	: false,
-		openEffect	: 'none',
-		closeEffect	: 'none',
-		helpers:  {
-			title:  null
-		}
-	});*/
 }); 
 </script>

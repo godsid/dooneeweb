@@ -3,10 +3,13 @@
 
 class home extends CI_Controller {
     var $categories;
+    var $memberLogin;
 	public function __construct(){
         parent::__construct();
+        $this->load->model('member_model','mMember');
         $this->load->model('category_model','mCategory');
-        $this->categories = $this->mCategory->getCategoriesMenu();        
+        $this->categories = $this->mCategory->getCategoriesMenu();
+        $this->memberLogin = $this->mMember->getMemberLogin();
     }
 
     public function index(){
@@ -14,7 +17,7 @@ class home extends CI_Controller {
         $this->load->model('banner_model','mBanner');
         $this->load->model('movie_model','mMovie');
 
-        $view['memberLogin'] = $this->mMember->getMemberLogin();
+        $view['memberLogin'] = $this->memberLogin;
         $view['categories'] = $this->categories;
         $view['banners'] = $this->mBanner->getBanners();
         $view['moviesHot'] = $this->mMovie->getMoviesHot(1,20);

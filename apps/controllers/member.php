@@ -2,20 +2,27 @@
     exit('No direct script access allowed');
 
 class Member extends CI_Controller {
+    var $memberLogin;
+
 	public function __construct(){
         parent::__construct();
         $this->load->model('member_model','mMember');
+        $this->memberLogin = $this->mMember->getMemberLogin();
     }
-
-    public function index(){
-
-    }
-
     public function register(){
+        if($this->memberLogin){
+            redirect(base_url('/home'));
+        }
+        $view['memberLogin'] = $this->memberLogin;
         $view['member'] = array();
+
         $this->load->view('web/member_register',$view);
     }
     public function register_submit(){
+        if($this->memberLogin){
+            redirect(base_url('/home'));
+        }
+        $view['memberLogin'] = $this->memberLogin;
         $member = $this->input->post();
         $error = false;
         $message = array();
@@ -72,15 +79,24 @@ class Member extends CI_Controller {
     }
 
     public function login(){
+        if($this->memberLogin){
+            redirect(base_url('/home'));
+        }
         $this->auth();
     }
 
     public function auth(){
         $email = $this->input->post('email');
         $password = $this->input->post('password');
+        $autologin = $this->input->post('remember');
+        
         if($email&&$password){
             if($user = $this->mMember->login($email,md5($password))){
                 $this->session->set_userdata(array('user_data'=>$user));
+                if($autologin=='yes'){
+                    $rememberCode = $user['user_id']."|".md5($user['email'].md5($password));
+                    $this->input->set_cookie('remember',$rememberCode,strtotime('+1 year'),$this->config->item('cookie_domain'),'/');
+                }
                 redirect(base_url('/home'));
             }else{
                 $this->load->view('web/member_login'); 
@@ -90,7 +106,11 @@ class Member extends CI_Controller {
         }
     }
 
+
+
+
     public function logout(){
+        $this->input->set_cookie('remember','',strtotime('-1 day'));
         $this->session->sess_destroy();
         redirect(base_url('/'));
     }

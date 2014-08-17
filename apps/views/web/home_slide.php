@@ -16,7 +16,6 @@
           <?php }?>
           </ul>
         </div>
-
         <div id="carousel" class="flexslider">
           <ul class="slides">
             <?php

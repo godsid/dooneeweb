@@ -29,7 +29,28 @@ class Movie_model extends ADODB_model {
 				ORDER BY movie_id DESC ";
 		return $this->fetchPage($sql,$page,$limit);
 	}
-
+	public function getMoviesCategory($category_id,$page=1,$limit=30){
+		if(is_array($category_id)){
+			$category_id = "mc.category_id IN (".implode(',',$category_id).") ";
+		}else{
+			$category_id = "mc.category_id = '".$category_id."' ";
+		}
+		$sql ="SELECT m.* 
+				FROM ".$this->table('movie_category','mc')."  
+				LEFT JOIN ".$this->table('movie','m')." ON mc.movie_id = m.movie_id
+				WHERE ".$category_id." 
+				AND m.status = 'ACTIVE'
+				ORDER BY movie_id DESC ";
+		return $this->fetchPage($sql,$page,$limit);
+	}
+	public function getMoviesSeries($page=1,$limit=30){
+		$sql ="SELECT * 
+				FROM ".$this->table('movie')."  
+				WHERE is_series='YES' 
+				AND status = 'ACTIVE'
+				ORDER BY movie_id DESC ";
+		return $this->fetchPage($sql,$page,$limit);	
+	}
 	public function getMovieRelate($movieID,$limit=3){
 		$sql ="SELECT * 
 				FROM ".$this->table('movie')." 

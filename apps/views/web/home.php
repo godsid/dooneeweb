@@ -1,15 +1,17 @@
+
 <?php 
 	include('header.php');	
 ?>
   <body>
-  <script>
+  <script type="text/javascript">
    $(document).ready(function(){
        $("#nav-drop li a").removeClass("selected");
        $('#nav-drop>li:nth-child(1)>a').addClass('selected');
   });
   </script>
-	<?php include('menu.php'); ?>
-  <?php include('home_slide.php'); ?>
+
+  <?php include('menu.php'); ?>
+  <?php include('home_slide.php');?>
   <!-- container -->
   <section id="contents">
     <div class="container bx-mv-slide flexslider">
