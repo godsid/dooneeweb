@@ -16,7 +16,7 @@
         image: '//122.155.197.142/hawaii-five-o.jpg',
         width: '100%',
         aspectratio: '16:9',
-        autostart: 'true'
+        autostart: 'false'
     });
 
 </script>

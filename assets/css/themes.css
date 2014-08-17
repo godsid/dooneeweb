@@ -1113,3 +1113,5 @@ span.error{color: red;padding: 5px 0 0 10px;display: inline-block;}
 .overlay{top:10px!important}
 }
 @media (max-width:320px){body #header .tools>.select-cat{width:72%}body #header .select-cat>li>a{font-size:12px}#footer>section>ul>li .ft-profile p>[class*="ui-btn"]{min-width:138px}[class*="thm-login"]{max-height:100%}.reader>article>.detai .share b.fL{display:block;float:none;text-align:center}.reader>article>.detai .share{text-align:center}}
+form .has-error input,form .has-error textarea,form .has-error select{border-color: red;}
+

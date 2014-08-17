@@ -9,9 +9,21 @@
             <div class="_sf-col-xs-12-sm-3">
               <img src="<?=static_url($movie['cover'])?>">
                 <p class="_cd-col-xs-12">
-                  <a class="ui-btn btn-profile" href="#" title="เริ่มเล่นทันที">เริ่มเล่นทันที</a>
-                  <a class="ui-btn-red btn-fill" href="#" title="เติมเงินดูหนัง"><i class="icon-credit-card"></i> เติมเงินดูหนัง</a>
-                  <a class="ui-btn-blue btn-fv" href="#" title="รายการโปรด"><i class="icon-heart-empty"></i> รายการโปรด</a>
+
+                  <?php 
+                      // Member Login
+                      if(isset($memberLogin)&&$memberLogin){ 
+                      // Member Can Watch
+                        if(isset($memberLogin['canwatch'])&&$memberLogin['canwatch']){ ?>
+                          <a class="ui-btn btn-profile" href="#" title="เริ่มเล่นทันที">เริ่มเล่นทันที</a>  
+                        <?php }else{?>
+                            <a class="ui-btn-red btn-fill" href="<?=base_url('/package')?>" title="เติมเงินดูหนัง"><i class="icon-credit-card"></i> เติมเงินดูหนัง</a>
+                        <?php }?>
+                        <a class="ui-btn-blue btn-fv" href="#" title="รายการโปรด"><i class="icon-heart-empty"></i> รายการโปรด</a>
+                      <?php }else{?>
+                          <a class="ui-btn btn-profile" href="<?=base_url('/login')?>" title="เข้าสู่ระบบ">เข้าสู่ระบบ</a>  
+                      <?php } ?>
+                    
                 </p>
             </div>
             <div class="detai">
@@ -26,25 +38,27 @@
                 
                 <p class="mt2"><b>นักแสดง</b> : 
                 <?php
-                  
-                  $movie['cast'] = explode(",",$movie['cast']);
-                  foreach ($movie['cast'] as $cast) {
+                  echo $movie['cast'];
+                  //$movie['cast'] = explode(",",$movie['cast']);
+                  //foreach ($movie['cast'] as $cast) {
                 ?>
-                    <a href="<?=base_url('/tags/'.$cast)?>" title="<?=$cast?>"><?=$cast?></a>,
-                <?php  } ?>
+                    <!-- <a href="<?=base_url('/tags/'.$cast)?>" title="<?=$cast?>"><?=$cast?></a>, -->
+                <?php  //} ?>
                  </p>
                 <p><b>ผู้กำกับ</b> : 
                 <?php
-                  $movie['director'] = explode(",",$movie['director']);
-                  foreach ($movie['director'] as $director) {
+                 echo $movie['director'];
+                  //$movie['director'] = explode(",",$movie['director']);
+                  //foreach ($movie['director'] as $director) {
                 ?>
-                <a href="<?=base_url('/tags/'.$director)?>" title="<?=$director?>"><?=$director?></a>,
-                <?php } ?>
+                <!--<a href="<?=base_url('/tags/'.$director)?>" title="<?=$director?>"><?=$director?></a>,-->
+                <?php //} ?>
                 </p>
-                <p><b>หมวดหมู่</b> : <a href="#">หนัง ระทึกขวัญ</a>, <a href="#" title="หนัง แอ๊กชั่น">หนัง แอ๊กชั่น</a>, <a href="#" title="หนัง ดราม่า">หนัง ดราม่า</a>
+                <p><!--<b>หมวดหมู่</b> : <a href="#">หนัง ระทึกขวัญ</a>, <a href="#" title="หนัง แอ๊กชั่น">หนัง แอ๊กชั่น</a>, <a href="#" title="หนัง ดราม่า">หนัง ดราม่า</a>-->
                   <b class="ml2">เสียง : </b> <?=$movie['audio']?>
-                    <b class="ml2">บรรยาย : </b> <?=$movie['subtitle']?>
+                  <b class="ml2">บรรยาย : </b> <?=$movie['subtitle']?>
                 </p>
+
                 <p><b>ความยาว</b> : <?=($movie['length']/60)?> นาที  <b class="ml2">ปี : </b> <a href="<?=base_url('/movie/year/'.$movie['year'])?>" title="<?=$movie['year']?>"><?=$movie['year']?></a> </p>                  
                 
                 <div class="share mt2">
@@ -59,7 +73,7 @@
           
           <div class="ctrl-player container">
               <h2>ดูหนังออนไลน์ <?=$movie['title']?></h2>
-                <div class="trailer">
+                <div class="trailer" style="position:relative;">
                   <!--<video width="984" height="560" preload controls>
                       <source type="video/mp4" src="http://122.155.197.142:1935/vod/_definst_/mp4:movies/hawaii-five-o-s4-ep1.mp4/playlist.m3u8"></source>
                       <source type="video/mp4" src="rtsp://122.155.197.142:1935/vod/_definst_/movies/hawaii-five-o-s4-ep1.mp4"></source>
@@ -68,6 +82,15 @@
                       Your browser does not support the video tag.
                     </video>-->
                     <iframe width="984" height="560" frameborder="0" allowfullscreen="" src="<?=base_url('/jwplayer.php?movie_id='.$movie['movie_id'])?>" class="mp4downloader_embedButtonInitialized mp4downloader_tagChecked "></iframe>
+                    <?php 
+                    if(isset($memberLogin)&&$memberLogin){
+                      if(isset($memberLogin['canwatch'])&&$memberLogin['canwatch']){ 
+                      }else{?>
+                        <a href="<?=base_url('/package')?>"><div style="width:100%;height:100%;background-color:red;position:absolute;top:0px;opacity:0;">&nbsp;</div></a>
+                      <?php }?>
+                    <?php }else{?>
+                        <a href="<?=base_url('/login')?>"><div style="width:100%;height:100%;background-color:red;position:absolute;top:0px;opacity:0;">&nbsp;</div></a>
+                    <?php }?>
                 </div>
           </div>
           
@@ -77,7 +100,7 @@
                 var js, fjs = d.getElementsByTagName(s)[0];
                 if (d.getElementById(id)) return;
                 js = d.createElement(s); js.id = id;
-                js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+                js.src = "//connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v2.0";
                 fjs.parentNode.insertBefore(js, fjs);
               }(document, 'script', 'facebook-jssdk'));</script>
               <div class="fb-comments" data-href="<?=base_url('/movie/'.$movie['movie_id'])?>" data-width="1170" data-numposts="5" data-colorscheme="light"></div>

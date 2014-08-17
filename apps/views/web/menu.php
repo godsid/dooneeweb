@@ -24,7 +24,8 @@
         
         <div class="tools _cd-col-xs-4">
           <div class="zone-login _sf-col-xs-1">
-            <?php if(isset($memberLogin)&&$memberLogin){ ?>
+            <?php 
+            if(isset($memberLogin)&&$memberLogin){ ?>
 
               <a href="javascript:;" title="<?=$memberLogin['firstname']?> <?=$memberLogin['lastname']?>">
                 <div id="show-login"><?=$memberLogin['firstname']?> <span>ดูหนังได้อีก <em><?=$memberLogin['dayLeft']?> <small>วัน</small></em></span></div>
@@ -94,7 +95,7 @@
             <ul id="nav-drop">
               <li><a href="<?=home_url()?>" title="หน้าแรก">หน้าแรก</a></li>
               <li><a href="<?=base_url('/movie/series')?>" title="ดูซีรี่ย์">ดูซีรี่ย์</a></li>
-              <li><a href="<?=base_url('/promotion')?>" title="ข่าว/โปรโมชั่น">ข่าว/โปรโมชั่น</a></li>
+              <li><a href="<?=base_url('/news')?>" title="ข่าว/โปรโมชั่น">ข่าว/โปรโมชั่น</a></li>
               <li><a href="<?=base_url('/package')?>" title="เติมเงิน">เติมเงิน</a></li>
               <li><a href="<?=base_url('/help')?>" title="วิธีการดูหนัง">วิธีการดูหนัง</a></li>    
               <li><a href="<?=base_url('/aboutus')?>" title="เกี่ยวกับเรา">เกี่ยวกับเรา</a></li>

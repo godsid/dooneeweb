@@ -25,7 +25,7 @@
                                 <li><a href="<?=base_url('/payment/creditcard/'.$package['package_id'])?>" <?=$clickLogin?> title="บัตรเครดิต"><i class="icon-credit-card"></i> บัตรเครดิต</a></li>
                                 <li><a href="<?=base_url('/payment/paypoint/'.$package['package_id'])?>" <?=$clickLogin?> title="จุดรับชำระค่าบริการ"><i class="icon-usd"></i> จุดรับชำระค่าบริการ</a></li>
                                 <li><a href="<?=base_url('/payment/atm/'.$package['package_id'])?>" <?=$clickLogin?> title="เอทีเอ็ม"><i class="icon-money"></i> เอทีเอ็ม</a></li> 
-                                <li><a href="<?=base_url('/payment/bamkcouter/'.$package['package_id'])?>" <?=$clickLogin?> title="เคาน์เตอร์ธนาคาร"><i class="icon-laptop"></i> เคาน์เตอร์ธนาคาร</a></li>
+                                <li><a href="<?=base_url('/payment/bankcounter/'.$package['package_id'])?>" <?=$clickLogin?> title="เคาน์เตอร์ธนาคาร"><i class="icon-laptop"></i> เคาน์เตอร์ธนาคาร</a></li>
                                 <li><a href="<?=base_url('/payment/ibanking/'.$package['package_id'])?>" <?=$clickLogin?> title="ไอแบงก์กิ้ง"><i class="icon-btc"></i> ไอแบงก์กิ้ง</a></li>
                             </ul>
                         </div>
