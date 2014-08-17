@@ -11,7 +11,7 @@ class Member extends CI_Controller {
     }
     public function register(){
         if($this->memberLogin){
-            redirect(base_url('/home'));
+            redirect(home_url());
         }
         $view['memberLogin'] = $this->memberLogin;
         $view['member'] = array();
@@ -20,7 +20,7 @@ class Member extends CI_Controller {
     }
     public function register_submit(){
         if($this->memberLogin){
-            redirect(base_url('/home'));
+            redirect(home_url());
         }
         $view['memberLogin'] = $this->memberLogin;
         $member = $this->input->post();
@@ -80,7 +80,7 @@ class Member extends CI_Controller {
 
     public function login(){
         if($this->memberLogin){
-            redirect(base_url('/home'));
+            redirect(home_url());
         }
         $this->auth();
     }
@@ -97,7 +97,7 @@ class Member extends CI_Controller {
                     $rememberCode = $user['user_id']."|".md5($user['email'].md5($password));
                     $this->input->set_cookie('remember',$rememberCode,strtotime('+1 year'),$this->config->item('cookie_domain'),'/');
                 }
-                redirect(base_url('/home'));
+                redirect(home_url());
             }else{
                 $this->load->view('web/member_login'); 
             }
@@ -112,7 +112,7 @@ class Member extends CI_Controller {
     public function logout(){
         $this->input->set_cookie('remember','',strtotime('-1 day'));
         $this->session->sess_destroy();
-        redirect(base_url('/'));
+        redirect(home_url());
     }
 
 }

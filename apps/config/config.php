@@ -15,6 +15,7 @@
 |
 */
 $config['base_url']	= 'http://'.$_SERVER['HTTP_HOST'];
+$config['home_url']	= $config['base_url'].'/home';
 $config['static_url']	= 'http://'.$_SERVER['HTTP_HOST'].'/assets';
 $config['backoffice_url']	= 'http://'.$_SERVER['HTTP_HOST'].'/backoffice';
 

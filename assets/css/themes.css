@@ -87,7 +87,7 @@ em,i,address{font-style:normal}
 /*header footer*/
 .container>*{position:relative}
 #header{position:absolute;top:0;left:0;right:0;z-index:22;padding:0;margin-bottom:78px;min-height:104px;background:#31353e;transition:.2s all ease-in-out;-webkit-transition:.2s all ease-in-out}
-#header.nav-down{position:fixed}
+#header.nav-down{/*position:fixed*/}
 #header.nav-up{top:-193px}
 #contents{z-index:1}
 #header>.container{min-height:104px}
@@ -116,7 +116,7 @@ em,i,address{font-style:normal}
 .top-nav>ul>li>a.selected,.top-nav>ul>li>a:hover,.top-nav>ul>li.sfHover>a{color:#FFF;background:#c7262c}
 .top-nav>ul>li>a.selected{box-shadow:0 11px 0 #c7262c}
 /*Header-small*/
-#header.small{min-height:40px;margin:0}
+#header.small{min-height:40px;margin:0;position: fixed;}
 #header.small>.container{min-height:40px;border-bottom:5px solid #c7262c}
 #header.small .logo{margin:0 10px 0 50px}
 #header.small .logo img{display:block;height:40px}

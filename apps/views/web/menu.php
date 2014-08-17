@@ -18,7 +18,7 @@
             </div>
         </div>
         <h1 class="logo" itemscope itemtype="http://schema.org/Organization">
-            <a href="<?=base_url('/home')?>" itemprop="url">DooneeTV</a>
+            <a href="<?=home_url()?>" itemprop="url">DooneeTV</a>
             <img src="<?=static_url('/img/logo.png')?>" itemprop="logo">
         </h1>
         
@@ -92,7 +92,7 @@
         
         <nav id="navigation" class="top-nav">
             <ul id="nav-drop">
-              <li><a href="<?=base_url('/home')?>" title="หน้าแรก">หน้าแรก</a></li>
+              <li><a href="<?=home_url()?>" title="หน้าแรก">หน้าแรก</a></li>
               <li><a href="<?=base_url('/movie/series')?>" title="ดูซีรี่ย์">ดูซีรี่ย์</a></li>
               <li><a href="<?=base_url('/promotion')?>" title="ข่าว/โปรโมชั่น">ข่าว/โปรโมชั่น</a></li>
               <li><a href="<?=base_url('/package')?>" title="เติมเงิน">เติมเงิน</a></li>

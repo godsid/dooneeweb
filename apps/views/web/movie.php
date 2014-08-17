@@ -23,7 +23,7 @@
       <?php if(isset($search)){ ?>
         <h2>ผลการค้นหา "<?=$search?>" พบทั้งหหมด <?=$movies['pageing']['allItem']?></h2>
       <?php }else{ ?>
-        <h2><a href="<?=base_url('/')?>" title="ดูหนังทั้งหมด">ดูหนังทั้งหมด <i class="icon-double-angle-right"></i></a></h2>
+        <h2><a href="<?=home_url()?>" title="ดูหนังทั้งหมด">ดูหนังทั้งหมด <i class="icon-double-angle-right"></i></a></h2>
       <?php } ?>
       <ul class="thm-mv">
       <?php foreach ($movies['items'] as $movie) {?>

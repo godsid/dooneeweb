@@ -9,47 +9,15 @@
 
 <script>
 $(document).ready(function(){
-    
-    var lastScrollTop = 0;
+    var headerSmallHeight = 140;
     $(window).scroll(function(){
-        
-        var st = $(this).scrollTop();
-        
-        if (st > lastScrollTop){
-            //console.log('down');
-            // scrolling down
-            if($('#header').data('size') === 'big')
-            {
-                $('#header').data('size','small');
-                $('#header').stop().animate({
-                    top:'-193px'
-                },100);
-            }
-        }
-        else
-        {
-            // scrolling up
-            if($('#header').data('size') === 'small')
-            {
-                // console.log('up');
-                $('#header').data('size','big');
-                $('#header').stop().animate({
-                    top:'0'
-                },50);
-            }  
-        }
-        lastScrollTop = st;
+        st = $(this).scrollTop();
+        if(st>headerSmallHeight){
+            $('#header').addClass('small');
+        }else{
+            $('#header').removeClass('small');
+        }        
     });
-	
-	//Scroll add class nav
-	if($('#header+*').length > 0) {
-		var top1 = $('#header+*').offset().top - parseFloat($('#header+*').css('marginTop').replace(/auto/, 0));
-		$(window).scroll(function (event) {
-		var y1 = $(this).scrollTop();
-		if (y1 >= top1) {$('#header').addClass('small');} else {$('#header').removeClass('small');}
-		});
-	}
-	
 });
 
 /*hover cat*/
