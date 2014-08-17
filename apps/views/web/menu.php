@@ -96,7 +96,7 @@
               <li><a href="<?=home_url()?>" title="หน้าแรก">หน้าแรก</a></li>
               <li><a href="<?=base_url('/movie/series')?>" title="ดูซีรี่ย์">ดูซีรี่ย์</a></li>
               <li><a href="<?=base_url('/news')?>" title="ข่าว/โปรโมชั่น">ข่าว/โปรโมชั่น</a></li>
-              <li><a href="<?=base_url('/package')?>" title="เติมเงิน">เติมเงิน</a></li>
+              <li><a href="<?=base_url('/package')?>" title="เติมเงิน / ซื้อแพ็กเกจ">เติมเงิน / ซื้อแพ็กเกจ</a></li>
               <li><a href="<?=base_url('/help')?>" title="วิธีการดูหนัง">วิธีการดูหนัง</a></li>    
               <li><a href="<?=base_url('/aboutus')?>" title="เกี่ยวกับเรา">เกี่ยวกับเรา</a></li>
             </ul>
