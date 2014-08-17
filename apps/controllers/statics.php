@@ -11,23 +11,6 @@ class Statics extends CI_Controller {
         $this->categories = $this->mCategory->getCategoriesMenu();
         $this->memberLogin = $this->mMember->getMemberLogin();
     }
-
-    public function index(){
-        /*
-        $this->load->model('member_model','mMember');
-        $this->load->model('banner_model','mBanner');
-        $this->load->model('movie_model','mMovie');
-
-        $view['memberLogin'] = $this->memberLogin;
-        $view['categories'] = $this->categories;
-        $view['banners'] = $this->mBanner->getBanners();
-        $view['moviesHot'] = $this->mMovie->getMoviesHot(1,20);
-        $view['moviesHot'] = $view['moviesHot']['items'];
-        $view['movies'] = $this->mMovie->getMoviesHot(1,20);
-        $this->load->view('web/home',$view);
-        */
-    }
-
     public function aboutus(){
         $view['memberLogin'] = $this->memberLogin;
         $view['categories'] = $this->categories;
@@ -38,4 +21,74 @@ class Statics extends CI_Controller {
         $view['categories'] = $this->categories;
         $this->load->view('web/statics_help',$view);   
     }
+    public function conditions(){
+        $view['memberLogin'] = $this->memberLogin;
+        $view['categories'] = $this->categories;
+        $this->load->view('web/statics_conditions',$view);   
+    }
+    public function privacy(){
+        $view['memberLogin'] = $this->memberLogin;
+        $view['categories'] = $this->categories;
+        $this->load->view('web/statics_privacy',$view);   
+    }
+    public function contactus($option=""){
+        $view['memberLogin'] = $this->memberLogin;
+        $view['categories'] = $this->categories;
+
+        if($option=='submit'){
+            $error = $this->sendmail();
+            if(is_array($error)){
+                $view['error'] = $error;
+                $view['data'] = $this->input->post();
+            }else{
+                redirect(base_url('/contactus/success'));
+            }
+        }elseif($option=="success"){
+            $view['success'] = true;
+        }
+        $this->load->view('web/statics_contactus',$view);   
+    }
+
+    private function sendmail(){
+        $data = $this->input->post();
+        $error = array();
+        if(!isset($data['topic'])||empty($data['topic'])){
+            $error['topic'] = "คุณไม่ได้เลือกหัวข้อการติดต่อ";
+        }
+        if(!isset($data['name'])||empty($data['name'])){
+            $error['name'] = "คุณไม่ได้ชื่อ";   
+        }
+        if(!isset($data['email'])||empty($data['email'])){
+            $error['email'] = "คุณไม่ได้ระบุอีเมล์";
+        }
+        if(!isset($data['telephone'])||empty($data['telephone'])){
+            $error['telephone'] = "คุณไม่ได้เบอร์โทรศัพท์";
+        }
+        if(!isset($data['feedback'])||empty($data['feedback'])){
+            $error['feedback'] = "คุณไม่ได้ระบุรายละเอียด";
+        }
+        if(count($error)){
+            return $error;
+        }else{
+            // Additional headers
+            $headers  = 'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+            $headers .= 'To: Webmaster DooneeTV <webmaster@doonee.tv>' . "\r\n";
+            $headers .= 'From: '.$data['name'].' <'.$data['email'].'>' . "\r\n";
+            $message = "ถึง Webmaster \r\n\r\n
+                        เรื่อง ".$data['topic']." \r\n\r\n
+                        ".$data['feedback']."\r\n\r\n\r\n
+
+                        จาก: ".$data['name']."\r\n
+                        อีเมล์: ".$data['email']."\r\n
+                        โทรศัพย์: ".$data['telephone']."\r\n    
+                        ";
+            mail($this->config->item('email_contact'),$data['topic'],nl2br($message),$headers);
+
+            return true;
+        }
+
+    }
+
+
 }

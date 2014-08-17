@@ -365,5 +365,7 @@ $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
 
+$config['email_contact'] = 'webmaster@doonee.tv';
+
 /* End of file config.php */
 /* Location: ./application/config/config.php */
