@@ -1,7 +1,7 @@
 <?php if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class Statics extends CI_Controller {
     var $categories;
     var $memberLogin;
 	public function __construct(){
@@ -13,6 +13,7 @@ class Home extends CI_Controller {
     }
 
     public function index(){
+        /*
         $this->load->model('member_model','mMember');
         $this->load->model('banner_model','mBanner');
         $this->load->model('movie_model','mMovie');
@@ -24,7 +25,12 @@ class Home extends CI_Controller {
         $view['moviesHot'] = $view['moviesHot']['items'];
         $view['movies'] = $this->mMovie->getMoviesHot(1,20);
         $this->load->view('web/home',$view);
+        */
+    }
 
-
+    public function aboutus(){
+        $view['memberLogin'] = $this->memberLogin;
+        $view['categories'] = $this->categories;
+        $this->load->view('web/statics_aboutus',$view);
     }
 }
