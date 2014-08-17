@@ -1,9 +1,14 @@
 #RewriteBase /doonee.tv/
 RewriteEngine on
 
+
+RewriteCond %{HTTP_HOST} ^doonee.tv
+RewriteRule (.*) http://www.doonee.tv/$1 [R=301,L]
+
 DirectoryIndex index.html index.php ci2.php
 
 RewriteRule ^assets/files/(.*) /files/$1 [L]
+RewriteRule ^backoffice/(js|css|img)/(.*) /assets/backoffice/$1/$2 [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

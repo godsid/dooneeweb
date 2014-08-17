@@ -15,6 +15,11 @@
  */
 abstract class REST_Controller extends CI_Controller
 {
+
+    protected $page          = 1;
+
+    protected $limit          = 10;
+
     /**
      * This defines the rest format.
      *
@@ -195,6 +200,13 @@ abstract class REST_Controller extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+
+        if($this->input->get('page')){
+            $this->page = $this->input->get('page');
+        }
+        if($this->input->get('limit')){
+            $this->limit = $this->input->get('limit');
+        }
 
         // Start the timer for how long the request takes
         $this->_start_rtime = microtime(true);

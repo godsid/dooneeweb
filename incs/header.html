@@ -2,14 +2,14 @@
 <div class="container">
 	<div class="bar-login">
     	<div class="bx-login _sf-col-sm-push-2-xs-10">
-        	<p class="btn"><a href="#" title="เข้าสู่ระบบ">เข้าสู่ระบบ</a> | <a href="#" title="สมัครสมาชิก">สมัครสมาชิก</a> <a class="icon-facebook-sign" href="#" title="Facebook login">Facebook login</a></p>
+        	<p class="btn"><a class="lb-popup" href="javascript:;" rel="#popup-login" title="เข้าสู่ระบบ">เข้าสู่ระบบ</a> | <a href="register.php" title="สมัครสมาชิก">สมัครสมาชิก</a> <a title="เข้าสู่ระบบผ่าน Facebook " href="javascript:getloginFB();" id="fb-signin" class="fb-signin"><i class="icon-facebook"></i> Login <span>with</span> Facebook</a><!--<a class="icon-facebook-sign" href="#" title="Facebook login">Facebook login</a>--></p>
             <form action="javascript:;" method="post">
             <fieldset>
                 <legend class="hid">เข้าสู่ระบบ</legend>
                 <p>
-                	<label for="uname" class="hid">Username</label><input type="text" onblur="$(this).parent().removeClass('active')" placeholder="Username" name="uname" id="uname" class="_sf-col-xs-12-sm-4 txt-box">
-                	<label for="pword" class="hid">Password</label><input type="password" onblur="$(this).parent().removeClass('active')" placeholder="Password" name="pword" id="pword" class="_sf-col-xs-12-sm-4 txt-box">
-                 	<button type="submit" value="Login" class="ui-btn btn-login" id="signin" onclick="$('#show-login').toggleClass('hid'); $('#btn-login').toggleClass('hid');">Login</button>  
+                	<label for="uname" class="hid">Username</label><input type="text" onblur="$(this).parent().removeClass('active')" placeholder="อีเมล" name="uname" id="uname" class="_sf-col-xs-12-sm-4 txt-box">
+                	<label for="pword" class="hid">Password</label><input type="password" onblur="$(this).parent().removeClass('active')" placeholder="รหัสผ่านของคุณ" name="pword" id="pword" class="_sf-col-xs-12-sm-4 txt-box">
+                 	<button type="submit" value="เข้าสู่ระบบ" class="ui-btn btn-login" id="signin" onclick="$('#show-login').toggleClass('hid'); $('#btn-login').toggleClass('hid');">เข้าสู่ระบบ</button>  
                  </p>
                 <p class="_sf-col-sm-push-4 ml2"><input type="checkbox" name="auto-log" id="auto-log" /> <label for="auto-log">เข้าสู่ระบบอัตโนมัติ</label> <a title="Sign up now" href="#">ลืมรหัสผ่าน</a></p>
             </fieldset>
@@ -24,50 +24,134 @@
     <div class="tools _cd-col-xs-4">
     	<div class="zone-login _sf-col-xs-1">
         	<a href="javascript:;" title="Login" onclick="$(body).toggleClass('expand-login'); $('.bar-login').slideToggle(200);">
-            <div id="btn-login"><i class="icon-long-arrow-up"></i> LOGIN</div>
+            <div id="btn-login"><i class="icon-user"></i> เข้าสู่ระบบ</div>
             <div id="show-login" class="hid">User name <span>ดูหนังได้อีก <em>15 <small>วัน</small></em></span></div>
             </a>
         </div>
         <ul id="sl-cat" class="select-cat">
         	<li>
             	<a href="javascript:;" title="เลือกประเภทหนัง">เลือกประเภทหนัง <i class="icon-chevron-down"></i></a>
-                <ul class="sub-cat js-v-scroll _sf-col-xs-12">
-                    <li><a class="selected" href="#" title="Inter Series">Inter Series <span>540</span></a></li>
-                    <li><a href="#" title="Asian Series">Asian Series <span>1250</span></a></li>
-                    <li><a href="#" title="Asian Movies">Asian Movies <span>360</span></a></li>
-                    <li><a href="#" title="Hollywood Cinema">Hollywood Cinema <span>236</span></a></li>
-                    <li><a href="#" title="Hollywood Series">Hollywood Series <span>540</span></a></li>
-                    <li><a href="#" title="Hollywood independent">Hollywood independent <span>360</span></a></li>
-                    <li><a href="#" title="Latin Series">Latin Series <span>1250</span></a></li>
-                    <li><a href="#" title="Documentaries">Documentaries <span>360</span></a></li>
-                    <li><a href="#" title="Kids Program">Kids Program <span>236</span></a></li>
-                    <li><a href="#" title="Talkshow Program">Talkshow Program <span>1250</span></a></li>
-                    <li><a href="#" title="Variety Program">Variety Program <span>236</span></a></li>
-                    <li><a href="#" title="Crime scene Program">Crime scene Program <span>540</span></a></li>
-                    <li><a href="#" title="Sports Program">Sports Program <span>360</span></a></li>
-                    <li><a href="#" title="Paranormal Program">Paranormal Program <span>236</span></a></li>
-                    <li><a href="#" title="Travel &amp; Adventure Program">Travel &amp; Adventure Program <span>1250</span></a></li>
-                    <li><a href="#" title="Factual Program">Factual Program <span>360</span></a></li>
-                    <li><a href="#" title="Sci – Tech Program">Sci – Tech Program <span>540</span></a></li>
+                <ul id="scroll-cat" class="sub-cat _sf-col-xs-12">
+                    <li><a class="selected" href="#" title="หนังฮอลลีวู้ด"><strong>หนังฮอลลีวู้ด</strong></a></li>
+                    <li><a href="#" title="หนังแอ็คชั่น">- หนังแอ็คชั่น <span>1250</span></a></li>
+                    <li><a href="#" title="หนังซุปเปอร์ฮีโร่">- หนังซุปเปอร์ฮีโร่ <span>360</span></a></li>
+                    <li><a href="#" title="หนังตลก">- หนังตลก <span>236</span></a></li>
+                    <li><a href="#" title="หนังสยองขวัญ">- หนังสยองขวัญ <span>540</span></a></li>
+                    <li><a href="#" title="หนังดราม่า">- หนังดราม่า <span>360</span></a></li>
+                    <li><a href="#" title="หนังโรแมนติก">- หนังโรแมนติก <span>1250</span></a></li>
+                    <li><a href="#" title="หนังการ์ตูน">- หนังการ์ตูน <span>360</span></a></li>
+                    <li><a class="btn-chk-age lb-popup" href="javascript:;" rel="#popup-age" title="หนังอิโรติก 18+">- หนังอิโรติก 18+ <span>236</span></a></li>
+                    <li><a href="#" title="หนังเอเชีย"><strong>หนังเอเชีย</strong> <span>1250</span></a></li>
+                    <li><a href="#" title="หนังญี่ปุ่น">- หนังญี่ปุ่น <span>236</span></a></li>
+                    <li><a href="#" title="หนังเกาหลี">- หนังเกาหลี <span>540</span></a></li>
+                    <li><a href="#" title="หนังจีน">- หนังจีน <span>360</span></a></li>
+                    <li><a href="#" title="ซีรีย์ฮอลลีวู้ด"><strong>ซีรีย์ฮอลลีวู้ด</strong> <span>236</span></a></li>
+                    <li><a href="#" title="ซีรีย์การ์ตูน เสริมสร้างทักษะเด็ก"><strong>ซีรีย์การ์ตูน เสริมสร้างทักษะเด็ก</strong> <span>1250</span></a></li>
                 </ul>
             </li>
         </ul>
         <div id="searcharea">
             <form action="#" method="get" id="searchForm">
-                <input type="text" class="txt-box _sf-col-xs-12" placeholder="Search the content" id="terms" name="search">
+                <input type="text" class="txt-box _sf-col-xs-12" placeholder="ค้นหา หนัง/ซีรี่ย์" id="searchbox" name="searchbox">
                 <button class="btn-srh icon-search" id="btn-search" type="submit"></button>
-            </form>							
+                <ul id="results" class="js-v-scroll"><li class="hid">results</li></ul>
+            </form>
+            <!-- data search -->
+            <ul id="data-articles" class="hid">
+            <? for($i=1;$i<=20;$i++){
+				  $img_url = "img/thumb/movies-10.jpg";
+				  $name = "Content Name";
+				  $type = "HD";
+				  switch($i%10)
+				  {
+					  case "0": 
+								  $img_url = "img/thumb/movies-01.jpg";
+								  $name = "Immortal Masterpiece";
+								  $type = "FREE";
+						  break;
+					  case "1": 
+								  $img_url = "img/thumb/movies-02.jpg";
+								  $name = "Prosecutor Princess";
+								  $type = "FULL HD";
+						  break;
+					  case "2": 
+								  $img_url = "img/thumb/movies-03.jpg";
+								  $name = "The Day After Tomorrow";
+								  $type = "HD";
+						  break;
+					  case "3": 
+								  $img_url = "img/thumb/movies-04.jpg";
+								  $name = "Roof top Prince";
+								  $type = "HD";
+						  break;
+					  case "4": 
+								  $img_url = "img/thumb/movies-05.jpg";
+								  $name = "THE Full House";
+								  $type = "FULL HD";
+						  break;  
+					  case "5": 
+								  $img_url = "img/thumb/movies-06.jpg";
+								  $name = "Full House 3";
+								  $type = "FREE";
+						  break;  
+					  case "6": 
+								  $img_url = "img/thumb/movies-07.jpg";
+								  $name = "Prosecutor Princess 5";
+								  $type = "HD";
+						  break;
+					  case "7": 
+								  $img_url = "img/thumb/movies-08.jpg";
+								  $name = "The Day After Tomorrow 2";
+								  $type = "FULL HD";
+						  break;
+					  case "8": 
+								  $img_url = "img/thumb/movies-09.jpg";
+								  $name = "Roof top Prince 2";
+								  $type = "HD";
+						  break;
+					  case "9": 
+								  $img_url = "img/thumb/movies-10.jpg";
+								  $name = "Full House 1-4";
+								  $type = "HD";
+						  break;           
+				  } ?>
+            	<li class="articlelink"><a href="player.php"><img alt="Immortal Masterpiece" src="<? echo $img_url; ?>"><strong><? echo $name; ?></strong></a></li>
+                <? } ?>
+            </ul>
+            <script>
+			$(function() {
+				$("#searchbox").on("keyup", function() {
+			
+					var search = $(this).val().toLowerCase();
+					$("#results").empty().show();
+			
+					if (search.trim().length) {
+						var hits = $("#data-articles .articlelink").filter(function() {
+							return $(this).text().toLowerCase().indexOf(search) !== -1;
+						}).slice(0,3); //return three items max
+						
+						if (hits.length) {
+							$("#results").append(hits.clone());
+						} else {
+							$("#results").append("<li>No results!</li>");
+						}
+					}
+				});
+			});
+			</script>	
+            <!-- /data search -->						
         </div>
     </div>
     
     <nav id="navigation" class="top-nav">
         <ul id="nav-drop">
-              <li><a href="index.php">หน้าแรก</a></li>
-              <li><a href="movie.php">ดูหนัง</a></li>
-              <li><a href="promotion.php">โปรโมชั่น</a></li>
-              <li><a href="wallet.php">เติมเงิน</a></li>
-              <li><a href="help.php">วิธีการดูหนัง</a></li>    
-              <li><a href="contactus.php">เกี่ยวกับเรา</a></li>                                                                
+              <li><a href="index.php" title="หน้าแรก">หน้าแรก</a></li>
+              <li><a href="movie.php" title="ดูหนัง">ดูหนัง</a></li>
+              <li><a href="series.php" title="ดูซีรี่ย์">ดูซีรี่ย์</a></li>
+              <li><a href="promotion.php" title="ข่าว/โปรโมชั่น">ข่าว/โปรโมชั่น</a></li>
+              <li><a href="package.php" title="เติมเงิน">เติมเงิน</a></li>
+              <li><a href="help.php" title="วิธีการดูหนัง">วิธีการดูหนัง</a></li>    
+              <li><a href="aboutus.php" title="เกี่ยวกับเรา">เกี่ยวกับเรา</a></li>                                                                
           </ul>
                     
           <span class="btn-nv-m">

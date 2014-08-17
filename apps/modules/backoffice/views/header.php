@@ -1,4 +1,4 @@
-<!<?=backoffice_url('/docs/DOCTYPE')?>>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<!--
@@ -95,9 +95,9 @@
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="#">Profile</a></li>
+						<li><a href="<?=backoffice_url('/member/edit/me')?>">Profile</a></li>
 						<li class="divider"></li>
-						<li><a href="<?=backoffice_url('/docs/login')?>">Logout</a></li>
+						<li><a href="<?=backoffice_url('/user/logout')?>">Logout</a></li>
 					</ul>
 				</div>
 				<!-- user dropdown ends -->

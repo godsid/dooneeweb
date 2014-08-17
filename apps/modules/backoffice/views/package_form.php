@@ -44,6 +44,7 @@
 										}
 										?>
 										<input class="input-xlarge" name="banner" type="file" value="">
+										<p class="help-block">ขนาด 1148 x 374</p>
 									</div>
 								</div>
 								<div class="control-group">
@@ -56,6 +57,17 @@
 									<label class="control-label">จำนวนวัน</label>
 									<div class="controls">
 										<input class="input-xlarge" type="text" name="dayleft" value="<?=(isset($package['dayleft'])?$package['dayleft']:'')?>"> วัน
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">หมวดหมู่</label>
+									<div class="controls">
+										<input type="hidden" name="category_tmp" value="<?=implode(',',$package['category'])?>" />
+										<select name="category[]" multiple="multiple" class="span6">
+											<?php foreach ($categories as $categorie) {?>
+											<option value="<?=$categorie['category_id']?>" <?=(isset($package['category'])&&in_array($categorie['category_id'], $package['category'])?'selected':'')?>><?=$categorie['parent_id']>0?" - ":""?><?=$categorie['title']?></option>
+											<?php }?>
+										</select>
 									</div>
 								</div>
 								<div class="control-group">

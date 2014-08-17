@@ -9,6 +9,12 @@
 						<h2><i class="icon-user"></i> Members</h2>
 					</div>
 					<div class="box-content">
+						<div>
+							<form method="GET" id="searchForm" action="<?=backoffice_url('/member/search')?>">
+								<input type="submit" value="Search" style="display:none;" />
+								<input type="text" name="q" value="<?=(isset($q)?$q:"")?>" > <a href="javascript:$('#searchForm').submit();" class="btn"><i class="glyphicon icon-search"></i> Search</a>
+							</form>
+						</div>		
 						<table class="table table-striped table-bordered bootstrap-datatable datatable">
 						  <thead>
 							  <tr>
@@ -24,7 +30,7 @@
 							<tr>
 								<td><?=$member['email']?></td>
 								<td class="center"><?=$member['create_date']?></td>
-								<td class="center"></td>
+								<td class="center"><?=$member['permission']?></td>
 								<td class="center">
 									<?php if($member['status']=='ACTIVE'){?>
 									<span class="label label-success">Active</span>
@@ -33,6 +39,10 @@
 									<?php }?>
 								</td>
 								<td class="center">
+									<a class="btn btn-info" href="<?=backoffice_url('/member/edit/'.$member['user_id'])?>">
+										<i class="icon-edit icon-white"></i>  
+										Edit                                            
+									</a><br/><br/>
 									<?php if($member['status']=='ACTIVE'){?>
 									<a class="btn btn-danger" href="<?=backoffice_url('/member/inactive/'.$member['user_id'])?>">
 										<i class="icon-lock icon-white"></i> 

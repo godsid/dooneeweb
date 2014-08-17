@@ -5,17 +5,19 @@ class Member extends CI_Controller {
 	var $breadcrumb;
 	public function __construct(){
 		parent::__construct();
+
+		$this->load->model('user_model','mUser');
+		if(!$this->mUser->auth()){
+			redirect(backoffice_url('/user/login'));
+		}
+
 		$this->page = $this->input->get('page');
 		$this->limit = $this->input->get('page');
 		$this->page = $this->page?$this->page:1;
 		$this->limit = $this->limit?$this->limit:30;
 
 		$this->breadcrumb[] = array('title'=>'Members','url'=>backoffice_url('/member'));
-		$this->load->model('user_model','mUser');
 
-		if(!$this->mUser->auth()){
-			redirect(backoffice_url('/user/login'));
-		}
 	}
 
 	public function index($memberID=""){
@@ -53,16 +55,33 @@ class Member extends CI_Controller {
 		redirect(backoffice_url('/member'));
 	}
 
+	public function ruleSubmit($memberID){
+		if(is_numeric($memberID)){
+			$this->mUser->updateUser($memberID,array('permission'=>$_POST['permission']));
+		}
+		redirect(backoffice_url('/member/edit/'.$memberID));
+	}
 
 	public function edit($memberID=""){
-		$this->breadcrumb[] = array('title'=>'MemberName','url'=>backoffice_url('/member/profile/'.$memberID));
+		if($memberID=='me'){
+			$memberID = $this->session->userdata('user_id');
+		}
 		$this->breadcrumb[] = array('title'=>'Edit','url'=>backoffice_url('/member/edit/'.$memberID));
 		$data['breadcrumb'] = $this->breadcrumb;
-		//$this->load->view('member_edit',$data);
+		$data['member'] = $data['members'] = $this->mUser->getUser($memberID);
+		$this->load->view('member_detail',$data);
 	}
 	public function search(){
-		$this->breadcrumb[] = array('title'=>'Search','url'=>backoffice_url('/member/search'));
+		
+		$q = $this->input->get('q');
+		$data['members'] = $this->mUser->searchUser($q,$this->page,$this->limit);
+		$data['members']['pageing']['url'] = base_url('/member/search?q='.$q);
+		$data['pageing'] = $this->load->view('pageing',$data['members']['pageing'],true);
+		$data['q'] = $q;
+		$this->breadcrumb[] = array('title'=>'Search','url'=>backoffice_url('/member/search/?q='.$q));
+		$this->breadcrumb[] = array('title'=>$q);
 		$data['breadcrumb'] = $this->breadcrumb;
+
 		$this->load->view('member',$data);
 	}
 

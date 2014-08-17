@@ -5,14 +5,48 @@ class Movie extends REST_Controller {
 
 	public function __construct(){
 		parent::__construct();
-		$this->load->model('movie_model','mMovie');
+		$this->load->model('api/movie_model','mMovie');
 	}
 
 	public function index_get($movieID=""){
-		
-		$this->mMovie->getMovie($movieID);
-		$this->response(array(), 200);
+		if(is_numeric($movieID)){
+			$this->movie($movieID);
+		}else{
+			$this->movies();
+		}
 	}
+
+	public function movie($movieID){
+		$data = $this->mMovie->getMovie($movieID);
+		$this->mMovie->rewiteData($data);
+		$this->response($data);
+	} 
+	public function movies(){
+		$data = $this->mMovie->getMovies($this->page,$this->limit);
+		$this->mMovie->rewiteData($data['items']);
+		$this->response($data);
+	}
+	public function hot_get(){
+		$data = $this->mMovie->getHotMovies($this->page,$this->limit);
+		$this->mMovie->rewiteData($data['items']);
+		$this->response($data);
+	}
+
+	public function search_get(){
+		$q = $this->input->get('q');
+		$data = $this->mMovie->getSearchMovie($q,$this->page,$this->limit);
+		$this->mMovie->rewiteData($data['items']);
+		$this->response($data);
+	}
+
+	public function suggestion_get(){
+		$q = $this->input->get('q');
+		$data = $this->mMovie->getSuggestion($q,$this->page,$this->limit);
+		$this->mMovie->rewiteData($data['items']);
+		$this->response($data);
+	}
+
+	
 }
 
 /* End of file movie.php */

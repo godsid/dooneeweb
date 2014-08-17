@@ -2,17 +2,25 @@
 
 //require_once(BASEPATH.'libraries/REST_Controller.php');
 class Home extends REST_Controller {
-
+	public function __construct(){
+		parent::__construct();
+	}
 	public function index_get()
 	{
-		$this->response(array("rrrr"=>"wwwww"), 200);
-		//$this->load->view('welcome_message');
+		$this->load->model('api/movie_model','mMovie');
+		$this->load->model('api/banner_model','mBanner');
+		$data = array();
+		$data['banner']['items'] = $this->mBanner->getBanners(1,5);
+		$this->mBanner->rewiteData($data['banner']['items']);
+		$data['movieHot'] = $this->mMovie->getHotMovies(1,20);
+		unset($data['movieHot']['pageing']);
+		$this->mMovie->rewiteData($data['movieHot']['items']);
+		$data['movies'] = $this->mMovie->getMovies($this->page,$this->limit);
+		$this->mMovie->rewiteData($data['movies']['items']);
+		
+		$this->response($data);
 	}
-
-	public function test_get(){
-		//$this->response(array("rrrr"=>"wwwww"), 200);
-		phpinfo();
-	}
+	
 }
 
 /* End of file home.php */

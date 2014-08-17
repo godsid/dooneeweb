@@ -15,6 +15,7 @@
 |
 */
 $config['base_url']	= 'http://'.$_SERVER['HTTP_HOST'];
+$config['home_url']	= $config['base_url'].'/home';
 $config['static_url']	= 'http://'.$_SERVER['HTTP_HOST'].'/assets';
 $config['backoffice_url']	= 'http://'.$_SERVER['HTTP_HOST'].'/backoffice';
 
@@ -272,7 +273,7 @@ $config['sess_time_to_update']	= 300;
 |
 */
 $config['cookie_prefix']	= "";
-$config['cookie_domain']	= "";
+$config['cookie_domain']	= '.'.$_SERVER['HTTP_HOST'];
 $config['cookie_path']		= "/";
 $config['cookie_secure']	= FALSE;
 

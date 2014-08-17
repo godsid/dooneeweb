@@ -1,11 +1,9 @@
-
-
-
 <script src="http://jwpsrv.com/library/Oc_FXgzlEeSUiyIACtqXBA.js"></script>
 <div id='playerfiQrAeklYZgB'></div>
 <script type='text/javascript'>
     jwplayer('playerfiQrAeklYZgB').setup({
-        sources:[{
+        sources:[
+        {
             file: 'rtmp://122.155.197.142:1935/vod/_definst_/movies/hawaii-five-o-s4-ep1_480.mp4?wowzacaptionfile=movies/hawaii-five-o-s4-ep1_480.srt'
         },
         {
@@ -20,7 +18,9 @@
         aspectratio: '16:9',
         autostart: 'true'
     });
+
 </script>
+
 <!--
 wowzacaptionfile=movies/hawaii-five-o-s4-ep1_480.ttml&wowzacaptionlanguages=tha
 

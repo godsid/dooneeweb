@@ -7,6 +7,10 @@ class Package extends CI_Controller {
 	var $limit;
 	public function __construct(){
 		parent::__construct();
+		$this->load->model('user_model','mUser');
+		if(!$this->mUser->auth()){
+			redirect(backoffice_url('/user/login'));
+		}
 
 		$this->page = $this->input->get('page');
 		$this->limit = $this->input->get('limit');
@@ -15,6 +19,7 @@ class Package extends CI_Controller {
 
 		$this->breadcrumb[] = array('title'=>'Packages','url'=>backoffice_url('/package'));
 		$this->load->model('package_model','mPackage');
+
 	}
 
 	public function index($packageID=""){
@@ -31,7 +36,7 @@ class Package extends CI_Controller {
 		
 	}
 	public function detail($packageID=""){
-		$data['package'] = $this->mPackage->getPackage($packageID);
+		$data['package'] = $this->mPackage->getPackage($packageID);		
 		$this->breadcrumb[] = array('title'=>$data['package']['title'],'url'=>'');
 		$data['breadcrumb'] = $this->breadcrumb;
 		$this->load->view('package_detail',$data);
@@ -42,7 +47,17 @@ class Package extends CI_Controller {
 		$this->load->view('package_form',$data);
 	}
 	public function edit($packageID=""){
+		$this->load->model('category_model','mCategory');
+		$data['categories'] = $this->mCategory->getCategories();
+		$data['categories'] = $data['categories']['items'];
+
 		$data['package'] = $this->mPackage->getPackage($packageID);
+		$cateArray = $this->mPackage->getPackageCategory($packageID);
+		$data['package']['category'] = array();
+		foreach($cateArray as $cateID){
+			$data['package']['category'][] = $cateID['category_id'];
+		}
+
 		$this->breadcrumb[] = array('title'=>$data['package']['title'],'url'=>backoffice_url('/package/'.$packageID));
 		$this->breadcrumb[] = array('title'=>'Edit','url'=>'');
 		$data['breadcrumb'] = $this->breadcrumb;
@@ -94,6 +109,20 @@ class Package extends CI_Controller {
 			}else{
 				$packageID = $this->mPackage->setPackage($data['package']);
 			}
+
+			$category_tmp = explode(',',$this->input->post('category_tmp'));
+			$category = $this->input->post('category');
+			
+			$deleteCategory = array_diff($category_tmp,$category);
+			$addCategory = array_diff($category,$category_tmp);
+
+			if(is_array($addCategory)&&count($addCategory)){
+				$this->mPackage->setPackageCategory($packageID,$addCategory);
+			}
+			if(is_array($deleteCategory)&&count($deleteCategory)){
+				$this->mPackage->deletePackageCategory($packageID,$deleteCategory);
+			}
+
 			redirect(backoffice_url('/package'));	
 		}
 	}

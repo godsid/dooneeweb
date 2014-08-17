@@ -18,7 +18,7 @@
 								<div class="control-group<?=isset($movie['title_error'])?' error':''?>">
 									<label class="control-label">ชื่อเรื่อง (ภาษาไทย) *</label>
 									<div class="controls">
-										<input class="input-xlarge" type="text" name="title" value="<?=(isset($movie['title'])?$movie['title']:'')?>">
+										<input class="input-xlarge span6" type="text" name="title" value="<?=(isset($movie['title'])?$movie['title']:'')?>">
 										<?php
 										if(isset($movie['title_error'])){
 											echo '<span class="help-inline">',$movie['title_error'],'</span>';
@@ -29,7 +29,7 @@
 								<div class="control-group<?=isset($movie['title_en_error'])?' error':''?>">
 									<label class="control-label">ชื่อเรื่อง (ภาษาอังกฤษ) *</label>
 									<div class="controls">
-										<input class="input-xlarge" type="text" name="title_en" value="<?=(isset($movie['title_en'])?$movie['title_en']:'')?>">
+										<input class="input-xlarge span6" type="text" name="title_en" value="<?=(isset($movie['title_en'])?$movie['title_en']:'')?>">
 										<?php
 										if(isset($movie['title_en_error'])){
 											echo '<span class="help-inline">',$movie['title_en_error'],'</span>';
@@ -48,8 +48,21 @@
 										}
 										?>
 										<input class="input-xlarge" name="cover" type="file" value="">
+										<p class="help-block">ขนาด 258 x 386</p>
 									</div>
 								</div>
+								<div class="control-group">
+									<label class="control-label">หมวดหมู่</label>
+									<div class="controls">
+										<input type="hidden" name="category_tmp" value="<?=implode(',',$movie['category'])?>" />
+										<select class="span6" name="category[]" multiple="multiple">
+											<?php foreach ($categories as $categorie) {?>
+											<option value="<?=$categorie['category_id']?>" <?=(isset($movie['category'])&&in_array($categorie['category_id'], $movie['category'])?'selected':'')?>><?=$categorie['parent_id']>0?" - ":""?><?=$categorie['title']?></option>
+											<?php }?>
+										</select>
+									</div>
+								</div>
+
 								<div class="control-group">
 									<label class="control-label"></label>
 									<div class="controls">
@@ -62,23 +75,35 @@
 									    <label class="checkbox inline">
 											<input type="checkbox" value="YES" name="is_hot" <?=(isset($movie['is_hot'])&&$movie['is_hot']=='YES'?'checked':'')?>> Hot
 									    </label>
-									    <label class="checkbox inline">
+									    <!--<label class="checkbox inline">
 											<input type="checkbox" value="YES" name="is_3d" <?=(isset($movie['is_3d'])&&$movie['is_3d']=='YES'?'checked':'')?>> 3D
+									    </label>-->
+									    <label class="checkbox inline">
+											<input type="checkbox" value="YES" name="is_series" <?=(isset($movie['is_series'])&&$movie['is_series']=='YES'?'checked':'')?>> Series
 									    </label>
 									</div>
 								</div>
+								<?php if(isset($movie['is_series'])&&$movie['is_series']=='YES'){?>
+								<div class="control-group">
+									<label class="control-label"></label>
+									<div class="controls">
+									</div>
+								</div>
+								<?php }?>
+								<!--
 								<div class="control-group">
 									<label class="control-label">ตัวอย่าง</label>
 									<div class="controls">
 										<input class="input-xlarge" type="text" name="trailer" value="<?=(isset($movie['trailer'])?$movie['trailer']:'')?>">
 									</div>
 								</div>
-								<div class="control-group">
+								-->
+								<!--<div class="control-group">
 									<label class="control-label">เรื่องย่อ</label>
 									<div class="controls">
-										<textarea class="input-xlarge span11" name="description" rows="5"><?=(isset($movie['description'])?nl2br($movie['description']):'')?></textarea>
+										<textarea class="input-xlarge span11" name="description" rows="5"><?=(isset($movie['description'])?$movie['description']:'')?></textarea> url: youtube
 									</div>
-								</div>
+								</div>-->
 								<div class="control-group">
 									<label class="control-label">Rating หนัง</label>
 									<div class="controls">
@@ -106,21 +131,23 @@
 								<div class="control-group">
 									<label class="control-label">นักแสดง</label>
 									<div class="controls">
-										<input class="input-xlarge" type="text" name="cast" value="<?=(isset($movie['cast'])?$movie['cast']:'')?>">
+										<input class="input-xlarge span6" type="text" name="cast" value="<?=(isset($movie['cast'])?$movie['cast']:'')?>">
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">ผู้กำกับ</label>
 									<div class="controls">
-										<input class="input-xlarge" type="text" name="director" value="<?=(isset($movie['director'])?$movie['director']:'')?>">
+										<input class="input-xlarge span6" type="text" name="director" value="<?=(isset($movie['director'])?$movie['director']:'')?>">
 									</div>
 								</div>
+								<!--
 								<div class="control-group">
 									<label class="control-label">ประเภทหนัง</label>
 									<div class="controls">
 										<input class="input-xlarge" type="text" name="genre" value="<?=(isset($movie['genre'])?$movie['genre']:'')?>">
 									</div>
 								</div>
+								-->
 								<div class="control-group">
 									<label class="control-label">เสียง</label>
 									<div class="controls">

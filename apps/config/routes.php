@@ -41,10 +41,17 @@
 $route['default_controller'] = "home";
 $route['404_override'] = '';
 #$route['docs/(:any)'] = 'docs/index/$1';
+
+$route['movie/(:num)'] = 'movie/index/$1';
+$route['(login|logout|register)'] = 'member/$1';
+$route['(aboutus|help|conditions|privacy)'] = 'statics/$1';
+
 $route['api/(:any)/(:num)'] = 'api/$1/index/$2';
+
 $route['backoffice'] = 'backoffice/dashboard';
 $route['backoffice/([a-z]+)/(:num)'] = 'backoffice/$1/index/$2';
 $route['backoffice/docs/([a-z]+)'] = 'backoffice/home/example/$1/';
+
 
 
 
