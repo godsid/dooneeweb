@@ -10,7 +10,7 @@
    <div class="container label-sort">
       <h2>เลือกจากตัวอักษร</h2>
       <?php 
-      $a=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+      $a = explode(',',"A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z");
       ?>
         <ul>
         <li><a <?=(isset($letter)?"":"class=\"selected\"")?> href="<?=base_url('/movie')?>" title="All">All</a></li>
