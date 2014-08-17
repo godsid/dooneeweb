@@ -102,7 +102,7 @@
   <p class="Head"><i class="icm-group"></i> ระบบสมาชิก</p>
   <div class="_cd-col-xs-12-sm-6">
     <div class="z-login form-control">
-      <form action="<?=base_url('/member/register_submit')?>" method="post" id="login-webcam">
+      <form action="<?=base_url('/member/login')?>" method="post" id="login-webcam">
         <fieldset>
           <legend class="hd"><i class="gly-log-in"></i> เข้าสู่ระบบ</legend>
           <ul class="section-regis">

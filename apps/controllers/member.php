@@ -3,17 +3,21 @@
 
 class Member extends CI_Controller {
     var $memberLogin;
+    var $categories;
 
 	public function __construct(){
         parent::__construct();
         $this->load->model('member_model','mMember');
         $this->memberLogin = $this->mMember->getMemberLogin();
+        $this->load->model('category_model','mCategory');
+        $this->categories = $this->mCategory->getCategoriesMenu();
     }
     public function register(){
         if($this->memberLogin){
             redirect(home_url());
         }
         $view['memberLogin'] = $this->memberLogin;
+        $view['categories'] = $this->categories;
         $view['member'] = array();
 
         $this->load->view('web/member_register',$view);
@@ -84,8 +88,23 @@ class Member extends CI_Controller {
         }
         $this->auth();
     }
+    public function forgotpassword($option=""){
+        if($this->memberLogin){
+            redirect(home_url());
+        }
+        $view['memberLogin'] = $this->memberLogin;
+        $view['categories'] = $this->categories;
+        $view['member'] = array();
 
+        if($option=='submit'){
+            
+        }
+
+        $this->load->view('web/member_forgotpassword',$view);
+    }
     public function auth(){
+        $view['memberLogin'] = $this->memberLogin;
+        $view['categories'] = $this->categories;
         $email = $this->input->post('email');
         $password = $this->input->post('password');
         $autologin = $this->input->post('remember');
@@ -99,10 +118,10 @@ class Member extends CI_Controller {
                 }
                 redirect(home_url());
             }else{
-                $this->load->view('web/member_login'); 
+                $this->load->view('web/member_login',$view); 
             }
         }else{
-            $this->load->view('web/member_login');
+            $this->load->view('web/member_login',$view);
         }
     }
 

@@ -24,7 +24,8 @@
         
         <div class="tools _cd-col-xs-4">
           <div class="zone-login _sf-col-xs-1">
-            <?php if(isset($memberLogin)&&$memberLogin){ ?>
+            <?php 
+            if(isset($memberLogin)&&$memberLogin){ ?>
 
               <a href="javascript:;" title="<?=$memberLogin['firstname']?> <?=$memberLogin['lastname']?>">
                 <div id="show-login"><?=$memberLogin['firstname']?> <span>ดูหนังได้อีก <em><?=$memberLogin['dayLeft']?> <small>วัน</small></em></span></div>

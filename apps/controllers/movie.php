@@ -30,9 +30,15 @@ class movie extends CI_Controller {
         */
     }
     private function detail($movieId){
-        $view['memberLogin'] = $this->mMember->getMemberLogin();
+        if(!$view['movie'] = $this->mMovie->getMovie($movieId)){
+            redirect(home_url('/'));
+        }
+
+        if($view['memberLogin'] = $this->mMember->getMemberLogin()){
+            $view['memberLogin']['canwatch'] = ($this->mMovie->canWatch($view['memberLogin']['user_id'],$movieId)||$view['movie']['is_free']=='YES') ;
+        }
         $view['categories'] = $this->categories;
-        $view['movie'] = $this->mMovie->getMovie($movieId);
+        
         $view['relates'] = $this->mMovie->getMovieRelate($movieId,5);
         $this->load->view('web/movie_detail',$view);
     }
@@ -44,10 +50,17 @@ class movie extends CI_Controller {
         $this->load->view('web/movie',$view);
     }
     public function cate($category_id){
+
         $view['memberLogin'] = $this->mMember->getMemberLogin();
         $view['categories'] = $this->categories;
         $view['movies'] = $this->mMovie->getMoviesCategory($category_id,$this->page,$this->limit);
         $this->load->view('web/movie',$view);
+    }
+    public function hot(){
+        $view['memberLogin'] = $this->mMember->getMemberLogin();
+        $view['categories'] = $this->categories;
+        $view['movies'] = $this->mMovie->getMoviesHot($this->page,$this->limit);
+        $this->load->view('web/movie',$view);   
     }
     public function series(){
         $view['memberLogin'] = $this->mMember->getMemberLogin();

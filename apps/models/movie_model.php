@@ -25,7 +25,8 @@ class Movie_model extends ADODB_model {
 	public function getMoviesHot($page=1,$limit=30){
 		$sql ="SELECT * 
 				FROM ".$this->table('movie')." 
-				WHERE status = 'ACTIVE'
+				WHERE is_hot = 'YES' 
+				AND status = 'ACTIVE'
 				ORDER BY movie_id DESC ";
 		return $this->fetchPage($sql,$page,$limit);
 	}
@@ -77,19 +78,23 @@ class Movie_model extends ADODB_model {
 		return $this->fetchPage($sql,$page,$limit);	
 	}
 
-	public function setMovie($data){
-		$this->adodb->debug=true;
-		return $this->adodb->AutoExecute($this->table('movie'),$data,'INSERT');
+	public function canWatch($member_id,$movie_id){
+		$sql ="SELECT COUNT(*) AS canwatch 
+				FROM ".$this->table('user_package','up')." 
+				LEFT JOIN ".$this->table('package_category','pc')." ON up.package_id = pc.package_id 
+				LEFT JOIN ".$this->table('movie_category','mc')." ON pc.category_id = mc.category_id 
+				WHERE up.user_id = ".$member_id." 
+				AND up.status = 'ACTIVE'
+				AND mc.movie_id = ".$movie_id." ";
+		$resp = $this->adodb->GetRow($sql);
+		if($resp['canwatch']>0){
+			return true;
+		}else{
+			return false;
+		}
+		
 	}
-
-	public function updateMovie($movie_id,$data){
-		$data['edit_date'] = date('Y-m-d H:i:s');
-		return $this->adodb->AutoExecute($this->table('movie'),$data,'UPDATE',"movie_id='".$movie_id."'");
-	}
-
-	public function delete($movie_id){
-		return $this->adodb->AutoExecute($this->table('movie'),array('status'=>'INACTIVE'),'UPDATE',"movie_id='".$movie_id."'");	
-	}
+	
 }
 
 /* End of file movie_model.php */
