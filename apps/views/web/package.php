@@ -18,7 +18,7 @@
                     <div class="row bar">
                         <div class="pay _sf-col-sm-push-3-xs-12-sm-9">
                             <?php 
-                              $clickLogin = (isset($momberLogin)&&$momberLogin)?'':' class="lb-popup" rel="#popup-login" ';
+                              $clickLogin = (isset($memberLogin)&&$memberLogin)?'':' class="lb-popup" rel="#popup-login" ';
                             ?>
                             <h3>เลือกวิธีการชำระเงิน</h3>
                             <ul class="ic-pay _cd-col-xs-6-sm-4-md-2">
