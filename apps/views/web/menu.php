@@ -92,12 +92,12 @@
         
         <nav id="navigation" class="top-nav">
             <ul id="nav-drop">
-                <li><a href="<?=base_url('/home')?>" title="หน้าแรก">หน้าแรก</a></li>
-          <li><a href="<?=base_url('/movie/series')?>" title="ดูซีรี่ย์">ดูซีรี่ย์</a></li>
-          <li><a href="<?=base_url('/promotion')?>" title="ข่าว/โปรโมชั่น">ข่าว/โปรโมชั่น</a></li>
-          <li><a href="<?=base_url('/package')?>" title="เติมเงิน">เติมเงิน</a></li>
-          <li><a href="<?=base_url('/help')?>" title="วิธีการดูหนัง">วิธีการดูหนัง</a></li>    
-          <li><a href="<?=base_url('/aboutus')?>" title="เกี่ยวกับเรา">เกี่ยวกับเรา</a></li>
+              <li><a href="<?=base_url('/home')?>" title="หน้าแรก">หน้าแรก</a></li>
+              <li><a href="<?=base_url('/movie/series')?>" title="ดูซีรี่ย์">ดูซีรี่ย์</a></li>
+              <li><a href="<?=base_url('/promotion')?>" title="ข่าว/โปรโมชั่น">ข่าว/โปรโมชั่น</a></li>
+              <li><a href="<?=base_url('/package')?>" title="เติมเงิน">เติมเงิน</a></li>
+              <li><a href="<?=base_url('/help')?>" title="วิธีการดูหนัง">วิธีการดูหนัง</a></li>    
+              <li><a href="<?=base_url('/aboutus')?>" title="เกี่ยวกับเรา">เกี่ยวกับเรา</a></li>
             </ul>
               <span class="btn-nv-m">
                   <a class="b-ex" onclick="$(this).toggleClass('active'); $('#header').toggleClass('expand');" href="javascript:;" title="Expand">Expand Nav</a>
@@ -108,4 +108,13 @@
           
     </div>
     </header>
+  <script type="text/javascript">
+   $(document).ready(function(){
+       $("#nav-drop li a").removeClass("selected");
+       $('#nav-drop>li').find('a[href*="<?=$this->uri->segment(1)?>"]').addClass('selected');
+       if(!$('#nav-drop>li>a.selected').length){
+          $("#nav-drop li a:first").addClass("selected");
+       }
+  });
+  </script>
   <!-- /Header -->

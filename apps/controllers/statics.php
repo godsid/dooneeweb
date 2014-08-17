@@ -33,4 +33,9 @@ class Statics extends CI_Controller {
         $view['categories'] = $this->categories;
         $this->load->view('web/statics_aboutus',$view);
     }
+    public function help(){
+        $view['memberLogin'] = $this->memberLogin;
+        $view['categories'] = $this->categories;
+        $this->load->view('web/statics_help',$view);   
+    }
 }

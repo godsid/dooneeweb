@@ -44,7 +44,7 @@ $route['404_override'] = '';
 
 $route['movie/(:num)'] = 'movie/index/$1';
 $route['(login|logout|register)'] = 'member/$1';
-$route['(aboutus)'] = 'statics/$1';
+$route['(aboutus|help)'] = 'statics/$1';
 
 $route['api/(:any)/(:num)'] = 'api/$1/index/$2';
 

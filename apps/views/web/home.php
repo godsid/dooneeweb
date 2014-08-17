@@ -2,13 +2,6 @@
 	include('header.php');	
 ?>
   <body>
-  <script type="text/javascript">
-   $(document).ready(function(){
-       $("#nav-drop li a").removeClass("selected");
-       $('#nav-drop>li:nth-child(1)>a').addClass('selected');
-  });
-  </script>
-
   <?php include('menu.php'); ?>
   <?php include('home_slide.php');?>
   <!-- container -->
