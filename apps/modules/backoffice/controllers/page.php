@@ -18,47 +18,44 @@ class Page extends CI_Controller {
 		$this->page = $this->page?$this->page:1;
 		$this->limit = $this->limit?$this->limit:30;
 
-		$this->breadcrumb[] = array('title'=>'Categorys','url'=>backoffice_url('/category'));
 		$this->load->model('category_model','mCategory');
+		$this->load->model('page_model','mPage');
 		$this->mainCategory = $this->mCategory->getMainCategories();
 	}
 	
-	public function form($pagename){
-		$data['category'] = $this->mCategory->getCategory($categoryID);
-		$this->breadcrumb[] = array('title'=>$data['category']['title'],'url'=>'');
+	public function form($pageName="",$success=''){
+
+		$data['page'] = $this->mPage->getPage($pageName);
+		$this->breadcrumb[] = array('title'=>$data['page']['title'],'url'=>'');
 		$data['breadcrumb'] = $this->breadcrumb;
-		$this->load->view('category_detail',$data);
+		$data['page']['pagename'] = $pageName;
+		if($success=='success'){
+			$data['page']['success'] = "success";
+		}
+		$this->load->view('page_form',$data);
 	}
 	
-	public function form($pageName=""){
-		$data['category'] = $this->mCategory->getCategory($categoryID);
-		$this->breadcrumb[] = array('title'=>$data['category']['title'],'url'=>backoffice_url('/category/'.$categoryID));
-		$this->breadcrumb[] = array('title'=>'Edit','url'=>'');
-		$data['breadcrumb'] = $this->breadcrumb;
-		$data['parent'] = $this->mainCategory;
-		$this->load->view('category_form',$data);
-	}
 	public function submit($pageName=""){
-		$this->load->library('image_lib');
 		$isError = false;
-		$category = $this->input->post();
+		$page = $this->input->post();
 
-		if(empty($category['title'])){
+		if(empty($page['description'])){
 			$isError = true;
-			$category['title_error'] = "ยังไม่ได้ใส่ข้อมูล";
+			$category['description_error'] = "ยังไม่ได้ใส่ข้อมูล";
 		}
+		$data['page'] = $page;
+		$data['page']['pagename'] = $pageName;
 		
-		$data['category'] = $category;
-		unset($category);
+		unset($page);
 		if($isError){
-			$this->load->view('category_form',$data);
+			$this->load->view('page_form',$data);
 		}else{
-			if(is_numeric($categoryID)){
-				$this->mCategory->updateCategory($categoryID,$data['category']);
+			if($pageName){
+				$this->mPage->updatePage($pageName,$data['page']);
 			}else{
-				$categoryID = $this->mCategory->setCategory($data['category']);
+				$pageID = $this->mPage->setPage($data['page']);
 			}
-			redirect(backoffice_url('/category'));	
+			redirect(backoffice_url('/page/form/'.$pageName.'/success'));	
 		}
 	}
 }
