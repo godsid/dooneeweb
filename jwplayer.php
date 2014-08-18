@@ -13,7 +13,7 @@
             file: 'rtsp://122.155.197.142:1935/vod/_definst_/movies/hawaii-five-o-s4-ep1_480.mp4?wowzacaptionfile=movies/hawaii-five-o-s4-ep1_480.srt'
         }],
         primary: 'flash',
-        image: '//122.155.197.142/hawaii-five-o.jpg',
+        //image: '//122.155.197.142/hawaii-five-o.jpg',
         width: '100%',
         aspectratio: '16:9',
         autostart: 'false'
