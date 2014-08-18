@@ -52,14 +52,16 @@ class Movie_model extends ADODB_model {
 				ORDER BY movie_id DESC ";
 		return $this->fetchPage($sql,$page,$limit);	
 	}
-	public function getMovieRelate($movieID,$limit=3){
-		$sql ="SELECT * 
-				FROM ".$this->table('movie')." 
-				WHERE status = 'ACTIVE' 
-				ORDER BY movie_id DESC 
-				LIMIT ".$limit." 
-				";
-		return $this->adodb->GetAll($sql);
+	public function getMovieRelate($movieID,$page=1,$limit=30){
+		$sql = "SELECT m.*
+				FROM do_movie_category AS mc1
+				LEFT JOIN do_movie AS m ON mc1.movie_id = m.movie_id
+				WHERE mc1.category_id IN (SELECT category_id FROM do_movie_category WHERE movie_id = ".$movieID.")
+				AND mc1.movie_id != ".$movieID."
+				AND m.status = 'ACTIVE' 
+				GROUP BY m.movie_id ";
+		;
+		return $this->fetchPage($sql,$page,$limit);
 	}
 	public function getMoviesLetter($q,$page=1,$limit=30){
 		$sql ="SELECT * 

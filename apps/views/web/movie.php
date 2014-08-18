@@ -61,9 +61,9 @@
         </li>
       <?php }?>
       </ul>
-      <?php if($movies['pageing']['page']<$movies['pageing']['maxPage']){?>
+      <?php if($movies['pageing']['page']<$movies['pageing']['maxPage']){ ?>
         <div class="ctrl-page">
-          <a class="load-more" href="<?=base_url('/movie?page='.($movies['pageing']['page']+1).'&limit='.$movies['pageing']['itemPerPage'])?>" title="โหลดข้อมูลเพิ่ม">โหลดข้อมูลเพิ่ม <i class="icon-plus"></i></a>
+          <a class="load-more" onclick="return nextpage();" href="<?=base_url($this->uri->uri_string().'?'.(isset($search)?'q='.$search.'&':'').'more=1&page='.($movies['pageing']['page']+1).'&limit='.$movies['pageing']['itemPerPage'])?>" title="โหลดข้อมูลเพิ่ม">โหลดข้อมูลเพิ่ม <i class="icon-plus"></i></a>
         </div>
       <?php }?>
     </div>

@@ -14,7 +14,7 @@ class Member extends CI_Controller {
     }
 
     public function history(){
-        if($this->memberLogin){
+        if(!$this->memberLogin){
             redirect(base_url('/login'));
         }
         $view['memberLogin'] = $this->memberLogin;
@@ -25,7 +25,7 @@ class Member extends CI_Controller {
     }
 
     public function favorite(){
-        if($this->memberLogin){
+        if(!$this->memberLogin){
             redirect(base_url('/login'));
         }
         $view['memberLogin'] = $this->memberLogin;
@@ -33,6 +33,18 @@ class Member extends CI_Controller {
         $view['member'] = array();
 
         $this->load->view('web/member_register',$view);
+    }
+
+    public function package(){
+        $this->load->model('package_model','mPackage');
+        if(!$this->memberLogin){
+            redirect(base_url('/login'));
+        }
+
+        $view['memberLogin'] = $this->memberLogin;
+        $view['categories'] = $this->categories;
+        $view['package'] = $this->mPackage->getMemberPackage($this->memberLogin['user_id']);
+        $this->load->view('web/member_package',$view);
     }
 
     public function register(){
@@ -56,6 +68,9 @@ class Member extends CI_Controller {
         if(empty($member['email'])){
             $error = true;
             $message['email'] = "ยังไม่ได้ระบุ อีเมล์"; 
+        }elseif(!preg_match("#^[a-z][a-z0-9_\-\.]+@[a-z0-9_\.\-]+\.\w#",$member['email'])){
+            $error = true;
+            $message['email'] = "อีเมล์ ไม่ถูกต้อง exp:xxx@email.com"; 
         }
         if(empty($member['firstname'])){
             $error = true;
@@ -76,6 +91,9 @@ class Member extends CI_Controller {
         if(empty($member['password'])){
             $error = true;
             $message['password'] = "ยังไม่ได้ระบุ รหัสผ่าน"; 
+        }elseif(strlen($member['password'])<4){
+            $error = true;
+            $message['password'] = "รหัสผ่านน้อยกว่า 4 ตัวอักษร"; 
         }
         if($member['password']!=$member['rpassword']){
             $error = true;
