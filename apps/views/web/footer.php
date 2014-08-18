@@ -8,9 +8,10 @@
                 <div class="inner ft-profile">
                     <p><b>อีเมล์ : <?=$memberLogin['email']?></b></p>
                     <p class="txt-big txt-blue">ดูหนังได้อีก <?=$memberLogin['dayLeft']?> วัน</p>
-                    <p><a class="ui-btn btn-edit-profile" href="<?=base_url('/member/form')?>" title="แก้ไขข้อมูลส่วนตัว">แก้ไขข้อมูลส่วนตัว</a></p>
+                    <!--<p><a class="ui-btn btn-edit-profile" href="<?=base_url('/member/form')?>" title="แก้ไขข้อมูลส่วนตัว">แก้ไขข้อมูลส่วนตัว</a></p>-->
                     <p><a class="ui-btn-red btn-fill" href="<?=base_url('/package')?>" title="เติมเงินดูหนัง">เติมเงินดูหนัง</a></p>
                     <p><a class="ui-btn-blue btn-pk" href="<?=base_url('/member/package')?>" title="ดูแพ็กเกจของคุณ">ดูแพ็กเกจของคุณ</a></p>
+                    <p><a class="ui-btn-green btn-pk" href="<?=base_url('/logout')?>" title="ออกจากระบบ">ออกจากระบบ</a></p>
                 </div>
             </li>
             <li>
@@ -26,52 +27,33 @@
                 </div>
             </li>
             <li>
-                <h2><a href="<?=base_url('/member/history')?>" title="ประวัติการเข้าชม"><i class="icon-time"></i> ประวัติการเข้าชม <!--<i class="icon-double-angle-right"></i>--></a></h2>
+                <h2><a href="javascript:;" title="ประวัติการเข้าชม"><i class="icon-time"></i> ประวัติการเข้าชม <!--<i class="icon-double-angle-right"></i>--></a></h2>
                 <ul class="inner _cd-col-xs-4 thm-mv-small">
+                <?php foreach($memberLogin['history'] as $history){?>
                 	<li>
-                    	<a title="Immortal Masterpiece" href="lb-detail.php">
-                            <img alt="Immortal Masterpiece" src="<?=static_url('/img/thumb/movies-01.jpg')?>">
-                            <h3>Immortal Masterpiece</h3>
+                    	<a title="<?=$history['title_en']?>" href="<?=base_url('/movie/'.$history['movie_id'])?>">
+                            <img alt="<?=$history['title']?>" src="<?=static_url($history['cover'])?>">
+                            <h3><?=$history['title']?></h3>
                         </a>
                     </li>
-                    <li>
-                    	<a title="Immortal Masterpiece" href="lb-detail.php">
-                            <img alt="Immortal Masterpiece" src="<?=static_url('/img/thumb/movies-05.jpg')?>">
-                            <h3>Immortal Masterpiece</h3>
-                        </a>
-                    </li>
-                    <li>
-                    	<a title="Immortal Masterpiece" href="lb-detail.php">
-                            <img alt="Immortal Masterpiece" src="<?=static_url('/img/thumb/movies-10.jpg')?>">
-                            <h3>Immortal Masterpiece</h3>
-                        </a>
-                    </li>
+                <?php }?>
                 </ul>
-                <p class="more"><a href="<?=base_url('/member/history')?>" title="ดูทั้งหมด">ดูทั้งหมด</a></p>
+                <!--<p class="more"><a href="<?=base_url('/member/history')?>" title="ดูทั้งหมด">ดูทั้งหมด</a></p>-->
             </li>
             <li>
-            	<h2><a href="<?=base_url('/member/favorite')?>" title="รายการโปรด"><i class="icon-heart-empty"></i> รายการโปรด <!--<i class="icon-double-angle-right"></i>--></a></h2>
+            	<h2><a href="javascript:;" title="รายการโปรด"><i class="icon-heart-empty"></i> รายการโปรด <!--<i class="icon-double-angle-right"></i>--></a></h2>
                 <ul class="inner _cd-col-xs-4 thm-mv-small">
-                	<li>
-                    	<a title="Immortal Masterpiece" href="lb-detail.php">
-                            <img alt="Immortal Masterpiece" src="<?=static_url('/img/thumb/movies-01.jpg')?>">
-                            <h3>Immortal Masterpiece</h3>
+                	<?php foreach($memberLogin['favorites'] as $favorites){?>
+                  <li>
+                      <a title="<?=$favorites['title_en']?>" href="<?=base_url('/movie/'.$favorites['movie_id'])?>">
+                            <img alt="<?=$favorites['title']?>" src="<?=static_url($favorites['cover'])?>">
+                            <h3><?=$favorites['title']?></h3>
                         </a>
                     </li>
-                    <li>
-                    	<a title="Immortal Masterpiece" href="lb-detail.php">
-                            <img alt="Immortal Masterpiece" src="<?=static_url('/img/thumb/movies-05.jpg')?>">
-                            <h3>Immortal Masterpiece</h3>
-                        </a>
-                    </li>
-                    <li>
-                    	<a title="Immortal Masterpiece" href="lb-detail.php">
-                            <img alt="Immortal Masterpiece" src="<?=static_url('/img/thumb/movies-10.jpg')?>">
-                            <h3>Immortal Masterpiece</h3>
-                        </a>
-                    </li>
+                <?php }?>
+                   
                 </ul>
-                <p class="more"><a href="<?=base_url('/member/favorite')?>" title="ดูทั้งหมด">ดูทั้งหมด</a></p>
+                <!-- <p class="more"><a href="<?=base_url('/member/favorite')?>" title="ดูทั้งหมด">ดูทั้งหมด</a></p>-->
             </li>
         </ul>
     </section>

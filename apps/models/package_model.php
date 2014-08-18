@@ -24,6 +24,17 @@ class Package_model extends ADODB_model {
 				ORDER BY package_id DESC";
 		return $this->adodb->GetAll($sql);
 	}
+
+	public function getMemberPackage($user_id){
+		$sql =" SELECT p.* 
+				FROM ".$this->table('user_package','up')."
+				LEFT JOIN ".$this->table('package','p')." ON up.package_id = p.package_id 
+				WHERE up.status = 'ACTIVE'
+				AND expire_date > NOW() 
+				AND p.status = 'ACTIVE' 
+				ORDER BY p.package_id DESC";
+		return $this->adodb->GetRow($sql);
+	}
 }
 
 /* End of file package_model.php */

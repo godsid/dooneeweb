@@ -21,6 +21,16 @@ class Member_model extends ADODB_model {
 		$CI = & get_instance();
 		$CI->load->library('session');
 		$user = $CI->session->userdata('user_data');
+
+		if($user){
+			$history = $this->getMemberHistory($user['user_id'],1,3);
+			$user['history'] = $history['items'];
+			unset($history);
+
+			$favorites = $this->getMemberFavorites($user['user_id'],1,3);
+			$user['favorites'] = $favorites['items'];
+			unset($favorites);
+		}
 		return $user;
 	}
 	public function login($email,$password){
@@ -55,6 +65,26 @@ class Member_model extends ADODB_model {
 		}else{
 			return false;
 		}
+	}
+
+	public function getMemberHistory($user_id,$page=1,$limit=30){
+		$sql = "SELECT m.movie_id,m.title,m.title_en,m.cover 
+				FROM ".$this->table('movie_history','mh')." 
+				LEFT JOIN ".$this->table('movie','m')." ON mh.movie_id = m.movie_id
+				WHERE mh.user_id = ".$user_id." 
+				AND m.status = 'ACTIVE' 
+				";
+		return $this->fetchPage($sql,$page,$limit);
+	}
+
+	public function getMemberFavorites($user_id,$page=1,$limit=30){
+		$sql = "SELECT m.movie_id,m.title,m.title_en,m.cover 
+				FROM ".$this->table('user_favorite','uf')." 
+				LEFT JOIN ".$this->table('movie','m')." ON uf.movie_id = m.movie_id
+				WHERE uf.user_id = ".$user_id." 
+				AND m.status = 'ACTIVE' 
+				";
+		return $this->fetchPage($sql,$page,$limit);	
 	}
 	
 	/*
