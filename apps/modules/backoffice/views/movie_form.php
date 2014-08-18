@@ -52,6 +52,12 @@
 									</div>
 								</div>
 								<div class="control-group">
+									<label class="control-label">คำบรรยายใต้ภาพ</label>
+									<div class="controls">
+										<input class="input-xlarge span6" type="text" name="summary" value="<?=(isset($movie['summary'])?$movie['summary']:'')?>">
+									</div>
+								</div>
+								<div class="control-group">
 									<label class="control-label">หมวดหมู่</label>
 									<div class="controls">
 										<input type="hidden" name="category_tmp" value="<?=implode(',',$movie['category'])?>" />

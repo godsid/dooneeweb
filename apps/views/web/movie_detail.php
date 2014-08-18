@@ -33,7 +33,7 @@
                 <h2>เนื้อเรื่องภาพยนตร์ <?=$movie['title']?></h2>
                 <p><?=$movie['description']?></p>
                 
-                <p class="mt2"><b>คะแนน</b> : <span class="rating"><i class="icon-star<?=$movie['score']>1?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>2?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>3?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>4?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>5?"":"drop"?>"></i></span></p>
+                <p class="mt2"><b>คะแนน</b> : <span class="rating"><i class="icon-star<?=$movie['score']>1?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>2?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>3?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>4?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>5?"":" drop"?>"></i></span></p>
                 <p><b>เรท</b> :  <?=$movie['rating']?> </p>
                 
                 <p class="mt2"><b>นักแสดง</b> : 
