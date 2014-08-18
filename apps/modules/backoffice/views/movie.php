@@ -45,13 +45,13 @@
 								</td>
 								<td class="center">
 									<?php
-									if($movie['is_free']){
+									if($movie['is_free']=='YES'){
 										echo 'Free ';
 									}
-									if($movie['is_hot']){
+									if($movie['is_hot']=='YES'){
 										echo 'Hot ';
 									}
-									if($movie['is_hd']){
+									if($movie['is_hd']=='YES'){
 										echo 'HD ';
 									}
 									?>
