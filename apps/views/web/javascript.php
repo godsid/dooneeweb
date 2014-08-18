@@ -8,6 +8,7 @@
 
 
 <script>
+/* Header scroll */
 $(document).ready(function(){
     var headerSmallHeight = 140;
     $(window).scroll(function(){
@@ -19,8 +20,8 @@ $(document).ready(function(){
         }        
     });
 });
+/* pageing movie */
 function nextpage(){
-
   $.get($('.load-more').attr('href'),function(resp){
       //history.pushState(null, null, $('.load-more').attr('href'));
       toPosition = $('.ctrl-page').offset().top-50;
@@ -126,4 +127,53 @@ $(document).ready(function(){
 		return false;
 	});
 }); 
+/* Facebook Login*/
+$(document).ready(function() {
+  $.ajaxSetup({ cache: true });
+  $.getScript('//connect.facebook.co.th/th_TH/all.js', function(){
+    FB.init({
+      appId: '<?=$this->config->item('facebook_appid')?>',
+    });     
+    $('#fb-signin').removeAttr('disabled');
+    FB.getLoginStatus(updateStatusCallback);
+  });
+});
+
+/* Facebook State Change */
+function updateStatusCallback(response){
+  console.log('FB: '+response.status);
+  if (response.status === 'connected') {
+    // Logged into your app and Facebook.
+  } else if (response.status === 'not_authorized') {
+    // The person is logged into Facebook, but not your app.
+    console.log('Please log ' + 'into this app.');
+  } else {
+
+  }
+}
+/* Facebook Button click */
+$('.fb-signin').click(function(){
+  FB.login(function(response) {
+   // handle the response
+   if(response.status==='connected'){
+      login();
+   }
+   updateStatusCallback(response);
+  }, {scope: '<?=$this->config->item('facebook_scope')?>'});
+});
+/* Login site with facebook */
+function login(){
+  FB.api('/me', function(response) {
+    $.post('<?=base_url('/facebookLogin')?>',response,function(resp){
+      console.log(resp);  
+      if(resp.user_id){
+        if(window.location.href.match(/login|register/)==null){
+          window.location.reload();
+        }else{
+          window.location = '<?=home_url()?>';
+        }
+      }
+    });
+  });
+}
 </script>

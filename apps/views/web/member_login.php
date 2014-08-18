@@ -23,7 +23,7 @@
                       <input type="password" class="txt-box _sf-col-xs-12" id="password" name="password" placeholder="รหัสผ่าน">
                     </p>
                     <p class="ctrl-btn-sub mt2">
-                      <button type="submit" class="ui-btn btn-profile" name="send" id="send" value="เข้าสู่ระบบ">เข้าสู่ระบบ</button> <span class="mh1">หรือ</span> <a title="เข้าสู่ระบบผ่าน Facebook " href="javascript:getloginFB();" id="fb-signin" class="fb-signin"><i class="icon-facebook"></i> Connect <span>with</span> Facebook</a>
+                      <button type="submit" class="ui-btn btn-profile" name="send" id="send" value="เข้าสู่ระบบ">เข้าสู่ระบบ</button> <span class="mh1">หรือ</span> <a title="เข้าสู่ระบบผ่าน Facebook " href="javascript:;" class="fb-signin"><i class="icon-facebook"></i> Connect <span>with</span> Facebook</a>
                     </p>
                   </fieldset>
                 </form>

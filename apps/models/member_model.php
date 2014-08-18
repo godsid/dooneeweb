@@ -52,6 +52,15 @@ class Member_model extends ADODB_model {
 				";
 		return $this->adodb->GetRow($sql);
 	}
+	public function facebookLogin($facebook_id,$email){
+		$sql = "SELECT * 
+				FROM ".$this->table('user')." 
+				WHERE email='".$email."' 
+				OR facebook_id='".$facebook_id."' 
+				AND status = 'ACTIVE' 
+				";
+		return $this->adodb->GetRow($sql);	
+	}
 	public function getMember($userID){
 		$sql = "SELECT * 
 				FROM ".$this->table('user')."
@@ -59,9 +68,20 @@ class Member_model extends ADODB_model {
 				AND status = 'ACTIVE' ";
 		return $this->adodb->GetRow($sql);
 	}
+	public function getMemberByEmail($email){
+		$sql = "SELECT * 
+				FROM ".$this->table('user')."
+				WHERE email = '".$email."' 
+				AND status = 'ACTIVE' ";
+		return $this->adodb->GetRow($sql);
+	}
 	public function setMember($data){
 		$data['date_create'] = date('Y-m-d H:i:s');
 		return $this->adodb->AutoExecute($this->table('user'),$data,'INSERT');
+	}
+	public function updateMember($userID,$data){
+		$data['edit_date'] = date('Y-m-d H:i:s');
+		return $this->adodb->AutoExecute($this->table('user'),$data,'UPDATE',"user_id='".$userID."'");
 	}
 	public function isDuplicateEmail($email){
 		

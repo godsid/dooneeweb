@@ -138,6 +138,38 @@ class Member extends CI_Controller {
         }
         $this->auth();
     }
+
+    public function facebookLogin(){
+        $data = $this->input->post();
+        $member = $this->mMember->facebookLogin($data['id'],$data['email']);
+        if($member){
+            if($member['facebook_id']==$data['id']){
+                //Registered with facebook
+                //redirect(home_url());
+            }elseif($member['email'] == $data['email']){
+                //Match facebook_id
+                if($this->mMember->updateMember($member['user_id'],array('facebook_id'=>$data['id']))){
+                }
+            }    
+        }else{
+            //New User Register by facebook
+            $member_id = $this->mMember->setMember(array(
+                    'email'=>$data['email'],
+                    'firstname'=>$data['first_name'],
+                    'lastname'=>$data['last_name'],
+                    'facebook_id'=>$data['id'],
+                    'password'=>md5($data['id']),
+                    'create_date'=>date('Y-m-d H:i:s')
+                    ));
+            if($member_id){
+                $member = $this->mMember->getMember($member_id);
+            }
+        }
+        $user = $this->mMember->login($member['email'],$member['password']);
+        $this->session->set_userdata(array('user_data'=>$user));
+        header("Content-type: Application/json; charset:utf8;");
+        echo json_encode($user);
+    }
     public function forgotpassword($option=""){
         if($this->memberLogin){
             redirect(home_url());
