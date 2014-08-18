@@ -10,7 +10,7 @@
       <h2><a href="javascript:;" title="ยินดีต้อนรับ">ยินดีต้อนรับ <i class="icon-double-angle-right"></i></a></h2>
       <div class="inner">
           <div class="left form-contact-register _sf-col-xs-12-md-push-2-md-8">
-              สมัครสมาชิกเรียบร้อยแล้ว
+              ยินดีต้อนรับเข้าสู่ DooneeTV คุณได้เข่าสู่ระบบแล้ว
           </div>
       </div>
     </div>
