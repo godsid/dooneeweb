@@ -1,16 +1,18 @@
+<?php if($maxPage>1){?>
+<ul class="pagination">
 <?php
-//$page = $_GET['page'];
-//var_dump($pageing);
-
 $link=$url."?";
 for($i=1;$i<=$maxPage;$i++){
 	if($i==$page){
-		echo $i;
+		echo '<li class="active"><a href="javascript:;">',$i,'</a></li>';
 	}else{
-		echo '<a href="',$link,'page=',($i+1),'&limit=',$itemPerPage,'"> ',$i,' </a>';
+		echo '<li><a href="',$link,'page=',($i),'&limit=',$itemPerPage,'"> ',$i,' </a></li>';
 	}
 }
-
+?>
+</ul>
+<?php
+}
 /*
 
 $stages = 3;
