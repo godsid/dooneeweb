@@ -23,7 +23,7 @@ function nextpage(){
 
   $.get($('.load-more').attr('href'),function(resp){
       //history.pushState(null, null, $('.load-more').attr('href'));
-      toPosition = $('.ctrl-page').offset().top;
+      toPosition = $('.ctrl-page').offset().top-50;
       $('.ctrl-page').replaceWith(resp);
       $("a.lb-popup").overlay({mask: '#FFF', opacity: 0.5, effect: 'apple'});
       $('html, body').animate({scrollTop: toPosition}, 200);
