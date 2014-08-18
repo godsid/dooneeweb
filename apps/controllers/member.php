@@ -12,6 +12,29 @@ class Member extends CI_Controller {
         $this->load->model('category_model','mCategory');
         $this->categories = $this->mCategory->getCategoriesMenu();
     }
+
+    public function history(){
+        if($this->memberLogin){
+            redirect(base_url('/login'));
+        }
+        $view['memberLogin'] = $this->memberLogin;
+        $view['categories'] = $this->categories;
+        $view['member'] = array();
+
+        $this->load->view('web/member_register',$view);
+    }
+
+    public function favorite(){
+        if($this->memberLogin){
+            redirect(base_url('/login'));
+        }
+        $view['memberLogin'] = $this->memberLogin;
+        $view['categories'] = $this->categories;
+        $view['member'] = array();
+
+        $this->load->view('web/member_register',$view);
+    }
+
     public function register(){
         if($this->memberLogin){
             redirect(home_url());
@@ -124,9 +147,6 @@ class Member extends CI_Controller {
             $this->load->view('web/member_login',$view);
         }
     }
-
-
-
 
     public function logout(){
         $this->input->set_cookie('remember','',strtotime('-1 day'));
