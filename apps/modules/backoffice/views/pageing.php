@@ -1,5 +1,18 @@
 <?php
 //$page = $_GET['page'];
+//var_dump($pageing);
+
+$link=$url."?";
+for($i=1;$i<=$maxPage;$i++){
+	if($i==$page){
+		echo $i;
+	}else{
+		echo '<a href="',$link,'page=',($i+1),'&limit=',$itemPerPage,'"> ',$i,' </a>';
+	}
+}
+
+/*
+
 $stages = 3;
 $targetpage  ="";
 $total_pages  = $maxPage;
@@ -82,6 +95,6 @@ if($lastpage > 1){
 	}
 	
 }
-
+*/
 
 ?>

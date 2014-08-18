@@ -34,7 +34,7 @@ class Movie extends CI_Controller {
 			$this->load->view('movie_detail',$data);
 		}else{
 			$data['movies'] = $this->mMovie->getMovies($this->page,$this->limit);
-			$data['movies']['pageing']['url'] = base_url('/movie');
+			$data['movies']['pageing']['url'] = backoffice_url('/movie');
 			$data['pageing'] = $this->load->view('pageing',$data['movies']['pageing'],true);
 			$data['breadcrumb'] = $this->breadcrumb;
 			$this->load->view('movie',$data);
@@ -43,7 +43,7 @@ class Movie extends CI_Controller {
 	public function search(){
 		$q = $this->input->get('q');
 		$data['movies'] = $this->mMovie->searchMovies($q,$this->page,$this->limit);
-		$data['movies']['pageing']['url'] = base_url('/movie/search?q='.$q);
+		$data['movies']['pageing']['url'] = backoffice_url('/movie/search?q='.$q);
 		$data['pageing'] = $this->load->view('pageing',$data['movies']['pageing'],true);
 		$data['q'] = $q;
 		$this->breadcrumb[] = array('title'=>'Search','url'=>backoffice_url('/movie/search/?q='.$q));
