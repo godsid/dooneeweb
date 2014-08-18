@@ -21,7 +21,17 @@ class Member_model extends ADODB_model {
 		$CI = & get_instance();
 		$CI->load->library('session');
 		$user = $CI->session->userdata('user_data');
-
+		if(!$user){
+			if($remember = $CI->input->cookie('remember')){
+				list($memberID,$code) = explode("|",$remember);
+				if($member = $this->getMember($memberID)){
+					if(md5($member['email'].$member['password'])==$code){
+						$user = $this->login($member['email'],$member['password']);
+						$CI->session->set_userdata(array('user_data'=>$user));
+					}
+				}
+			}
+		}
 		if($user){
 			$history = $this->getMemberHistory($user['user_id'],1,3);
 			$user['history'] = $history['items'];
@@ -42,10 +52,10 @@ class Member_model extends ADODB_model {
 				";
 		return $this->adodb->GetRow($sql);
 	}
-	public function getMember($memberID){
+	public function getMember($userID){
 		$sql = "SELECT * 
 				FROM ".$this->table('user')."
-				WHERE movie_id = ".$movieID." 
+				WHERE user_id = ".$userID." 
 				AND status = 'ACTIVE' ";
 		return $this->adodb->GetRow($sql);
 	}
