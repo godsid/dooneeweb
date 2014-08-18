@@ -33,8 +33,7 @@
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 
-	<!-- jQuery -->
-	<script src="<?=static_url('/backoffice/js/jquery-1.7.2.min.js')?>"></script>
+	
 	<!-- jQuery UI -->
 	<script src="<?=static_url('/backoffice/js/jquery-ui-1.8.21.custom.min.js')?>"></script>
 	<!-- transition / effect library -->

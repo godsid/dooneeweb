@@ -112,10 +112,12 @@
           <div class="container bx-all-movies">
             <h2><a href="jaascript:;" title="ดูหนังเรื่องอื่นที่เกี่ยวข้อง">ดูหนังเรื่องอื่นที่เกี่ยวข้อง <i class="icon-double-angle-right"></i></a></h2>
             <ul class="thm-mv">
-              <?php foreach($relates as $relate){ ?>
+              <?php 
+               $isLogin = (isset($memberLogin)&&$memberLogin)?'':' class="lb-popup" rel="#popup-login" '; 
+              foreach($relates as $relate){ ?>
               <li>
                 <article>
-                    <a title="<?=$relate['title']?>" href="<?=base_url('/movie/'.$relate['movie_id'])?>">
+                    <a title="<?=$relate['title']?>" <?=$isLogin?> href="<?=base_url('/movie/'.$relate['movie_id'])?>">
                         <img alt="<?=$relate['title_en']?>" src="<?=static_url($relate['cover'])?>">
                         <h3><?=$relate['title']?></h3>
                         <span class="type <?=$relate['is_free']?"free":""; ?>"><?=$relate['is_free']?"free":($relate['is_hd']?"HD":"");?></span>

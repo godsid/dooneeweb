@@ -22,12 +22,6 @@ class movie extends CI_Controller {
         }else{
             $this->archive();
         }
-        /*$view['categories'] = $this->categories;
-        $view['moviesHot'] = $this->mMovie->getMoviesHot(1,20);
-        $view['moviesHot'] = $view['moviesHot']['items'];
-        $view['movies'] = $this->mMovie->getMoviesHot(1,20);
-        $this->load->view('web/home',$view);
-        */
     }
     private function detail($movieId){
         if(!$view['movie'] = $this->mMovie->getMovie($movieId)){
@@ -39,7 +33,8 @@ class movie extends CI_Controller {
         }
         $view['categories'] = $this->categories;
         
-        $view['relates'] = $this->mMovie->getMovieRelate($movieId,5);
+        $view['relates'] = $this->mMovie->getMovieRelate($movieId,1,5);
+        $view['relates'] = $view['relates']['items'];
         $this->load->view('web/movie_detail',$view);
     }
 
@@ -47,26 +42,44 @@ class movie extends CI_Controller {
         $view['memberLogin'] = $this->mMember->getMemberLogin();
         $view['categories'] = $this->categories;
         $view['movies'] = $this->mMovie->getMovies($this->page,$this->limit);
-        $this->load->view('web/movie',$view);
+
+        if($this->input->get('more')){
+            $this->load->view('web/movie_more',$view);
+        }else{
+            $this->load->view('web/movie',$view);    
+        }
+        
     }
     public function cate($category_id){
 
         $view['memberLogin'] = $this->mMember->getMemberLogin();
         $view['categories'] = $this->categories;
         $view['movies'] = $this->mMovie->getMoviesCategory($category_id,$this->page,$this->limit);
-        $this->load->view('web/movie',$view);
+        if($this->input->get('more')){
+            $this->load->view('web/movie_more',$view);
+        }else{
+            $this->load->view('web/movie',$view);    
+        }
     }
     public function hot(){
         $view['memberLogin'] = $this->mMember->getMemberLogin();
         $view['categories'] = $this->categories;
         $view['movies'] = $this->mMovie->getMoviesHot($this->page,$this->limit);
-        $this->load->view('web/movie',$view);   
+        if($this->input->get('more')){
+            $this->load->view('web/movie_more',$view);
+        }else{
+            $this->load->view('web/movie',$view);    
+        }
     }
     public function series(){
         $view['memberLogin'] = $this->mMember->getMemberLogin();
         $view['categories'] = $this->categories;
         $view['movies'] = $this->mMovie->getMoviesSeries($this->page,$this->limit);
-        $this->load->view('web/movie',$view);   
+        if($this->input->get('more')){
+            $this->load->view('web/movie_more',$view);
+        }else{
+            $this->load->view('web/movie',$view);    
+        }
     }
     public function search(){
         $q = $this->input->get('q');
@@ -74,8 +87,11 @@ class movie extends CI_Controller {
         $view['categories'] = $this->categories;
         $view['search'] = $q;
         $view['movies'] = $this->mMovie->getMoviesSearch($q,$this->page,$this->limit);
-
-        $this->load->view('web/movie',$view);   
+        if($this->input->get('more')){
+            $this->load->view('web/movie_more',$view);
+        }else{
+            $this->load->view('web/movie',$view);    
+        }
     }
     public function suggestion(){
         $q = $this->input->get('q');
@@ -101,7 +117,10 @@ class movie extends CI_Controller {
         $view['categories'] = $this->categories;
         $view['letter'] = $alphabet;
         $view['movies'] = $this->mMovie->getMoviesLetter($alphabet,$this->page,$this->limit);
-        $this->load->view('web/movie',$view);   
-
+        if($this->input->get('more')){
+            $this->load->view('web/movie_more',$view);
+        }else{
+            $this->load->view('web/movie',$view);    
+        }
     }
 }

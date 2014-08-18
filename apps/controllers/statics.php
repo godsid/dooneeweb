@@ -8,28 +8,34 @@ class Statics extends CI_Controller {
         parent::__construct();
         $this->load->model('member_model','mMember');
         $this->load->model('category_model','mCategory');
+        $this->load->model('page_model','mPage');
         $this->categories = $this->mCategory->getCategoriesMenu();
         $this->memberLogin = $this->mMember->getMemberLogin();
+
     }
     public function aboutus(){
         $view['memberLogin'] = $this->memberLogin;
         $view['categories'] = $this->categories;
-        $this->load->view('web/statics_aboutus',$view);
+        $view['page'] = $this->mPage->getPage('aboutus');
+        $this->load->view('web/page',$view);
     }
     public function help(){
         $view['memberLogin'] = $this->memberLogin;
         $view['categories'] = $this->categories;
-        $this->load->view('web/statics_help',$view);   
+        $view['page'] = $this->mPage->getPage('help');
+        $this->load->view('web/page',$view);   
     }
     public function conditions(){
         $view['memberLogin'] = $this->memberLogin;
         $view['categories'] = $this->categories;
-        $this->load->view('web/statics_conditions',$view);   
+        $view['page'] = $this->mPage->getPage('condition');
+        $this->load->view('web/page',$view);
     }
     public function privacy(){
         $view['memberLogin'] = $this->memberLogin;
         $view['categories'] = $this->categories;
-        $this->load->view('web/statics_privacy',$view);   
+        $view['page'] = $this->mPage->getPage('privacy');
+        $this->load->view('web/page',$view);
     }
     public function contactus($option=""){
         $view['memberLogin'] = $this->memberLogin;
