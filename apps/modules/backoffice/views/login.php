@@ -16,12 +16,12 @@ include('header.php'); ?>
 					<form class="form-horizontal" action="<?=backoffice_url('/user/auth')?>" method="post">
 						<fieldset>
 							<div class="input-prepend" title="Username" data-rel="tooltip">
-								<span class="add-on"><i class="icon-user"></i></span><input autofocus class="input-large span10" name="username" id="username" type="text" value="Username" />
+								<span class="add-on"><i class="icon-user"></i></span><input autofocus class="input-large span10" name="username" value="" id="username" type="text" placeholder="Username" />
 							</div>
 							<div class="clearfix"></div>
 
 							<div class="input-prepend" title="Password" data-rel="tooltip">
-								<span class="add-on"><i class="icon-lock"></i></span><input class="input-large span10" name="password" id="password" type="password" value="Password" />
+								<span class="add-on"><i class="icon-lock"></i></span><input class="input-large span10" name="password" id="password" type="password" value="" placeholder="Password" />
 							</div>
 							<div class="clearfix"></div>
 
