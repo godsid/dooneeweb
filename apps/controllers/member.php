@@ -47,15 +47,18 @@ class Member extends CI_Controller {
         $this->load->view('web/member_package',$view);
     }
 
-    public function register(){
-        if($this->memberLogin){
+    public function register($option=""){
+        if($this->memberLogin&&$option!="success"){
             redirect(home_url());
         }
         $view['memberLogin'] = $this->memberLogin;
         $view['categories'] = $this->categories;
         $view['member'] = array();
-
-        $this->load->view('web/member_register',$view);
+        if($option=="success"){
+            $this->load->view('web/member_register_success',$view);    
+        }else{
+            $this->load->view('web/member_register',$view);    
+        }
     }
     public function register_submit(){
         if($this->memberLogin){
@@ -110,7 +113,13 @@ class Member extends CI_Controller {
         if(!$error){
             $member['password'] = md5($member['password']);
             if($member_id = $this->mMember->setMember($member)){
-                redirect(base_url('/login?formregister'));
+                //Auto Login
+                if($this->auth('afterRegister')){
+                    redirect(base_url('/register/success'));
+                }else{
+                    redirect(base_url('/login?formregister'));    
+                }
+                
             }else{
                 $error = true;
                 $view['error_message']['unknow'] = "เกิดความผิดพลาดกรุณาลองใหม่: 501";
@@ -129,6 +138,38 @@ class Member extends CI_Controller {
         }
         $this->auth();
     }
+
+    public function facebookLogin(){
+        $data = $this->input->post();
+        $member = $this->mMember->facebookLogin($data['id'],$data['email']);
+        if($member){
+            if($member['facebook_id']==$data['id']){
+                //Registered with facebook
+                //redirect(home_url());
+            }elseif($member['email'] == $data['email']){
+                //Match facebook_id
+                if($this->mMember->updateMember($member['user_id'],array('facebook_id'=>$data['id']))){
+                }
+            }    
+        }else{
+            //New User Register by facebook
+            $member_id = $this->mMember->setMember(array(
+                    'email'=>$data['email'],
+                    'firstname'=>$data['first_name'],
+                    'lastname'=>$data['last_name'],
+                    'facebook_id'=>$data['id'],
+                    'password'=>md5($data['id']),
+                    'create_date'=>date('Y-m-d H:i:s')
+                    ));
+            if($member_id){
+                $member = $this->mMember->getMember($member_id);
+            }
+        }
+        $user = $this->mMember->login($member['email'],$member['password']);
+        $this->session->set_userdata(array('user_data'=>$user));
+        header("Content-type: Application/json; charset:utf8;");
+        echo json_encode($user);
+    }
     public function forgotpassword($option=""){
         if($this->memberLogin){
             redirect(home_url());
@@ -143,7 +184,7 @@ class Member extends CI_Controller {
 
         $this->load->view('web/member_forgotpassword',$view);
     }
-    public function auth(){
+    public function auth($option=""){
         $view['memberLogin'] = $this->memberLogin;
         $view['categories'] = $this->categories;
         $email = $this->input->post('email');
@@ -156,6 +197,9 @@ class Member extends CI_Controller {
                 if($autologin=='yes'){
                     $rememberCode = $user['user_id']."|".md5($user['email'].md5($password));
                     $this->input->set_cookie('remember',$rememberCode,strtotime('+1 year'),$this->config->item('cookie_domain'),'/');
+                }
+                if($option=="afterRegister"){
+                    return true;
                 }
                 redirect(home_url());
             }else{

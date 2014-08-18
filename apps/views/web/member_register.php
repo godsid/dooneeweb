@@ -55,7 +55,7 @@
                     </p>
 
                     <p class="ctrl-btn-sub mt2">
-                      <button type="submit" class="ui-btn btn-profile" name="send" id="send" value="สมัครสมาชิก">สมัครสมาชิก</button> <span class="mh1">หรือ</span> <a title="เข้าสู่ระบบผ่าน Facebook " href="javascript:getloginFB();" id="fb-signin" class="fb-signin"><i class="icon-facebook"></i> Connect <span>with</span> Facebook</a>
+                      <button type="submit" class="ui-btn btn-profile" name="send" id="send" value="สมัครสมาชิก">สมัครสมาชิก</button> <span class="mh1">หรือ</span> <a title="เข้าสู่ระบบผ่าน Facebook " href="javascript:;" class="fb-signin"><i class="icon-facebook"></i> Connect <span>with</span> Facebook</a>
                     </p>
                   </fieldset>
                 </form>

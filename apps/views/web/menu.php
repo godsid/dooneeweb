@@ -3,7 +3,7 @@
     <div class="container">
       <div class="bar-login">
           <div class="bx-login _sf-col-sm-push-2-xs-10">
-              <p class="btn"><a class="lb-popup" href="javascript:;" rel="#popup-login" title="เข้าสู่ระบบ">เข้าสู่ระบบ</a> | <a href="<?=base_url('/register')?>" title="สมัครสมาชิก">สมัครสมาชิก</a> <a title="เข้าสู่ระบบผ่าน Facebook " href="javascript:getloginFB();" id="fb-signin" class="fb-signin"><i class="icon-facebook"></i> Login <span>with</span> Facebook</a><!--<a class="icon-facebook-sign" href="#" title="Facebook login">Facebook login</a>--></p>
+              <p class="btn"><a class="lb-popup" href="javascript:;" rel="#popup-login" title="เข้าสู่ระบบ">เข้าสู่ระบบ</a> | <a href="<?=base_url('/register')?>" title="สมัครสมาชิก">สมัครสมาชิก</a> <a title="เข้าสู่ระบบผ่าน Facebook " href="javascript:;" class="fb-signin"><i class="icon-facebook"></i> Login <span>with</span> Facebook</a><!--<a class="icon-facebook-sign" href="#" title="Facebook login">Facebook login</a>--></p>
                 <form action="<?=base_url('/login')?>" method="post">
                 <fieldset>
                     <legend class="hid">เข้าสู่ระบบ</legend>

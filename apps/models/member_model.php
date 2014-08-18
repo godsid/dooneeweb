@@ -21,7 +21,17 @@ class Member_model extends ADODB_model {
 		$CI = & get_instance();
 		$CI->load->library('session');
 		$user = $CI->session->userdata('user_data');
-
+		if(!$user){
+			if($remember = $CI->input->cookie('remember')){
+				list($memberID,$code) = explode("|",$remember);
+				if($member = $this->getMember($memberID)){
+					if(md5($member['email'].$member['password'])==$code){
+						$user = $this->login($member['email'],$member['password']);
+						$CI->session->set_userdata(array('user_data'=>$user));
+					}
+				}
+			}
+		}
 		if($user){
 			$history = $this->getMemberHistory($user['user_id'],1,3);
 			$user['history'] = $history['items'];
@@ -42,16 +52,36 @@ class Member_model extends ADODB_model {
 				";
 		return $this->adodb->GetRow($sql);
 	}
-	public function getMember($memberID){
+	public function facebookLogin($facebook_id,$email){
+		$sql = "SELECT * 
+				FROM ".$this->table('user')." 
+				WHERE email='".$email."' 
+				OR facebook_id='".$facebook_id."' 
+				AND status = 'ACTIVE' 
+				";
+		return $this->adodb->GetRow($sql);	
+	}
+	public function getMember($userID){
 		$sql = "SELECT * 
 				FROM ".$this->table('user')."
-				WHERE movie_id = ".$movieID." 
+				WHERE user_id = ".$userID." 
+				AND status = 'ACTIVE' ";
+		return $this->adodb->GetRow($sql);
+	}
+	public function getMemberByEmail($email){
+		$sql = "SELECT * 
+				FROM ".$this->table('user')."
+				WHERE email = '".$email."' 
 				AND status = 'ACTIVE' ";
 		return $this->adodb->GetRow($sql);
 	}
 	public function setMember($data){
 		$data['date_create'] = date('Y-m-d H:i:s');
 		return $this->adodb->AutoExecute($this->table('user'),$data,'INSERT');
+	}
+	public function updateMember($userID,$data){
+		$data['edit_date'] = date('Y-m-d H:i:s');
+		return $this->adodb->AutoExecute($this->table('user'),$data,'UPDATE',"user_id='".$userID."'");
 	}
 	public function isDuplicateEmail($email){
 		
