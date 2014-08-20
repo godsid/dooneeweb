@@ -68,7 +68,7 @@
 									</a><br/><br/>
 									<?php
 									if($movie['status']=='ACTIVE'){ ?>
-										<a class="btn btn-danger" href="<?=backoffice_url('/movie/inactive/'.$movie['movie_id'])?>">
+										<a class="btn btn-warning" href="<?=backoffice_url('/movie/inactive/'.$movie['movie_id'])?>">
 										<i class="icon-lock icon-white"></i> 
 										InActive
 									</a><br/><br/>
