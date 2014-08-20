@@ -19,7 +19,7 @@
         <?php }?>
         </ul>
    </div>
-   <div class="container flexslider">
+   <div class="container bx-all-movies">
       <h2><a href="<?=home_url()?>" title="ดูหนังทั้งหมด">ดูหนังทั้งหมด <i class="icon-double-angle-right"></i></a>
       <?php if(isset($search)){ ?>
         ผลการค้นหา <span class="txt-red">"<?=$search?>"</span> พบทั้งหหมด <span class="txt-red"><?=$movies['pageing']['allItem']?></span> เรื่อง
@@ -36,7 +36,7 @@
           </script>
       <?php } ?>
       </h2>
-      <ul class="thm-mv">
+      <ul class="thm-mv is-pageing">
 
       <?php 
         $isLogin = (isset($memberLogin)&&$memberLogin)?'':' class="lb-popup" rel="#popup-login" ';
@@ -54,7 +54,8 @@
                   <?php }?>
               </a>
               <footer>
-                <p class="rating"><i class="icon-star<?=$movie['score']>1?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>2?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>3?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>4?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>5?"":" drop"?>"></i></p>
+                <p class="sm"><a href="javascript:;" title="รายการโปรด"> <?=$movie['summary']?></a></p>
+                <p class="rating"><i class="icon-star<?=$movie['score']>0?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>1?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>2?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>3?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>4?"":" drop"?>"></i></p>
                 <p class="fv"><a href="javascript:;" title="รายการโปรด"><i class="icon-heart-empty"></i> รายการโปรด</a></p>
               </footer>
           </article>

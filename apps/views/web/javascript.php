@@ -25,8 +25,12 @@ function nextpage(){
   $.get($('.load-more').attr('href'),function(resp){
       //history.pushState(null, null, $('.load-more').attr('href'));
       toPosition = $('.ctrl-page').offset().top-50;
-      $('.ctrl-page').replaceWith(resp);
+      resp = $(resp);
+      $('.is-pageing').append($(resp).filter('ul').find('li'));
+
+      $('.ctrl-page').replaceWith($(resp).filter('.ctrl-page'));
       $("a.lb-popup").overlay({mask: '#FFF', opacity: 0.5, effect: 'apple'});
+      
       $('html, body').animate({scrollTop: toPosition}, 200);
   });
   return false;

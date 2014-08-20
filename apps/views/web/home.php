@@ -24,7 +24,8 @@
                       <?php }?>
                   </a>
                   <footer>
-                    <p class="rating"><i class="icon-star<?=$movie['score']>1?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>2?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>3?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>4?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>5?"":" drop"?>"></i></p>
+                    <p class="sm"><a href="javascript:;" title="รายการโปรด"> <?=$movie['summary']?></a></p>
+                    <p class="rating"><i class="icon-star<?=$movie['score']>0?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>1?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>2?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>3?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>4?"":" drop"?>"></i></p>
                     <p class="fv"><a href="javascript:;" title="รายการโปรด"><i class="icon-heart-empty"></i> รายการโปรด</a></p>
                   </footer>
               </article>
@@ -35,7 +36,7 @@
 
       <div class="container bx-all-movies">
         <h2><a href="<?=base_url('/movie')?>" title="หนังทั้งหมด">หนังทั้งหมด <i class="icon-double-angle-right"></i></a></h2>
-        <ul class="thm-mv">
+        <ul class="thm-mv is-pageing">
         <?php foreach ($movies['items'] as $key => $movie) { ?>
           <li>
             <article>
@@ -50,7 +51,8 @@
                     
                 </a>
                 <footer>
-                  <p class="rating"><i class="icon-star<?=$movie['score']>1?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>2?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>3?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>4?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>5?"":" drop"?>"></i></p>
+                  <p class="sm"><a href="javascript:;" title="รายการโปรด"> <?=$movie['summary']?></a></p>
+                  <p class="rating"><i class="icon-star<?=$movie['score']>0?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>1?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>2?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>3?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>4?"":" drop"?>"></i></p>
                   <p class="fv"><a href="javascript:;" title="รายการโปรด"><i class="icon-heart-empty"></i> รายการโปรด</a></p>
                 </footer>
             </article>
