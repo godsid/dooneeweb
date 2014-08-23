@@ -45,7 +45,6 @@ class Movie_model extends ADODB_model {
 		return $this->adodb->Execute($sql)->GetAll();
 	}
 	public function setMovie($data){
-		$this->adodb->debug=true;
 		return $this->adodb->AutoExecute($this->table('movie'),$data,'INSERT');
 	}
 

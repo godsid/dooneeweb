@@ -55,6 +55,8 @@ class Movie extends CI_Controller {
 
 	public function edit($movieID=""){
 		$this->load->model('category_model','mCategry');
+		$this->load->model('episode_model','mEpisode');
+
 		$data['categories'] = $this->mCategry->getCategories();
 		$data['categories'] = $data['categories']['items'];
 		
@@ -63,6 +65,10 @@ class Movie extends CI_Controller {
 		$data['movie']['category'] = array();
 		foreach($cateArray as $cateID){
 			$data['movie']['category'][] = $cateID['category_id'];
+		}
+
+		if($data['movie']['is_series']=='YES'){
+			$data['movie']['episodes'] = $this->mEpisode->getEpisodes($data['movie']['movie_id']);
 		}
 		
 		$this->breadcrumb[] = array('title'=>$data['movie']['title'],'url'=>backoffice_url('/movie/'.$movieID));
@@ -175,6 +181,38 @@ class Movie extends CI_Controller {
 		$this->breadcrumb[] = array('title'=>'Add','url'=>'#');
 		$data['breadcrumb'] = $this->breadcrumb;
 		$this->load->view('movie_form',$data);
+	}
+
+	public function addEpisode($movieID=""){
+		$this->load->model('episode_model','mEpisode');
+		if(is_numeric($movieID)){
+			$data = $this->input->post();
+			$data['movie_id'] = $movieID;
+
+			$path = $this->config->item('episode_path').date('/Y/').'series-'.$movieID.'-'.substr(md5(time()),0,10);
+			$episode_id = $this->mEpisode->setEpisode($data);
+			echo json_encode(array(
+				'status'=>'success',
+				'items'=>array(
+						'episode_id'=>$episode_id,
+						'title'=>$data['title'],
+						'path'=>$path
+					)
+			));
+		}else{
+			echo json_encode(array(
+				'status'=>'faile',
+				'message'=>'movie id not accept'
+			));	
+		}
+		
+		
+	}
+	public function deleteEpisode($episode_id=""){
+		$this->load->model('episode_model','mEpisode');
+		if(is_numeric($episode_id)){
+			$this->mEpisode->deleteEpisode($episode_id);
+		}
 	}
 }
 
