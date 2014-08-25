@@ -101,7 +101,7 @@
 									                    <a href="javascript:;" onclick="$('.episode .box-content').toggle('slow',function(){$('')})" class="btn btn-minimize btn-round btn-default"><i class="icon-chevron-down"></i></a>
 									                </div>
 												</div>
-												<div class="box-content">
+												<div class="box-content hide">
 													<?php $i=1;foreach ($movie['episodes']['items'] as $episode) {?>
 													<p><?=($i++),".",$episode['title']?> ( <?=$episode['path']?>) <a href="<?=backoffice_url('/movie/deleteEpisode/'.$episode['episode_id'])?>" onclick="if(window.confirm('ต้องการลบนี้ข้อมูลใช่หรือไม่')){deleteEpisode(this);return false;}else{return false;}" title="ลบ" class="btn btn-default"><i class="icon-film"></i></a></p>
 													<?php }?>
@@ -238,6 +238,21 @@
 									<label class="control-label">ปี</label>
 									<div class="controls">
 										<input class="input-xlarge" type="text" name="year" value="<?=(isset($movie['year'])?$movie['year']:'')?>"><i> exp: 2014 </i>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">Tags</label>
+									<?php
+									$tags_id = array();
+									$tags_name = array();
+									foreach($movie['tags'] as $tags){
+										$tags_id[] = $tags['tags_id'];
+										$tags_name[] = $tags['tags_name'];
+									}
+									?>
+									<div class="controls">
+										<input type="hidden" name="tags_tmp" value='<?=(isset($movie['tags'])?json_encode($movie['tags']):'')?>' />
+										<input class="input-xlarge" type="text" name="tags" value="<?=(isset($movie['tags'])?implode(', ',$tags_name):'')?>"><i> แยกคำด้วย คอมม่า (,) </i>
 									</div>
 								</div>
 								<div class="form-actions">
