@@ -69,21 +69,42 @@ class Movie_model extends ADODB_model {
 	}
 
 	public function getMovieTags($movieID=""){
-		$sql = "SELECT t.tags_id,t.tags_name 
+		$sql = "SELECT mt.id,t.tags_id,t.tags_name 
 				FROM ".$this->table('movie_tags','mt')." 
 				LEFT JOIN ".$this->table('tags','t')." ON mt.tags_id = t.tags_id
 				WHERE mt.movie_id = '".$movieID."' 
 				";
 		return $this->adodb->GetAll($sql);
 	}
-	public function insertTags($movie_id,$tags_name){
-		
-	}
+	public function insertTags($movieID,$tags_name){
+		$tags_name = trim($tags_name);
+		if(empty($tags_name)){
+			return false;
+		}
+		$sql = "SELECT tags_id 
+				FROM ".$this->table('tags')."
+				WHERE tags_name = '".$tags_name."' ";
+		$tag = $this->adodb->GetRow($sql);
+		if(sizeof($tag)){
+			$tags_id = $tag['tags_id'];
+		}else{
+			$data = array('tags_name'=>$tags_name);
+			if($this->adodb->AutoExecute($this->table('tags'),$data,'INSERT')){
+				$tags_id = $this->adodb->Insert_ID();
+			}
+
+		}
+		$data = array(
+				'movie_id'=>$movieID,
+				'tags_id'=>$tags_id
+			);
+		$this->adodb->AutoExecute($this->table('movie_tags'),$data,'INSERT');
+	} 
 	public function deleteTags($tags=""){
 		if(is_numeric($tags)){
 			$this->adodb->Execute("DELETE FROM ".$this->table('movie_tags')." WHERE id = '".$tags."' LIMIT 1");
 		}elseif(is_array($tags)){
-			$this->adodb->Execute("DELETE FROM ".$this->table('movie_tags')." WHERE id IN ('".implode(',',$tags)."') LIMIT ".sizeof($tags));
+			$this->adodb->Execute("DELETE FROM ".$this->table('movie_tags')." WHERE id IN (".implode(',',$tags).") LIMIT ".sizeof($tags));
 		}
 
 	}

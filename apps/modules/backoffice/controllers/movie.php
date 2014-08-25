@@ -94,22 +94,7 @@ class Movie extends CI_Controller {
 
 		$isError = false;
 		$movie = $this->input->post();
-		echo "<pre>";
-		$tags_delete = array();
-		$tags_insert = array();
-		$tags_tmp = json_decode($movie['tags_tmp'],true);
-		$tags_search = $tags = explode(',',preg_replace('#\s*,\s*#',',',trim($movie['tags'])));
-		foreach($tags_tmp as $tmp){
-			$found = array_search($tmp['tags_name'],$tags_search);
-			if($found!==false){
-				$tags_delete[] = $tmp['tags_id'];
-				unset($tags[$found]);
-			}
-		}
-		$tags_insert = $tags;
-		$this->mMovie->deleteTags($tags_insert);
-		$this->mMovie->insertTags($tags_insert);
-
+		
 		if(empty($movie['title'])){
 			$isError = true;
 			$movie['title_error'] = "ยังไม่ได้ใส่ข้อมูล";
@@ -177,15 +162,22 @@ class Movie extends CI_Controller {
 
 			$tags_delete = array();
 			$tags_insert = array();
-			$tags_tmp = json_decode($movie['tags_tmp']);
-			$tags = explode(',',preg_replace('\s,\s',',',$movie['tags']));
-			var_dump($tags);
-			//foreach($tags_tmp as $old_tags){
-			//	if(preg_match('',$tags))
-			//}
-			
-
-
+			$tags_tmp = json_decode($data['movie']['tags_tmp'],true);
+			$tags_search = $tags = explode(',',preg_replace('#\s*,\s*#',',',trim($data['movie']['tags'])));
+			foreach($tags_tmp as $tmp){
+				$found = array_search($tmp['tags_name'],$tags_search);
+				if($found===false){
+					$tags_delete[] = $tmp['id'];
+				}
+				unset($tags[$found]);
+			}
+			$tags_insert = $tags;
+			if(sizeof($tags_delete)){
+				$this->mMovie->deleteTags($tags_delete);
+			}
+			foreach($tags_insert as $insert){
+				$this->mMovie->insertTags($movieID,$insert);
+			}
 
 			redirect(backoffice_url('/movie'));	
 		}
