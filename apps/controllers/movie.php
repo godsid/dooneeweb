@@ -32,9 +32,20 @@ class movie extends CI_Controller {
             $view['memberLogin']['canwatch'] = ($this->mMovie->canWatch($view['memberLogin']['user_id'],$movieId)||$view['movie']['is_free']=='YES') ;
         }
         $view['categories'] = $this->categories;
-        
-        $view['relates'] = $this->mMovie->getMovieRelate($movieId,1,5);
-        $view['relates'] = $view['relates']['items'];
+
+        //Series Episode
+        if($view['movie']['is_series']=='YES'){
+            $episodes = $this->mMovie->getMovieEpisode($movieId);
+            $view['episodes'] = $episodes['items'];
+            unset($episodes);
+        }
+        //Movie Relate
+        $relates = $this->mMovie->getMovieRelate($movieId,1,5);
+        if($relates['pageing']['allItem']){
+            $view['relates'] = $relates['items'];
+        }
+        unset($relates);
+
         $this->load->view('web/movie_detail',$view);
     }
 

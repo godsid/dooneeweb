@@ -90,11 +90,72 @@
 									</div>
 								</div>
 								<?php if(isset($movie['is_series'])&&$movie['is_series']=='YES'){?>
-								<div class="control-group">
-									<label class="control-label"></label>
-									<div class="controls">
+								<div class="control-group episode">
+									<label class="control-label">Series Episode</label>
+										<div class="controls">
+										<div class="row-fluid sortable">
+											<div class="box span11">
+												<div class="box-header well" data-original-title>
+													<h2><i class="icon-film"></i> Series Episode</h2>
+													<div class="box-icon">
+									                    <a href="javascript:;" onclick="$('.episode .box-content').toggle('slow',function(){$('')})" class="btn btn-minimize btn-round btn-default"><i class="icon-chevron-down"></i></a>
+									                </div>
+												</div>
+												<div class="box-content hide">
+													<?php $i=1;foreach ($movie['episodes']['items'] as $episode) {?>
+													<p><?=($i++),".",$episode['title']?> ( <?=$episode['path']?>) <a href="<?=backoffice_url('/movie/deleteEpisode/'.$episode['episode_id'])?>" onclick="if(window.confirm('ต้องการลบนี้ข้อมูลใช่หรือไม่')){deleteEpisode(this);return false;}else{return false;}" title="ลบ" class="btn btn-default"><i class="icon-film"></i></a></p>
+													<?php }?>
+													
+													<div class="control-group">
+														<label class="control-label span1">ชื่อตอน</label>
+														<div class="controls span11">
+															<input class="input-xlarge span6" type="text" id="ep_title" name="ep_title" value="<?=(isset($movie['ep_title'])?$movie['ep_title']:'')?>" />
+															<br/>
+															<button class="btn btn-primary addEpisode" type="button">Add</button>
+														</div>
+													</div>
+													<!--<div class="control-group">
+														<label class="control-label span1">Package</label>
+														<div class="controls span11">
+															<select name="ep_package" id="ep_package">
+																<option value=""></option>
+																<option value=""></option>
+																<option value=""></option>
+																<option value=""></option>
+																<option value=""></option>
+															</select>
+														</div>
+													</div>
+													-->
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
+								<script type="text/javascript">
+									$('.addEpisode').click(function(){
+										$.post('<?=backoffice_url("/movie/addEpisode/".$movie["movie_id"])?>',{
+												title:$('#ep_title').val()
+											},function(resp){
+												if(resp.status=='success'){
+													node = '<p>'+resp.items.title+' ( '+resp.items.path+') <a href="<?=backoffice_url("/movie/deleteEpisode/")?>'+resp.items.episode_id+'" onclick="if(window.confirm(\'ต้องการลบนี้ข้อมูลใช่หรือไม่\')){deleteEpisode(this);return false;}else{return false;}" title="ลบ" class="btn btn-default"><i class="icon-film"></i></a></p>';
+													$(node).insertBefore($('.episode .box-content .control-group'));
+													$('#ep_title').val('');
+												}else{
+													alert(resp.message);
+												}
+										});
+									});
+									function deleteEpisode(obj){
+										$.get(obj.href,function(resp){
+											console.log(resp);
+											//if(resp.status==true){
+												$(obj).parent().remove();
+											//}
+										});
+
+									}
+								</script>
 								<?php }?>
 								<!--
 								<div class="control-group">
@@ -177,6 +238,21 @@
 									<label class="control-label">ปี</label>
 									<div class="controls">
 										<input class="input-xlarge" type="text" name="year" value="<?=(isset($movie['year'])?$movie['year']:'')?>"><i> exp: 2014 </i>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">Tags</label>
+									<?php
+									$tags_id = array();
+									$tags_name = array();
+									foreach($movie['tags'] as $tags){
+										$tags_id[] = $tags['tags_id'];
+										$tags_name[] = $tags['tags_name'];
+									}
+									?>
+									<div class="controls">
+										<input type="hidden" name="tags_tmp" value='<?=(isset($movie['tags'])?json_encode($movie['tags']):'')?>' />
+										<input class="input-xlarge" type="text" name="tags" value="<?=(isset($movie['tags'])?implode(', ',$tags_name):'')?>"><i> แยกคำด้วย คอมม่า (,) </i>
 									</div>
 								</div>
 								<div class="form-actions">
