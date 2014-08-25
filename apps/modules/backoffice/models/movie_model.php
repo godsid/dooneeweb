@@ -67,6 +67,26 @@ class Movie_model extends ADODB_model {
 	public function deleteMovie($movie_id){
 		return $this->adodb->Execute("DELETE FROM ".$this->table('movie')." WHERE movie_id = '".$movie_id."' LIMIT 1");
 	}
+
+	public function getMovieTags($movieID=""){
+		$sql = "SELECT t.tags_id,t.tags_name 
+				FROM ".$this->table('movie_tags','mt')." 
+				LEFT JOIN ".$this->table('tags','t')." ON mt.tags_id = t.tags_id
+				WHERE mt.movie_id = '".$movieID."' 
+				";
+		return $this->adodb->GetAll($sql);
+	}
+	public function insertTags($movie_id,$tags_name){
+		
+	}
+	public function deleteTags($tags=""){
+		if(is_numeric($tags)){
+			$this->adodb->Execute("DELETE FROM ".$this->table('movie_tags')." WHERE id = '".$tags."' LIMIT 1");
+		}elseif(is_array($tags)){
+			$this->adodb->Execute("DELETE FROM ".$this->table('movie_tags')." WHERE id IN ('".implode(',',$tags)."') LIMIT ".sizeof($tags));
+		}
+
+	}
 }
 
 /* End of file movie_model.php */

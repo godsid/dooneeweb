@@ -53,29 +53,6 @@ class Movie extends CI_Controller {
 		$this->load->view('movie',$data);
 	}
 
-	public function edit($movieID=""){
-		$this->load->model('category_model','mCategry');
-		$this->load->model('episode_model','mEpisode');
-
-		$data['categories'] = $this->mCategry->getCategories();
-		$data['categories'] = $data['categories']['items'];
-		
-		$data['movie'] = $this->mMovie->getMovie($movieID);
-		$cateArray = $this->mMovie->getMovieCategory($movieID);
-		$data['movie']['category'] = array();
-		foreach($cateArray as $cateID){
-			$data['movie']['category'][] = $cateID['category_id'];
-		}
-
-		if($data['movie']['is_series']=='YES'){
-			$data['movie']['episodes'] = $this->mEpisode->getEpisodes($data['movie']['movie_id']);
-		}
-		
-		$this->breadcrumb[] = array('title'=>$data['movie']['title'],'url'=>backoffice_url('/movie/'.$movieID));
-		$this->breadcrumb[] = array('title'=>'Edit','url'=>backoffice_url('/movie/edit/'.$movieID));
-		$data['breadcrumb'] = $this->breadcrumb;
-		$this->load->view('movie_form',$data);
-	}
 	public function create(){
 		$this->load->model('category_model','mCategry');
 		$data['categories'] = $this->mCategry->getCategories();
@@ -86,11 +63,52 @@ class Movie extends CI_Controller {
 		$data['movie']['category'] = array();
 		$this->load->view('movie_form',$data);
 	}
+
+	public function edit($movieID=""){
+		$this->load->model('category_model','mCategry');
+		$this->load->model('episode_model','mEpisode');
+
+		$data['categories'] = $this->mCategry->getCategories();
+		$data['categories'] = $data['categories']['items'];
+			
+		$data['movie'] = $this->mMovie->getMovie($movieID);
+		$cateArray = $this->mMovie->getMovieCategory($movieID);
+		$data['movie']['category'] = array();
+		foreach($cateArray as $cateID){
+			$data['movie']['category'][] = $cateID['category_id'];
+		}
+
+		if($data['movie']['is_series']=='YES'){
+			$data['movie']['episodes'] = $this->mEpisode->getEpisodes($data['movie']['movie_id']);
+		}
+		$data['movie']['tags'] = $this->mMovie->getMovieTags($data['movie']['movie_id']);
+		
+		$this->breadcrumb[] = array('title'=>$data['movie']['title'],'url'=>backoffice_url('/movie/'.$movieID));
+		$this->breadcrumb[] = array('title'=>'Edit','url'=>backoffice_url('/movie/edit/'.$movieID));
+		$data['breadcrumb'] = $this->breadcrumb;
+		$this->load->view('movie_form',$data);
+	}
+	
 	public function submit($movieID=false){
 		$this->load->library('image_lib');
 
 		$isError = false;
 		$movie = $this->input->post();
+		echo "<pre>";
+		$tags_delete = array();
+		$tags_insert = array();
+		$tags_tmp = json_decode($movie['tags_tmp'],true);
+		$tags_search = $tags = explode(',',preg_replace('#\s*,\s*#',',',trim($movie['tags'])));
+		foreach($tags_tmp as $tmp){
+			$found = array_search($tmp['tags_name'],$tags_search);
+			if($found!==false){
+				$tags_delete[] = $tmp['tags_id'];
+				unset($tags[$found]);
+			}
+		}
+		$tags_insert = $tags;
+		$this->mMovie->deleteTags($tags_insert);
+		$this->mMovie->insertTags($tags_insert);
 
 		if(empty($movie['title'])){
 			$isError = true;
@@ -142,6 +160,7 @@ class Movie extends CI_Controller {
 				$data['movie']['path'] = substr(md5($data['movie']['title']+time()),0,10);
 				$movieID = $this->mMovie->setMovie($data['movie']);
 			}
+			/* Category */
 			$category_tmp = explode(',',$this->input->post('category_tmp'));
 			$category = $this->input->post('category');
 			
@@ -154,6 +173,20 @@ class Movie extends CI_Controller {
 			if(is_array($deleteCategory)&&count($deleteCategory)){
 				$this->mMovie->deleteMovieCategory($movieID,$deleteCategory);
 			}
+			/* Tags */
+
+			$tags_delete = array();
+			$tags_insert = array();
+			$tags_tmp = json_decode($movie['tags_tmp']);
+			$tags = explode(',',preg_replace('\s,\s',',',$movie['tags']));
+			var_dump($tags);
+			//foreach($tags_tmp as $old_tags){
+			//	if(preg_match('',$tags))
+			//}
+			
+
+
+
 			redirect(backoffice_url('/movie'));	
 		}
 	}
