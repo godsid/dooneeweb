@@ -150,7 +150,7 @@
                         <span class="type <?=$relate['is_free']?"free":""; ?>"><?=$relate['is_free']?"free":($relate['is_hd']?"HD":"");?></span>
                     </a>
                     <footer>
-                        <p class="sm"><a href="javascript:;" title=""> <?=$movie['summary']?></a></p>
+                        <p class="sm"><a href="javascript:;" title=""> <?=$relate['summary']?></a></p>
                         <p class="rating"><i class="icon-star<?=$relate['score']>1?"":" drop"?>"></i><i class="icon-star<?=$relate['score']>2?"":" drop"?>"></i><i class="icon-star<?=$relate['score']>3?"":" drop"?>"></i><i class="icon-star<?=$relate['score']>4?"":" drop"?>"></i><i class="icon-star<?=$relate['score']>5?"":"drop"?>"></i></p>
                         <p class="fv"><a href="javascript:;" title="รายการโปรด"><i class="icon-heart-empty"></i> รายการโปรด</a></p>
                     </footer>
