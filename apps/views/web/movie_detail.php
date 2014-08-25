@@ -109,6 +109,33 @@
           
           </div>
 
+          <?php if(isset($episodes)&&count($episodes)){ ?>
+          <!-- Series Episode -->
+          <div class="container bx-all-movies">
+            <h2><a href="jaascript:;" title="<?=$movie['title']?>"><?=$movie['title']?> <i class="icon-double-angle-right"></i></a></h2>
+            <ul class="thm-mv">
+              <?php 
+               $isLogin = (isset($memberLogin)&&$memberLogin)?'':' class="lb-popup" rel="#popup-login" '; 
+              foreach($episodes as $episode){ ?>
+              <li>
+                <article>
+                    <a title="<?=$episode['title']?>" <?=$isLogin?> href="<?=base_url('/movie/'.$episode['movie_id'].'/'.$episode['episode_id'])?>">
+                        <img alt="<?=$movie['title_en']?>" src="<?=static_url($movie['cover'])?>">
+                        <h3><?=$episode['title']?></h3>
+                        <span class="type <?=$movie['is_free']?"free":""; ?>"><?=$movie['is_free']?"free":($movie['is_hd']?"HD":"");?></span>
+                    </a>
+                    <footer>
+                        <p class="sm"><a href="javascript:;" title="รายการโปรด"> <?=$episode['title']?></a></p>
+                    </footer>
+                </article>
+            </li>
+              <?php  }?>
+              </ul>
+          </div>  
+          <!-- /Series Episode -->
+          <?php }?>
+          <?php if(isset($relates)){ ?>
+          <!-- Movie Relates-->
           <div class="container bx-all-movies">
             <h2><a href="jaascript:;" title="ดูหนังเรื่องอื่นที่เกี่ยวข้อง">ดูหนังเรื่องอื่นที่เกี่ยวข้อง <i class="icon-double-angle-right"></i></a></h2>
             <ul class="thm-mv">
@@ -123,6 +150,7 @@
                         <span class="type <?=$relate['is_free']?"free":""; ?>"><?=$relate['is_free']?"free":($relate['is_hd']?"HD":"");?></span>
                     </a>
                     <footer>
+                        <p class="sm"><a href="javascript:;" title=""> <?=$movie['summary']?></a></p>
                         <p class="rating"><i class="icon-star<?=$relate['score']>1?"":" drop"?>"></i><i class="icon-star<?=$relate['score']>2?"":" drop"?>"></i><i class="icon-star<?=$relate['score']>3?"":" drop"?>"></i><i class="icon-star<?=$relate['score']>4?"":" drop"?>"></i><i class="icon-star<?=$relate['score']>5?"":"drop"?>"></i></p>
                         <p class="fv"><a href="javascript:;" title="รายการโปรด"><i class="icon-heart-empty"></i> รายการโปรด</a></p>
                     </footer>
@@ -131,6 +159,8 @@
               <?php  }?>
               </ul>
           </div>
+          <!-- /Movie Relates-->
+          <?php } ?>
       </section>
   <!-- /container -->
   <!-- footer -->

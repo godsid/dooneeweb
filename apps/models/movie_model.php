@@ -54,12 +54,13 @@ class Movie_model extends ADODB_model {
 	}
 	public function getMovieRelate($movieID,$page=1,$limit=30){
 		$sql = "SELECT m.*
-				FROM do_movie_category AS mc1
-				LEFT JOIN do_movie AS m ON mc1.movie_id = m.movie_id
-				WHERE mc1.category_id IN (SELECT category_id FROM do_movie_category WHERE movie_id = ".$movieID.")
-				AND mc1.movie_id != ".$movieID."
+				FROM ".$this->table('movie_tags','mt1')."
+				LEFT JOIN ".$this->table('movie','m')." ON mt1.movie_id = m.movie_id
+				WHERE mt1.tags_id IN (SELECT tags_id FROM ".$this->table('movie_tags','mt2')." WHERE mt2.movie_id = ".$movieID.")
+				AND mt1.movie_id != ".$movieID."
 				AND m.status = 'ACTIVE' 
-				GROUP BY m.movie_id ";
+				GROUP BY m.movie_id 
+				ORDER BY m.movie_id DESC ";
 		;
 		return $this->fetchPage($sql,$page,$limit);
 	}
@@ -80,6 +81,14 @@ class Movie_model extends ADODB_model {
 		return $this->fetchPage($sql,$page,$limit);	
 	}
 
+	public function getMovieEpisode($movieID="",$page=1,$limit=30){
+		$sql = "SELECT * 
+				FROM ".$this->table('episode')."
+				WHERE movie_id = '".$movieID."'
+				AND status = 'ACTIVE' 
+				ORDER BY title ASC ";
+		return $this->fetchPage($sql,$page,$limit);
+	}
 	public function canWatch($member_id,$movie_id){
 		$sql ="SELECT COUNT(*) AS canwatch 
 				FROM ".$this->table('user_package','up')." 
