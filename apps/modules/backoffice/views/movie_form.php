@@ -251,7 +251,7 @@
 									}
 									?>
 									<div class="controls">
-										<input type="hidden" name="tags_tmp" value='<?=(isset($movie['tags'])?json_encode($movie['tags']):'')?>' />
+										<input type="hidden" name="tags_tmp" value='<?=(isset($movie['tags'])?json_encode($movie['tags']):'[]')?>' />
 										<input class="input-xlarge" type="text" name="tags" value="<?=(isset($movie['tags'])?implode(', ',$tags_name):'')?>"><i> แยกคำด้วย คอมม่า (,) </i>
 									</div>
 								</div>
