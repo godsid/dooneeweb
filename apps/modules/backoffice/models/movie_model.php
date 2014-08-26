@@ -45,7 +45,11 @@ class Movie_model extends ADODB_model {
 		return $this->adodb->Execute($sql)->GetAll();
 	}
 	public function setMovie($data){
-		return $this->adodb->AutoExecute($this->table('movie'),$data,'INSERT');
+		if($this->adodb->AutoExecute($this->table('movie'),$data,'INSERT')){
+			return $this->adodb->Insert_ID();
+		}else{
+			return false;
+		}
 	}
 
 	public function setMovieCategory($movieID,$categories){

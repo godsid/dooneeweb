@@ -61,6 +61,7 @@ class Movie extends CI_Controller {
 		$this->breadcrumb[] = array('title'=>'New','url'=>'');
 		$data['breadcrumb'] = $this->breadcrumb;
 		$data['movie']['category'] = array();
+		$data['movie']['tags'] = array();
 		$this->load->view('movie_form',$data);
 	}
 
@@ -127,7 +128,10 @@ class Movie extends CI_Controller {
 		            
 					$this->image_lib->initialize($config);
 		            $this->image_lib->fit();
-		            unlink(preg_replace("#.*".$this->config->item('static_path')."#",$this->config->item('static_path'),$movie['cover_tmp']));
+		            if(isset($movies['cover_tmp'])){
+		            	unlink(preg_replace("#.*".$this->config->item('static_path')."#",$this->config->item('static_path'),$movie['cover_tmp']));	
+		            }
+		            
 		            $movie['cover'] = '/'.$destinationPath;
 				}
 				
@@ -148,9 +152,10 @@ class Movie extends CI_Controller {
 			/* Category */
 			$category_tmp = explode(',',$this->input->post('category_tmp'));
 			$category = $this->input->post('category');
-			
-			$deleteCategory = array_diff($category_tmp,$category);
-			$addCategory = array_diff($category,$category_tmp);
+			if(is_array($category_tmp)&&is_array($category)){
+				$deleteCategory = array_diff($category_tmp,$category);
+				$addCategory = array_diff($category,$category_tmp);
+			}
 
 			if(is_array($addCategory)&&count($addCategory)){
 				$this->mMovie->setMovieCategory($movieID,$addCategory);
@@ -163,7 +168,10 @@ class Movie extends CI_Controller {
 			$tags_delete = array();
 			$tags_insert = array();
 			$tags_tmp = json_decode($data['movie']['tags_tmp'],true);
+			var_dump($tags_tmp);
+
 			$tags_search = $tags = explode(',',preg_replace('#\s*,\s*#',',',trim($data['movie']['tags'])));
+			var_dump($tags_search);
 			foreach($tags_tmp as $tmp){
 				$found = array_search($tmp['tags_name'],$tags_search);
 				if($found===false){
@@ -171,7 +179,9 @@ class Movie extends CI_Controller {
 				}
 				unset($tags[$found]);
 			}
+			var_dump($tags);
 			$tags_insert = $tags;
+			var_dump($movieID);
 			if(sizeof($tags_delete)){
 				$this->mMovie->deleteTags($tags_delete);
 			}
