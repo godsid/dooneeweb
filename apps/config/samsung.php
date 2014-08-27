@@ -9,4 +9,7 @@ $config['samsung_background_image'] = '';
 $config['samsung_background_color'] = '#000000';
 
 
+$config['samsung_payment_url'] = 'http://www.responeback.com/payment/';
+
+
 ?>
