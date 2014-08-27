@@ -25,15 +25,79 @@ class Movie extends SAMSUNG_Controller {
 
 
 	public function index($movieID="",$episodeID=null){
-		//$banner = array();
+		$resp['item'] = array();
+		if(is_numeric($movieID)&&is_numeric($episodeID)){
+			$resp = $this->seriesDetail($movieID,$episodeID);
+		}elseif(is_numeric($movieID)){
+			$movie = $this->mMovie->getMovie($movieID);
+			if($movie['is_series']=='YES'){
+				$resp = $this->seriesEpisode($movie);
+			}
+			else{
+				$resp = $this->movieDetail($movie);
+			}
+		}
+		$this->response($resp);
+	}
 
-		//if(is_numeric($movieID)){
-		//	$this->movie($movieID);
-		//}else{
-		//	$this->movies();
-		//}
+	private function movieDetail($movie){
+		$resp['item'] = array(
+							'id'=> $movie['movie_id'],
+							'title'=> $movie['title'],
+							'titleEng'=> $movie['title_en'],
+							'tag'=> "-",
+							'director'=> ucwords(strtolower($movie['director'])),
+							'writer'=> '-',
+							'actor'=> ucwords(strtolower($movie['cast'])),
+							'genre'=> '-',
+							'detail'=> $movie['description'],
+							'thumbnail'=> static_url($movie['cover']),
+							'content'=> $movie['path'],
+							'coverImage'=> static_url($movie['cover']),
+							'releaseDate'=> '',
+							'year'=> $movie['year'],
+							'movieRating'=> $movie['rating'],
+							'duration'=> $movie['length'],
+							'screenshot'=>array(),
+							'rating'=> $movie['score'],
+							'weight'=> '-',
+							'sound'=> $movie['audio'],
+							'subtitle'=> $movie['subtitle'],
+							'priceID'=> "",
+							'price'=> "",
+							'pricePromotion'=> "-",
+							'currency'=> "THB",
+							'relatedMovie'=> "",
+							'isPurchased'=> "no",
+							'isComingSoon'=> "no",
+							'securityType'=> "basicAuth",
+							'urlContent'=> ""
+						);
 		
-		$this->response(array());
+		return $resp;	
+	}
+	private function seriesDetail($movie,$episodeID){
+		$resp['item'] = array();
+
+		return $resp;
+	}
+	private function seriesEpisode($movie){
+		$resp['item'] = array();
+		$this->head['title'] = $movie['title'].' ('.$movie['title'].')';
+		$episodes = $this->mMovie->getMovieEpisode($movie['movie_id'],$this->page,$this->limit);
+		foreach($episodes['items'] as $episode){
+			$resp['item'][] = array(
+									'id'=>$episode['movie_id'],
+									'type'=>'movie',
+									'title'=>$episode['title'],
+									'description'=>$movie['summary'],
+									'icon'=>static_url($movie['cover']),
+									'nextTo'=>'playNow',
+									'url'=>$episode['path'],//samsung_api_url('/movie/'.$episode['movie_id'].'/'.$episode['episode_id'])
+								);	
+		}
+		$resp['total'] = $episodes['pageing']['allItem'];
+		return $resp;
 	}
 
 	public function privilege(){
@@ -53,7 +117,7 @@ class Movie extends SAMSUNG_Controller {
 							'description'=>$privilages[$i]['summary'],
 							'icon'=>static_url($privilages[$i]['cover']),
 							'nextTo'=>($privilages[$i]['is_series']=='YES')?'ContentGrid':'movieDetail',
-							'url'=>base_url('/samsung/movie/'.$privilages[$i]['movie_id'])
+							'url'=>samsung_api_url('/movie/'.$privilages[$i]['movie_id'])
 						);
 		}
 		$data['item'] = &$privilages;
@@ -78,7 +142,7 @@ class Movie extends SAMSUNG_Controller {
 							'description'=>$privilages[$i]['summary'],
 							'icon'=>static_url($privilages[$i]['cover']),
 							'nextTo'=>($privilages[$i]['is_series']=='YES')?'ContentGrid':'movieDetail',
-							'url'=>base_url('/samsung/movie/'.$privilages[$i]['movie_id'])
+							'url'=>samsung_api_url('/movie/'.$privilages[$i]['movie_id'])
 						);
 		}
 		$data['purchase'] = array(
@@ -124,17 +188,7 @@ class Movie extends SAMSUNG_Controller {
 
 	//	$this->response($data);
 	//} 
-	public function movies(){
-		$data = $this->mMovie->getMovies($this->page,$this->limit);
-		$this->mMovie->rewiteData($data['items']);
-		$this->response($data);
-	}
 	
-
-	//private function response($data){
-
-	//	echo json_encode(array('head'=>$this->head,'item'=>$data));
-	//}
 	
 }
 

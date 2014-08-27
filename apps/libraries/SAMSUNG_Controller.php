@@ -1,12 +1,13 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 abstract class SAMSUNG_Controller extends CI_Controller
 {
+    var $uid = "";
 	var $head = array(
-			'title'=>'MOVIES',
+			'title'=>'',
 			'text'=>'',
 			'description'=>'',
 			'backgroundColor'=>'#000000',
-			'backgroundImage'=>'https://logicshowtime.meevuu.com:8443/appThumbImg/bg_main-1.png',
+			'backgroundImage'=>'',//252x449
 			'url'=>'',
 			'brandLogo'=>'http://www.doonee.tv/assets/img/logo.png',
 			'appId'=>'1'
@@ -15,12 +16,25 @@ abstract class SAMSUNG_Controller extends CI_Controller
 	public function __construct()
     {
         parent::__construct();
-        if($this->input->get('offset')){
-            $this->page = $this->input->get('offset');
+        $this->load->config('samsung');
+        $this->uid = $this->input->post('uid');
+        
+        if(!$this->limit = $this->input->get('max')){
+            $this->limit = 12;
         }
-        if($this->input->get('max')){
-            $this->limit = $this->input->get('max');
+        if($this->page = $this->input->get('offset')){
+            $this->page = (int)ceil($this->page/$this->limit);
+        }else{
+            
+            $this->page = 1;
         }
+        
+        $this->head['logo'] = $this->config->item('samsung_logo');
+        $this->head['title'] = $this->config->item('samsung_title');
+        $this->head['description'] = $this->config->item('samsung_description');
+        $this->head['backgroundColor'] = $this->config->item('samsung_background_color');
+        $this->head['backgroundImage'] = $this->config->item('samsung_background_image');
+        $this->head['title'] = $this->config->item('samsung_title');
     }
     public function response($data = null, $http_code = null, $continue = false){
     	header("Content-type: Application/json; Charset: utf8;");

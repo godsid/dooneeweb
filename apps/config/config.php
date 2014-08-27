@@ -23,6 +23,8 @@ $config['static_path'] = 'files';
 
 $config['clip_path'] = 'http://122.155.197.142:1935/vod/mp4:movies/{path}.mp4/playlist.m3u8';
 $config['series_path'] = 'series/';
+
+$config['samsung_api_url'] = $config['base_url'].'/samsung';
 /*
 |--------------------------------------------------------------------------
 | Index File

@@ -17,4 +17,9 @@ function static_path($path=""){
 	return $CI->config->item('static_path').date('/Y/').$path;
 }
 
+function samsung_api_url($path=""){
+	$CI =& get_instance();
+	return $CI->config->item('samsung_api_url').$path;
+}
+
 ?>

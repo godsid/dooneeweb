@@ -8,10 +8,12 @@ class Home extends SAMSUNG_Controller {
 
 	public function index()
 	{
-		$this->load->model('api/movie_model','mMovie');
-		$this->load->model('api/banner_model','mBanner');
 
-		$banners = $this->mBanner->getBanners(1,1);
+		$this->load->model('samsung/movie_model','mMovie');
+
+		//$this->load->model('api/banner_model','mBanner');
+
+		/*$banners = $this->mBanner->getBanners(1,1);
 		for($i=0,$j=sizeof($banners);$i<$j;$i++){
 			$banners[$i] = array(
 								'id'=>$banners[$i]['banner_id'],
@@ -23,7 +25,8 @@ class Home extends SAMSUNG_Controller {
 								'url'=>$banners[$i]['link']
 							);		
 		}
-		$item[] = array(
+		*/
+		/*$item[] = array(
 						'id'=>1,
 							'type'=>'category',
 							'title'=>'PREMIUM (PAID)',
@@ -41,13 +44,36 @@ class Home extends SAMSUNG_Controller {
 							'nextTo'=>'contentGrid',
 							'url'=>base_url('/samsung/movie/privilege')
 					);
+		*/
+		$item = array();
+		if($this->page==1){
+			//First page is hot movie
+			$movie = $this->mMovie->getHotMovies($this->page,$this->limit);	
+		}else{
+			$movie = $this->mMovie->getHotMovies($this->page,$this->limit);
+		}
+		
+		$countItem = $this->mMovie->getMovieCount()+12;
+		$movie = $movie['items'];
+		for($i=0,$j=sizeof($movie);$i<$j;$i++){
+			$item[] = array(
+						'id'=>$movie[$i]['movie_id'],
+						'type'=>'movie',
+						'title'=>($this->page==1?'[HOT]':'').$movie[$i]['title'],
+						'description'=>$movie[$i]['summary'],
+						'icon'=>static_url($movie[$i]['cover']),
+						'nextTo'=>($movie[$i]['is_series']=='YES')?'ContentGrid':'movieDetail',
+						'url'=>samsung_api_url('/movie/'.$movie[$i]['movie_id'])
+						);
+		}
 
-		$data = array('bannerItem'=>&$banners,
+		$data = array(
 						'item'=>&$item,
-						'total'=>count($item)
+						'total'=>$countItem
 				);
 		
 		$this->response($data);
+		
 	}
 	
 }

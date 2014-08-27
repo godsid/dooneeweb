@@ -15,7 +15,13 @@ class Movie_model extends ADODB_model {
 				
 		return $this->adodb->GetRow($sql);
 	}
-
+	public function getMovieCount(){
+		$sql = "SELECT COUNT(*) row
+				FROM ".$this->table('movie')."
+				WHERE status = 'ACTIVE' ";
+		$result = $this->adodb->GetRow($sql);
+		return $result['row'];
+	}
 	public function getMoviesPrivilage($page,$limit){
 		$sql ="SELECT * 
 				FROM ".$this->table('movie')."
@@ -44,6 +50,14 @@ class Movie_model extends ADODB_model {
 				FROM ".$this->table('movie')."
 				WHERE (title LIKE '".$q."%' OR title_en LIKE '".$q."%')
 				AND status = 'ACTIVE' ";
+		return $this->fetchPage($sql,$page,$limit);
+	}
+	public function getMovieEpisode($movieID="",$page=1,$limit=30){
+		$sql = "SELECT * 
+				FROM ".$this->table('episode')."
+				WHERE movie_id = '".$movieID."'
+				AND status = 'ACTIVE' 
+				ORDER BY title ASC ";
 		return $this->fetchPage($sql,$page,$limit);
 	}
 	public function rewiteData(&$data){
