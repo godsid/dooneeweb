@@ -18,7 +18,7 @@
 								echo $category['title'],", ";
 							} ?>
 							</span></div>
-							<div><span class="span2">Clip url: </span><span class="span10"><a href="<?=$movie['path']?>"><?=$movie['path']?></a></span></div>
+							<div><span class="span2">ไฟล์: </span><span class="span10"><?=$movie['path']?></span></div>
 							<div><span class="span2">Rating/คะแนน: </span><span class="span10"><?=$movie['rating']?> / <?=$movie['score']?></span></div>
 							<div><span class="span2">นักแสดง: </span><span class="span10"><?=$movie['cast']?></span></div>
 							<div><span class="span2">ผู้กำกับ: </span><span class="span10"><?=$movie['director']?></span></div>

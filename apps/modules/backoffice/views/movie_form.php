@@ -51,6 +51,14 @@
 										<p class="help-block">ขนาด 258 x 386</p>
 									</div>
 								</div>
+								<?php if($movie['is_series']=='NO'){?>
+								<div class="control-group">
+									<label class="control-label">ไฟล์วีดีโอ</label>
+									<div class="controls">
+										<stong><?=$movie['path']?></stong>
+									</div>
+								</div>
+								<?php }?>
 								<div class="control-group">
 									<label class="control-label">คำบรรยายใต้ภาพ</label>
 									<div class="controls">
