@@ -23,14 +23,26 @@ class Movie extends CI_Controller {
 	}
 
 	public function index($movieID=""){
-		
 		if($movieID){
 			$data['movie'] = $this->mMovie->getMovie($movieID);
 			$data['movie']['category'] = $this->mMovie->getMovieCategory($movieID);
 
 			$this->breadcrumb[] = array('title'=>$data['movie']['title'],'url'=>'');
-			$data['breadcrumb'] = $this->breadcrumb;	
-			$data['movie']['path'] = str_replace('{path}',$data['movie']['path'],$this->config->item('clip_path'));
+			$data['breadcrumb'] = $this->breadcrumb;
+			if($data['movie']['is_series']=='NO'){
+				$moviepath = array();
+				$sounds = explode(',',trim($data['movie']['audio']));
+				foreach($sounds as $sound){
+					if(!empty($sound)){
+						$moviepath[] = '/'.$this->config->item('movie_path').$data['movie']['path'].'_480'.trim($sound).'.mp4';
+						if($data['movie']['is_hd']=='YES'){
+							$moviepath[] = '/'.$this->config->item('movie_path').$data['movie']['path'].'_720'.trim($sound).'.mp4';
+						}
+					}
+				}
+				$data['movie']['path'] = implode('<br/>',$moviepath);
+			}
+			
 			$this->load->view('movie_detail',$data);
 		}else{
 			$data['movies'] = $this->mMovie->getMovies($this->page,$this->limit);
@@ -72,6 +84,19 @@ class Movie extends CI_Controller {
 		$data['categories'] = $data['categories']['items'];
 			
 		$data['movie'] = $this->mMovie->getMovie($movieID);
+		if($data['movie']['is_series']=='NO'){
+			$moviepath = array();
+			$sounds = explode(',',trim($data['movie']['audio']));
+			foreach($sounds as $sound){
+				if(!empty($sound)){
+					$moviepath[] = '/'.$this->config->item('movie_path').$data['movie']['path'].'_480'.trim($sound).'.mp4';
+					if($data['movie']['is_hd']=='YES'){
+						$moviepath[] = '/'.$this->config->item('movie_path').$data['movie']['path'].'_720'.trim($sound).'.mp4';
+					}
+				}
+			}
+			$data['movie']['path'] = implode('<br/>',$moviepath);
+		}
 		$cateArray = $this->mMovie->getMovieCategory($movieID);
 		$data['movie']['category'] = array();
 		foreach($cateArray as $cateID){

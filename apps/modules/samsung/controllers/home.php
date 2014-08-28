@@ -2,13 +2,17 @@
 
 //require_once(BASEPATH.'libraries/SAMSUNG_Controller.php');
 class Home extends SAMSUNG_Controller {
+	var $user;
 	public function __construct(){
 		parent::__construct();
+		$this->load->model('user_model','mUser');
+		if(!$this->user = $this->mUser->getUser($this->uId)){
+			$this->mUser->register($this->uId);
+		}
 	}
 
 	public function index()
 	{
-
 		$this->load->model('samsung/movie_model','mMovie');
 
 		//$this->load->model('api/banner_model','mBanner');
@@ -46,20 +50,20 @@ class Home extends SAMSUNG_Controller {
 					);
 		*/
 		$item = array();
-		if($this->page==1){
+		//if($this->page==1){
 			//First page is hot movie
-			$movie = $this->mMovie->getHotMovies($this->page,$this->limit);	
-		}else{
-			$movie = $this->mMovie->getHotMovies($this->page,$this->limit);
-		}
+			$movie = $this->mMovie->getMoviesHotFirst($this->page,$this->limit);	
+		//}else{
+		//	$movie = $this->mMovie->getNotHotMovies($this->page,$this->limit);
+		//}
 		
-		$countItem = $this->mMovie->getMovieCount()+12;
+		$countItem = $this->mMovie->getMovieCount();
 		$movie = $movie['items'];
 		for($i=0,$j=sizeof($movie);$i<$j;$i++){
 			$item[] = array(
 						'id'=>$movie[$i]['movie_id'],
 						'type'=>'movie',
-						'title'=>($this->page==1?'[HOT]':'').$movie[$i]['title'],
+						'title'=>($movie[$i]['is_hot']=='YES'?'[HOT]':'').$movie[$i]['title'],
 						'description'=>$movie[$i]['summary'],
 						'icon'=>static_url($movie[$i]['cover']),
 						'nextTo'=>($movie[$i]['is_series']=='YES')?'ContentGrid':'movieDetail',

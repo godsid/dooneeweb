@@ -17,7 +17,7 @@ abstract class SAMSUNG_Controller extends CI_Controller
     {
         parent::__construct();
         $this->load->config('samsung');
-        $this->uid = $this->input->post('uid');
+        $this->uId = $this->input->post('uId');
         
         if(!$this->limit = $this->input->get('max')){
             $this->limit = 12;

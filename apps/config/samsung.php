@@ -1,6 +1,9 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 
+//$config['samsung_access_key'] = 'XVHbNpyC5m';
+//$config['samsung_payment_key'] = 'mezEJsVqsF';
+
 $config['samsung_appid'] = '20';
 $config['samsung_logo'] = '';
 $config['samsung_title'] = '';

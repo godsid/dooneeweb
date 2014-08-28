@@ -15,7 +15,14 @@ class Package_model extends ADODB_model {
 
 		return $this->adodb->GetRow($sql);
 	}
-
+	public function getPackagePartner($partner=''){
+		$sql = "SELECT * 
+				FROM ".$this->table('package')." 
+				WHERE partner = '".$partner."' 
+				AND price > 0 
+				AND status = 'ACTIVE' ";
+		return $this->adodb->GetAll($sql);
+	}
 	public function setUserpackage($data){
 		
 		if($this->adodb->AutoExecute($this->table('user_package'),$data,'INSERT')){

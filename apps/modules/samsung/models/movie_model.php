@@ -36,6 +36,13 @@ class Movie_model extends ADODB_model {
 				AND status = 'ACTIVE' ";
 		return $this->fetchPage($sql,$page,$limit);
 	}
+	public function getMoviesHotFirst($page,$limit){
+		$sql ="SELECT * 
+				FROM ".$this->table('movie')." 
+				WHERE status = 'ACTIVE' 
+				ORDER BY (is_hot ='YES') DESC ,movie_id DESC ";
+		return $this->fetchPage($sql,$page,$limit);	
+	}
 
 	public function getSearchMovie($q,$page,$limit){
 		$sql ="SELECT * 
