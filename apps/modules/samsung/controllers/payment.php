@@ -5,7 +5,7 @@ class Payment extends SAMSUNG_Controller {
 		header("Content-type: Application/json; Charset:utf8;");
 		parent::__construct();
 		$this->load->config('samsung');
-		$this->load->library('samsungpayment');
+		$this->load->library('samsungPayment');
 		$this->load->model('payment_model','mPayment');
 		$this->load->model('package_model','mPackage');
 		$this->load->model('user_model','mUser');
@@ -65,7 +65,7 @@ class Payment extends SAMSUNG_Controller {
 
 	private function validateData($data){
 
-		if($this->config->item('samsung_appid')!=$data['appId']){
+		if(!isset($data['appId'])||$this->config->item('samsung_appid')!=$data['appId']){
 			echo json_encode($this->samsungpayment->getCode("20903"));
 			exit;
 		}
