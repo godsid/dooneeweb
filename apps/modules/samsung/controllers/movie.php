@@ -29,9 +29,10 @@ class Movie extends SAMSUNG_Controller {
 	public function index($movieID="",$episodeID=null){
 		$resp['item'] = array();
 		$movie = $this->mMovie->getMovie($movieID);
-		if(is_numeric($movieID)&&is_numeric($episodeID)){
+
+		if(sizeof($movie)&&is_numeric($movieID)&&is_numeric($episodeID)){
 			$resp = $this->seriesDetail($movie,$episodeID);
-		}elseif(is_numeric($movieID)){
+		}elseif(sizeof($movie)&&is_numeric($movieID)){
 			if($movie['is_series']=='YES'){
 				$resp = $this->seriesEpisode($movie);
 			}
