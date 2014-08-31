@@ -6,12 +6,12 @@ class Payment extends CI_Controller {
     var $memberLogin;
 	public function __construct(){
         parent::__construct();
+        $this->load->library('one23payment');
         $this->load->model('member_model','mMember');
         $this->load->model('category_model','mCategory');
         $this->load->model('package_model','mPackage');
         $this->categories = $this->mCategory->getCategoriesMenu();
         $this->memberLogin = $this->mMember->getMemberLogin();
-
     }
 
     public function index(){
@@ -54,6 +54,19 @@ class Payment extends CI_Controller {
         $view['categories'] = $this->categories;
         $view['packages'] = $this->mPackage->getPackages();
         $this->load->view('web/payment',$view);
+    }
+
+    public function submit(){
+
+        //$messgaeID,$invoiceID,$amount,$description,$items=array(),$payerName="",$payerEmail="",$payerMobile="",$shippingAddress=""
+        $items[] = array('id'=>1,'name'=>"item1",'price'=>100,'quantity'=>1);
+        $view['form'] = $this->one23payment->createForm(time(),1,100,'description',$items,'Developer','developer@gmail.com','0870791456','Bangkok');
+        //var_dump($view['form']);
+        $this->load->view('web/payment_submit',$view);
+
+    }
+    public function fontResponse(){
+
     }
 
 }
