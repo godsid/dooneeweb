@@ -180,4 +180,8 @@ function login(){
     });
   });
 }
+/* Login form*/
+loginUrl = $('.formLogin:first').attr('action')+'?reurl='+encodeURI(window.location);
+$('.formLogin').attr('action',loginUrl);
+
 </script>
