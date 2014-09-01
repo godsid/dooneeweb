@@ -4,7 +4,7 @@
       <div class="bar-login">
           <div class="bx-login _sf-col-sm-push-2-xs-10">
               <p class="btn"><a class="lb-popup" href="javascript:;" rel="#popup-login" title="เข้าสู่ระบบ">เข้าสู่ระบบ</a> | <a href="<?=base_url('/register')?>" title="สมัครสมาชิก">สมัครสมาชิก</a> <a title="เข้าสู่ระบบผ่าน Facebook " href="javascript:;" class="fb-signin"><i class="icon-facebook"></i> Login <span>with</span> Facebook</a><!--<a class="icon-facebook-sign" href="#" title="Facebook login">Facebook login</a>--></p>
-                <form action="<?=base_url('/login')?>" method="post">
+                <form action="<?=base_url('/login')?>" class="formLogin" method="post">
                 <fieldset>
                     <legend class="hid">เข้าสู่ระบบ</legend>
                     <p>
@@ -40,11 +40,15 @@
               <li>
                   <a href="javascript:;" title="เลือกประเภทหนัง">เลือกประเภทหนัง <i class="icon-chevron-down"></i></a>
                     <ul id="scroll-cat" class="sub-cat _sf-col-xs-12">
-                    <?php foreach ($categories as $key => $category) { ?>
+
+                    <?php if(is_array($categories)&&count($categories)){
+                      foreach ($categories as $key => $category) { ?>
                       <?php if($category['movie_item']){?>
                         <li><a <?=(isset($category_id) && $category_id==$category['category_id'])?"class=\"selected\"":""?> href="<?=base_url('/movie/cate/'.$category['category_id'])?>" title="<?=$category['title']?>"><?=($category['parent_id']==0?"":" - ")?><?=$category['title']?> <span><?=$category['movie_item']?></span></a></li>  
                       <?php }?>
-                    <?php }?>
+                    <?php }
+                       }
+                      ?>
                     </ul>
                 </li>
             </ul>
@@ -116,6 +120,8 @@
        if(!$('#nav-drop>li>a.selected').length){
           $("#nav-drop li a:first").addClass("selected");
        }
+       loginUrl = $('#formLogin').attr('action')+'?reurl='+encodeURI(window.location);
+       $('#formLogin').attr('action',loginUrl);
   });
   </script>
   <!-- /Header -->

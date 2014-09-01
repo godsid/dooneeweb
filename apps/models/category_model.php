@@ -27,8 +27,7 @@ class Category_model extends ADODB_model {
 	public function getCategoriesMenu(){
 		$countMovie = "SELECT COUNT(*) 
 						FROM ".$this->table('movie_category','mc')."  
-						WHERE c.category_id =  mc.category_id 
-						AND partner = 'DOONEE' ";
+						WHERE c.category_id =  mc.category_id ";
 		$sql ="SELECT *,(".$countMovie.") movie_item 
 				FROM ".$this->table('category','c')." 
 				WHERE status = 'ACTIVE'

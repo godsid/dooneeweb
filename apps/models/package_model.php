@@ -21,6 +21,7 @@ class Package_model extends ADODB_model {
 		$sql ="SELECT * 
 				FROM ".$this->table('package')." 
 				WHERE status = 'ACTIVE'
+				AND partner = 'DOONEE' 
 				ORDER BY package_id DESC";
 		return $this->adodb->GetAll($sql);
 	}

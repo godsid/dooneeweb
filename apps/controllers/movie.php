@@ -40,7 +40,7 @@ class movie extends CI_Controller {
             unset($episodes);
         }
         //Movie Relate
-        $relates = $this->mMovie->getMovieRelate($movieId,1,5);
+        $relates = $this->mMovie->getMovieRelate($movieId,1,10);
         if($relates['pageing']['allItem']){
             $view['relates'] = $relates['items'];
         }
