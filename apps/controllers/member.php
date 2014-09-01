@@ -201,7 +201,12 @@ class Member extends CI_Controller {
                 if($option=="afterRegister"){
                     return true;
                 }
-                redirect(home_url());
+                if($reurl = $this->input->get('reurl')){
+                    redirect($reurl);
+                }else{
+                    redirect(home_url());
+                }
+                
             }else{
                 $this->load->view('web/member_login',$view); 
             }
