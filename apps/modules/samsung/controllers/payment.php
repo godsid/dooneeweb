@@ -11,9 +11,19 @@ class Payment extends SAMSUNG_Controller {
 		$this->load->model('user_model','mUser');
 
 	}
+	public function respBack_8GMF8NGz(){
 
-	public function prepareCharging(){
-		$data = $this->input->post();
+		if($this->input->get_post('command')=='prepareCharging'){
+			$this->prepareCharging();
+		}elseif($this->input->get_post('command')=='confirmCharging'){
+			$this->confirmCharging();
+		}else{
+			echo json_encode($this->samsungpayment->getCode("20907"));
+			exit;
+		}
+	}
+	private function prepareCharging(){
+		$data = $this->input->get_post();
 		$data['time'] = date('Y-m-d H:i:s');
 		$this->samsungpayment->log(print_r($data,true));
 		$this->mPayment->log($data);
@@ -25,9 +35,9 @@ class Payment extends SAMSUNG_Controller {
 		exit;
 	}
 
-	public function confirmCharging(){
+	private function confirmCharging(){
 		$this->load->model('user_model','mUser');
-		$data = $this->input->post();
+		$data = $this->input->get_post();
 		$data['time'] = date('Y-m-d H:i:s');
 
 		$this->samsungpayment->log(print_r($data,true));
