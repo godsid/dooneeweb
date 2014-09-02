@@ -145,9 +145,8 @@ class Movie extends SAMSUNG_Controller {
 		$resp = array_merge($purchase,$resp);
 		return $resp;
 	}
-	
 
-	public function privilege(){
+	public function free(){
 		/*
 		$this->head['title'] = 'SAMSUNG PRIVILEGE (FREE)';
 		$this->head['text'] = 'รับชมฟรีซีรี่ย์ฮอลลีว้ดูกวา่100เรื่อง';
@@ -174,8 +173,8 @@ class Movie extends SAMSUNG_Controller {
 		*/
 	}
 
-	public function paid(){
-		/*$this->head['title'] = 'PREMIUM (PAID)';
+	public function premium(){
+		$this->head['title'] = ' (Premium)';
 		$this->head['text'] = 'รับชม!ซีรี่ย์ฮอลลีว้ดูกวา่600เรื่อง';
 		$this->head['description'] = '';
 		$privilages = $this->mMovie->getMoviesPrivilage($this->page,$this->limit);
@@ -190,33 +189,19 @@ class Movie extends SAMSUNG_Controller {
 							'title'=>$privilages[$i]['title'],
 							'description'=>$privilages[$i]['summary'],
 							'icon'=>static_url($privilages[$i]['cover']),
-							'nextTo'=>($privilages[$i]['is_series']=='YES')?'ContentGrid':'movieDetail',
+							'nextTo'=>($privilages[$i]['is_series']=='YES')?'ContentGrid':'playNow',
 							'url'=>samsung_api_url('/movie/'.$privilages[$i]['movie_id'])
 						);
 		}
 		$data['item'] = &$privilages;
 		$data['total'] = $total;
 		$this->response($data);
-		*/
+		
 	}
 
 
 
-	public function play($movieID,$episodeID=null){
-
-	}
-
-	public function isPurchased($movieID='',$seriesID=''){
-
-		/*$data['purchase'] = array(
-								'contentId'=>'samsung',
-								'appId'=>$this->config->item('samsung_appid'),
-								'price'=>'299',
-								'type'=>'30Day',
-								'dateExpired'=>0,
-								'isPurchased'=>"no",
-							);
-		*/
+	private function isPurchased($movieID='',$seriesID=''){
 		
 		$package = $this->mUser->getUserPackage($this->user['user_id']);
 		$expireDate = isset($package['expire_date'])?strtotime($package['expire_date'])-time():'0';
