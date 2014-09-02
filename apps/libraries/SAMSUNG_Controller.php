@@ -10,22 +10,21 @@ abstract class SAMSUNG_Controller extends CI_Controller
 			'backgroundImage'=>'',//252x449
 			'url'=>'',
 			'brandLogo'=>'http://www.doonee.tv/assets/img/logo.png',
-			'appId'=>'1'
+			'appId'=>''
 
 		);
 	public function __construct()
     {
         parent::__construct();
         $this->load->config('samsung');
-        $this->uId = $this->input->post('uId');
+        $this->uId = $this->input->get_post('uId');
         
-        if(!$this->limit = $this->input->get('max')){
+        if(!$this->limit = $this->input->get_post('max')){
             $this->limit = 12;
         }
-        if($this->page = $this->input->get('offset')){
+        if($this->page = $this->input->get_post('offset')){
             $this->page = (int)ceil($this->page/$this->limit);
         }else{
-            
             $this->page = 1;
         }
         
@@ -35,6 +34,7 @@ abstract class SAMSUNG_Controller extends CI_Controller
         $this->head['backgroundColor'] = $this->config->item('samsung_background_color');
         $this->head['backgroundImage'] = $this->config->item('samsung_background_image');
         $this->head['title'] = $this->config->item('samsung_title');
+        $this->head['appId'] = $this->config->item('samsung_appid');
     }
     public function response($data = null, $http_code = null, $continue = false){
     	header("Content-type: Application/json; Charset: utf8;");

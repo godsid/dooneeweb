@@ -6,7 +6,8 @@ class SamsungPayment{
 				"20904"=>array("status"=>"error","statusCode"=>"20904","description"=>"invalid contentId"),
 				"20905"=>array("status"=>"error","statusCode"=>"20905","description"=>"invalid price"),
 				"20906"=>array("status"=>"error","statusCode"=>"20906","description"=>"invalid uId"),
-				"20907"=>array("status"=>"error","statusCode"=>"20907","description"=>"invalid transactionId")
+				"20907"=>array("status"=>"error","statusCode"=>"20907","description"=>"invalid transactionId"),
+				"20908"=>array("status"=>"error","statusCode"=>"20908","description"=>"invalid Command")
 		);
 	var $timeout = 10;
 	var $config;
