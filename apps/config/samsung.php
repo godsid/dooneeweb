@@ -4,7 +4,7 @@
 //$config['samsung_access_key'] = 'XVHbNpyC5m';
 //$config['samsung_payment_key'] = 'mezEJsVqsF';
 
-$config['samsung_appid'] = '20';
+$config['samsung_appid'] = '19';
 $config['samsung_logo'] = '';
 $config['samsung_title'] = '';
 $config['samsung_description'] = '';

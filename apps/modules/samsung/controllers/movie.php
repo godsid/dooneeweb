@@ -12,7 +12,7 @@ class Movie extends SAMSUNG_Controller {
 			'backgroundImage'=>'https://logicshowtime.meevuu.com:8443/appThumbImg/bg_main-2.png',
 			'url'=>'',
 			'brandLogo'=>'http://www.doonee.tv/assets/img/logo.png',
-			'appId'=>'1'
+			'appId'=>''
 
 		);
 	var $user;
@@ -95,10 +95,14 @@ class Movie extends SAMSUNG_Controller {
 									'title'=>$episode['title'],
 									'description'=>$movie['summary'],
 									'icon'=>static_url($movie['cover']),
-									'nextTo'=>'MovieDetail',
+									'nextTo'=>'playNow',//'MovieDetail'
 									'url'=>samsung_api_url('/movie/'.$episode['movie_id'].'/'.$episode['episode_id'])
 								);	
 		}
+		
+		$purchase = $this->isPurchased($movie['movie_id']);
+		$resp['item']['isPurchased'] = $purchase['purchaseList']['isPurchased'];
+		$resp = array_merge($purchase,$resp);
 		$resp['total'] = $episodes['pageing']['allItem'];
 		return $resp;
 	}
