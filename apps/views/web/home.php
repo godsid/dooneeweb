@@ -15,7 +15,7 @@
           <li>
               <article>
                   <a title="<?=$movie['title']?>" <?=$isLogin?> href="<?=base_url('/movie/'.$movie['movie_id'])?>">
-                      <img alt="<?=$movie['title_en']?>" src="<?=static_url($movie['cover'])?>">
+                      <img alt="<?=$movie['title_en']?>" class="lazy" src="img/blank.gif" data-src="<?=static_url($movie['cover'])?>">
                       <h3><?=$movie['title']?></h3>
                       <?php if($movie['is_free']=='YES'){?>
                       <span class="type free">free</span>
@@ -41,7 +41,7 @@
           <li>
             <article>
                 <a title="<?=$movie['title']?>" <?=$isLogin?> href="<?=base_url('/movie/'.$movie['movie_id'])?>">
-                    <img alt="<?=$movie['title_en']?>" src="<?=static_url($movie['cover'])?>">
+                    <img alt="<?=$movie['title_en']?>" class="lazy" src="img/blank.gif" data-src="<?=static_url($movie['cover'])?>">
                     <h3><?=$movie['title']?></h3>
                     <?php if($movie['is_free']=='YES'){?>
                     <span class="type free">free</span>
