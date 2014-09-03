@@ -5,7 +5,7 @@
 <script src="<?=static_url('/js/jquery.mousewheel-3.0.6.pack.js')?>"></script>
 <!--<script src="<?=static_url('/js/jquery.fancybox.js?v=2.1.5')?>"></script>-->
 <script src="<?=static_url('/js/perfect-scrollbar.js')?>"></script>
-
+<script src="<?=static_url('/js/jquery.lazy.1.9.min.js')?>"></script>
 
 <script>
 /* Header scroll */
@@ -117,6 +117,18 @@ $(document).ready(function() {
 </script>
 
 <script>
+
+/* Image lazy load*/
+var loaded = 0;
+jQuery(document).ready(function() {
+  jQuery(".thm-mv img").lazy({
+    effect: "fadeIn",
+    effectTime: 1500,
+    threshold: 0
+  });
+});
+
+
 $(document).ready(function(){
 	/*back to top*/
 	$(window).scroll(function(){
