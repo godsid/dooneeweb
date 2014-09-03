@@ -11,7 +11,7 @@
                 <?php for($i=0,$j=count($news['items']);$i<$j;$i++){ ?>
                     <article>
                         <a title="<?=$news['items'][$i]['title']?>" href="<?=base_url('/news/'.$news['items'][$i]['news_id'])?>">
-                            <img alt="" src="<?=static_url($news['items'][$i]['cover'])?>">
+                            <img alt="" class="lazy" src="img/blank.gif" data-src="<?=static_url($news['items'][$i]['cover'])?>">
                             <h3><?=$news['items'][$i]['title']?></h3>
                         </a>
                     </article>
