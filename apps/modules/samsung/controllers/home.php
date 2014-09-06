@@ -9,10 +9,13 @@ class Home extends SAMSUNG_Controller {
 		if(!$this->user = $this->mUser->getUser($this->uId)){
 			$this->mUser->register($this->uId);
 		}
+		$this->head['title'] = "Doonee.TV";
+
 	}
 
 	public function index()
 	{
+
 		$this->load->model('samsung/movie_model','mMovie');
 
 		//$this->load->model('api/banner_model','mBanner');
@@ -30,33 +33,33 @@ class Home extends SAMSUNG_Controller {
 							);		
 		}
 		*/
-		/*$item[] = array(
+		$item[] = array(
 						'id'=>1,
 							'type'=>'category',
 							'title'=>'PREMIUM (PAID)',
-							'description'=>'',
+							'description'=>'พบซีรี่ย์ดังจาก Holywood ที่เยอะที่สุด',
 							'icon'=>'https://logicshowtime.meevuu.com:8449/pageIcon/buffet_premium-1.png',
-							'nextTo'=>'',
-							'url'=>base_url('/samsung/movie/paid')
+							'nextTo'=>'contentGrid',
+							'url'=>base_url('/samsung/movie/premium')
 					);
 		$item[] = array(
 						'id'=>2,
 							'type'=>'category',
 							'title'=>'SAMSUNG PRIVILEGE (FREE)',
-							'description'=>'contentList',
+							'description'=>'ดูซีรี่ย์ดังจาก Holywood ที่เยอะที่สุดฟรี',
 							'icon'=>'https://logicshowtime.meevuu.com:8449/pageIcon/samsung_privilege-1.png',
 							'nextTo'=>'contentGrid',
-							'url'=>base_url('/samsung/movie/privilege')
+							'url'=>base_url('/samsung/movie/free')
 					);
-		*/
-		$item = array();
+		
+		//$item = array();
 		//if($this->page==1){
 			//First page is hot movie
-			$movie = $this->mMovie->getMoviesHotFirst($this->page,$this->limit);	
+		//$movie = $this->mMovie->getMoviesHotFirst($this->page,$this->limit);	
 		//}else{
 		//	$movie = $this->mMovie->getNotHotMovies($this->page,$this->limit);
 		//}
-		
+		/*
 		$countItem = $this->mMovie->getMovieCount();
 		$movie = $movie['items'];
 		for($i=0,$j=sizeof($movie);$i<$j;$i++){
@@ -70,10 +73,11 @@ class Home extends SAMSUNG_Controller {
 						'url'=>samsung_api_url('/movie/'.$movie[$i]['movie_id'])
 						);
 		}
+		*/
 
 		$data = array(
-						'item'=>&$item,
-						'total'=>$countItem
+						'item'=>&$item
+						//'total'=>$countItem
 				);
 		
 		$this->response($data);
