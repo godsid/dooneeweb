@@ -248,8 +248,9 @@ class Movie extends CI_Controller {
 		if(is_numeric($movieID)){
 			$data = $this->input->post();
 			$data['movie_id'] = $movieID;
+			$data['path'] = substr(md5(time()),0,10);
 
-			$path = $this->config->item('episode_path').date('/Y/').'series-'.$movieID.'-'.substr(md5(time()),0,10);
+			$path = $this->config->item('episode_path').date('/Y/').'series-'.$movieID.'-'.$data['path'];
 			$episode_id = $this->mEpisode->setEpisode($data);
 			echo json_encode(array(
 				'status'=>'success',
