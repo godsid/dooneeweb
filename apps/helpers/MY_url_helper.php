@@ -22,4 +22,14 @@ function samsung_api_url($path=""){
 	return $CI->config->item('samsung_api_url').$path;
 }
 
+
+function movie_stream_url($clipname,$sound,$resolution){
+	$CI =& get_instance();
+	return str_replace(array('{path}','{resolution}','{language}'),array($path,$language,$resolution),$CI->config->item('movie_url'));
+}
+function series_stream_url($path,$language,$resolution){
+	$CI =& get_instance();
+	return str_replace(array('{path}','{resolution}','{language}'),array($path,$language,$resolution),$CI->config->item('series_url'));
+}
+
 ?>

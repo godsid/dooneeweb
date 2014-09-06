@@ -15,6 +15,12 @@ class Movie_model extends ADODB_model {
 				
 		return $this->adodb->GetRow($sql);
 	}
+	public function getMovies($page,$limit){
+		$sql ="SELECT * 
+				FROM ".$this->table('movie')."
+				WHERE status = 'ACTIVE' ";
+		return $this->fetchPage($sql,$page,$limit);
+	}
 	public function getMovieCount(){
 		$sql = "SELECT COUNT(*) row
 				FROM ".$this->table('movie')."
@@ -22,10 +28,12 @@ class Movie_model extends ADODB_model {
 		$result = $this->adodb->GetRow($sql);
 		return $result['row'];
 	}
-	public function getMoviesPrivilage($page,$limit){
+	
+	public function getMoviesFree($page,$limit){
 		$sql ="SELECT * 
 				FROM ".$this->table('movie')."
-				WHERE status = 'ACTIVE' ";
+				WHERE is_free = 'YES' 
+				AND status = 'ACTIVE' ";
 		return $this->fetchPage($sql,$page,$limit);
 	}
 

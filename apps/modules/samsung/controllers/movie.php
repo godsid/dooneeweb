@@ -27,6 +27,9 @@ class Movie extends SAMSUNG_Controller {
 	}
 
 	public function index($movieID="",$episodeID=null){
+
+		redirect(samsung_api_url(''));
+		/*
 		$resp['item'] = array();
 		$movie = $this->mMovie->getMovie($movieID);
 
@@ -41,8 +44,9 @@ class Movie extends SAMSUNG_Controller {
 			}
 		}
 		$this->response($resp);
+		*/
 	}
-
+	/*
 	private function movieDetail($movie){
 		$resp['item'] = array(
 							'id'=> $movie['movie_id'],
@@ -83,7 +87,8 @@ class Movie extends SAMSUNG_Controller {
 		}
 		return $resp;
 	}
-
+	*/
+	/*
 	private function seriesEpisode($movie){
 		$resp['item'] = array();
 		$this->head['title'] = $movie['title'].' ('.$movie['title'].')';
@@ -106,7 +111,9 @@ class Movie extends SAMSUNG_Controller {
 		$resp['total'] = $episodes['pageing']['allItem'];
 		return $resp;
 	}
+	*/
 
+	/*
 	private function seriesDetail($movie,$episodeID){
 		$resp['item'] = $resp['item'] = array(
 							'id'=> $movie['movie_id'],
@@ -145,61 +152,130 @@ class Movie extends SAMSUNG_Controller {
 		$resp = array_merge($purchase,$resp);
 		return $resp;
 	}
-
-	public function free(){
-		/*
-		$this->head['title'] = 'SAMSUNG PRIVILEGE (FREE)';
-		$this->head['text'] = 'รับชมฟรีซีรี่ย์ฮอลลีว้ดูกวา่100เรื่อง';
-		$this->head['description'] = '';
-		$privilages = $this->mMovie->getMoviesPrivilage($this->page,$this->limit);
-		
-		$total = $privilages['pageing']['allItem'];
-		$data['item'] = array();
-		$privilages = $privilages['items'];
-		for($i=0,$j=count($privilages);$i<$j;$i++){
-			$privilages[$i] = array(
-							'id'=>$privilages[$i]['movie_id'],
-							'type'=>'movie',
-							'title'=>$privilages[$i]['title'],
-							'description'=>$privilages[$i]['summary'],
-							'icon'=>static_url($privilages[$i]['cover']),
-							'nextTo'=>($privilages[$i]['is_series']=='YES')?'ContentGrid':'movieDetail',
-							'url'=>samsung_api_url('/movie/'.$privilages[$i]['movie_id'])
-						);
-		}
-		$data['item'] = &$privilages;
-		$data['total'] = $total;
-		$this->response($data);
-		*/
-	}
-
+	*/
 	public function premium(){
-		$this->head['title'] = ' (Premium)';
+		$this->head['title'] = 'ซีรี่ย์ฮอลลีว้ดูกวา่600เรื่อง (Premium)';
 		$this->head['text'] = 'รับชม!ซีรี่ย์ฮอลลีว้ดูกวา่600เรื่อง';
 		$this->head['description'] = '';
-		$privilages = $this->mMovie->getMoviesPrivilage($this->page,$this->limit);
+		$premiums = $this->mMovie->getMovies($this->page,$this->limit);
 				
-		$total = $privilages['pageing']['allItem'];
+		$total = $premiums['pageing']['allItem'];
 		$data['item'] = array();
-		$privilages = $privilages['items'];
-		for($i=0,$j=count($privilages);$i<$j;$i++){
-			$privilages[$i] = array(
-							'id'=>$privilages[$i]['movie_id'],
+		$premiums = $premiums['items'];
+		for($i=0,$j=count($premiums);$i<$j;$i++){
+			$premiums[$i] = array(
+							'id'=>$premiums[$i]['movie_id'],
 							'type'=>'movie',
-							'title'=>$privilages[$i]['title'],
-							'description'=>$privilages[$i]['summary'],
-							'icon'=>static_url($privilages[$i]['cover']),
-							'nextTo'=>($privilages[$i]['is_series']=='YES')?'ContentGrid':'playNow',
-							'url'=>samsung_api_url('/movie/'.$privilages[$i]['movie_id'])
+							'title'=>$premiums[$i]['title'],
+							'description'=>$premiums[$i]['summary'],
+							'icon'=>static_url($premiums[$i]['cover']),
+							'nextTo'=>'ContentList',
+							'url'=>samsung_api_url('/movie/language/premium/'.$premiums[$i]['movie_id'])
 						);
 		}
-		$data['item'] = &$privilages;
+		$data['item'] = &$premiums;
 		$data['total'] = $total;
 		$this->response($data);
 		
 	}
 
+	public function free(){
+		
+		$this->head['title'] = 'SAMSUNG PRIVILEGE (FREE)';
+		$this->head['text'] = 'รับชมฟรีซีรี่ย์ฮอลลีว้ดูกวา่100เรื่อง';
+		$this->head['description'] = 'พบซีรี่ย์ดังจาก Holywood ที่เยอะที่สุด';
+		$free = $this->mMovie->getMoviesFree($this->page,$this->limit);
+		
+		$total = $free['pageing']['allItem'];
+		$data['item'] = array();
+		$free = $free['items'];
+		for($i=0,$j=count($free);$i<$j;$i++){
+			$free[$i] = array(
+							'id'=>$free[$i]['movie_id'],
+							'type'=>'movie',
+							'title'=>$free[$i]['title'],
+							'description'=>$free[$i]['summary'],
+							'icon'=>static_url($free[$i]['cover']),
+							'nextTo'=>'ContentList',
+							'url'=>samsung_api_url('/movie/language/free/'.$free[$i]['movie_id'])
+						);
+		}
+		$data['item'] = &$free;
+		$data['total'] = $total;
+		$this->response($data);
+	}
 
+
+	public function language($type='',$movieID=""){
+		if(empty($type)||empty($movieID)){
+			redirect(samsung_api_url(''));
+		}
+
+		$movie = $this->mMovie->getMovie($movieID);
+		$this->head['title'] = "เลือกภาษา";
+		$this->head['text'] = $movie['title'];
+		$language['item'][] = array(
+							'id'=>$movie['movie_id'],
+							'type'=>'movie',
+							'title'=>$movie['title'],
+							'description'=>$movie['summary'].' Eng',
+							'icon'=>static_url($movie['cover']),
+							'nextTo'=>'ContentList',
+							'url'=>samsung_api_url('/movie/episode/'.$type.'/en/'.$movieID)
+						);
+		$language['item'][] = array(
+							'id'=>$movie['movie_id'],
+							'type'=>'movie',
+							'title'=>$movie['title'],
+							'description'=>$movie['summary'].' Thai',
+							'icon'=>static_url($movie['cover']),
+							'nextTo'=>'ContentList',
+							'url'=>samsung_api_url('/movie/episode/'.$type.'/th/'.$movieID)
+						);
+		
+		$data['item'] = &$language;
+		$data['total'] = count($language['item']);
+		$this->response($data);
+	}
+
+	public function episode($type='',$lang='',$movieID=''){
+		if(empty($type)||empty($movieID)||empty($lang)){
+			redirect(samsung_api_url(''));
+		}
+		$movie = $this->mMovie->getMovie($movieID);
+		$this->head['title'] = "เลือกตอน";
+		$this->head['text'] = $movie['title'].' '.strtoupper($lang);
+
+		$series = array();
+		if($type=='free'){
+			$episodes = $this->mMovie->getMovieEpisode($movieID,0,3);
+		}else{
+			$episodes = $this->mMovie->getMovieEpisode($movieID,$this->page,$this->limit);
+		}
+
+		foreach($episodes['items'] as $episode){
+			$series[] = array(
+								'id'=>$episode['movie_id'],
+								'type'=>'movie',
+								'title'=>$episode['title'].' '.(($lang=='en')?'Eng':'Thai'),
+								'description'=>$movie['summary'],
+								'icon'=>static_url($movie['cover']),
+								'nextTo'=>'playNow',
+								'url'=>series_stream_url($episode['path'],'HD',$lang)
+							);
+		}
+		$data = array();
+
+		$purchase = $this->isPurchased($movie['movie_id']);
+		$resp['item']['isPurchased'] = $purchase['purchaseList']['isPurchased'];
+
+		$data = $this->isPurchased($movie['movie_id']);
+		//$data['isPurchased'] = $purchase['purchaseList']['isPurchased'];
+		$data['item'] = &$series;
+		$data['total'] = $episodes['pageing']['allItem'];
+		
+		$this->response($data);
+	}
 
 	private function isPurchased($movieID='',$seriesID=''){
 		
