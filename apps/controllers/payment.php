@@ -24,7 +24,12 @@ class Payment extends CI_Controller {
         $view['memberLogin'] = $this->memberLogin;
         $view['categories'] = $this->categories;
         $view['packages'] = $this->mPackage->getPackages();
-        $this->load->view('web/payment',$view);
+
+        $view['payment'] = array(
+                                'type'=>'creditcard'
+                            );
+
+        $this->load->view('web/payment_submit',$view);
     }
     public function ibanking(){
         $view['memberLogin'] = $this->memberLogin;

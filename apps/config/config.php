@@ -23,8 +23,8 @@ $config['static_path'] = 'files';
 
 $config['movie_path'] = 'movies/';
 $config['series_path'] = 'series/';
-$config['movie_url'] = 'http://122.155.197.142:1935/vod/mp4:'.$config['movie_path'].'{path}_{resolution}{language}.mp4/playlist.m3u8';
-$config['series_url'] = 'http://122.155.197.142:1935/vod/mp4:'.$config['series_path'].'{path}_{resolution}{language}.mp4/playlist.m3u8';
+$config['movie_url'] = 'http://122.155.197.142:1935/vod/mp4:'.$config['movie_path'].'{path}{language}{resolution}.mp4/playlist.m3u8';
+$config['series_url'] = 'http://122.155.197.142:1935/vod/mp4:'.$config['series_path'].'{path}{language}{resolution}.mp4/playlist.m3u8';
 
 $config['samsung_api_url'] = $config['base_url'].'/samsung';
 /*

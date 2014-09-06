@@ -50,7 +50,7 @@ $route['api/(:any)/(:num)'] = 'api/$1/index/$2';
 
 $route['samsung'] = 'samsung/home';
 $route['samsung/movie/(:num)/(:num)'] = 'samsung/movie/index/$1/$2';
-$route['samsung/(:any)/(:num)'] = 'samsung/$1/index/$2';
+$route['samsung/(a-Z)/(:num)'] = 'samsung/$1/index/$2';
 
 
 $route['backoffice'] = 'backoffice/dashboard';
