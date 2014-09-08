@@ -9,6 +9,9 @@
 						<div class="box-icon">
 							<a href="<?=backoffice_url('/movie/create/')?>" title="เพิ่มภาพยนต์ใหม่" class="btn btn-edit btn-round"><i class="icon-plus-sign"></i></a>
 						</div>
+						<div class="box-icon"><a href="<?=backoffice_url('/movie/export/')?>" title="Export Movies" class="btn btn-edit" onclick="window.open(this.href);return false;"><i class="icon-film"></i></a></div>
+						<div class="box-icon"><a href="<?=backoffice_url('/movie/export/series')?>" title="Export Series" class="btn btn-edit" onclick="window.open(this.href);return false;"><i class="icon-tasks"></i></a></div>
+						
 					</div>
 					<div class="box-content">
 

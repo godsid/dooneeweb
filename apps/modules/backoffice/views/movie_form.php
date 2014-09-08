@@ -111,7 +111,7 @@
 												</div>
 												<div class="box-content hide">
 													<?php $i=1;foreach ($movie['episodes']['items'] as $episode) {?>
-													<p><?=($i++),".",$episode['title']?> ( <?=$episode['path']?>) <a href="<?=backoffice_url('/movie/deleteEpisode/'.$episode['episode_id'])?>" onclick="if(window.confirm('ต้องการลบนี้ข้อมูลใช่หรือไม่')){deleteEpisode(this);return false;}else{return false;}" title="ลบ" class="btn btn-default"><i class="icon-trash"></i></a></p>
+													<p><?=($i++),".",$episode['title']?> ( /series/<?=$episode['path']?>.mp4) <a href="<?=backoffice_url('/movie/deleteEpisode/'.$episode['episode_id'])?>" onclick="if(window.confirm('ต้องการลบนี้ข้อมูลใช่หรือไม่')){deleteEpisode(this);return false;}else{return false;}" title="ลบ" class="btn btn-default"><i class="icon-trash"></i></a></p>
 													<?php }?>
 													
 													<div class="control-group">
