@@ -23,13 +23,16 @@ class Payment extends SAMSUNG_Controller {
 		}
 	}
 	private function prepareCharging(){
-		$data = $this->input->get_post();
+		$data = $this->input->get();
 		$data['time'] = date('Y-m-d H:i:s');
 		$this->samsungpayment->log(print_r($data,true));
 		$this->mPayment->log($data);
 		
 		$this->validateData($data);
-
+		if($package = $this->mPackage->getPackageByName($data['cId'])){
+			$data['cId'] = $package['package_id'];
+		}
+		
 		$this->mPayment->insertTransection($data);
 		echo json_encode($this->samsungpayment->getCode("20100"));
 		exit;
@@ -37,13 +40,15 @@ class Payment extends SAMSUNG_Controller {
 
 	private function confirmCharging(){
 		$this->load->model('user_model','mUser');
-		$data = $this->input->get_post();
+		$data = $this->input->get();
 		$data['time'] = date('Y-m-d H:i:s');
 
 		$this->samsungpayment->log(print_r($data,true));
 		$this->mPayment->log($data);
 		$this->validateData($data);
-
+		if($package = $this->mPackage->getPackageByName($data['cId'])){
+			$data['cId'] = $package['package_id'];
+		}
 		if($prePayment = $this->mPayment->checkTransection($data['transactionId'],$data['uId'],$data['cId'],$data['price'])){
 			$transectionData = array(
 					'command'=>$data['command'],
