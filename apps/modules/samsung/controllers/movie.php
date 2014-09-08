@@ -261,7 +261,7 @@ class Movie extends SAMSUNG_Controller {
 								'description'=>$movie['summary'],
 								'icon'=>static_url($movie['cover']),
 								'nextTo'=>'playNow',
-								'url'=>series_stream_url($episode['path'],'HD',$lang)
+								'url'=>series_stream_url($episode['path'],'720',$lang)
 							);
 		}
 		$data = array();

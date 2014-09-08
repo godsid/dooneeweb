@@ -21,6 +21,13 @@ class Episode_model extends ADODB_model {
 				ORDER BY title ASC ";
 		return $this->fetchPage($sql,$page,$limit);
 	}
+	public function getAllEpisodes($page=1,$limit=30){
+		$sql ="SELECT m.title movieTitle,e.* 
+				FROM ".$this->table('episode','e')."
+				LEFT JOIN  ".$this->table('movie','m')." ON e.movie_id = m.movie_id 
+				ORDER BY e.movie_id ASC,e.title ASC ";
+		return $this->fetchPage($sql,$page,$limit);
+	}
 
 	public function searchEpisode($q,$page=1,$limit=30){
 		$sql ="SELECT * 

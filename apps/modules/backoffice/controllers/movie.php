@@ -86,6 +86,7 @@ class Movie extends CI_Controller {
 			
 		$data['movie'] = $this->mMovie->getMovie($movieID);
 		if($data['movie']['is_series']=='NO'){
+			/*
 			$moviepath = array();
 			$sounds = explode(',',trim($data['movie']['audio']));
 			foreach($sounds as $sound){
@@ -97,6 +98,8 @@ class Movie extends CI_Controller {
 				}
 			}
 			$data['movie']['path'] = implode('<br/>',$moviepath);
+			*/
+			$data['movie']['path'] = '/'.$this->config->item('movie_path').$data['movie']['path'].'.mp4';
 		}
 		$cateArray = $this->mMovie->getMovieCategory($movieID);
 		$data['movie']['category'] = array();
@@ -273,6 +276,51 @@ class Movie extends CI_Controller {
 		$this->load->model('episode_model','mEpisode');
 		if(is_numeric($episode_id)){
 			$this->mEpisode->deleteEpisode($episode_id);
+		}
+	}
+
+	public function export($type=""){
+		//header("Content-type: application/force-download; charset=utf-8;");
+		header("Content-type: text/plain; charset=utf-8;");
+    	header('Content-Transfer-Encoding: binary');
+    	header('Accept-Ranges: bytes');
+		$this->load->model('episode_model','mEpisode');
+		if($type=="series"){
+			header('Content-Disposition: attachment; filename="series.csv"');
+			$path = $this->config->item('series_path');
+
+			$page = 1;
+			echo "Id,Title,Path\r\n";
+			while($page){
+				$episodes = $this->mEpisode->getAllEpisodes($page,100);
+				if($episodes&&$episodes['pageing']['maxPage']>$page){
+					$page++;
+				}else{
+					$page = 0;
+				}
+				$episodes = $episodes['items'];
+				for($i=0,$j=count($episodes);$i<$j;$i++){
+					echo $episodes[$i]['movie_id'],",",$episodes[$i]['movieTitle'],$episodes[$i]['title'],",/",$path,$episodes[$i]['path'],".mp4\r\n";
+				}
+			}
+				
+		}else{
+			header('Content-Disposition: attachment; filename="movies.csv"');
+			$path = $this->config->item('movie_path');
+			$page = 1;
+			echo "Id,Title,Path\r\n";
+			while($page){
+				$movies = $this->mMovie->getMovies($page,100);
+				if($movies&&$movies['pageing']['maxPage']>$page){
+					$page++;
+				}else{
+					$page = 0;
+				}
+				$movies = $movies['items'];
+				for($i=0,$j=count($movies);$i<$j;$i++){
+					echo $movies[$i]['movie_id'],",",$movies[$i]['title'],",/",$path,$movies[$i]['path'],".mp4\r\n";
+				}
+			}
 		}
 	}
 }
