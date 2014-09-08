@@ -5,9 +5,9 @@ DirectoryIndex index.html index.php ci2.php
 RewriteCond %{HTTP_HOST} ^doonee.tv
 RewriteRule (.*) http://www.doonee.tv/$1 [R=301,L]
 
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_URI} ^/assets/files
-RewriteRule . /files/movies-default.jpg [L]
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_URI} ^/assets/files
+#RewriteRule . /files/movies-default.jpg [L]
 
 
 RewriteRule ^assets/files/(.*) /files/$1 [L]

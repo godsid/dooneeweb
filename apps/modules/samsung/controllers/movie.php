@@ -233,7 +233,7 @@ class Movie extends SAMSUNG_Controller {
 							'url'=>samsung_api_url('/movie/episode/'.$type.'/th/'.$movieID)
 						);
 		
-		$data['item'] = &$language;
+		$data = &$language;
 		$data['total'] = count($language['item']);
 		$this->response($data);
 	}
@@ -265,12 +265,12 @@ class Movie extends SAMSUNG_Controller {
 							);
 		}
 		$data = array();
-
-		$purchase = $this->isPurchased($movie['movie_id']);
-		$resp['item']['isPurchased'] = $purchase['purchaseList']['isPurchased'];
-
-		$data = $this->isPurchased($movie['movie_id']);
-		//$data['isPurchased'] = $purchase['purchaseList']['isPurchased'];
+		if($type!='free'){
+			$purchase = $this->isPurchased($movie['movie_id']);
+			$data = $this->isPurchased($movie['movie_id']);
+		}
+		
+		
 		$data['item'] = &$series;
 		$data['total'] = $episodes['pageing']['allItem'];
 		
