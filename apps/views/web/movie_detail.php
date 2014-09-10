@@ -27,7 +27,7 @@
                 </p>
             </div>
             <div class="detai">
-              <h1>ดูหนังออนไลน์ <?=$movie['title']?></h1>
+              <h1>ดูหนังออนไลน์ <?=$movie['title']?> </h1>
                 <p class="name-en"><?=$movie['title_en']?></p>
                 
                 <h2>เนื้อเรื่องภาพยนตร์ <?=$movie['title']?></h2>
@@ -81,7 +81,7 @@
                       <source type="video/mp4" src="http://122.155.197.142:1935/vod/mp4:sample.mp4/manifest.mpd"></source>
                       Your browser does not support the video tag.
                     </video>-->
-                    <iframe width="984" height="560" frameborder="0" allowfullscreen="" src="<?=base_url('/jwplayer.php?file=series/'.$movie['path'])?>en720.mp4" class="mp4downloader_embedButtonInitialized mp4downloader_tagChecked "></iframe>
+                    <iframe width="984" height="560" frameborder="0" allowfullscreen="" src="<?=base_url('/jwplayer.php?file=series/'.(isset($thisEpisode)?$thisEpisode['path']:$movie['path']))?>th720.mp4" class="mp4downloader_embedButtonInitialized mp4downloader_tagChecked "></iframe>
                     <?php 
                     if(isset($memberLogin)&&$memberLogin){
                       if(isset($memberLogin['canwatch'])&&$memberLogin['canwatch']){ 

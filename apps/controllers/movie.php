@@ -16,14 +16,15 @@ class movie extends CI_Controller {
 
     }
 
-    public function index($movieId=""){
+    public function index($movieId="",$episodeId=""){
         if(is_numeric($movieId)){
-            $this->detail($movieId);
+            $this->detail($movieId,$episodeId);
         }else{
             $this->archive();
         }
     }
-    private function detail($movieId){
+    private function detail($movieId,$episodeId=""){
+        $this->load->model('episode_model','mEpisode');
         if(!$view['movie'] = $this->mMovie->getMovie($movieId)){
             redirect(home_url('/'));
         }
@@ -38,6 +39,11 @@ class movie extends CI_Controller {
             $episodes = $this->mMovie->getMovieEpisode($movieId);
             $view['episodes'] = $episodes['items'];
             unset($episodes);
+            if(is_numeric($episodeId)){
+                $view['thisEpisode'] = $this->mEpisode->getEpisode($episodeId);
+            }else{
+                $view['thisEpisode'] = $this->mEpisode->getEpisode($view['episodes'][0]['episode_id']);
+            }
         }
         //Movie Relate
         $relates = $this->mMovie->getMovieRelate($movieId,1,10);
