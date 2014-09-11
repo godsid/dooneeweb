@@ -2,8 +2,11 @@
 RewriteEngine on
 DirectoryIndex index.html index.php ci2.php
 
-RewriteCond %{HTTP_HOST} ^doonee.tv
-RewriteRule (.*) http://www.doonee.tv/$1 [R=301,L]
+RewriteCond %{HTTP_HOST} ^dev.doonee.tv
+RewriteRule (.*) http://dev.dooneetv.com/$1 [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^(www.)?doonee.tv
+RewriteRule (.*) http://www.dooneetv.com/$1 [R=301,L]
 
 #RewriteCond %{REQUEST_FILENAME} !-f
 #RewriteCond %{REQUEST_URI} ^/assets/files
