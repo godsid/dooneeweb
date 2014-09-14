@@ -74,18 +74,11 @@
           <div class="ctrl-player container">
               <h2>ดูหนังออนไลน์ <?=$movie['title']?></h2>
                 <div class="trailer" style="position:relative;">
-                  <!--<video width="984" height="560" preload controls>
-                      <source type="video/mp4" src="http://122.155.197.142:1935/vod/_definst_/mp4:movies/hawaii-five-o-s4-ep1.mp4/playlist.m3u8"></source>
-                      <source type="video/mp4" src="rtsp://122.155.197.142:1935/vod/_definst_/movies/hawaii-five-o-s4-ep1.mp4"></source>
-                      <source type="video/mp4" src="http://122.155.197.142:1935/vod/_definst_/mp4:movies/hawaii-five-o-s4-ep1.mp4/manifest.f4m"></source>
-                      <source type="video/mp4" src="http://122.155.197.142:1935/vod/mp4:sample.mp4/manifest.mpd"></source>
-                      Your browser does not support the video tag.
-                    </video>-->
-                    <iframe width="984" height="560" frameborder="0" allowfullscreen="" src="<?=base_url('/jwplayer.php?file=series/'.(isset($thisEpisode)?$thisEpisode['path']:$movie['path']))?>th720.mp4" class="mp4downloader_embedButtonInitialized mp4downloader_tagChecked "></iframe>
+                    <iframe width="984" height="560" frameborder="0" allowfullscreen="" src="<?=base_url('/movie/player/'.$movie['movie_id'].(isset($thisEpisode)?'/'.$thisEpisode['episode_id']:''))?>" class="mp4downloader_embedButtonInitialized mp4downloader_tagChecked "></iframe>
                     <?php 
                     if(isset($memberLogin)&&$memberLogin){
-                      if(isset($memberLogin['canwatch'])&&$memberLogin['canwatch']){ 
-                      }else{?>
+                      if(isset($memberLogin['canwatch'])&&$memberLogin['canwatch']){ ?>
+                      <?php }else{ ?>
                         <a href="<?=base_url('/package')?>"><div style="width:100%;height:100%;background-color:red;position:absolute;top:0px;opacity:0;">&nbsp;</div></a>
                       <?php }?>
                     <?php }else{?>
