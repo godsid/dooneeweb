@@ -38,7 +38,7 @@
             </div>
             <ul id="sl-cat" class="select-cat">
               <li>
-                  <a href="javascript:;" title="เลือกประเภทหนัง">เลือกประเภทหนัง <i class="icon-chevron-down"></i></a>
+                  <a href="javascript:;" title="เลือก ประเภทหนัง/ซีรี่ส์">เลือก ประเภทหนัง/ซีรี่ส์ <i class="icon-chevron-down"></i></a>
                     <ul id="scroll-cat" class="sub-cat _sf-col-xs-12">
 
                     <?php if(is_array($categories)&&count($categories)){
@@ -54,7 +54,7 @@
             </ul>
             <div id="searcharea">
                 <form action="<?=base_url('/movie/search')?>" method="get" id="searchForm">
-                    <input type="text" class="txt-box _sf-col-xs-12" placeholder="ค้นหา หนัง/ซีรี่ย์" id="searchbox" name="q" autocomplete="off">
+                    <input type="text" class="txt-box _sf-col-xs-12" placeholder="ค้นหา ชื่อหนัง/ซีรี่ส์" id="searchbox" name="q" autocomplete="off">
                     <button class="btn-srh icon-search" id="btn-search" type="submit"></button>
                     <ul id="results" class="js-v-scroll"><li class="hid">results</li></ul>
                 </form>
@@ -98,10 +98,10 @@
         <nav id="navigation" class="top-nav">
             <ul id="nav-drop">
               <li><a href="<?=home_url()?>" title="หน้าแรก">หน้าแรก</a></li>
-              <li><a href="<?=base_url('/movie/series')?>" title="ดูซีรี่ย์">ดูซีรี่ย์</a></li>
+              <li><a href="<?=base_url('/movie/series')?>" title="ดูซีรี่ส์">ดูซีรี่ย์</a></li>
               <li><a href="<?=base_url('/news')?>" title="ข่าว/โปรโมชั่น">ข่าว/โปรโมชั่น</a></li>
-              <li><a href="<?=base_url('/package')?>" title="เติมเงิน / ซื้อแพ็กเกจ">เติมเงิน / ซื้อแพ็กเกจ</a></li>
-              <li><a href="<?=base_url('/help')?>" title="วิธีการดูหนัง">วิธีการดูหนัง</a></li>    
+              <li><a href="<?=base_url('/package')?>" title="เติมเงิน / ซื้อแพ็คเกจ">เติมเงิน / ซื้อแพ็คเกจ</a></li>
+              <li><a href="<?=base_url('/help')?>" title="วิธีการรับชม">วิธีการรับชม</a></li>    
               <li><a href="<?=base_url('/aboutus')?>" title="เกี่ยวกับเรา">เกี่ยวกับเรา</a></li>
             </ul>
               <span class="btn-nv-m">

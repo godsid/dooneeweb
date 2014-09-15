@@ -7,7 +7,7 @@
       <section id="contents">
 
           <div class="container bx-package">
-            <h2><a href="<?=base_url('/package')?>" title="ซื้อแพคเกจ">ซื้อแพคเกจ <i class="icon-double-angle-right"></i></a></h2>
+            <h2><a href="<?=base_url('/package')?>" title="ซื้อแพ็คเกจ">ซื้อแพ็คเกจ <i class="icon-double-angle-right"></i></a></h2>
             <div id="accordion" class="inner accordion">
         <!-- Package -->
               <?php foreach($packages as $package){?>
