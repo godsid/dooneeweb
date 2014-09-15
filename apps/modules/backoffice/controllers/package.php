@@ -44,6 +44,7 @@ class Package extends CI_Controller {
 	public function create(){
 		$this->breadcrumb[] = array('title'=>'New','url'=>'');
 		$data['breadcrumb'] = $this->breadcrumb;
+		$data['package']['category'] = array();
 		$this->load->view('package_form',$data);
 	}
 	public function edit($packageID=""){

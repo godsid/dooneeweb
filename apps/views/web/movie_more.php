@@ -9,7 +9,7 @@
             <img alt="<?=$movie['title_en']?>" src="<?=static_url($movie['cover'])?>">
             <h3><?=$movie['title']?></h3>
             <?php if($movie['is_free']=='YES'){?>
-            <span class="type free">free</span>
+            <span class="type free">Free</span>
             <?php }elseif($movie['is_hd']=='YES'){?>
             <span class="type HD">HD</span>
             <?php }?>
