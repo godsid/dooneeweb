@@ -115,7 +115,7 @@
                     <a title="<?=$episode['title']?>" <?=$isLogin?> href="<?=base_url('/movie/'.$episode['movie_id'].'/'.$episode['episode_id'])?>">
                         <img alt="<?=$movie['title_en']?>" src="<?=static_url($movie['cover'])?>">
                         <h3><?=$episode['title']?></h3>
-                        <span class="type <?=$movie['is_free']?"free":""; ?>"><?=$movie['is_free']?"free":($movie['is_hd']?"HD":"");?></span>
+                        <span class="type <?=$movie['is_free']?"Free":""; ?>"><?=$movie['is_free']?"Free":($movie['is_hd']?"HD":"");?></span>
                     </a>
                     <footer>
                         <p class="sm"><a href="javascript:;" title="รายการโปรด"> <?=$episode['title']?></a></p>
@@ -140,7 +140,7 @@
                     <a title="<?=$relate['title']?>" <?=$isLogin?> href="<?=base_url('/movie/'.$relate['movie_id'])?>">
                         <img alt="<?=$relate['title_en']?>" src="<?=static_url($relate['cover'])?>">
                         <h3><?=$relate['title']?></h3>
-                        <span class="type <?=$relate['is_free']?"free":""; ?>"><?=$relate['is_free']?"free":($relate['is_hd']?"HD":"");?></span>
+                        <span class="type <?=$relate['is_free']?"Free":""; ?>"><?=$relate['is_free']?"Free":($relate['is_hd']?"HD":"");?></span>
                     </a>
                     <footer>
                         <p class="sm"><a href="javascript:;" title=""> <?=$relate['summary']?></a></p>
