@@ -98,7 +98,6 @@
               }(document, 'script', 'facebook-jssdk'));</script>
               <div class="fb-comments" data-href="<?=base_url('/movie/'.$movie['movie_id'])?>" data-width="1170" data-numposts="5" data-colorscheme="light"></div>
            
-          <!--iframe id="f2ad8bf703242e" name="f20f6d02f92de4" scrolling="no" style="border: medium none; overflow: hidden; height: 272px; width: 100%;" title="Facebook Social Plugin" class="fb_ltr" src="https://www.facebook.com/plugins/comments.php?api_key=533223390098647&amp;channel_url=http%3A%2F%2Fstatic.ak.facebook.com%2Fconnect%2Fxd_arbiter%2FDhmkJ2TR0QN.js%3Fversion%3D41%23cb%3Df30444a21fd4ca8%26domain%3Dvariety.horoworld.com%26origin%3Dhttp%253A%252F%252Fvariety.horoworld.com%252Ff29ddb32caefc86%26relation%3Dparent.parent&amp;colorscheme=light&amp;href=http%3A%2F%2Fvariety.horoworld.com%2F114547_%E0%B8%94%E0%B8%B9%E0%B8%94%E0%B8%A7%E0%B8%87-%E0%B9%81%E0%B8%97%E0%B8%84-%E0%B8%95%E0%B9%89%E0%B8%99%E0%B8%AB%E0%B8%AD%E0%B8%A1-%E0%B9%83%E0%B8%8A%E0%B9%88%E0%B8%AB%E0%B8%A3%E0%B8%B7%E0%B8%AD%E0%B8%A1%E0%B8%B1%E0%B9%88%E0%B8%A7%E0%B8%8A%E0%B8%B1%E0%B8%A7%E0%B8%A3%E0%B9%8C%E0%B8%AB%E0%B8%A3%E0%B8%B7%E0%B8%AD%E0%B9%84%E0%B8%A1%E0%B9%88&amp;locale=en_US&amp;numposts=10&amp;sdk=joey&amp;skin=light&amp;width=1170"></iframe-->
           
           </div>
 
@@ -115,7 +114,7 @@
                     <a title="<?=$episode['title']?>" <?=$isLogin?> href="<?=base_url('/movie/'.$episode['movie_id'].'/'.$episode['episode_id'])?>">
                         <img alt="<?=$movie['title_en']?>" src="<?=static_url($movie['cover'])?>">
                         <h3><?=$episode['title']?></h3>
-                        <span class="type <?=$movie['is_free']?"Free":""; ?>"><?=$movie['is_free']?"Free":($movie['is_hd']?"HD":"");?></span>
+                        <span class="type <?=$movie['is_free']=='YES'?"Free":""; ?>"><?=$movie['is_free']=='YES'?"Free":($movie['is_hd']=='YES'?"HD":"");?></span>
                     </a>
                     <footer>
                         <p class="sm"><a href="javascript:;" title="รายการโปรด"> <?=$episode['title']?></a></p>
@@ -140,7 +139,7 @@
                     <a title="<?=$relate['title']?>" <?=$isLogin?> href="<?=base_url('/movie/'.$relate['movie_id'])?>">
                         <img alt="<?=$relate['title_en']?>" src="<?=static_url($relate['cover'])?>">
                         <h3><?=$relate['title']?></h3>
-                        <span class="type <?=$relate['is_free']?"Free":""; ?>"><?=$relate['is_free']?"Free":($relate['is_hd']?"HD":"");?></span>
+                        <span class="type <?=$relate['is_free']=='YES'?"Free":""; ?>"><?=$relate['is_free']=='YES'?"Free":($relate['is_hd']=='YES'?"HD":"");?></span>
                     </a>
                     <footer>
                         <p class="sm"><a href="javascript:;" title=""> <?=$relate['summary']?></a></p>

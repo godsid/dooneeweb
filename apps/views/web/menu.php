@@ -71,7 +71,7 @@
               console.log(search);
               $("#results").empty().show();
               if (search.trim().length>=3) {
-                $.get('<?=base_url("/movie/suggestion")?>',{q:search,page:1,limit:1},function(resp){
+                $.get('<?=base_url("/movie/suggestion")?>',{q:search,page:1,limit:10},function(resp){
                   if(resp.items.length){
                     $("#results").append('<li class="articlelink"><a href="javascript:$(\'#searchForm\').submit();">ผลการค้นหาพบทั้งหมด '+resp.allItem+' เรื่อง</a></li>');
                     resp = resp.items;

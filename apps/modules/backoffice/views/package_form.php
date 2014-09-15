@@ -60,6 +60,17 @@
 									</div>
 								</div>
 								<div class="control-group">
+									<label class="control-label">Partner</label>
+									<div class="controls">
+										<input type="hidden" name="partner_tmp" value="<?=isset($package['partner'])?$package['partner']:''?>" />
+										<select name="partner" class="span6">
+											<?php foreach ($package['partners'] as $item) {?>
+											<option value="<?=$item?>" <?=(isset($package['partner'])&&$package['partner']==$item)?'selected':''?>><?=$item?></option>
+											<?php }?>
+										</select>
+									</div>
+								</div>
+								<div class="control-group">
 									<label class="control-label">หมวดหมู่</label>
 									<div class="controls">
 										<input type="hidden" name="category_tmp" value="<?=implode(',',$package['category'])?>" />
