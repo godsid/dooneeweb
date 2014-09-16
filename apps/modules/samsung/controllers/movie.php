@@ -278,8 +278,13 @@ class Movie extends SAMSUNG_Controller {
 	}
 
 	private function isPurchased($movieID='',$seriesID=''){
+		if(isset($this->user['user_id'])&&!empty($this->user['user_id'])){
+			$package = $this->mUser->getUserPackage($this->user['user_id']);
+		}else{
+			$package = array();
+		}
+
 		
-		$package = $this->mUser->getUserPackage($this->user['user_id']);
 		$expireDate = isset($package['expire_date'])?strtotime($package['expire_date'])-time():'0';
 		$data['purchaseList'] = array(
 									'isPurchased'=>($expireDate?'yes':'no'),
