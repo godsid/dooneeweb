@@ -6,8 +6,8 @@ class Home extends SAMSUNG_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('user_model','mUser');
-		if(!$this->user = $this->mUser->getUser($this->uId)){
-			$this->mUser->register($this->uId);
+		if(!$this->user = $this->mUser->getUser($this->uid)){
+			$this->mUser->register($this->uid);
 		}
 		$this->head['title'] = "Doonee.TV";
 

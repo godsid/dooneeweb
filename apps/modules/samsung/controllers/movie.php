@@ -23,7 +23,7 @@ class Movie extends SAMSUNG_Controller {
 		$this->load->model('samsung/movie_model','mMovie');
 		$this->load->model('user_model','mUser');
 		$this->load->model('package_model','mPackage');	
-		$this->user = $this->mUser->getUser($this->uId);
+		$this->user = $this->mUser->getUser($this->uid);
 	}
 
 	public function index($movieID="",$episodeID=null){
@@ -290,7 +290,7 @@ class Movie extends SAMSUNG_Controller {
 		foreach($packages as $package){
 			$data['purchaseList']['priceList'][] = array(
 													'title'=>$package['title'],
-													'typeTitle'=>'ชาระผา่นบตัรเครดติ',
+													'typeTitle'=>'ชำระผ่านบัตรเครดิต',
 													'contentId'=>$package['name'],
 													'appId'=>$this->config->item('samsung_appid'),
 													'price'=>$package['price'],

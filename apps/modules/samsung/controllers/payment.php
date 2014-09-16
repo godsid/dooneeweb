@@ -47,9 +47,9 @@ class Payment extends SAMSUNG_Controller {
 		$this->mPayment->log($data);
 		$this->validateData($data);
 		if($package = $this->mPackage->getPackageByName($data['cId'])){
-			$data['cId'] = $package['package_id'];
+			$data['package_id'] = $package['package_id'];
 		}
-		if($prePayment = $this->mPayment->checkTransection($data['transactionId'],$data['uId'],$data['cId'],$data['price'])){
+		if($prePayment = $this->mPayment->checkTransection($data['transactionId'],$data['uId'],$data['package_id'],$data['price'])){
 			$transectionData = array(
 					'command'=>$data['command'],
 					'status'=>$data['status'],
