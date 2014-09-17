@@ -11,7 +11,7 @@ class Movie extends SAMSUNG_Controller {
 			'backgroundColor'=>'#000000',
 			'backgroundImage'=>'https://logicshowtime.meevuu.com:8443/appThumbImg/bg_main-2.png',
 			'url'=>'',
-			'brandLogo'=>'http://www.doonee.tv/assets/img/logo.png',
+			'brandLogo'=>'http://www.doonee.tv/assets/img/logo-thai-s1.png',
 			'appId'=>''
 
 		);
