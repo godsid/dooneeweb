@@ -38,7 +38,7 @@ class Home extends SAMSUNG_Controller {
 							'type'=>'category',
 							'title'=>'PREMIUM (PAID)',
 							'description'=>'พบซีรี่ย์ดังจาก Holywood ที่เยอะที่สุด',
-							'icon'=>'https://logicshowtime.meevuu.com:8449/pageIcon/buffet_premium-1.png',
+							'icon'=>static_url('/img/samsung-premium.png'),
 							'nextTo'=>'contentGrid',
 							'url'=>base_url('/samsung/movie/premium')
 					);
@@ -47,7 +47,7 @@ class Home extends SAMSUNG_Controller {
 							'type'=>'category',
 							'title'=>'SAMSUNG PRIVILEGE (FREE)',
 							'description'=>'ดูซีรี่ย์ดังจาก Holywood ที่เยอะที่สุดฟรี',
-							'icon'=>'https://logicshowtime.meevuu.com:8449/pageIcon/samsung_privilege-1.png',
+							'icon'=>static_url('/img/samsung-free.png'),
 							'nextTo'=>'contentGrid',
 							'url'=>base_url('/samsung/movie/free')
 					);
