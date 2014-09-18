@@ -72,13 +72,13 @@ jwplayer("container").setup({
            labels: "Thai,English"},*/?>
    },
     skin:"<?=static_url('/js/jwplayer/newtubedark.zip')?>",
-    logo: {
+    /*logo: {
         hide:false,
         position:"top-left",
         margin:8,
         file: "<?=static_url('/img/logo-player.png')?>",
         link: "<?=home_url()?>"
-    },
+    },*/
     abouttext:"DooneeTV 2014",
     aboutlink:"<?=base_url('/privacy')?>",
     <?php /*playlist: [
