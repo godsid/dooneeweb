@@ -9,7 +9,7 @@ class Home extends SAMSUNG_Controller {
 		if(!$this->user = $this->mUser->getUser($this->uid)){
 			$this->mUser->register($this->uid);
 		}
-		$this->head['title'] = "Doonee.TV";
+		$this->head['title'] = "DooneeTV";
 
 	}
 

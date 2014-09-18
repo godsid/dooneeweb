@@ -11,7 +11,7 @@ class Movie extends SAMSUNG_Controller {
 			'backgroundColor'=>'#000000',
 			'backgroundImage'=>'https://logicshowtime.meevuu.com:8443/appThumbImg/bg_main-2.png',
 			'url'=>'',
-			'brandLogo'=>'http://www.doonee.tv/assets/img/logo-thai-s1.png',
+			'brandLogo'=>'http://www.dooneetv.com/assets/img/logo-thai-s1.png',
 			'appId'=>''
 
 		);
@@ -257,11 +257,20 @@ class Movie extends SAMSUNG_Controller {
 			$series[] = array(
 								'id'=>$episode['movie_id'],
 								'type'=>'movie',
-								'title'=>$episode['title'].' '.(($lang=='en')?'Eng':'Thai'),
+								'title'=>$episode['title'].' '.(($lang=='en')?'Eng':'Thai').' HD',
 								'description'=>$movie['summary'],
 								'icon'=>static_url($movie['cover']),
 								'nextTo'=>'playNow',
 								'url'=>series_stream_url($episode['path'],'720',$lang)
+							);
+			$series[] = array(
+								'id'=>$episode['movie_id'],
+								'type'=>'movie',
+								'title'=>$episode['title'].' '.(($lang=='en')?'Eng':'Thai').' SD',
+								'description'=>$movie['summary'],
+								'icon'=>static_url($movie['cover']),
+								'nextTo'=>'playNow',
+								'url'=>series_stream_url($episode['path'],'480',$lang)
 							);
 		}
 		$data = array();
