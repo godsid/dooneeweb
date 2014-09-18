@@ -248,7 +248,7 @@ class Movie extends SAMSUNG_Controller {
 
 		$series = array();
 		if($type=='free'){
-			$episodes = $this->mMovie->getMovieEpisode($movieID,0,3);
+			$episodes = $this->mMovie->getMovieEpisode($movieID,0,2);
 		}else{
 			$episodes = $this->mMovie->getMovieEpisode($movieID,$this->page,$this->limit);
 		}
@@ -257,21 +257,13 @@ class Movie extends SAMSUNG_Controller {
 			$series[] = array(
 								'id'=>$episode['movie_id'],
 								'type'=>'movie',
-								'title'=>$episode['title'].' '.(($lang=='en')?'Eng':'Thai').' HD',
+								'title'=>$episode['title'].' '.(($lang=='en')?'Eng':'Thai'),
 								'description'=>$movie['summary'],
 								'icon'=>static_url($movie['cover']),
 								'nextTo'=>'playNow',
-								'url'=>series_stream_url($episode['path'],'720',$lang)
+								'url'=>str_replace(array('vods','mp4:','rtmp'),array('vod','','rtsp'),series_stream_url($episode['path'],'480',$lang))
 							);
-			$series[] = array(
-								'id'=>$episode['movie_id'],
-								'type'=>'movie',
-								'title'=>$episode['title'].' '.(($lang=='en')?'Eng':'Thai').' SD',
-								'description'=>$movie['summary'],
-								'icon'=>static_url($movie['cover']),
-								'nextTo'=>'playNow',
-								'url'=>series_stream_url($episode['path'],'480',$lang)
-							);
+
 		}
 		$data = array();
 		if($type!='free'){
@@ -281,7 +273,12 @@ class Movie extends SAMSUNG_Controller {
 		
 		
 		$data['item'] = &$series;
-		$data['total'] = $episodes['pageing']['allItem'];
+		if($type=='free'){
+			$data['total'] = count($episodes['items']);
+		}else{
+			$data['total'] = $episodes['pageing']['allItem'];
+		}
+		
 		
 		$this->response($data);
 	}
