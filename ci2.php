@@ -18,7 +18,7 @@
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-if($_SERVER['HTTP_HOST']=='doonee.tv'){
+if($_SERVER['HTTP_HOST']=='www.dooneetv.com'){
 	define('ENVIRONMENT', 'production');
 }else{
 	define('ENVIRONMENT', 'development');

@@ -5,10 +5,10 @@ class One23 extends CI_Controller{
 
 	}
 
-	public function devBackRespYkaTzTFuib(){
+	public function devBackResp7pwDvbfe9i(){
 		
 		
-
+		echo "ppp";
 	}
 
 	public function proBackResp7pwDvbfe9i(){
