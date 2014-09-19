@@ -74,18 +74,11 @@
           <div class="ctrl-player container">
               <h2>ดูหนังออนไลน์ <?=$movie['title']?></h2>
                 <div class="trailer" style="position:relative;">
-                  <!--<video width="984" height="560" preload controls>
-                      <source type="video/mp4" src="http://122.155.197.142:1935/vod/_definst_/mp4:movies/hawaii-five-o-s4-ep1.mp4/playlist.m3u8"></source>
-                      <source type="video/mp4" src="rtsp://122.155.197.142:1935/vod/_definst_/movies/hawaii-five-o-s4-ep1.mp4"></source>
-                      <source type="video/mp4" src="http://122.155.197.142:1935/vod/_definst_/mp4:movies/hawaii-five-o-s4-ep1.mp4/manifest.f4m"></source>
-                      <source type="video/mp4" src="http://122.155.197.142:1935/vod/mp4:sample.mp4/manifest.mpd"></source>
-                      Your browser does not support the video tag.
-                    </video>-->
-                    <iframe width="984" height="560" frameborder="0" allowfullscreen="" src="<?=base_url('/jwplayer.php?file=series/'.(isset($thisEpisode)?$thisEpisode['path']:$movie['path']))?>th720.mp4" class="mp4downloader_embedButtonInitialized mp4downloader_tagChecked "></iframe>
+                    <iframe width="984" height="560" frameborder="0" allowfullscreen="" src="<?=base_url('/movie/player/'.$movie['movie_id'].(isset($thisEpisode)?'/'.$thisEpisode['episode_id']:''))?>" class="mp4downloader_embedButtonInitialized mp4downloader_tagChecked "></iframe>
                     <?php 
                     if(isset($memberLogin)&&$memberLogin){
-                      if(isset($memberLogin['canwatch'])&&$memberLogin['canwatch']){ 
-                      }else{?>
+                      if(isset($memberLogin['canwatch'])&&$memberLogin['canwatch']){ ?>
+                      <?php }else{ ?>
                         <a href="<?=base_url('/package')?>"><div style="width:100%;height:100%;background-color:red;position:absolute;top:0px;opacity:0;">&nbsp;</div></a>
                       <?php }?>
                     <?php }else{?>
@@ -105,7 +98,6 @@
               }(document, 'script', 'facebook-jssdk'));</script>
               <div class="fb-comments" data-href="<?=base_url('/movie/'.$movie['movie_id'])?>" data-width="1170" data-numposts="5" data-colorscheme="light"></div>
            
-          <!--iframe id="f2ad8bf703242e" name="f20f6d02f92de4" scrolling="no" style="border: medium none; overflow: hidden; height: 272px; width: 100%;" title="Facebook Social Plugin" class="fb_ltr" src="https://www.facebook.com/plugins/comments.php?api_key=533223390098647&amp;channel_url=http%3A%2F%2Fstatic.ak.facebook.com%2Fconnect%2Fxd_arbiter%2FDhmkJ2TR0QN.js%3Fversion%3D41%23cb%3Df30444a21fd4ca8%26domain%3Dvariety.horoworld.com%26origin%3Dhttp%253A%252F%252Fvariety.horoworld.com%252Ff29ddb32caefc86%26relation%3Dparent.parent&amp;colorscheme=light&amp;href=http%3A%2F%2Fvariety.horoworld.com%2F114547_%E0%B8%94%E0%B8%B9%E0%B8%94%E0%B8%A7%E0%B8%87-%E0%B9%81%E0%B8%97%E0%B8%84-%E0%B8%95%E0%B9%89%E0%B8%99%E0%B8%AB%E0%B8%AD%E0%B8%A1-%E0%B9%83%E0%B8%8A%E0%B9%88%E0%B8%AB%E0%B8%A3%E0%B8%B7%E0%B8%AD%E0%B8%A1%E0%B8%B1%E0%B9%88%E0%B8%A7%E0%B8%8A%E0%B8%B1%E0%B8%A7%E0%B8%A3%E0%B9%8C%E0%B8%AB%E0%B8%A3%E0%B8%B7%E0%B8%AD%E0%B9%84%E0%B8%A1%E0%B9%88&amp;locale=en_US&amp;numposts=10&amp;sdk=joey&amp;skin=light&amp;width=1170"></iframe-->
           
           </div>
 
@@ -122,7 +114,7 @@
                     <a title="<?=$episode['title']?>" <?=$isLogin?> href="<?=base_url('/movie/'.$episode['movie_id'].'/'.$episode['episode_id'])?>">
                         <img alt="<?=$movie['title_en']?>" src="<?=static_url($movie['cover'])?>">
                         <h3><?=$episode['title']?></h3>
-                        <span class="type <?=$movie['is_free']?"free":""; ?>"><?=$movie['is_free']?"free":($movie['is_hd']?"HD":"");?></span>
+                        <span class="type <?=$movie['is_free']=='YES'?"Free":""; ?>"><?=$movie['is_free']=='YES'?"Free":($movie['is_hd']=='YES'?"HD":"");?></span>
                     </a>
                     <footer>
                         <p class="sm"><a href="javascript:;" title="รายการโปรด"> <?=$episode['title']?></a></p>
@@ -147,7 +139,7 @@
                     <a title="<?=$relate['title']?>" <?=$isLogin?> href="<?=base_url('/movie/'.$relate['movie_id'])?>">
                         <img alt="<?=$relate['title_en']?>" src="<?=static_url($relate['cover'])?>">
                         <h3><?=$relate['title']?></h3>
-                        <span class="type <?=$relate['is_free']?"free":""; ?>"><?=$relate['is_free']?"free":($relate['is_hd']?"HD":"");?></span>
+                        <span class="type <?=$relate['is_free']=='YES'?"Free":""; ?>"><?=$relate['is_free']=='YES'?"Free":($relate['is_hd']=='YES'?"HD":"");?></span>
                     </a>
                     <footer>
                         <p class="sm"><a href="javascript:;" title=""> <?=$relate['summary']?></a></p>

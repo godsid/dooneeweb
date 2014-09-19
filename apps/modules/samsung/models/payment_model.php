@@ -9,7 +9,7 @@ class Payment_model extends ADODB_model {
 	public function checkTransection($transection,$uId,$cId,$price){
 		$sql = "SELECT * 
 				FROM ".$this->table('ss_transection')."
-				WHERE transactionId = ".$transection." 
+				WHERE transactionId = '".$transection."' 
 				AND uId = '".$uId."'
 				AND command = 'prepareCharging' 
 				AND cId = '".$cId."' 
@@ -28,7 +28,7 @@ class Payment_model extends ADODB_model {
 	public function updateTransection($transactionId,$data){
 		$data['update_date'] = date('Y-m-d H:i:s');
 
-		if($this->adodb->AutoExecute($this->table('ss_transection'),$data,'UPDATE','transactionId='.$transactionId)){
+		if($this->adodb->AutoExecute($this->table('ss_transection'),$data,'UPDATE',"transactionId='".$transactionId."'")){
 			return $this->adodb->Insert_ID();
 		}else{
 			return false;

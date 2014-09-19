@@ -44,6 +44,8 @@ class Package extends CI_Controller {
 	public function create(){
 		$this->breadcrumb[] = array('title'=>'New','url'=>'');
 		$data['breadcrumb'] = $this->breadcrumb;
+		$data['package']['category'] = array();
+		$data['package']['partners'] = explode(',',$this->config->item('package_partner'));
 		$this->load->view('package_form',$data);
 	}
 	public function edit($packageID=""){
@@ -57,7 +59,7 @@ class Package extends CI_Controller {
 		foreach($cateArray as $cateID){
 			$data['package']['category'][] = $cateID['category_id'];
 		}
-
+		$data['package']['partners'] = explode(',',$this->config->item('package_partner'));
 		$this->breadcrumb[] = array('title'=>$data['package']['title'],'url'=>backoffice_url('/package/'.$packageID));
 		$this->breadcrumb[] = array('title'=>'Edit','url'=>'');
 		$data['breadcrumb'] = $this->breadcrumb;

@@ -64,7 +64,7 @@
              <nav>
                 <span class="copy"><b class="txt-red">DooneeTV</b> © 2014</span> |
                 <a href="<?=base_url('/conditions')?>" title="ข้อกำหนดและเงื่อนไข">ข้อกำหนดและเงื่อนไข</a> |
-                <a href="<?=base_url('/privacy')?>" title="นโยบายส่วนตัว">นโยบายส่วนตัว</a> |
+                <a href="<?=base_url('/privacy')?>" title="นโยบายความเป็นส่วนตัว">นโยบายความเป็นส่วนตัว</a> |
                 <a href="<?=base_url('/contactus')?>" title="ติดต่อเรา">ติดต่อเรา</a> |
                 <a href="tel:028846172" title="Call Center">เบอร์ Call Center 02-884-6172</a>
              </nav>

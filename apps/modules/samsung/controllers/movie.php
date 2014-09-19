@@ -11,7 +11,7 @@ class Movie extends SAMSUNG_Controller {
 			'backgroundColor'=>'#000000',
 			'backgroundImage'=>'https://logicshowtime.meevuu.com:8443/appThumbImg/bg_main-2.png',
 			'url'=>'',
-			'brandLogo'=>'http://www.doonee.tv/assets/img/logo.png',
+			'brandLogo'=>'http://www.dooneetv.com/assets/img/logo-thai-s1.png',
 			'appId'=>''
 
 		);
@@ -23,7 +23,7 @@ class Movie extends SAMSUNG_Controller {
 		$this->load->model('samsung/movie_model','mMovie');
 		$this->load->model('user_model','mUser');
 		$this->load->model('package_model','mPackage');	
-		$this->user = $this->mUser->getUser($this->uId);
+		$this->user = $this->mUser->getUser($this->uid);
 	}
 
 	public function index($movieID="",$episodeID=null){
@@ -248,7 +248,7 @@ class Movie extends SAMSUNG_Controller {
 
 		$series = array();
 		if($type=='free'){
-			$episodes = $this->mMovie->getMovieEpisode($movieID,0,3);
+			$episodes = $this->mMovie->getMovieEpisode($movieID,0,2);
 		}else{
 			$episodes = $this->mMovie->getMovieEpisode($movieID,$this->page,$this->limit);
 		}
@@ -261,8 +261,9 @@ class Movie extends SAMSUNG_Controller {
 								'description'=>$movie['summary'],
 								'icon'=>static_url($movie['cover']),
 								'nextTo'=>'playNow',
-								'url'=>series_stream_url($episode['path'],'720',$lang)
+								'url'=>str_replace(array('vods','mp4:','rtmp'),array('vod','','rtsp'),series_stream_url($episode['path'],'480',$lang))
 							);
+
 		}
 		$data = array();
 		if($type!='free'){
@@ -272,14 +273,24 @@ class Movie extends SAMSUNG_Controller {
 		
 		
 		$data['item'] = &$series;
-		$data['total'] = $episodes['pageing']['allItem'];
+		if($type=='free'){
+			$data['total'] = count($episodes['items']);
+		}else{
+			$data['total'] = $episodes['pageing']['allItem'];
+		}
+		
 		
 		$this->response($data);
 	}
 
 	private function isPurchased($movieID='',$seriesID=''){
+		if(isset($this->user['user_id'])&&!empty($this->user['user_id'])){
+			$package = $this->mUser->getUserPackage($this->user['user_id']);
+		}else{
+			$package = array();
+		}
+
 		
-		$package = $this->mUser->getUserPackage($this->user['user_id']);
 		$expireDate = isset($package['expire_date'])?strtotime($package['expire_date'])-time():'0';
 		$data['purchaseList'] = array(
 									'isPurchased'=>($expireDate?'yes':'no'),
@@ -290,7 +301,7 @@ class Movie extends SAMSUNG_Controller {
 		foreach($packages as $package){
 			$data['purchaseList']['priceList'][] = array(
 													'title'=>$package['title'],
-													'typeTitle'=>'ชาระผา่นบตัรเครดติ',
+													'typeTitle'=>'ชำระผ่านบัตรเครดิต',
 													'contentId'=>$package['name'],
 													'appId'=>$this->config->item('samsung_appid'),
 													'price'=>$package['price'],

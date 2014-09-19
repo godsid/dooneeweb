@@ -4,3 +4,5 @@
 */cache/*
 */cache/!index.html
 */cache/!.htaccess
+apps/logs/encrypt/msg_*
+apps/logs/decrypt/dec_*

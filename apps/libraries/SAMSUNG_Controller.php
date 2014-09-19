@@ -9,7 +9,7 @@ abstract class SAMSUNG_Controller extends CI_Controller
 			'backgroundColor'=>'#000000',
 			'backgroundImage'=>'',//252x449
 			'url'=>'',
-			'brandLogo'=>'http://www.doonee.tv/assets/img/logo.png',
+			'brandLogo'=>'http://www.dooneetv.com/assets/img/logo-thai-s1.png',
 			'appId'=>''
 
 		);
@@ -17,7 +17,7 @@ abstract class SAMSUNG_Controller extends CI_Controller
     {
         parent::__construct();
         $this->load->config('samsung');
-        $this->uId = $this->input->get_post('uId');
+        $this->uid = $this->input->get_post('uid');
         
         if(!$this->limit = $this->input->get_post('max')){
             $this->limit = 12;

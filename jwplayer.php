@@ -1,7 +1,7 @@
 <?php
 $file = isset($_GET['file'])?$_GET['file']:"movies/NCIS-LA-MASTER-TEST.mp4";
 ?>
-<script src="http://jwpsrv.com/library/Oc_FXgzlEeSUiyIACtqXBA.js"></script>
+<!--<script src="http://jwpsrv.com/library/Oc_FXgzlEeSUiyIACtqXBA.js"></script>
 <div id='playerfiQrAeklYZgB'></div>
 <script type='text/javascript'>
     jwplayer('playerfiQrAeklYZgB').setup({
@@ -25,7 +25,11 @@ $file = isset($_GET['file'])?$_GET['file']:"movies/NCIS-LA-MASTER-TEST.mp4";
         },
     });
 
-</script>
+</script>-->
+
+
+<script src="http://dev.www.doonee/assets/js/jwplayer/jwplayer.js"></script>
+
 
 <!--
 wowzacaptionfile=movies/hawaii-five-o-s4-ep1_480.ttml&wowzacaptionlanguages=tha

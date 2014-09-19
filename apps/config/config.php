@@ -23,10 +23,13 @@ $config['static_path'] = 'files';
 
 $config['movie_path'] = 'movies/';
 $config['series_path'] = 'series/';
-$config['movie_url'] = 'http://122.155.197.142:1935/vods/mp4:'.$config['movie_path'].'{path}{language}{resolution}.mp4/playlist.m3u8';
-$config['series_url'] = 'http://122.155.197.142:1935/vods/mp4:'.$config['series_path'].'{path}{language}{resolution}.mp4/playlist.m3u8';
+
+$config['movie_url'] = 'rtmp://122.155.197.142:1935/vods/_definst_/mp4:'.$config['movie_path'].'{path}{language}{resolution}.mp4';
+$config['series_url'] = 'rtmp://122.155.197.142:1935/vods/_definst_/mp4:'.$config['series_path'].'{path}{language}{resolution}.mp4';
 
 $config['samsung_api_url'] = $config['base_url'].'/samsung';
+
+$config['package_partner'] = 'DOONEE,SAMSUNG,AIS';
 /*
 |--------------------------------------------------------------------------
 | Index File
