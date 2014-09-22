@@ -98,6 +98,21 @@ $(document).ready(function() {
     });
 	//Lightbox login
 	$("a.lb-popup").overlay({mask: '#FFF', opacity: 0.5, effect: 'apple'});
+
+  //Popup Payment
+  $("a.payment-popup").overlay({mask: '#FFF', opacity: 0.5, effect: 'apple',onLoad:function(obj){
+    target = $(obj.srcElement);
+    package_id = target.attr('data-package');
+    channel = target.attr('data-channel');
+
+    if(channel=='creditcard'){
+      $("#2c2p-payment-form").attr('action',$("#2c2p-payment-form").attr('action').replace(/[0-9]+/,package_id));
+    }else{
+      $(target.attr('rel')+' li a').each(function(index,item){
+       $(item).attr('href',$(item).attr('href').replace(/\/payment\/[a-z]+\/[0-9]+/,'/payment/'+channel+'/'+package_id));
+      });
+    }
+  }});
 	/*scrollbar*/
 	$(".js-v-scroll").niceScroll({
 		styler:"fb",
@@ -127,6 +142,10 @@ jQuery(document).ready(function() {
     threshold: 0
   });
 });
+
+/* Payment agent choose */
+
+
 
 
 $(document).ready(function(){
