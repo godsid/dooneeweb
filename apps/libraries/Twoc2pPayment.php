@@ -56,9 +56,10 @@ class Twoc2pPayment {
 	public function decrypt($encMsg){
 		$invoice = time();
 		$filehash = $invoice.'_'.time();
+		$respfile = $this->decryptPath.'resp_'.$filehash;
 		$decfile = $this->decryptPath.'dec_'.$filehash;
 		$msgfile = $this->decryptPath.'msg_'.$filehash;
-		file_put_contents($decfile,$encMsg);
+		file_put_contents($respfile,$encMsg);
 
 		$strOri = "MIME-Version: 1.0
 Content-Disposition: attachment; filename=\"smime.p7m\"
@@ -66,7 +67,7 @@ Content-Type: application/x-pkcs7-mime; smime-type=enveloped-data; name=\"smime.
 Content-Transfer-Encoding: base64
 
 ";
-	    $enc = file_get_contents($decfile);
+	    $enc = file_get_contents($respfile);
 	    $enc = wordwrap($enc, 64, "\n", true);
 	    if($fp = fopen($decfile, "w")){
 	    	fwrite($fp, $strOri.$enc);
@@ -82,7 +83,7 @@ Content-Transfer-Encoding: base64
 	        return file_get_contents($msgfile);
 	    }else 
 		{
-	        error_log("Can't decrypt on One23Payment Library =>".$decfile);
+	        error_log("Can't decrypt on Twoc2pPayment Library =>".$decfile);
 			return false;
 		}
 	}

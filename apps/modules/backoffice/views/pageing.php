@@ -1,7 +1,11 @@
 <?php if($maxPage>1){?>
 <ul class="pagination">
 <?php
-$link=$url."?";
+if(strpos($url,'?')===FALSE){
+	$link=$url."?";
+}else{
+	$link=$url."&";
+}
 for($i=1;$i<=$maxPage;$i++){
 	if($i==$page){
 		echo '<li class="active"><a href="javascript:;">',$i,'</a></li>';
