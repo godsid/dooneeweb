@@ -117,6 +117,17 @@ class Member_model extends ADODB_model {
 		return $this->fetchPage($sql,$page,$limit);	
 	}
 	
+	public function setMemberPackage($userID,$packageID,$day){
+		return $this->adodb->AutoExecute(
+			$this->table('user_package'),
+			array(
+				'user_id'=>$userID,
+				'package_id'=>$packageID,
+				'create_date'=>date('Y-m-d H:i:s'),
+				'expire_date'=>date('Y-m-d H:i:s',strtotime('+'.$day.' day' ))
+				),
+			'INSERT');
+	}
 	/*
 
 	public function getMovies($page=1,$limit=30){
