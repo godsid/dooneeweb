@@ -8,7 +8,7 @@ class Payment extends CI_Controller {
 	public function __construct(){
         parent::__construct();
         $this->load->library('One23Payment');
-        $this->load->library('twoc2ppayment');
+        $this->load->library('Twoc2pPayment');
         $this->load->model('member_model','mMember');
         $this->load->model('category_model','mCategory');
         $this->load->model('package_model','mPackage');
@@ -30,7 +30,7 @@ class Payment extends CI_Controller {
         if($encryptedCardInfo = $this->input->post('encryptedCardInfo')){
             $this->validate($package_id);
             $messageID = $this->getMessageID();
-            if($invoice_id = $this->createInvoice($messageID,$this->memberLogin['user_id'],'CREDITCARD','',$this->package['price'],$this->package['title'],"")){
+            if($invoice_id = $this->createInvoice($messageID,$this->memberLogin['user_id'],$package_id,'CREDITCARD','',$this->package['price'],$this->package['title'],"")){
                 $view['form'] = $this->twoc2ppayment->createForm($messageID,$invoice_id,$this->package['price'],$this->package['title'],$encryptedCardInfo);
                 //var_dump($view);
                 $this->load->view('web/payment_submit',$view);
@@ -60,7 +60,7 @@ class Payment extends CI_Controller {
         //$view['categories'] = $this->categories;
         $this->validate($package_id);
         $messageID = $this->getMessageID();
-        if($invoice_id = $this->createInvoice($messageID,$this->memberLogin['user_id'],'PAYPOINT',strtoupper($agent),$this->package['price'],$this->package['title'],"")){
+        if($invoice_id = $this->createInvoice($messageID,$this->memberLogin['user_id'],$package_id,'PAYPOINT',strtoupper($agent),$this->package['price'],$this->package['title'],"")){
             $items[] = array('id'=>$this->package['package_id'],'name'=>$this->package['title'],'price'=>$this->package['price'],'quantity'=>1);
 
             $view['form'] = $this->one23payment->createForm($messageID,$invoice_id,$this->package['price'],$this->package['title'],$items,$this->memberLogin['firstname'].' '.$this->memberLogin['lastname'],$this->memberLogin['email'],'PAYPOINT',strtoupper($agent));
@@ -75,7 +75,7 @@ class Payment extends CI_Controller {
         //$view['categories'] = $this->categories;
         $this->validate($package_id);
         $messageID = $this->getMessageID();
-        if($invoice_id = $this->createInvoice($messageID,$this->memberLogin['user_id'],'ATM',strtoupper($agent),$this->package['price'],$this->package['title'],"")){
+        if($invoice_id = $this->createInvoice($messageID,$this->memberLogin['user_id'],$package_id,'ATM',strtoupper($agent),$this->package['price'],$this->package['title'],"")){
             $items[] = array('id'=>$this->package['package_id'],'name'=>$this->package['title'],'price'=>$this->package['price'],'quantity'=>1);
 
             $view['form'] = $this->one23payment->createForm($messageID,$invoice_id,$this->package['price'],$this->package['title'],$items,$this->memberLogin['firstname'].' '.$this->memberLogin['lastname'],$this->memberLogin['email'],'ATM',strtoupper($agent));
@@ -90,7 +90,7 @@ class Payment extends CI_Controller {
         //$view['categories'] = $this->categories;
         $this->validate($package_id);
         $messageID = $this->getMessageID();
-        if($invoice_id = $this->createInvoice($messageID,$this->memberLogin['user_id'],'BANKCOUNTER',strtoupper($agent),$this->package['price'],$this->package['title'],"")){
+        if($invoice_id = $this->createInvoice($messageID,$this->memberLogin['user_id'],$package_id,'BANKCOUNTER',strtoupper($agent),$this->package['price'],$this->package['title'],"")){
             $items[] = array('id'=>$this->package['package_id'],'name'=>$this->package['title'],'price'=>$this->package['price'],'quantity'=>1);
 
             $view['form'] = $this->one23payment->createForm($messageID,$invoice_id,$this->package['price'],$this->package['title'],$items,$this->memberLogin['firstname'].' '.$this->memberLogin['lastname'],$this->memberLogin['email'],'BANKCOUNTER',strtoupper($agent));
@@ -104,7 +104,7 @@ class Payment extends CI_Controller {
     public function inquiry($package_id="",$channel="",$agent=""){
         $this->validate($package_id);
         $messageID = $this->getMessageID();
-        if($invoice_id = $this->createInvoice($messageID,$this->memberLogin['user_id'],strtoupper($channel),strtoupper($agent),$this->package['price'],$this->package['title'],"")){
+        if($invoice_id = $this->createInvoice($messageID,$this->memberLogin['user_id'],$package_id,strtoupper($channel),strtoupper($agent),$this->package['price'],$this->package['title'],"")){
             $items[] = array('id'=>$this->package['package_id'],'name'=>$this->package['title'],'price'=>$this->package['price'],'quantity'=>1);
 
             $view['form'] = $this->one23payment->inquiry($messageID,$invoice_id,$this->package['price'],$this->package['title'],$items,$this->memberLogin['firstname'].' '.$this->memberLogin['lastname'],$this->memberLogin['email'],strtoupper($channel),strtoupper($agent));
@@ -124,12 +124,20 @@ class Payment extends CI_Controller {
     }*/
 
     public function response($type="",$invoiceID=""){
+        $view = array();
         if($type=='creditcard3d'){
-            echo($this->twoc2ppayment->decrypt($this->input->post('paymentResponse')));
+            $resp = $this->twoc2ppayment->decrypt($this->input->post('paymentResponse'));
+            if(preg_match('#<respCode>([0-9]+)</respCode>#',$resp,$respCode)){
+                $respCode = $respCode[0];
+            }
+
+            //echo($this->twoc2ppayment->decrypt($this->input->post('paymentResponse')));
+
+            $this->load->view('web/payment',$view);
         }else{
 
         }
-        var_dump($_POST);
+        //var_dump($_POST);
         //"paymentResponse"
     }
     public function fontResponse(){
@@ -139,11 +147,12 @@ class Payment extends CI_Controller {
         $this->load->view('web/payment');
     }
 
-    private function createInvoice($messageID,$user_id,$channel,$agent,$amount,$title,$description){
+    private function createInvoice($messageID,$user_id,$package_id,$channel,$agent,$amount,$title,$description){
         $this->load->model('invoice_model','mInvoice');
         return $this->mInvoice->setInvoice(array(
                                     'message_id'=>$messageID,
                                     'user_id'=>$user_id,
+                                    'package_id'=>$package_id,
                                     'channel'=>$channel,
                                     'agent'=>$agent, 
                                     'amount'=>$amount,
