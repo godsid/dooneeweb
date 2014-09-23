@@ -254,6 +254,7 @@ class Movie extends SAMSUNG_Controller {
 		}
 
 		foreach($episodes['items'] as $episode){
+			$hash = $this->videoUrlHash("series/".$episode['path']."480");
 			$series[] = array(
 								'id'=>$episode['movie_id'],
 								'type'=>'movie',
@@ -261,9 +262,11 @@ class Movie extends SAMSUNG_Controller {
 								'description'=>$movie['summary'],
 								'icon'=>static_url($movie['cover']),
 								'nextTo'=>'playNow',
-								'url'=>str_replace(array('vods','mp4:','rtmp'),array('vod','','rtsp'),series_stream_url($episode['path'],'480',$lang))
+								'url'=>$this->config->item('samsung_cdn_url')."series/".$episode['path']."480/play.m3u8".$hash['hash'],
+								'rawhash'=>$hash['rawhash']
 							);
-
+			//series/7c64132d62480.m3u8
+			//str_replace(array('vods','mp4:','rtmp'),array('vod','','rtsp'),series_stream_url($episode['path'],'480',$lang))
 		}
 		$data = array();
 		if($type!='free'){
