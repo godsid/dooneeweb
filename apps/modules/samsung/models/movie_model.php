@@ -32,8 +32,7 @@ class Movie_model extends ADODB_model {
 	public function getMoviesFree($page,$limit){
 		$sql ="SELECT * 
 				FROM ".$this->table('movie')."
-				WHERE is_free = 'YES' 
-				AND status = 'ACTIVE' ";
+				WHERE status = 'ACTIVE' ";
 		return $this->fetchPage($sql,$page,$limit);
 	}
 
