@@ -254,7 +254,7 @@ class Movie extends SAMSUNG_Controller {
 		}
 
 		foreach($episodes['items'] as $episode){
-			$hash = $this->videoUrlHash("series/".$episode['path']."480");
+			$hash = $this->videoUrlHash("/series/".$episode['path']."480");
 			$series[] = array(
 								'id'=>$episode['movie_id'],
 								'type'=>'movie',
@@ -262,7 +262,7 @@ class Movie extends SAMSUNG_Controller {
 								'description'=>$movie['summary'],
 								'icon'=>static_url($movie['cover']),
 								'nextTo'=>'playNow',
-								'url'=>$this->config->item('samsung_cdn_url')."series/".$episode['path']."480/play.m3u8".$hash['hash'],
+								'url'=>$this->config->item('samsung_cdn_url')."series/".$episode['path']."480/".$episode['path']."480.m3u8".$hash['hash'],
 								'rawhash'=>$hash['rawhash']
 							);
 			//series/7c64132d62480.m3u8
