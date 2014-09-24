@@ -257,7 +257,7 @@ class Movie extends SAMSUNG_Controller {
 		$language['item'][] = array(
 							'id'=>$movie['movie_id'],
 							'type'=>'movie',
-							'title'=>$movie['title']." HD",
+							'title'=>"HD-".$movie['title'],
 							'description'=>$movie['summary'].' '.strtoupper($lang),
 							'icon'=>static_url($movie['cover']),
 							'nextTo'=>'ContentList',
@@ -266,7 +266,7 @@ class Movie extends SAMSUNG_Controller {
 		$language['item'][] = array(
 							'id'=>$movie['movie_id'],
 							'type'=>'movie',
-							'title'=>$movie['title']." SD",
+							'title'=>"SD-".$movie['title'],
 							'description'=>$movie['summary'].' '.strtoupper($lang),
 							'icon'=>static_url($movie['cover']),
 							'nextTo'=>'ContentList',
@@ -304,7 +304,7 @@ class Movie extends SAMSUNG_Controller {
 			$series[] = array(
 								'id'=>$episode['movie_id'],
 								'type'=>'movie',
-								'title'=>$episode['title'].' '.(($lang=='en')?'Eng':'Thai'),
+								'title'=>$episode['title'].' '.(($lang=='en')?'Eng':'Thai').' '.$quality,
 								'description'=>$movie['summary'],
 								'icon'=>static_url($movie['cover']),
 								'nextTo'=>'playNow',
