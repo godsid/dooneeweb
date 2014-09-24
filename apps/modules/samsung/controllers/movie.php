@@ -214,23 +214,32 @@ class Movie extends SAMSUNG_Controller {
 		$movie = $this->mMovie->getMovie($movieID);
 		$this->head['title'] = "เลือกภาษา";
 		$this->head['text'] = $movie['title'];
+
+		if($movie['is_hd']=='YES'){
+			$urlEN = samsung_api_url('/movie/quality/'.$type.'/en/'.$movieID);
+			$urlTH = samsung_api_url('/movie/quality/'.$type.'/th/'.$movieID);
+		}else{
+			$urlEN = samsung_api_url('/movie/episode/'.$type.'/en/SD/'.$movieID);
+			$urlTH = samsung_api_url('/movie/episode/'.$type.'/th/SD/'.$movieID);
+		}
+		
 		$language['item'][] = array(
 							'id'=>$movie['movie_id'],
 							'type'=>'movie',
-							'title'=>$movie['title'],
+							'title'=>"EN-".$movie['title'],
 							'description'=>$movie['summary'].' Eng',
 							'icon'=>static_url($movie['cover']),
 							'nextTo'=>'ContentList',
-							'url'=>samsung_api_url('/movie/episode/'.$type.'/en/'.$movieID)
+							'url'=>$urlEN
 						);
 		$language['item'][] = array(
 							'id'=>$movie['movie_id'],
 							'type'=>'movie',
-							'title'=>$movie['title'],
+							'title'=>"TH-".$movie['title'],
 							'description'=>$movie['summary'].' Thai',
 							'icon'=>static_url($movie['cover']),
 							'nextTo'=>'ContentList',
-							'url'=>samsung_api_url('/movie/episode/'.$type.'/th/'.$movieID)
+							'url'=>$urlTH
 						);
 		
 		$data = &$language;
@@ -238,7 +247,38 @@ class Movie extends SAMSUNG_Controller {
 		$this->response($data);
 	}
 
-	public function episode($type='',$lang='',$movieID=''){
+	public function quality($type='',$lang='',$movieID=''){
+		if(empty($type)||empty($movieID)){
+			redirect(samsung_api_url(''));
+		}
+		$movie = $this->mMovie->getMovie($movieID);
+		$this->head['title'] = "เลือกความคมชัด";
+		$this->head['text'] = $movie['title'];
+		$language['item'][] = array(
+							'id'=>$movie['movie_id'],
+							'type'=>'movie',
+							'title'=>"HD-".$movie['title'],
+							'description'=>$movie['summary'].' '.strtoupper($lang),
+							'icon'=>static_url($movie['cover']),
+							'nextTo'=>'ContentList',
+							'url'=>samsung_api_url('/movie/episode/'.$type.'/'.$lang.'/HD/'.$movieID)
+						);
+		$language['item'][] = array(
+							'id'=>$movie['movie_id'],
+							'type'=>'movie',
+							'title'=>"SD-".$movie['title'],
+							'description'=>$movie['summary'].' '.strtoupper($lang),
+							'icon'=>static_url($movie['cover']),
+							'nextTo'=>'ContentList',
+							'url'=>samsung_api_url('/movie/episode/'.$type.'/'.$lang.'/SD/'.$movieID)
+						);
+		
+		$data = &$language;
+		$data['total'] = count($language['item']);
+		$this->response($data);
+	}
+
+	public function episode($type='',$lang='',$quality='',$movieID=''){
 		if(empty($type)||empty($movieID)||empty($lang)){
 			redirect(samsung_api_url(''));
 		}
@@ -253,16 +293,22 @@ class Movie extends SAMSUNG_Controller {
 			$episodes = $this->mMovie->getMovieEpisode($movieID,$this->page,$this->limit);
 		}
 
+		if($quality=='HD'){
+			$screen = "720";
+		}else{
+			$screen = "480";
+		}
+
 		foreach($episodes['items'] as $episode){
-			$hash = $this->videoUrlHash("series/".$episode['path']."480");
+			$hash = $this->videoUrlHash("/series/".$episode['path'].$lang.$screen);
 			$series[] = array(
 								'id'=>$episode['movie_id'],
 								'type'=>'movie',
-								'title'=>$episode['title'].' '.(($lang=='en')?'Eng':'Thai'),
+								'title'=>$episode['title'].' '.(($lang=='en')?'Eng':'Thai').' '.$quality,
 								'description'=>$movie['summary'],
 								'icon'=>static_url($movie['cover']),
 								'nextTo'=>'playNow',
-								'url'=>$this->config->item('samsung_cdn_url')."series/".$episode['path']."480/play.m3u8".$hash['hash'],
+								'url'=>$this->config->item('samsung_cdn_url')."series/".$episode['path'].$lang.$screen."/".$episode['path'].$lang.$screen.".m3u8".$hash['hash'],
 								'rawhash'=>$hash['rawhash']
 							);
 			//series/7c64132d62480.m3u8
