@@ -93,4 +93,26 @@
     </div>
   </div>
 </div>
-<!--/login popup-->
+<!-- OVERTHECOUNTER -->
+<div id="popup-payment-card" class="overlay thm-login"><a class="close"></a>
+  <p class="Head"><i class="icm-group"></i> ชำระเงินผ่าน บัตรเติมเงิน</p>
+  <div class="_cd-col-xs-12-sm-12">
+    <div class="z-login form-control">
+      <form action="<?=base_url('/payment/card/0/')?>" method="post"  id="card-payment-form">
+        <fieldset>
+          <legend class="hd"><i class="gly-log-in"></i> กรอกเลขบัตร</legend>
+          <h3>ใส่เลขบัตรเติมเงิน 16 หลัก</h3>
+          <p>
+            <input type="text" placeholder="xxxx" name="code[]" class="_sf-col-xs-2">
+            <input type="text" placeholder="xxxx" name="code[]" class="_sf-col-xs-2">
+            <input type="text" placeholder="xxxx" name="code[]" class="_sf-col-xs-2">
+            <input type="text" placeholder="xxxx" name="code[]" class="_sf-col-xs-2">
+          </p>
+          <p>จำนวนวันดูหนังของรหัสบัตรเติมเงินจะนับตั้งแต่เมื่อคุณเริมใช้บริการดูหนังครั้งแรก</p>
+          <input type="submit" value="submit" />
+        </fieldset>
+        </form>
+    </div>
+  </div>
+</div>
+<!--/payment popup-->

@@ -101,6 +101,15 @@ class Payment extends CI_Controller {
         }
     }
 
+    public function card($package_id=""){
+        $this->validate($package_id);
+         if($invoice_id = $this->createInvoice('',$this->memberLogin['user_id'],$package_id,'CARD','',$this->package['price'],$this->package['title'],"")){
+
+            $this->load->view('web/payment_submit',$view);
+
+        }
+    }
+
     public function inquiry($package_id="",$channel="",$agent=""){
         $this->validate($package_id);
         $messageID = $this->getMessageID();

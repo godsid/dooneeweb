@@ -24,7 +24,18 @@ class Prepaid_model extends ADODB_model {
 				ORDER BY create_date DESC";
 		return $this->fetchPage($sql,$page,$limit);
 	}	
-
+	public function searchPrepaids($search,$page=1,$limit=30){
+		$sql ="SELECT pr.*,us.email,pa.title 
+				FROM ".$this->table('prepaidcard','pr')."
+				LEFT JOIN ".$this->table('user','us')." 
+					ON us.user_id = pr.user_id 
+				LEFT JOIN ".$this->table('package','pa')." 
+					ON pa.package_id = pr.package_id 
+				WHERE 1
+				AND ".$search."
+				ORDER BY create_date DESC";
+		return $this->fetchPage($sql,$page,$limit);
+	}
 	public function setPrepaid($data){
 		try{
 			$data['create_date'] = date('Y-m-d H:i:s');

@@ -23,8 +23,9 @@
                                 <li><a href="javascript:;" data-channel="creditcard" data-package="<?=$package['package_id']?>" class="payment-popup" rel="#popup-payment-creditcard" <?=$clickLogin?> title="บัตรเครดิต" ><i class="icon-credit-card"></i> บัตรเครดิต</a></li>
                                 <li><a href="javascript:;" data-channel="overthecounter" data-package="<?=$package['package_id']?>" class="payment-popup" rel="#popup-payment-overthecounter" <?=$clickLogin?> title="จุดรับชำระค่าบริการ"><i class="icon-usd"></i> จุดรับชำระค่าบริการ</a></li>
                                 <li><a href="javascript:;" data-channel="atm" data-package="<?=$package['package_id']?>" class="payment-popup" rel="#popup-payment-bank" title="เอทีเอ็ม"><i class="icon-money"></i> เอทีเอ็ม</a></li> 
-                                <li><a href="javascript:;" data-channel="bankcounter" data-package="<?=$package['package_id']?>" class="payment-popup" rel="#popup-payment-bank" <?=$clickLogin?> title="เคาน์เตอร์ธนาคาร"><i class="icon-laptop"></i> เคาน์เตอร์ธนาคาร</a></li>
+                                <li><a href="javascript:;" data-channel="bankcounter" data-package="<?=$package['package_id']?>" class="payment-popup" rel="#popup-payment-bank" <?=$clickLogin?> title="เคาน์เตอร์ธนาคาร"><i class="icon-laptop"></i> ธนาคาร</a></li>
                                 <li><a href="javascript:;" data-channel="ibanking" data-package="<?=$package['package_id']?>" class="payment-popup" rel="#popup-payment-bank" <?=$clickLogin?> title="ไอแบงก์กิ้ง"><i class="icon-btc"></i> ไอแบงก์กิ้ง</a></li>
+                                <li><a href="javascript:;" data-channel="card" data-package="<?=$package['package_id']?>" class="payment-popup" rel="#popup-payment-card" <?=$clickLogin?> title="บัตรเติมเงิน"><i class="icon-btc"></i> บัตรเติมเงิน</a></li>
                             </ul>
                         </div>
                         <!--

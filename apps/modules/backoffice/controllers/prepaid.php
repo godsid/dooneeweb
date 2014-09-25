@@ -15,6 +15,8 @@ class Prepaid extends CI_Controller {
 		$this->load->library('PrepaidCard');
 		$this->load->helper('security');
 		$this->load->model('prepaid_model','mPrepaid');
+		$this->load->model('package_model','mPackage');
+
 
 		$this->page = $this->input->get('page');
 		$this->limit = $this->input->get('page');
@@ -30,9 +32,20 @@ class Prepaid extends CI_Controller {
 		$view['pageing'] = $this->load->view('pageing',$view['prepaids']['pageing'],true);
 		$this->load->view('prepaid',$view);
 	}
-
+	public function info($serialNumber=''){
+		header("Content-type: Text/html; Charset:utf8;");
+		$view['prepaid'] = $prepaid = $this->mPrepaid->getPrepaid($serialNumber);
+		$view['package'] = $this->mPackage->getPackage($prepaid['package_id']);
+		
+		$this->load->view('prepaid_info',$view);
+	}
 	public function search(){
-		$q = $this->input->get('q');
+		$serialNumber = $this->input->get('q_serial');
+		$search = "serial_number='".str_replace(' ','',$serialNumber."'");
+		$view['prepaids'] = $this->mPrepaid->searchPrepaids($search,$this->page,$this->limit);
+		$view['prepaids']['pageing']['url'] = base_url('/prepaid');
+		$view['pageing'] = $this->load->view('pageing',$view['prepaids']['pageing'],true);
+		$this->load->view('prepaid',$view);
 	}
 
 	public function create(){
