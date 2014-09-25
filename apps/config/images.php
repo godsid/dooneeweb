@@ -36,3 +36,8 @@ $config['package_banner']['large'] = array(1148,374);
 $config['banner']['small'] = array(800,1200);
 $config['banner']['medium'] = array(500,200);
 $config['banner']['large'] = array(1148,374);
+
+$config['article']['small'] = array(240,240);
+$config['article']['medium'] = array(500,500);
+$config['article']['large'] = array(800,800);
+
