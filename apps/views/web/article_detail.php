@@ -6,12 +6,19 @@
       <!-- container -->
       <section id="contents">
           <div class="container bx-all-pro">
-            <h2 class="big"><a href="<?=base_url('/news')?>" title="ข่าว/โปรโมชั่น">ข่าว/<span class="txt-red">โปรโมชั่น</span> <i class="icon-double-angle-right"></i></a></h2>
+          <?php
+          if($this->uri->segment(1)=='news'){?>
+            <h2 class="big"><a href="<?=base_url('/'.$this->uri->segment(1))?>" title="ข่าว/โปรโมชั่น">ข่าว/<span class="txt-red">โปรโมชั่น</span> <i class="icon-double-angle-right"></i></a></h2>
+          <?php }else{ ?>
+            <h2 class="big"><a href="<?=base_url('/'.$this->uri->segment(1))?>" title="วิธีการรับชม">ข่าว/<span class="txt-red">วิธีการรับชม</span></a></h2>
+          <?php }
+          ?>
+            
             <div id="toc" class="mask-col">
                 <article class="contents-auto reader">
-                  <figure><img src="<?=static_url($news['cover'])?>" alt=""><figcaption class="hid"><?=$news['title']?></figcaption></figure>
-                  <h1><?=$news['title']?></h1>
-                    <?=nl2br($news['description'])?>
+                  <figure><img src="<?=static_url($article['cover'])?>" alt=""><figcaption class="hid"><?=$article['title']?></figcaption></figure>
+                  <h1><?=$article['title']?></h1>
+                    <?=nl2br($article['description'])?>
                 </article>
                 <!--
                 <aside id="aside" class="aside">

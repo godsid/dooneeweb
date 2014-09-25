@@ -141,6 +141,11 @@ jQuery(document).ready(function() {
     effectTime: 1500,
     threshold: 0
   });
+  jQuery(".lazy").lazy({
+    effect: "fadeIn",
+    effectTime: 1500,
+    threshold: 0
+  });
 });
 
 /* Payment agent choose */

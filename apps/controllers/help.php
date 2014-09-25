@@ -1,7 +1,7 @@
 <?php if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class News extends CI_Controller {
+class Help extends CI_Controller {
     var $categories;
     var $memberLogin;
     var $page;
@@ -16,14 +16,14 @@ class News extends CI_Controller {
         $this->page = $this->input->get('page'); $this->page = $this->page?$this->page:1;
         $this->limit = $this->input->get('limit'); $this->limit = $this->limit?$this->limit:30;
     }
-    public function index($newsID=""){
+    public function index($articleID=""){
         $view['memberLogin'] = $this->memberLogin;
         $view['categories'] = $this->categories;
-        if(is_numeric($newsID)){
-            $view['article'] = $this->mArticle->getArticle($newsID);    
+        if(is_numeric($articleID)){
+            $view['article'] = $this->mArticle->getArticle($articleID);    
             $this->load->view('web/article_detail',$view);
         }else{
-            $view['article'] = $this->mArticle->getNews($this->page,$this->limit);
+            $view['article'] = $this->mArticle->getHelp($this->page,$this->limit);
             $this->load->view('web/article',$view);
         }
     }

@@ -42,10 +42,10 @@ $route['default_controller'] = "home";
 $route['404_override'] = '';
 #$route['docs/(:any)'] = 'docs/index/$1';
 
-$route['(movie|news)/(:num)'] = '$1/index/$2';
-$route['(movie|news)/(:num)/(:num)'] = '$1/index/$2/$3';
+$route['(movie|news|help)/(:num)'] = '$1/index/$2';
+$route['(movie|news|help)/(:num)/(:num)'] = '$1/index/$2/$3';
 $route['(login|logout|register|facebookLogin)(.*)'] = 'member/$1$2';
-$route['(aboutus|help|conditions|privacy|conditions|contactus)(.*)'] = 'statics/$1$2';
+$route['(aboutus|conditions|privacy|conditions|contactus)(.*)'] = 'statics/$1$2';
 
 $route['api/(:any)/(:num)'] = 'api/$1/index/$2';
 

@@ -134,6 +134,8 @@
 						<li><a class="ajax-link" href="<?=backoffice_url('/package')?>"><i class="icon-eye-open"></i><span class="hidden-tablet"> Packages</span></a></li>
 						<li><a class="ajax-link" href="<?=backoffice_url('/banner')?>"><i class="icon-eye-open"></i><span class="hidden-tablet"> Banners</span></a></li>
 						<li><a class="ajax-link" href="<?=backoffice_url('/category')?>"><i class="icon-eye-open"></i><span class="hidden-tablet"> Category</span></a></li>
+						<li><a class="ajax-link" href="<?=backoffice_url('/article/news')?>"><i class="icon-eye-open"></i><span class="hidden-tablet"> ข่าว/โปรโมชั่น</span></a></li>
+						<li><a class="ajax-link" href="<?=backoffice_url('/article/help')?>"><i class="icon-eye-open"></i><span class="hidden-tablet"> วิธีการรับชม</span></a></li>
 						<li><a class="ajax-link" href="<?=backoffice_url('/page/form/privacy')?>"><i class="icon-eye-open"></i><span class="hidden-tablet"> นโยบายส่วนตัว</span></a></li>
 						<li><a class="ajax-link" href="<?=backoffice_url('/page/form/condition')?>"><i class="icon-eye-open"></i><span class="hidden-tablet"> ข้อกำหนดและเงื่อนไข</span></a></li>
 						<li><a class="ajax-link" href="<?=backoffice_url('/page/form/help')?>"><i class="icon-eye-open"></i><span class="hidden-tablet"> วิธีการดูหนัง</span></a></li>
