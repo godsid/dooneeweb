@@ -107,6 +107,32 @@ $(document).ready(function() {
 
     if(channel=='creditcard'){
       $("#2c2p-payment-form").attr('action',$("#2c2p-payment-form").attr('action').replace(/[0-9]+/,package_id));
+    }else if(channel =='prepaidcard'){
+        $("#prepaidcard-payment-form").submit(function(){
+          code = "";
+          $("#prepaidcard-payment-form input").each(function(key,item){
+              if($(item).attr('type')=='text'){
+                if($(item).val().trim().match(/^[0-9]{4}/)==null){
+                  alert('คุณกรอกข้อมูลไม่ถูกต้องค่ะ');
+                  $(item).focus();
+                  return false;
+                }else{
+                  code+=$(item).val().trim();
+                }
+              }
+          });
+
+          $.post("<?=base_url('/payment/prepaidcard/')?>/"+package_id,{"code":code},function(resp){
+             if(resp.status=="success"){
+                alert(resp.message);
+                window.location = '<?=home_url('')?>';
+
+             }else{
+                alert(resp.message);
+             }
+          });
+          return false;
+        });
     }else{
       $(target.attr('rel')+' li a').each(function(index,item){
        $(item).attr('href',$(item).attr('href').replace(/\/payment\/[a-z]+\/[0-9]+/,'/payment/'+channel+'/'+package_id));
@@ -144,9 +170,6 @@ jQuery(document).ready(function() {
 });
 
 /* Payment agent choose */
-
-
-
 
 $(document).ready(function(){
 	/*back to top*/

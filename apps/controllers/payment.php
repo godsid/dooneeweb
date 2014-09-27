@@ -101,13 +101,53 @@ class Payment extends CI_Controller {
         }
     }
 
-    public function card($package_id=""){
+    public function prepaidcard($package_id=""){
+        $this->load->library('prepaidcard');
+        $this->load->model('card_model','mCard');
+        $code = $this->input->post('code');
+        $output = array('status'=>'','message'=>'');
         $this->validate($package_id);
-         if($invoice_id = $this->createInvoice('',$this->memberLogin['user_id'],$package_id,'CARD','',$this->package['price'],$this->package['title'],"")){
+        
+        $this->mCard->insertCardLog(array(
+                            'code'=>$code,
+                            'user_id'=>$this->memberLogin['user_id'],
+                            'ip_address'=>$this->input->ip_address()));
+        
+        if($this->prepaidcard->validateChecksum($code)){
+            if($card = $this->mCard->getCard($code)){
+                $package = $this->mPackage->getPackage($card['package_id']);
+                if( $card['status']=='UNUSED' 
+                    && $card['expire_date'] > date('Y-m-d') 
+                    && $card['start_date'] < date('Y-m-d')
+                    && $card['code'] == $code ){
+                        $this->mCard->updateCard($card['serial_number'],array(
+                            'user_id'=>$this->memberLogin['user_id'],
+                            'use_date'=>date('Y-m-d H:i:s'),
+                            'status'=>'USED'
+                        ));
+                        $this->mMember->setMemberPackage(
+                            $this->memberLogin['user_id'],
+                            $this->package['package_id'],
+                            $this->package['dayleft']);
 
-            $this->load->view('web/payment_submit',$view);
-
-        }
+                        $output['status'] = "success";
+                        $output['message'] = "รหัสเติมเงินของคุณถูกต้อง \nแพ็ตเก็จของคุณคือ ".$package['title']." \n คุณสามารถใช้งานได้ถึงวันที่ ".date('d-m-Y',strtotime('+'+$package['dayleft']+' day'));
+                    
+                }else{
+                    $output['status'] = "error";
+                    $output['message'] = "1รหัสบัตรของคุณไม่ถูกต้องกรุณาติดต่อเจ้าหน้าที่ค่ะ";
+                }
+            }else{
+                $output['status'] = "error";
+                $output['message'] = "2รหัสบัตรของคุณไม่ถูกต้องกรุณาติดต่อเจ้าหน้าที่ค่ะ";
+            }
+        }else{
+            $output['status'] = "error";
+            $output['message'] = "3รหัสบัตรของคุณไม่ถูกต้องกรุณาติดต่อเจ้าหน้าที่ค่ะ";
+        } 
+        
+        header("Content-type: Application/json; Charset:utf8;");
+        echo json_encode($output);
     }
 
     public function inquiry($package_id="",$channel="",$agent=""){
