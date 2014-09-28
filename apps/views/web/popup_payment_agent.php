@@ -104,10 +104,10 @@
           <h3>ใส่รหัสบัตรเติมเงินของคุณ 16 หลัก</h3>
           <br />
           <p style="width:480px;margin:auto;">
-            <input type="text" placeholder="xxxx" name="code[1]" value="1234" tabindex="1" maxlength="4" class="_sf-col-xs-2"><span class="_sf-col"></span>
-            <input type="text" placeholder="xxxx" name="code[2]" value="1234" tabindex="2" maxlength="4" class="_sf-col-xs-2"><span class="_sf-col"></span>
-            <input type="text" placeholder="xxxx" name="code[3]" value="1234" tabindex="3" maxlength="4" class="_sf-col-xs-2"><span class="_sf-col"></span>
-            <input type="text" placeholder="xxxx" name="code[4]" value="1234" tabindex="4" maxlength="4" class="_sf-col-xs-2">
+            <input type="text" placeholder="xxxx" name="code[1]" tabindex="1" maxlength="4" class="_sf-col-xs-2"><span class="_sf-col"></span>
+            <input type="text" placeholder="xxxx" name="code[2]" tabindex="2" maxlength="4" class="_sf-col-xs-2"><span class="_sf-col"></span>
+            <input type="text" placeholder="xxxx" name="code[3]" tabindex="3" maxlength="4" class="_sf-col-xs-2"><span class="_sf-col"></span>
+            <input type="text" placeholder="xxxx" name="code[4]" tabindex="4" maxlength="4" class="_sf-col-xs-2">
           </p>
           <br />
           <p>จำนวนวันดูหนังของรหัสบัตรเติมเงินจะนับตั้งแต่<br/>เมื่อคุณเริมใช้บริการดูหนังครั้งแรก</p>

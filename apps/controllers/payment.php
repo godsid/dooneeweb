@@ -102,7 +102,7 @@ class Payment extends CI_Controller {
     }
 
     public function prepaidcard($package_id=""){
-        $this->load->library('prepaidcard');
+        $this->load->library('prepaidCard');
         $this->load->model('card_model','mCard');
         $code = $this->input->post('code');
         $output = array('status'=>'','message'=>'');

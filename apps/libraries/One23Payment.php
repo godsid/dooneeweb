@@ -75,11 +75,11 @@ class One23Payment {
 					<ChannelCode>ATM</ChannelCode>
 				*/
 		$encryptMsg = $this->encrypt($invoiceID,$msg);
-
+		echo $msg;
 		$resp = "<html><head></head><body><form method=post action=\"".$this->requestUrl."\" id=\"sbfrom\">
 				<input type=\"hidden\" name=\"OneTwoThreeReq\" value=\"".$encryptMsg."\">
 				<input type=\"submit\" style=\"display:none\" value=\"Send\" name=\"submit\"> </form>
-				<script type=\"text/javascript\">document.getElementsByTagName(\"input\")[1].click();</script></body></html";
+				<script type=\"text/javascript\">//document.getElementsByTagName(\"input\")[1].click();</script></body></html";
 		return $resp;
 	}
 	public function inquiry($messgaeID,$invoiceID,$amount,$description,$items=array(),$payerName="",$payerEmail="",$agentCode,$channelCode = "",$payerMobile=""){
