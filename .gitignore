@@ -9,3 +9,4 @@ apps/logs/decrypt/dec_*
 apps/logs/decrypt/msg
 apps/logs/decrypt/msg_*
 files/2014/article/*
+files/2014/article/*.jpg

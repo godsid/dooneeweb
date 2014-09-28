@@ -36,6 +36,8 @@
 	
 	<!-- jQuery UI -->
 	<script src="<?=static_url('/backoffice/js/jquery-ui-1.8.21.custom.min.js')?>"></script>
+	<script src="<?=static_url('/backoffice/js/jquery.tools.min.js')?>"></script>
+	
 	<!-- transition / effect library -->
 	<script src="<?=static_url('/backoffice/js/bootstrap-transition.js')?>"></script>
 	<!-- alert enhancer library -->
