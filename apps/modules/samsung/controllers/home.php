@@ -46,7 +46,7 @@ class Home extends SAMSUNG_Controller {
 						'id'=>2,
 							'type'=>'category',
 							'title'=>'SAMSUNG PRIVILEGE (FREE)',
-							'description'=>'ดูซีรี่ย์ดังจาก Holywood ที่เยอะที่สุดฟรี',
+							'description'=>'ดูซีรี่ย์ดัง 2ตอนแรกฟรี',
 							'icon'=>static_url('/img/samsung-free.png'),
 							'nextTo'=>'contentGrid',
 							'url'=>base_url('/samsung/movie/free')
