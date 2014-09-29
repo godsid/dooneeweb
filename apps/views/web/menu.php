@@ -28,7 +28,21 @@
             if(isset($memberLogin)&&$memberLogin){ ?>
 
               <a href="javascript:;" title="<?=$memberLogin['firstname']?> <?=$memberLogin['lastname']?>">
-                <div id="show-login"><?=$memberLogin['firstname']?> <span>ดูหนังได้อีก <em><?=$memberLogin['dayLeft']?> <small>วัน</small></em></span></div>
+                <div id="show-login"><?=$memberLogin['firstname']?> <span>ดูหนังได้อีก <em>
+                <?php
+                if(isset($memberLogin['expire_date'])){
+                  $expireTime = strtotime($memberLogin['expire_date'])-time();
+                  if($expireTime>0){
+                    echo ceil($expireTime/86400);
+                  }else{
+                    echo 0;
+                  }
+                }
+                else{
+                  echo 0;
+                }
+                  ?>
+                <? //ceil(strtotime($memberLogin['expire_date'])-time()/86400)?> <small>วัน</small></em></span></div>
               </a>
             <?php }else{?>
               <a href="javascript:;" title="Login" onclick="$(body).toggleClass('expand-login'); $('.bar-login').slideToggle(200);">

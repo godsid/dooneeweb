@@ -44,11 +44,14 @@ class Member_model extends ADODB_model {
 		return $user;
 	}
 	public function login($email,$password){
-		$sql = "SELECT user_id,email,avatar,firstname,lastname,0 as dayLeft 
-				FROM ".$this->table('user')." 
-				WHERE email='".$email."' 
-				AND password='".$password."' 
-				AND status = 'ACTIVE' 
+		$sql = "SELECT u.user_id,u.email,u.avatar,u.firstname,u.lastname,up.expire_date,0 as dayLeft 
+				FROM ".$this->table('user','u')." 
+				LEFT JOIN  ".$this->table('user_package','up')." 
+					ON up.user_id = u.user_id
+				WHERE email='".$email."'
+				AND u.password='".$password."' 
+				AND u.status = 'ACTIVE' 
+				ORDER BY up.expire_date DESC 
 				";
 		return $this->adodb->GetRow($sql);
 	}

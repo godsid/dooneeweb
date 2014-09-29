@@ -42,7 +42,7 @@ class Twoc2pPayment {
 			<hashValue>".strtoupper(hash_hmac('sha1',$this->merchantID.$invoice_id.$amount,$this->secretKey, false))."</hashValue>
 			<encCardData>".$encryptedCardInfo."</encCardData>
 			</PaymentRequest>"; 
-			//echo $xml;exit;
+			echo $xml;exit;
 		$encryptMsg = base64_encode($xml);
 
 		$resp = "<html><head></head><body><form method=post action=\"".$this->requestUrl."\" id=\"sbfrom\">

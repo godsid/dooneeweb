@@ -36,19 +36,23 @@
 <!-- ATM, BANKCOUNTER, IBANKING -->
 <div id="popup-payment-bank" class="overlay thm-login"><a class="close"></a>
   <p class="Head"><i class="icm-group"></i> ชำระเงินผ่านตู้เอทีเอ็ม</p>
-  <div class="_cd-col-xs-12-sm-6">
+  <div class="_cd-col-xs-12-sm-12">
     <div class="z-login form-control">
         <fieldset>
           <legend class="hd"><i class="gly-log-in"></i> เลือกธนาคาร</legend>
           <ul class="section-regis">
-            <li><a href="<?=base_url('/payment/channel/0/SCB')?>"><img src="<?=static_url("/img/bank/SCB.png")?>" ></a></li>
-            <li><a href="<?=base_url('/payment/channel/0/KTB')?>"><img src="<?=static_url("/img/bank/KTB.png")?>" ></a></li>
-            <li><a href="<?=base_url('/payment/channel/0/KBANK')?>"><img src="<?=static_url("/img/bank/KBANK.png")?>" ></a></li>
-            <li><a href="<?=base_url('/payment/channel/0/TMB')?>"><img src="<?=static_url("/img/bank/TMB.png")?>" ></a></li>
-            <li><a href="<?=base_url('/payment/channel/0/UOB')?>"><img src="<?=static_url("/img/bank/UOB.png")?>" ></a></li>
-            <li><a href="<?=base_url('/payment/channel/0/BAY')?>"><img src="<?=static_url("/img/bank/BAY.png")?>" ></a></li>
-            <li><a href="<?=base_url('/payment/channel/0/BBL')?>"><img src="<?=static_url("/img/bank/BBL.png")?>" ></a></li>
-            <li><a href="<?=base_url('/payment/channel/0/TBANK')?>"><img src="<?=static_url("/img/bank/TBANK.png")?>" ></a></li>
+          <style type="text/css">a img{width:120px;padding: 5px;}</style>
+            <li style="text-align:center;">
+            <a href="<?=base_url('/payment/channel/0/SCB')?>"><img src="<?=static_url("/img/bank/SCB.jpg")?>" ></a>
+            <a href="<?=base_url('/payment/channel/0/TMB')?>"><img src="<?=static_url("/img/bank/TMB.jpg")?>" ></a>
+            <a href="<?=base_url('/payment/channel/0/TBANK')?>"><img src="<?=static_url("/img/bank/TBANK.jpg")?>" ></a>
+            <a href="<?=base_url('/payment/channel/0/BAY')?>"><img src="<?=static_url("/img/bank/BAY.jpg")?>" ></a>
+            <a href="<?=base_url('/payment/channel/0/BBL')?>"><img src="<?=static_url("/img/bank/BBL.jpg")?>" ></a>
+            <a href="<?=base_url('/payment/channel/0/UOB')?>"><img src="<?=static_url("/img/bank/UOB.jpg")?>" ></a>
+            
+            <a href="<?=base_url('/payment/channel/0/KTB')?>"><img src="<?=static_url("/img/bank/KTB.jpg")?>" ></a>
+            <a href="<?=base_url('/payment/channel/0/KBANK')?>"><img src="<?=static_url("/img/bank/KBANK.jpg")?>" ></a>
+            </li>
           </ul>
         </fieldset>
     </div>
@@ -62,12 +66,12 @@
         <fieldset>
           <legend class="hd"><i class="gly-log-in"></i> เลือกธนาคาร</legend>
           <ul class="section-regis">
-            <li><a href="<?=base_url('/payment/channel/0/SCB')?>"><img src="<?=static_url("/img/bank/SCB.png")?>" ></a></li>
-            <li><a href="<?=base_url('/payment/channel/0/KTB')?>"><img src="<?=static_url("/img/bank/KTB.png")?>" ></a></li>
-            <li><a href="<?=base_url('/payment/channel/0/UOB')?>"><img src="<?=static_url("/img/bank/UOB.png")?>" ></a></li>
-            <li><a href="<?=base_url('/payment/channel/0/TMB')?>"><img src="<?=static_url("/img/bank/TMB.png")?>" ></a></li>
-            <li><a href="<?=base_url('/payment/channel/0/BBL')?>"><img src="<?=static_url("/img/bank/BBL.png")?>" ></a></li>
-            <li><a href="<?=base_url('/payment/channel/0/BAY')?>"><img src="<?=static_url("/img/bank/BAY.png")?>" ></a></li>
+            <li><a href="<?=base_url('/payment/channel/0/SCB')?>"><img src="<?=static_url("/img/bank/SCB.jpg")?>" ></a></li>
+            <li><a href="<?=base_url('/payment/channel/0/KTB')?>"><img src="<?=static_url("/img/bank/KTB.jpg")?>" ></a></li>
+            <li><a href="<?=base_url('/payment/channel/0/UOB')?>"><img src="<?=static_url("/img/bank/UOB.jpg")?>" ></a></li>
+            <li><a href="<?=base_url('/payment/channel/0/TMB')?>"><img src="<?=static_url("/img/bank/TMB.jpg")?>" ></a></li>
+            <li><a href="<?=base_url('/payment/channel/0/BBL')?>"><img src="<?=static_url("/img/bank/BBL.jpg")?>" ></a></li>
+            <li><a href="<?=base_url('/payment/channel/0/BAY')?>"><img src="<?=static_url("/img/bank/BAY.jpg")?>" ></a></li>
           </ul>
         </fieldset>
     </div>
@@ -76,24 +80,27 @@
 <!-- OVERTHECOUNTER -->
 <div id="popup-payment-overthecounter" class="overlay thm-login"><a class="close"></a>
   <p class="Head"><i class="icm-group"></i> ชำระเงินผ่าน</p>
-  <div class="_cd-col-xs-12-sm-6">
+  <div class="_cd-col-xs-12-sm-12">
     <div class="z-login form-control">
         <fieldset>
-          <legend class="hd"><i class="gly-log-in"></i> เลือกธนาคาร</legend>
+          <legend class="hd"><i class="gly-log-in"></i> เลือกจุดชำระเงิน</legend>
           <ul class="section-regis">
-            <li><a href="<?=base_url('/payment/channel/0/7ELEVEN')?>"><img src="<?=static_url("/img/bank/7ELEVEN.png")?>" ></a></li>
-            <li><a href="<?=base_url('/payment/channel/0/TOT')?>"><img src="<?=static_url("/img/bank/TOT.png")?>" ></a></li>
-            <li><a href="<?=base_url('/payment/channel/0/TESCO')?>"><img src="<?=static_url("/img/bank/TESCO.png")?>" ></a></li>
-            <li><a href="<?=base_url('/payment/channel/0/TRUEMONEY')?>"><img src="<?=static_url("/img/bank/TRUEMONEY.png")?>" ></a></li>
-            <li><a href="<?=base_url('/payment/channel/0/PAYATPOST')?>"><img src="<?=static_url("/img/bank/PAYATPOST.png")?>" ></a></li>
-            <li><a href="<?=base_url('/payment/channel/0/MPAY')?>"><img src="<?=static_url("/img/bank/MPAY.png")?>" ></a></li>
-            <li><a href="<?=base_url('/payment/channel/0/BIGC')?>"><img src="<?=static_url("/img/bank/BIGC.png")?>" ></a></li>
+            <li style="text-align:center;">
+            <a href="<?=base_url('/payment/channel/0/MPAY')?>"><img src="<?=static_url("/img/bank/MPAY.jpg")?>" ></a>
+            <a href="<?=base_url('/payment/channel/0/7ELEVEN')?>"><img src="<?=static_url("/img/bank/7ELEVEN.jpg")?>" ></a>
+            <a href="<?=base_url('/payment/channel/0/TRUEMONEY')?>"><img src="<?=static_url("/img/bank/TRUEMONEY.jpg")?>" ></a>
+            <a href="<?=base_url('/payment/channel/0/TOT')?>"><img src="<?=static_url("/img/bank/TOT.jpg")?>" ></a>
+            <a href="<?=base_url('/payment/channel/0/TESCO')?>"><img src="<?=static_url("/img/bank/TESCO.jpg")?>" ></a>
+            
+            <a href="<?=base_url('/payment/channel/0/PAYATPOST')?>"><img src="<?=static_url("/img/bank/PAYATPOST.jpg")?>" ></a>
+            
+            <a href="<?=base_url('/payment/channel/0/BIGC')?>"><img src="<?=static_url("/img/bank/BIGC.jpg")?>" ></a></li>
           </ul>
         </fieldset>
     </div>
   </div>
 </div>
-<!-- OVERTHECOUNTER -->
+<!-- PREPAIDCARD -->
 <div id="popup-payment-prepaidcard" class="overlay thm-login"><a class="close"></a>
   <p class="Head"><i class="icm-group"></i> ชำระเงินผ่าน บัตรเติมเงิน</p>
   <div class="_cd-col-xs-12-sm-12">

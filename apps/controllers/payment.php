@@ -174,6 +174,9 @@ class Payment extends CI_Controller {
 
     public function response($type="",$invoiceID=""){
         $view = array();
+        $view['memberLogin'] = $this->memberLogin;
+        $view['categories'] = $this->categories;
+        $view['packages'] = $this->mPackage->getPackages();
         if($type=='creditcard3d'){
             $resp = $this->twoc2ppayment->decrypt($this->input->post('paymentResponse'));
             if(preg_match('#<respCode>([0-9]+)</respCode>#',$resp,$respCode)){
@@ -184,7 +187,8 @@ class Payment extends CI_Controller {
 
             $this->load->view('web/payment',$view);
         }else{
-
+            $view['message'] = "การชำระเงินของคุณอยู่ระหว่างขั้นตอนการดำเนอนการ กรุณาทำรายการชำระเงิน ตามใบแจ้งชำระเงินค่ะ";
+            $this->load->view('web/payment',$view);
         }
         //var_dump($_POST);
         //"paymentResponse"
