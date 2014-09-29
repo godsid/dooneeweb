@@ -43,7 +43,7 @@ class One23Payment {
 		$msg = "<OneTwoThreeReq>
 				<Version>".$this->version."</Version>
 				<TimeStamp>".date('Y-m-d H:i:s:B')."</TimeStamp>
-				<MessageID>".$messgaeID."</MessageID>
+				<MessageID>sdjv5q2owivhqokyzab4ixl6</MessageID>
 				<MerchantID>".$this->merchantID."</MerchantID>
 				<InvoiceNo>".sprintf("%012d",$invoiceID)."</InvoiceNo>
 				<Amount>".sprintf("%012d",($amount*100))."</Amount>
@@ -53,13 +53,11 @@ class One23Payment {
 				<PaymentItems>".$produnctItem."</PaymentItems>
 				<PayerName>".mb_substr($payerName,0,100)."</PayerName>
 				<PayerEmail>".mb_substr($payerEmail,0,100)."</PayerEmail>
-				<PayerMobile>".mb_substr($payerMobile,0,20)."</PayerMobile>
 				<MerchantUrl>".$this->frontrespurl.'?invoice='.$invoiceID."</MerchantUrl>
 				<APICallUrl>".$this->backrespurl."</APICallUrl>
 				<PayInSlipInfo>".$this->info."</PayInSlipInfo>
 				<AgentCode>".$agentCode."</AgentCode>
 				<ChannelCode>".$channelCode."</ChannelCode>
-				<PaymentExpiry>".date('Y-m-d',strtotime("+1 day"))."</PaymentExpiry>
 				<SlipLanguage>TH</SlipLanguage>
 				<UserDefined1></UserDefined1>
 				<UserDefined2></UserDefined2>
@@ -68,14 +66,19 @@ class One23Payment {
 				<UserDefined5></UserDefined5>
 				<HashValue>".$this->hash(sprintf("%012d",$invoiceID),sprintf("%012d",($amount*100)))."</HashValue>
 				</OneTwoThreeReq>";
-				
-				/*<AgentCode>".$agentCode."</AgentCode>
+
+				/*
+				<PayerMobile>".mb_substr($payerMobile,0,20)."</PayerMobile>
+				<SlipLanguage>TH</SlipLanguage>
+				<PaymentExpiry>".date('Y-m-d',strtotime("+1 day"))."</PaymentExpiry>
+				<AgentCode>".$agentCode."</AgentCode>
 				<ChannelCode>".$channelCode."</ChannelCode>
 					<AgentCode>BBL</AgentCode>
 					<ChannelCode>ATM</ChannelCode>
 				*/
+		echo "<div style='display:none;'>",$msg,"</div>";
 		$encryptMsg = $this->encrypt($invoiceID,$msg);
-		echo $msg;
+		
 		$resp = "<html><head></head><body><form method=post action=\"".$this->requestUrl."\" id=\"sbfrom\">
 				<input type=\"hidden\" name=\"OneTwoThreeReq\" value=\"".$encryptMsg."\">
 				<input type=\"submit\" style=\"display:none\" value=\"Send\" name=\"submit\"> </form>
@@ -168,7 +171,7 @@ Content-Transfer-Encoding: base64
 	    	return false;
 	    }
 	    
-	    $key = file_get_contents($this->serverPublicKey);
+	    $key = file_get_contents($this->merchantPublicKey);
 	    $key_private = array(file_get_contents($this->merchantPrivateKey), $this->merchantPassword);
 	    if (openssl_pkcs7_decrypt($decfile, $msgfile, $key, $key_private)) {
 	        return file_get_contents($msgfile);

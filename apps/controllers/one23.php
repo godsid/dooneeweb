@@ -25,7 +25,6 @@ class One23 extends CI_Controller{
 		if($paymentResponse = $this->input->get('OneTwoThreeRes')){
 			$respData = $this->one23payment->decrypt($paymentResponse);
 			$respData =  (array) simplexml_load_string($respData, 'SimpleXMLElement', LIBXML_NOCDATA);
-			var_dump($respData);
 			$updateData = array(
 					'resp_code'=>$respData['ResponseCode'],
 					//'resp_pan'=>$respData['pan'],

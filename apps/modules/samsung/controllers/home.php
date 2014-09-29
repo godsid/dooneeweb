@@ -33,8 +33,19 @@ class Home extends SAMSUNG_Controller {
 							);		
 		}
 		*/
+		$banners[] = 
+					array(
+						'id'=>'1',
+						'type'=>'',
+						'title'=>'',
+						'description'=>'',
+						'icon'=>static_url('/img/samsung_banner_1080x540.jpg'),
+						'nextTo'=>'',
+						'url'=>''
+						);
+					
 		$item[] = array(
-						'id'=>1,
+							'id'=>1,
 							'type'=>'category',
 							'title'=>'PREMIUM (PAID)',
 							'description'=>'พบซีรี่ย์ดังจาก Holywood ที่เยอะที่สุด',
@@ -46,7 +57,7 @@ class Home extends SAMSUNG_Controller {
 						'id'=>2,
 							'type'=>'category',
 							'title'=>'SAMSUNG PRIVILEGE (FREE)',
-							'description'=>'ดูซีรี่ย์ดังจาก Holywood ที่เยอะที่สุดฟรี',
+							'description'=>'ดูซีรี่ย์ดัง 2ตอนแรกฟรี',
 							'icon'=>static_url('/img/samsung-free.png'),
 							'nextTo'=>'contentGrid',
 							'url'=>base_url('/samsung/movie/free')
@@ -76,6 +87,7 @@ class Home extends SAMSUNG_Controller {
 		*/
 
 		$data = array(
+						'bannerItem'=>&$banners,
 						'item'=>&$item
 						//'total'=>$countItem
 				);

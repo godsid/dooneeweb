@@ -120,17 +120,25 @@ class Member_model extends ADODB_model {
 		return $this->fetchPage($sql,$page,$limit);	
 	}
 	
-	public function setMemberPackage($userID,$packageID,$day){
+	public function setMemberPackage($userID,$packageID,$date){
 		return $this->adodb->AutoExecute(
 			$this->table('user_package'),
 			array(
 				'user_id'=>$userID,
 				'package_id'=>$packageID,
 				'create_date'=>date('Y-m-d H:i:s'),
-				'expire_date'=>date('Y-m-d H:i:s',strtotime('+'.$day.' day' ))
+				'expire_date'=>$date
 				),
 			'INSERT');
 	}
+
+	public function updateExpireSession($date){
+		$user = $this->CI->session->userdata('user_data');
+		$user['expire_date'] = $date;
+        $this->CI->session->set_userdata(array('user_data'=>$user));
+    }
+
+
 	/*
 
 	public function getMovies($page=1,$limit=30){

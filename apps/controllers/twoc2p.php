@@ -45,7 +45,8 @@ class Twoc2p extends CI_Controller{
 			if($this->mInvoice->updateInvoice($respData['uniqueTransactionCode'],$updateData)){
 				if($invoice = $this->mInvoice->getInvoice($respData['uniqueTransactionCode'])){
 					if($package = $this->mPackage->getPackage($invoice['package_id'])){
-						$this->mMember-> ($invoice['user_id'],$package['package_id'],$package['dayleft']);
+						$this->mMember->setMemberPackage($invoice['user_id'],$package['package_id'],$package['dayleft']);
+						$this->mMember->updateExpireSession($package['dayleft']);
 					}
 				}
 			}

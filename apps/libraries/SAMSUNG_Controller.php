@@ -20,7 +20,7 @@ abstract class SAMSUNG_Controller extends CI_Controller
         $this->uid = $this->input->get_post('uid');
         
         if(!$this->limit = $this->input->get_post('max')){
-            $this->limit = 12;
+            $this->limit = 200;
         }
         if($this->page = $this->input->get_post('offset')){
             $this->page = (int)ceil($this->page/$this->limit);

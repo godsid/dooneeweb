@@ -125,11 +125,18 @@ class Payment extends CI_Controller {
                             'use_date'=>date('Y-m-d H:i:s'),
                             'status'=>'USED'
                         ));
+                        if($myPackage = $this->mPackage->getMemberPackage($this->memberLogin['user_id'])){
+                            $expireDate = date('Y-m-d H:i:s',strtotime($myPackage['expire_date'])+($package['dayleft']*86400));
+                        }else{
+                            $expireDate = date('Y-m-d H:i:s',strtotime('+'.$package['dayleft'].' day'));
+                        }
+
                         $this->mMember->setMemberPackage(
                             $this->memberLogin['user_id'],
-                            $this->package['package_id'],
-                            $this->package['dayleft']);
-
+                            $package['package_id'],
+                            $expireDate
+                            );
+                        $this->mMember->updateExpireSession($expireDate);
                         $output['status'] = "success";
                         $output['message'] = "รหัสเติมเงินของคุณถูกต้อง \nแพ็ตเก็จของคุณคือ ".$package['title']." \n คุณสามารถใช้งานได้ถึงวันที่ ".date('d-m-Y',strtotime('+'+$package['dayleft']+' day'));
                     
