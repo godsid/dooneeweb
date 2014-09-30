@@ -119,7 +119,7 @@ class Member extends CI_Controller {
                 if($package = $this->mPackage->getPackage(5)){
                     $now = date('Y-m-d H:i:s');
                     if($package['status']=='ACTIVE'&&$package['start_date'] < $now && $package['end_date'] > $now){
-                        $this->mMember->setMemberPackage($member_id,5,date('Y-m-d H:i:s',strtotime('+'.$package['dayleft'].' day'))){     
+                        $this->mMember->setMemberPackage($member_id,5,date('Y-m-d H:i:s',strtotime('+'.$package['dayleft'].' day')));
                     }
                     
                 }
