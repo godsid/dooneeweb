@@ -26,6 +26,7 @@ $config['2c2p_secretkey'] = 'yjc3ve4gwqxp';
 $config['2c2p_merchant_publickey'] = APPPATH.'libraries/2c2ppay/demo2.crt';
 $config['2c2p_merchant_privatekey'] = APPPATH.'libraries/2c2ppay/demo2.pem';
 $config['2c2p_merchant_password'] = '2c2p';
+//$config['2c2p_merchant_password'] = 'Media@plex';
 $config['2c2p_frontrespurl'] = 'http://www.dooneetv.com/payment/response/creditcard3d';
 $config['2c2p_backrespurl'] = 'http://www.dooneetv.com/twoc2p/proBackRespEcJz8eMMCE';
 

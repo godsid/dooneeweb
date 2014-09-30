@@ -78,7 +78,7 @@
   </div>
 </div>
 <!-- OVERTHECOUNTER -->
-<div id="popup-payment-overthecounter" class="overlay thm-login"><a class="close"></a>
+<div id="popup-payment-paypoint" class="overlay thm-login"><a class="close"></a>
   <p class="Head"><i class="icm-group"></i> ชำระเงินผ่าน</p>
   <div class="_cd-col-xs-12-sm-12">
     <div class="z-login form-control">

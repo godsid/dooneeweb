@@ -39,7 +39,7 @@ class Twoc2pPayment {
 			<currencyCode>".$this->currencyCode."</currencyCode>  
 			<panCountry>".$this->countryCode."</panCountry> 
 			<cardholderName>Banpot s</cardholderName>   
-			<hashValue>".strtoupper(hash_hmac('sha1',$this->merchantID.$invoice_id.$amount,$this->secretKey, false))."</hashValue>
+			<hashValue>".hash_hmac('sha1',$this->merchantID.$invoice_id.$amount,$this->secretKey, false)."</hashValue>
 			<encCardData>".$encryptedCardInfo."</encCardData>
 			</PaymentRequest>"; 
 			

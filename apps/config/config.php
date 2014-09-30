@@ -372,7 +372,7 @@ $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
 
-$config['email_contact'] = 'webmaster@doonee.tv';
+$config['email_contact'] = 'info@mediaplex.co.th';
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

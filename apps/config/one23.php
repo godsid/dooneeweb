@@ -39,9 +39,7 @@ $config['one23_backrespurl'] = 'http://www.dooneetv.com/one23/proBackRespXhMdkag
 $config['one23_currencycode'] = 'THB';
 $config['one23_countrycode'] = 'THA';
 
-$config['one23_info'] = "You have to pay the fee (40) which includes in your amount. 
-We are happy with your shopping. 
-Please contact us to webmaster@doonee.tv Call Center 02-884-6172.";
+$config['one23_info'] = "ติดต่อสอบถามข้อมูลเพิ่มเติมได้ที่ info@mediaplex.co.th โทร. 02 884 6188";
 
 $config['one23_encrypt_path'] = APPPATH.'logs/encrypt/';
 $config['one23_decrypt_path'] = APPPATH.'logs/decrypt/';

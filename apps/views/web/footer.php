@@ -66,7 +66,7 @@
                 <a href="<?=base_url('/conditions')?>" title="ข้อกำหนดและเงื่อนไข">ข้อกำหนดและเงื่อนไข</a> |
                 <a href="<?=base_url('/privacy')?>" title="นโยบายความเป็นส่วนตัว">นโยบายความเป็นส่วนตัว</a> |
                 <a href="<?=base_url('/contactus')?>" title="ติดต่อเรา">ติดต่อเรา</a> |
-                <a href="tel:028846172" title="Call Center">เบอร์ Call Center 02-884-6172</a>
+                <a href="tel:028846188" title="Call Center">เบอร์ Call Center 02 884 6188</a>
              </nav>
              <div class="follow">
                 <a class="ln" href="javascript:;" title="line">line</a>

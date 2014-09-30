@@ -45,7 +45,8 @@ class Payment extends CI_Controller {
         //$view['categories'] = $this->categories;
         $this->validate($package_id);
         $messageID = $this->getMessageID();
-        if($invoice_id = $this->createInvoice($messageID,$this->memberLogin['user_id'],'IBANKING',strtoupper($agent),$this->package['price'],$this->package['title'],"")){
+
+        if($invoice_id = $this->createInvoice($messageID,$this->memberLogin['user_id'],$package_id,'IBANKING',strtoupper($agent),$this->package['price'],$this->package['title'],"")){
             $items[] = array('id'=>$this->package['package_id'],'name'=>$this->package['title'],'price'=>$this->package['price'],'quantity'=>1);
 
             $view['form'] = $this->one23payment->createForm($messageID,$invoice_id,$this->package['price'],$this->package['title'],$items,$this->memberLogin['firstname'].' '.$this->memberLogin['lastname'],$this->memberLogin['email'],'IBANKING',strtoupper($agent));
@@ -117,7 +118,7 @@ class Payment extends CI_Controller {
             if($card = $this->mCard->getCard($code)){
                 $package = $this->mPackage->getPackage($card['package_id']);
                 if( $card['status']=='UNUSED' 
-                    && $card['expire_date'] > date('Y-m-d') 
+                    && $card['expire_date'] >= date('Y-m-d') 
                     && $card['start_date'] < date('Y-m-d')
                     && $card['code'] == $code ){
                         $this->mCard->updateCard($card['serial_number'],array(
@@ -125,6 +126,7 @@ class Payment extends CI_Controller {
                             'use_date'=>date('Y-m-d H:i:s'),
                             'status'=>'USED'
                         ));
+
                         if($myPackage = $this->mPackage->getMemberPackage($this->memberLogin['user_id'])){
                             $expireDate = date('Y-m-d H:i:s',strtotime($myPackage['expire_date'])+($package['dayleft']*86400));
                         }else{
@@ -137,8 +139,9 @@ class Payment extends CI_Controller {
                             $expireDate
                             );
                         $this->mMember->updateExpireSession($expireDate);
+
                         $output['status'] = "success";
-                        $output['message'] = "รหัสเติมเงินของคุณถูกต้อง \nแพ็ตเก็จของคุณคือ ".$package['title']." \n คุณสามารถใช้งานได้ถึงวันที่ ".date('d-m-Y',strtotime('+'+$package['dayleft']+' day'));
+                        $output['message'] = "รหัสเติมเงินของคุณถูกต้อง \nแพ็ตเก็จของคุณคือ ".$package['title']." \n คุณสามารถใช้งานได้ถึงวันที่ ".$expireDate;
                     
                 }else{
                     $output['status'] = "error";

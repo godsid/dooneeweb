@@ -101,7 +101,8 @@ $(document).ready(function() {
 
   //Popup Payment
   $("a.payment-popup").overlay({mask: '#FFF', opacity: 0.5, effect: 'apple',onLoad:function(obj){
-    target = $(obj.srcElement);
+    console.log(obj);
+    target = $(obj.target||obj.srcElement);
     package_id = target.attr('data-package');
     channel = target.attr('data-channel');
 
