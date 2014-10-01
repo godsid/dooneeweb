@@ -7,13 +7,13 @@ class movie extends CI_Controller {
     var $limit;
 	public function __construct(){
         parent::__construct();
-        if($this->geoip_lib->InfoIP($this->input->ip_address())){
+        /*if($this->geoip_lib->InfoIP($this->input->ip_address())){
             if($this->geoip_lib->result_country_code()!="TH"){
                 show_404();
             }
         }else{
             show_404();
-        }
+        }*/
         $this->load->model('member_model','mMember');
         $this->load->model('category_model','mCategory');
         $this->load->model('movie_model','mMovie');
@@ -147,6 +147,7 @@ class movie extends CI_Controller {
         }
     }
     public function player($movieId="",$episodeId=""){
+        $this->load->library('user_agent');
         $this->load->model('episode_model','mEpisode');
         if(!$view['movie'] = $this->mMovie->getMovie($movieId)){
             redirect(home_url('/'));
@@ -171,8 +172,12 @@ class movie extends CI_Controller {
             $view['moviePath'] = 'movies/'.$view['movie']['path'];
         }
         
-
-        $this->load->view('web/player',$view);
+        if($this->agent->is_mobile()){
+            $this->load->view('web/player_mobile',$view);
+        }else{
+            $this->load->view('web/player',$view);
+        }
+        
     }
     public function ios($movieId="",$episodeId=""){
         $this->load->model('episode_model','mEpisode');
@@ -200,6 +205,6 @@ class movie extends CI_Controller {
         }
         
 
-        $this->load->view('web/player_ios',$view);
+        $this->load->view('web/player_mobile',$view);
     }
 }
