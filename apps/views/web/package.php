@@ -11,8 +11,11 @@
         <!-- Package -->
               <?php foreach($packages as $package){
 			  if($package['package_id']==5){
-				continue;
+				  continue;
 			  }
+        if($package['package_id']==6&&!isset($_COOKIE['tui'])){
+          continue;
+        }
 			  ?>
                 <div class="pk-1">
                   <h2><?=$package['title']?></h2>
@@ -59,6 +62,7 @@
   <script type="text/javascript" src="http://demo2.2c2p.com/2C2PFrontEnd/SecurePayment/api/my2c2p.1.6.3.min.js"></script>
   <script type="text/javascript">
       My2c2p.onSubmitForm("2c2p-payment-form", function(errCode,errDesc){
+          
           if(errCode!=0){ 
               alert(errDesc);
           }

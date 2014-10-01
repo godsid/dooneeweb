@@ -16,6 +16,10 @@ class Home extends CI_Controller {
             show_404();
         }
 
+        if($_SERVER['HTTP_HOST']=='doonee.tv'||$_SERVER['HTTP_HOST']=='www.doonee.tv')){
+            redirect('');
+        }
+
         $this->load->model('member_model','mMember');
         $this->load->model('category_model','mCategory');
         $this->categories = $this->mCategory->getCategoriesMenu();

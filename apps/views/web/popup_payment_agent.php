@@ -11,11 +11,11 @@
           <ul class="section-regis">
             <li>
             <label>หมายเลขบัตรเครดิต</label>
-            <input type="text" placeholder="xxxx-xxxx-xxxx-xxxx" class="_sf-col-xs-12" id="cardnumber" data-encrypt="cardnumber" value="4111111111111111" maxlength="16"></li>
+            <input type="text" placeholder="xxxx-xxxx-xxxx-xxxx" class="_sf-col-xs-12" id="cardnumber" data-encrypt="cardnumber" value="" maxlength="16"></li>
             <li><label class="span12">วันหมดอายุ Ex.01/2014</label></li>
             <li>
-              <input type="text" placeholder="MM" value="12" class="_sf-col-xs-2" id="month" data-encrypt="month" maxlength="2"><span class="_sf-col-xs-1">/</span>
-               <input type="text" placeholder="YYYY" value="2015" class="_sf-col-xs-4" id="year" data-encrypt="year" value="123" maxlength="4"></li>
+              <input type="text" placeholder="MM" value="" class="_sf-col-xs-2" id="month" data-encrypt="month" maxlength="2"><span class="_sf-col-xs-1">/</span>
+               <input type="text" placeholder="YYYY" value="" class="_sf-col-xs-4" id="year" data-encrypt="year" value="123" maxlength="4"></li>
             <li>
             <label>หมายเลข cvv (หลังบัตร)</label>
             <input type="password" placeholder="CVV2/CVC2" class="_sf-col-xs-12" id="cvv" data-encrypt="cvv" maxlength="4" autocomplete="off"></li>

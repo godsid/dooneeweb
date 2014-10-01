@@ -30,19 +30,63 @@ class Twoc2pPayment {
 	}
 	public function createForm($messageID,$invoice_id,$amount,$title,$encryptedCardInfo){
 		$amount = sprintf("%012d",($amount*100));
+
+		$hashValue = strtoupper(hash_hmac('sha1',$this->merchantID.$invoice_id.$amount,$this->secretKey, false));
+
 		$xml = "<PaymentRequest>
 			<version>".$this->version."</version> 
+			<timeStamp>".time()."</timeStamp>
 			<merchantID>".$this->merchantID."</merchantID>
 			<uniqueTransactionCode>".$invoice_id."</uniqueTransactionCode>
 			<desc>".$title."</desc>
 			<amt>".$amount."</amt>
+			<pan>5407160000997593</pan>
 			<currencyCode>".$this->currencyCode."</currencyCode>  
 			<panCountry>".$this->countryCode."</panCountry> 
-			<cardholderName>Banpot s</cardholderName>   
-			<hashValue>".hash_hmac('sha1',$this->merchantID.$invoice_id.$amount,$this->secretKey, false)."</hashValue>
+			<panBank>KUNG THAI Bank</panBank>
+			<cardholderName>Banpot srihawong</cardholderName>
+			<cardholderEmail>banpot.sr@gmail.com</cardholderEmail>
+			<ippTransaction>N</ippTransaction>   
+			<hashValue>".$hashValue."</hashValue>
 			<encCardData>".$encryptedCardInfo."</encCardData>
-			</PaymentRequest>"; 
-			
+			</PaymentRequest>";
+
+		$xml = "<PaymentRequest>
+<version>8.2</version>
+<timeStamp>".date('dmyHis')."</timeStamp>
+<merchantID>446</merchantID>
+<uniqueTransactionCode>".$invoice_id."</uniqueTransactionCode>
+<desc>ดูนี่ทีวี แพ็คเกจ ดูซีรี่ส์ฮอลลีวู้ด 7วัน</desc>
+<amt>".$amount."</amt>
+<currencyCode>764</currencyCode>
+<panBank>Bangkok Bank</panBank>
+<panCountry>TH</panCountry>
+<cardholderName>banpot srihawong</cardholderName>
+<cardholderEmail>banpot.sr@gmail.com</cardholderEmail>
+<payCategoryID></payCategoryID>
+<userDefined1></userDefined1>
+<userDefined2></userDefined2>
+<userDefined3></userDefined3>
+<userDefined4></userDefined4>
+<userDefined5></userDefined5>
+<storeCard></storeCard>
+<ippTransaction>N</ippTransaction>
+<installmentPeriod></installmentPeriod>
+<interestType></interestType>
+<recurring></recurring>
+<invoicePrefix></invoicePrefix>
+<recurringAmount></recurringAmount>
+<allowAccumulate></allowAccumulate>
+<maxAccumulateAmt></maxAccumulateAmt>
+<recurringInterval></recurringInterval>
+<recurringCount></recurringCount>
+<chargeNextDate></chargeNextDate>
+<promotion></promotion>
+<hashValue>".$hashValue."</hashValue>
+<encCardData>".$encryptedCardInfo."</encCardData>
+</PaymentRequest>";
+//".$encryptedCardInfo."
+
 		$encryptMsg = base64_encode($xml);
 
 		$resp = "<html><head></head><body><form method=post action=\"".$this->requestUrl."\" id=\"sbfrom\">

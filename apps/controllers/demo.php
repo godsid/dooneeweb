@@ -49,4 +49,34 @@ class Demo extends CI_Controller {
 
         var_dump($this->geoip_lib->result_country_code());
     }
+
+    public function ios($movieId="",$episodeId=""){
+        $this->load->model('movie_model','mMovie');
+        $this->load->model('episode_model','mEpisode');
+        if(!$view['movie'] = $this->mMovie->getMovie($movieId)){
+            redirect(home_url('/'));
+        }
+
+        if($view['memberLogin'] = $this->mMember->getMemberLogin()){
+            $view['memberLogin']['canwatch'] = ($this->mMovie->canWatch($view['memberLogin']['user_id'],$movieId)||$view['movie']['is_free']=='YES') ;
+        }
+
+        //Series Episode
+        if($view['movie']['is_series']=='YES'){
+            $episodes = $this->mMovie->getMovieEpisode($movieId);
+            $view['episodes'] = $episodes['items'];
+            unset($episodes);
+            if(is_numeric($episodeId)){
+                $view['thisEpisode'] = $this->mEpisode->getEpisode($episodeId);
+            }else{
+                $view['thisEpisode'] = $this->mEpisode->getEpisode($view['episodes'][0]['episode_id']);
+            }
+            $view['moviePath'] = 'series/'.$view['thisEpisode']['path'];
+        }else{
+            $view['moviePath'] = 'movies/'.$view['movie']['path'];
+        }
+        
+
+        $this->load->view('web/player_ios',$view);
+    }
 }

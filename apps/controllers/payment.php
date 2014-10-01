@@ -189,6 +189,10 @@ class Payment extends CI_Controller {
         $view['packages'] = $this->mPackage->getPackages();
         if($type=='creditcard3d'){
             $resp = $this->twoc2ppayment->decrypt($this->input->post('paymentResponse'));
+            if(isset($_COOKIE['tui'])){
+                echo "<pre>";
+                var_dump($resp); 
+            }
             if(preg_match('#<respCode>([0-9]+)</respCode>#',$resp,$respCode)){
                 $respCode = $respCode[0];
             }
