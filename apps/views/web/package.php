@@ -9,7 +9,11 @@
             <h2><a href="<?=base_url('/package')?>" title="ซื้อแพ็คเกจ">ซื้อแพ็คเกจ <i class="icon-double-angle-right"></i></a></h2>
             <div id="accordion" class="inner accordion">
         <!-- Package -->
-              <?php foreach($packages as $package){?>
+              <?php foreach($packages as $package){
+			  if($package['package_id']==5){
+				continue;
+			  }
+			  ?>
                 <div class="pk-1">
                   <h2><?=$package['title']?></h2>
                     <p class="pic"><img src="<?=static_url($package['banner'])?>" alt="<?=$package['title']?>"></p>
