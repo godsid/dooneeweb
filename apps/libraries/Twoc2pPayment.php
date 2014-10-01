@@ -85,7 +85,6 @@ class Twoc2pPayment {
 <hashValue>".$hashValue."</hashValue>
 <encCardData>".$encryptedCardInfo."</encCardData>
 </PaymentRequest>";
-//".$encryptedCardInfo."
 
 		$encryptMsg = base64_encode($xml);
 
