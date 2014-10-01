@@ -7,13 +7,13 @@ class movie extends CI_Controller {
     var $limit;
 	public function __construct(){
         parent::__construct();
-        /*if($this->geoip_lib->InfoIP($this->input->ip_address())){
+        if($this->geoip_lib->InfoIP($this->input->ip_address())){
             if($this->geoip_lib->result_country_code()!="TH"){
                 show_404();
             }
         }else{
             show_404();
-        }*/
+        }
         $this->load->model('member_model','mMember');
         $this->load->model('category_model','mCategory');
         $this->load->model('movie_model','mMovie');
