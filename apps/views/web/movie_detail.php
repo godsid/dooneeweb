@@ -15,7 +15,7 @@
                       if(isset($memberLogin)&&$memberLogin){ 
                       // Member Can Watch
                         if(isset($memberLogin['canwatch'])&&$memberLogin['canwatch']){ ?>
-                          <a class="ui-btn btn-profile" href="#" title="เริ่มเล่นทันที">เริ่มเล่นทันที</a>  
+                          <!-- <a class="ui-btn btn-profile" href="#" title="เริ่มเล่นทันที">เริ่มเล่นทันที</a>  -->
                         <?php }else{?>
                             <a class="ui-btn-red btn-fill" href="<?=base_url('/package')?>" title="เติมเงินดูหนัง"><i class="icon-credit-card"></i> เติมเงินดูหนัง</a>
                         <?php }?>
