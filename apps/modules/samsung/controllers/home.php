@@ -43,6 +43,7 @@ class Home extends SAMSUNG_Controller {
 						'nextTo'=>'',
 						'url'=>''
 						);
+						
 					
 		$item[] = array(
 							'id'=>1,
@@ -87,7 +88,7 @@ class Home extends SAMSUNG_Controller {
 		*/
 
 		$data = array(
-						'bannerItem'=>&$banners,
+						//'bannerItem'=>&$banners,
 						'item'=>&$item
 						//'total'=>$countItem
 				);
