@@ -9,7 +9,9 @@
             <h2><a href="<?=base_url('/member/package')?>" title="แพคเกจของคุณ">แพคเกจของคุณ <i class="icon-double-angle-right"></i></a></h2>
             <div id="accordion" class="inner accordion">
         <!-- Package -->
-                <?php if(sizeof($package)){?>
+                <?php if(sizeof($package)){
+
+                  ?>
                 <div class="pk-1">
                   <h2><b class="txt-black">Package ของคุณ เหลืออีก <?=$memberLogin['dayLeft']?> วัน : </b> <?=$package['title']?></h2>
                     <p class="pic"><img src="<?=static_url($package['cover'])?>" alt="<?=$package['title']?>"></p>
