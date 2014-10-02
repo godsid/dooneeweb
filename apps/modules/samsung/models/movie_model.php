@@ -2,9 +2,10 @@
 
 require_once(APPPATH.'libraries/ADODB_Model.php');
 class Movie_model extends ADODB_model {
-
+	var $samsung_category;
 	public function __construct(){
 		parent::__construct();
+		$this->samsung_category = "28";
 	}
 
 	public function getMovie($movieID){
@@ -16,9 +17,11 @@ class Movie_model extends ADODB_model {
 		return $this->adodb->GetRow($sql);
 	}
 	public function getMovies($page,$limit){
-		$sql ="SELECT * 
-				FROM ".$this->table('movie')."
-				WHERE status = 'ACTIVE' ";
+		$sql ="SELECT m.* 
+				FROM ".$this->table('movie','m')."
+				LEFT JOIN ".$this->table('movie_category', 'mc')." ON m.movie_id = mc.movie_id
+				WHERE mc.category_id IN (".$this->samsung_category.") 
+				AND status = 'ACTIVE' ";
 		return $this->fetchPage($sql,$page,$limit);
 	}
 	public function getMovieCount(){
@@ -30,9 +33,11 @@ class Movie_model extends ADODB_model {
 	}
 	
 	public function getMoviesFree($page,$limit){
-		$sql ="SELECT * 
-				FROM ".$this->table('movie')."
-				WHERE status = 'ACTIVE' ";
+		$sql ="SELECT m.* 
+				FROM ".$this->table('movie','m')."
+				LEFT JOIN ".$this->table('movie_category', 'mc')." ON m.movie_id = mc.movie_id
+				WHERE mc.category_id IN (".$this->samsung_category.") 
+				AND status = 'ACTIVE' ";
 		return $this->fetchPage($sql,$page,$limit);
 	}
 
