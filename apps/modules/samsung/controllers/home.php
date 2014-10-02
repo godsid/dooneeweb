@@ -50,7 +50,7 @@ class Home extends SAMSUNG_Controller {
 							'type'=>'category',
 							'title'=>'PREMIUM (PAID)',
 							'description'=>'พบซีรี่ย์ดังจาก Holywood ที่เยอะที่สุด',
-							'icon'=>static_url('/img/samsung-premium2.png'),
+							'icon'=>static_url('/img/samsung-premium3.png'),
 							'nextTo'=>'contentGrid',
 							'url'=>base_url('/samsung/movie/premium')
 					);
