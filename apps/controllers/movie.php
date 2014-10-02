@@ -7,6 +7,13 @@ class movie extends CI_Controller {
     var $limit;
 	public function __construct(){
         parent::__construct();
+        if($this->geoip_lib->InfoIP($this->input->ip_address())){
+            if($this->geoip_lib->result_country_code()!="TH"){
+                show_404();
+            }
+        }else{
+            show_404();
+        }
         $this->load->model('member_model','mMember');
         $this->load->model('category_model','mCategory');
         $this->load->model('movie_model','mMovie');
@@ -140,6 +147,39 @@ class movie extends CI_Controller {
         }
     }
     public function player($movieId="",$episodeId=""){
+        $this->load->library('user_agent');
+        $this->load->model('episode_model','mEpisode');
+        if(!$view['movie'] = $this->mMovie->getMovie($movieId)){
+            redirect(home_url('/'));
+        }
+
+        if($view['memberLogin'] = $this->mMember->getMemberLogin()){
+            $view['memberLogin']['canwatch'] = ($this->mMovie->canWatch($view['memberLogin']['user_id'],$movieId)||$view['movie']['is_free']=='YES') ;
+        }
+
+        //Series Episode
+        if($view['movie']['is_series']=='YES'){
+            $episodes = $this->mMovie->getMovieEpisode($movieId);
+            $view['episodes'] = $episodes['items'];
+            unset($episodes);
+            if(is_numeric($episodeId)){
+                $view['thisEpisode'] = $this->mEpisode->getEpisode($episodeId);
+            }else{
+                $view['thisEpisode'] = $this->mEpisode->getEpisode($view['episodes'][0]['episode_id']);
+            }
+            $view['moviePath'] = 'series/'.$view['thisEpisode']['path'];
+        }else{
+            $view['moviePath'] = 'movies/'.$view['movie']['path'];
+        }
+        
+        if($this->agent->is_mobile()){
+            $this->load->view('web/player_mobile',$view);
+        }else{
+            $this->load->view('web/player',$view);
+        }
+        
+    }
+    public function ios($movieId="",$episodeId=""){
         $this->load->model('episode_model','mEpisode');
         if(!$view['movie'] = $this->mMovie->getMovie($movieId)){
             redirect(home_url('/'));
@@ -165,6 +205,6 @@ class movie extends CI_Controller {
         }
         
 
-        $this->load->view('web/player',$view);
+        $this->load->view('web/player_mobile',$view);
     }
 }

@@ -15,6 +15,12 @@ class Episode_model extends ADODB_model {
 		return $this->adodb->GetRow($sql);
 	}
 
+	public function getAllEpisode(){
+		$sql = "SELECT * 
+				FROM ".$this->table('episode')." 
+				 ";
+		return $this->adodb->GetAll($sql);
+	}
 }
 
 

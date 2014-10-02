@@ -44,11 +44,14 @@ class Member_model extends ADODB_model {
 		return $user;
 	}
 	public function login($email,$password){
-		$sql = "SELECT user_id,email,avatar,firstname,lastname,0 as dayLeft 
-				FROM ".$this->table('user')." 
-				WHERE email='".$email."' 
-				AND password='".$password."' 
-				AND status = 'ACTIVE' 
+		$sql = "SELECT u.user_id,u.email,u.avatar,u.firstname,u.lastname,up.expire_date,0 as dayLeft 
+				FROM ".$this->table('user','u')." 
+				LEFT JOIN  ".$this->table('user_package','up')." 
+					ON up.user_id = u.user_id
+				WHERE email='".$email."'
+				AND u.password='".$password."' 
+				AND u.status = 'ACTIVE' 
+				ORDER BY up.expire_date DESC 
 				";
 		return $this->adodb->GetRow($sql);
 	}
@@ -77,7 +80,11 @@ class Member_model extends ADODB_model {
 	}
 	public function setMember($data){
 		$data['date_create'] = date('Y-m-d H:i:s');
-		return $this->adodb->AutoExecute($this->table('user'),$data,'INSERT');
+		if($this->adodb->AutoExecute($this->table('user'),$data,'INSERT')){
+			return $this->adodb->Insert_ID();
+		}else{
+			return false;
+		}
 	}
 	public function updateMember($userID,$data){
 		$data['edit_date'] = date('Y-m-d H:i:s');
@@ -117,17 +124,25 @@ class Member_model extends ADODB_model {
 		return $this->fetchPage($sql,$page,$limit);	
 	}
 	
-	public function setMemberPackage($userID,$packageID,$day){
+	public function setMemberPackage($userID,$packageID,$date){
 		return $this->adodb->AutoExecute(
 			$this->table('user_package'),
 			array(
 				'user_id'=>$userID,
 				'package_id'=>$packageID,
 				'create_date'=>date('Y-m-d H:i:s'),
-				'expire_date'=>date('Y-m-d H:i:s',strtotime('+'.$day.' day' ))
+				'expire_date'=>$date
 				),
 			'INSERT');
 	}
+
+	public function updateExpireSession($date){
+		$user = $this->CI->session->userdata('user_data');
+		$user['expire_date'] = $date;
+        $this->CI->session->set_userdata(array('user_data'=>$user));
+    }
+
+
 	/*
 
 	public function getMovies($page=1,$limit=30){

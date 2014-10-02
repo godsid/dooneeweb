@@ -113,6 +113,19 @@ class Member extends CI_Controller {
         if(!$error){
             $member['password'] = md5($member['password']);
             if($member_id = $this->mMember->setMember($member)){
+                
+                /* Promotion New Member to Package ID 5 ดูนี่ทีวีโปรโมชั่นดูฟรี 3วัน */
+                $this->load->model('package_model','mPackage');
+                if($package = $this->mPackage->getPackage(5)){
+                    $now = date('Y-m-d H:i:s');
+                    if($package['status']=='ACTIVE'&&$package['start_date'] < $now && $package['end_date'] > $now){
+                        $this->mMember->setMemberPackage($member_id,5,date('Y-m-d H:i:s',strtotime('+'.$package['dayleft'].' day')));
+                    }
+                    
+                }
+                /* End Promotion */
+
+
                 //Auto Login
                 if($this->auth('afterRegister')){
                     redirect(base_url('/register/success'));

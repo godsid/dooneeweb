@@ -7,7 +7,8 @@
       <section id="contents">
           <div class="container bx-all-pro">
             <h2 class="big"><a href="<?=base_url('/help')?>" title="วิธีการชำระเงิน">วิธีการชำระเงิน <i class="icon-double-angle-right"></i></a></h2>
-            ยังไม่มีข้อมูล
+            <?=$message?>
+            <div style="height:500px;">&nbsp;</div>
           </div>
       </section>
       <!-- /container -->
