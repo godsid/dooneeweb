@@ -16,9 +16,12 @@
             <li>
               <input type="text" placeholder="MM" value="" class="_sf-col-xs-2" id="month" data-encrypt="month" maxlength="2"><span class="_sf-col-xs-1">/</span>
                <input type="text" placeholder="YYYY" value="" class="_sf-col-xs-4" id="year" data-encrypt="year" value="123" maxlength="4"></li>
+            <li><label>ชื่อ-นามสกุล บนบัตร</label>
+            <input type="text" placeholder="ชื่อ นามสกุล" class="_sf-col-xs-12" id="customerName" data-encrypt="customerName" maxlength="50" autocomplete="off"></li>
             <li>
             <label>หมายเลข cvv (หลังบัตร)</label>
             <input type="password" placeholder="CVV2/CVC2" class="_sf-col-xs-12" id="cvv" data-encrypt="cvv" maxlength="4" autocomplete="off"></li>
+
             <input type="submit" value="submit" />
             <input type="hidden" name="encryptedCardInfo" value="" />
           </ul>

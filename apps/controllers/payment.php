@@ -12,6 +12,8 @@ class Payment extends CI_Controller {
         $this->load->model('member_model','mMember');
         $this->load->model('category_model','mCategory');
         $this->load->model('package_model','mPackage');
+        $this->load->model('invoice_model','mInvoice');
+
         $this->categories = $this->mCategory->getCategoriesMenu();
         $this->memberLogin = $this->mMember->getMemberLogin();
         if(!$this->memberLogin){
@@ -26,12 +28,12 @@ class Payment extends CI_Controller {
         $this->load->view('web/payment',$view);
     }
     public function creditcard($package_id=""){
-        
+        $holderName = $this->input->post('holdername');
         if($encryptedCardInfo = $this->input->post('encryptedCardInfo')){
             $this->validate($package_id);
             $messageID = $this->getMessageID();
             if($invoice_id = $this->createInvoice($messageID,$this->memberLogin['user_id'],$package_id,'CREDITCARD','',$this->package['price'],$this->package['title'],"")){
-                $view['form'] = $this->twoc2ppayment->createForm($messageID,$invoice_id,$this->package['price'],$this->package['title'],$encryptedCardInfo);
+                $view['form'] = $this->twoc2ppayment->createForm($messageID,$invoice_id,$this->package['price'],$this->package['title'],$encryptedCardInfo,$holderName);
                 //var_dump($view);
                 $this->load->view('web/payment_submit',$view);
             }
@@ -188,24 +190,31 @@ class Payment extends CI_Controller {
         $view['categories'] = $this->categories;
         $view['packages'] = $this->mPackage->getPackages();
         if($type=='creditcard3d'){
-            $resp = $this->twoc2ppayment->decrypt($this->input->post('paymentResponse'));
-            if(isset($_COOKIE['tui'])){
-                echo "<pre>";
-                var_dump($resp); exit;
-            }
-            if(preg_match('#<respCode>([0-9]+)</respCode>#',$resp,$respCode)){
-                $respCode = $respCode[0];
-            }
+            $respData = $this->twoc2ppayment->decrypt($this->input->post('paymentResponse'));
+            if($respData =  (array) simplexml_load_string($respData, 'SimpleXMLElement', LIBXML_NOCDATA)){
+                if($invoice = $this->mInvoice->getInvoice($respData['uniqueTransactionCode'])){
+                    
+                    if($invoice['resp_code']=='00'){
+                        $package = $this->mPackage->getPackage($invoice['package_id']);
 
-            //echo($this->twoc2ppayment->decrypt($this->input->post('paymentResponse')));
+                        $myPackage = $this->mPackage->getMemberPackage($invoice['user_id']);
+                        
 
-            $this->load->view('web/payment',$view);
+                        $this->mMember->updateExpireSession($myPackage['expire_date']);
+                        $view['message'] = "ชำระเงินเรียบร้อยแล้วค่ะ Package ของคุณคือ \"".$package['title']."\" ใช้งานได้ ".$package['dayleft']." วัน ";
+                        $this->load->view('web/payment',$view);
+                    }else{
+                        $view['message'] = "ชำระเงินไม่สำเร็จกรุณาลองใหม่ค่ะ";
+                        $this->load->view('web/payment',$view);
+                    }
+                    
+                }
+            }
+            
         }else{
             $view['message'] = "การชำระเงินของคุณอยู่ระหว่างขั้นตอนการดำเนอนการ กรุณาทำรายการชำระเงิน ตามใบแจ้งชำระเงินค่ะ";
             $this->load->view('web/payment',$view);
         }
-        //var_dump($_POST);
-        //"paymentResponse"
     }
     public function fontResponse(){
         $respData = $this->input->post('OneTwoThreeRes');

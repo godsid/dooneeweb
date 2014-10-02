@@ -28,7 +28,7 @@ class Twoc2pPayment {
 
 
 	}
-	public function createForm($messageID,$invoice_id,$amount,$title,$encryptedCardInfo){
+	public function createForm($messageID,$invoice_id,$amount,$title,$encryptedCardInfo,$holderName){
 		$amount = sprintf("%012d",($amount*100));
 
 		$hashValue = strtoupper(hash_hmac('sha1',$this->merchantID.$invoice_id.$amount,$this->secretKey, false));
@@ -40,16 +40,17 @@ class Twoc2pPayment {
 			<uniqueTransactionCode>".$invoice_id."</uniqueTransactionCode>
 			<desc>".$title."</desc>
 			<amt>".$amount."</amt>
-			<pan>5407160000997593</pan>
 			<currencyCode>".$this->currencyCode."</currencyCode>  
 			<panCountry>".$this->countryCode."</panCountry> 
-			<panBank>KUNG THAI Bank</panBank>
-			<cardholderName>Banpot srihawong</cardholderName>
-			<cardholderEmail>banpot.sr@gmail.com</cardholderEmail>
+			<cardholderName>STG Mediaplex</cardholderName>
 			<ippTransaction>N</ippTransaction>   
 			<hashValue>".$hashValue."</hashValue>
 			<encCardData>".$encryptedCardInfo."</encCardData>
 			</PaymentRequest>";
+/*
+<panBank>KUNG THAI Bank</panBank>
+			<cardholderName>Banpot srihawong</cardholderName>
+			<cardholderEmail>banpot.sr@gmail.com</cardholderEmail>
 
 		$xml = "<PaymentRequest>
 <version>8.2</version>
@@ -85,7 +86,7 @@ class Twoc2pPayment {
 <hashValue>".$hashValue."</hashValue>
 <encCardData>".$encryptedCardInfo."</encCardData>
 </PaymentRequest>";
-
+*/
 		$encryptMsg = base64_encode($xml);
 
 		$resp = "<html><head></head><body><form method=post action=\"".$this->requestUrl."\" id=\"sbfrom\">
