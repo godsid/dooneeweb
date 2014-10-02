@@ -8,6 +8,18 @@ class Home extends CI_Controller {
     var $limit;
 	public function __construct(){
         parent::__construct();
+        if($this->geoip_lib->InfoIP($this->input->ip_address())){
+            if($this->geoip_lib->result_country_code()!="TH"){
+                show_404();
+            }
+        }else{
+            show_404();
+        }
+
+        if($_SERVER['HTTP_HOST']=='doonee.tv'||$_SERVER['HTTP_HOST']=='www.doonee.tv')){
+            redirect('');
+        }
+
         $this->load->model('member_model','mMember');
         $this->load->model('category_model','mCategory');
         $this->categories = $this->mCategory->getCategoriesMenu();

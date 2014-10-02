@@ -7,7 +7,17 @@
             	<h2><a href="<?=base_url('/member/profile')?>" title="บัญชีของฉัน"><i class="icon-smile"></i> บัญชีของฉัน</a></h2>
                 <div class="inner ft-profile">
                     <p><b>อีเมล์ : <?=$memberLogin['email']?></b></p>
-                    <p class="txt-big txt-blue">ดูหนังได้อีก <?=$memberLogin['dayLeft']?> วัน</p>
+                    <p class="txt-big txt-blue">ดูหนังได้อีก <?php if(isset($memberLogin['expire_date'])){
+                  $expireTime = strtotime($memberLogin['expire_date'])-time();
+                  if($expireTime>0){
+                    echo ceil($expireTime/86400);
+                  }else{
+                    echo 0;
+                  }
+                }
+                else{
+                  echo 0;
+                }?> วัน</p>
                     <!--<p><a class="ui-btn btn-edit-profile" href="<?=base_url('/member/form')?>" title="แก้ไขข้อมูลส่วนตัว">แก้ไขข้อมูลส่วนตัว</a></p>-->
                     <p><a class="ui-btn-red btn-fill" href="<?=base_url('/package')?>" title="เติมเงินดูหนัง">เติมเงินดูหนัง</a></p>
                     <p><a class="ui-btn-blue btn-pk" href="<?=base_url('/member/package')?>" title="ดูแพ็กเกจของคุณ">ดูแพ็กเกจของคุณ</a></p>
@@ -66,7 +76,7 @@
                 <a href="<?=base_url('/conditions')?>" title="ข้อกำหนดและเงื่อนไข">ข้อกำหนดและเงื่อนไข</a> |
                 <a href="<?=base_url('/privacy')?>" title="นโยบายความเป็นส่วนตัว">นโยบายความเป็นส่วนตัว</a> |
                 <a href="<?=base_url('/contactus')?>" title="ติดต่อเรา">ติดต่อเรา</a> |
-                <a href="tel:028846172" title="Call Center">เบอร์ Call Center 02-884-6172</a>
+                <a href="tel:028846188" title="Call Center">เบอร์ Call Center 02 884 6188</a>
              </nav>
              <div class="follow">
                 <a class="ln" href="javascript:;" title="line">line</a>

@@ -101,7 +101,8 @@ $(document).ready(function() {
 
   //Popup Payment
   $("a.payment-popup").overlay({mask: '#FFF', opacity: 0.5, effect: 'apple',onLoad:function(obj){
-    target = $(obj.srcElement);
+    console.log(obj);
+    target = $(obj.target||obj.srcElement);
     package_id = target.attr('data-package');
     channel = target.attr('data-channel');
 
@@ -113,7 +114,6 @@ $(document).ready(function() {
           $("#prepaidcard-payment-form input").each(function(key,item){
               if($(item).attr('type')=='text'){
                 if($(item).val().trim().match(/^[0-9]{4}/)==null){
-                  alert('คุณกรอกข้อมูลไม่ถูกต้องค่ะ');
                   $(item).focus();
                   return false;
                 }else{
@@ -121,16 +121,20 @@ $(document).ready(function() {
                 }
               }
           });
+          if(code.match(/^[0-9]{16}/)==null){
+            alert('คุณกรอกข้อมูลไม่ถูกต้องค่ะ');
+            return false;
+          }else{
+            $.post("<?=base_url('/payment/prepaidcard/')?>/"+package_id,{"code":code},function(resp){
+               if(resp.status=="success"){
+                  alert(resp.message);
+                  window.location = '<?=home_url('')?>';
 
-          $.post("<?=base_url('/payment/prepaidcard/')?>/"+package_id,{"code":code},function(resp){
-             if(resp.status=="success"){
-                alert(resp.message);
-                window.location = '<?=home_url('')?>';
-
-             }else{
-                alert(resp.message);
-             }
-          });
+               }else{
+                  alert(resp.message);
+               }
+            });
+          }
           return false;
         });
     }else{

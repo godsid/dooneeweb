@@ -9,7 +9,14 @@
             <h2><a href="<?=base_url('/package')?>" title="ซื้อแพ็คเกจ">ซื้อแพ็คเกจ <i class="icon-double-angle-right"></i></a></h2>
             <div id="accordion" class="inner accordion">
         <!-- Package -->
-              <?php foreach($packages as $package){?>
+              <?php foreach($packages as $package){
+			  if($package['package_id']==5){
+				  continue;
+			  }
+        if($package['package_id']==6&&!isset($_COOKIE['tui'])){
+          continue;
+        }
+			  ?>
                 <div class="pk-1">
                   <h2><?=$package['title']?></h2>
                     <p class="pic"><img src="<?=static_url($package['banner'])?>" alt="<?=$package['title']?>"></p>
@@ -21,7 +28,7 @@
                             <h3>เลือกวิธีการชำระเงิน</h3>
                             <ul class="ic-pay _cd-col-xs-6-sm-4-md-2">
                                 <li><a href="javascript:;" data-channel="creditcard" data-package="<?=$package['package_id']?>" class="payment-popup" rel="#popup-payment-creditcard" <?=$clickLogin?> title="บัตรเครดิต" ><i class="icon-credit-card"></i> บัตรเครดิต</a></li>
-                                <li><a href="javascript:;" data-channel="overthecounter" data-package="<?=$package['package_id']?>" class="payment-popup" rel="#popup-payment-overthecounter" <?=$clickLogin?> title="จุดรับชำระค่าบริการ"><i class="icon-usd"></i> จุดรับชำระค่าบริการ</a></li>
+                                <li><a href="javascript:;" data-channel="paypoint" data-package="<?=$package['package_id']?>" class="payment-popup" rel="#popup-payment-paypoint" <?=$clickLogin?> title="จุดรับชำระค่าบริการ"><i class="icon-usd"></i> จุดรับชำระค่าบริการ</a></li>
                                 <li><a href="javascript:;" data-channel="atm" data-package="<?=$package['package_id']?>" class="payment-popup" rel="#popup-payment-bank" title="เอทีเอ็ม"><i class="icon-money"></i> เอทีเอ็ม</a></li> 
                                 <li><a href="javascript:;" data-channel="bankcounter" data-package="<?=$package['package_id']?>" class="payment-popup" rel="#popup-payment-bank" <?=$clickLogin?> title="เคาน์เตอร์ธนาคาร"><i class="icon-laptop"></i> ธนาคาร</a></li>
                                 <li><a href="javascript:;" data-channel="ibanking" data-package="<?=$package['package_id']?>" class="payment-popup" rel="#popup-payment-bank" <?=$clickLogin?> title="ไอแบงก์กิ้ง"><i class="icon-btc"></i> ไอแบงก์กิ้ง</a></li>
@@ -52,7 +59,7 @@
   <!-- footer -->
     <?php include('popup_payment_agent.php');?>
     <?php include('footer.php');?>
-  <script type="text/javascript" src="http://demo2.2c2p.com/2C2PFrontEnd/SecurePayment/api/my2c2p.1.6.3.min.js"></script>
+  <script type="text/javascript" src="https://s.2c2p.com/SecurePayment/api/my2c2p.1.6.3.min.js"></script>
   <script type="text/javascript">
       My2c2p.onSubmitForm("2c2p-payment-form", function(errCode,errDesc){
           if(errCode!=0){ 

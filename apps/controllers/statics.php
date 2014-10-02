@@ -58,9 +58,11 @@ class Statics extends CI_Controller {
     private function sendmail(){
         $data = $this->input->post();
         $error = array();
+        /*
         if(!isset($data['topic'])||empty($data['topic'])){
             $error['topic'] = "คุณไม่ได้เลือกหัวข้อการติดต่อ";
         }
+        */
         if(!isset($data['name'])||empty($data['name'])){
             $error['name'] = "คุณไม่ได้ชื่อ";   
         }
@@ -79,17 +81,16 @@ class Statics extends CI_Controller {
             // Additional headers
             $headers  = 'MIME-Version: 1.0' . "\r\n";
             $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-            $headers .= 'To: Webmaster DooneeTV <webmaster@doonee.tv>' . "\r\n";
+            $headers .= 'To: Webmaster DooneeTV <info@mediaplex.co.th>' . "\r\n";
             $headers .= 'From: '.$data['name'].' <'.$data['email'].'>' . "\r\n";
             $message = "ถึง Webmaster \r\n\r\n
-                        เรื่อง ".$data['topic']." \r\n\r\n
                         ".$data['feedback']."\r\n\r\n\r\n
 
                         จาก: ".$data['name']."\r\n
                         อีเมล์: ".$data['email']."\r\n
                         โทรศัพย์: ".$data['telephone']."\r\n    
                         ";
-            mail($this->config->item('email_contact'),$data['topic'],nl2br($message),$headers);
+            mail($this->config->item('email_contact'),"Feedback DooneeTV from ".$data['name'],nl2br($message),$headers);
 
             return true;
         }
