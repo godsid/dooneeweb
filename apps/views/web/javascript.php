@@ -125,14 +125,16 @@ $(document).ready(function() {
             alert('คุณกรอกข้อมูลไม่ถูกต้องค่ะ');
             return false;
           }else{
+            $("#bt-prepaid").hide();
             $.post("<?=base_url('/payment/prepaidcard/')?>/"+package_id,{"code":code},function(resp){
+                $("#bt-prepaid").show();
                if(resp.status=="success"){
                   alert(resp.message);
                   window.location = '<?=home_url('')?>';
-
                }else{
                   alert(resp.message);
                }
+               
             });
           }
           return false;
