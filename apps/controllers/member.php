@@ -66,6 +66,7 @@ class Member extends CI_Controller {
         }
         $view['memberLogin'] = $this->memberLogin;
         $member = $this->input->post();
+        $member['email'] = strtolower($member['email']);
         $error = false;
         $message = array();
         if(empty($member['email'])){
@@ -205,7 +206,7 @@ class Member extends CI_Controller {
         $autologin = $this->input->post('remember');
         
         if($email&&$password){
-            if($user = $this->mMember->login($email,md5($password))){
+            if($user = $this->mMember->login(strtolower($email),md5($password))){
                 $this->session->set_userdata(array('user_data'=>$user));
                 if($autologin=='yes'){
                     $rememberCode = $user['user_id']."|".md5($user['email'].md5($password));
