@@ -7,12 +7,15 @@ class movie extends CI_Controller {
     var $limit;
 	public function __construct(){
         parent::__construct();
-        if($this->geoip_lib->InfoIP($this->input->ip_address())){
-            if($this->geoip_lib->result_country_code()!="TH"){
+        $allow = array('127.0.0.1');
+        if(!in_array($this->input->ip_address(),$allow)){
+            if($this->geoip_lib->InfoIP($this->input->ip_address())){
+                if($this->geoip_lib->result_country_code()!="TH"){
+                    show_404();
+                }
+            }else{
                 show_404();
             }
-        }else{
-            show_404();
         }
         $this->load->model('member_model','mMember');
         $this->load->model('category_model','mCategory');
@@ -154,8 +157,10 @@ class movie extends CI_Controller {
         }
 
         if($view['memberLogin'] = $this->mMember->getMemberLogin()){
-            $view['memberLogin']['canwatch'] = ($this->mMovie->canWatch($view['memberLogin']['user_id'],$movieId)||$view['movie']['is_free']=='YES') ;
-        }
+            $view['memberLogin']['canwatch'] = ($this->mMovie->canWatch($view['memberLogin']['user_id'],$movieId)) ;
+        }else{
+			redirect(home_url('/'));
+		}
 
         //Series Episode
         if($view['movie']['is_series']=='YES'){

@@ -201,6 +201,7 @@ class Member extends CI_Controller {
     public function auth($option=""){
         $view['memberLogin'] = $this->memberLogin;
         $view['categories'] = $this->categories;
+        $view['reurl'] = $this->input->get('reurl');
         $email = $this->input->post('email');
         $password = $this->input->post('password');
         $autologin = $this->input->post('remember');

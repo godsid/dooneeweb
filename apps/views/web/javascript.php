@@ -85,7 +85,6 @@ $(window).load(function() {
   });
   
 });
-
 $(document).ready(function() {
 	/*accordion*/
 	/*$("#accordion").tabs(
@@ -97,11 +96,18 @@ $(document).ready(function() {
 		$(this).parents('.bar').toggleClass('active').next().toggleClass('active').slideToggle(200);
     });
 	//Lightbox login
-	$("a.lb-popup").overlay({mask: '#FFF', opacity: 0.5, effect: 'apple'});
+	$("a.lb-popup").overlay({mask: '#FFF', opacity: 0.5, effect: 'apple',onLoad:function(obj){
+    target = $(obj.target||obj.srcElement);
+    if($(target).is('img')){
+      target = $(target).parent();
+    }
+    loginUrl = $('.formLogin:first').attr('action');
+    loginUrl = loginUrl.replace(/login.*/,'login?reurl='+encodeURI($(target).attr('href')));
+    $('#popup-login .formLogin').attr('action',loginUrl);
+  }});
 
   //Popup Payment
   $("a.payment-popup").overlay({mask: '#FFF', opacity: 0.5, effect: 'apple',onLoad:function(obj){
-    console.log(obj);
     target = $(obj.target||obj.srcElement);
     package_id = target.attr('data-package');
     channel = target.attr('data-channel');
@@ -245,8 +251,4 @@ function login(){
     });
   });
 }
-/* Login form*/
-loginUrl = $('.formLogin:first').attr('action')+'?reurl='+encodeURI(window.location);
-$('.formLogin').attr('action',loginUrl);
-
 </script>

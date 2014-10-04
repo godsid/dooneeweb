@@ -114,7 +114,12 @@
               <li><a href="<?=home_url()?>" title="หน้าแรก">หน้าแรก</a></li>
               <li><a href="<?=base_url('/movie/series')?>" title="ดูซีรี่ส์">ดูซีรี่ย์</a></li>
               <li><a href="<?=base_url('/news')?>" title="ข่าว/โปรโมชั่น">ข่าว/โปรโมชั่น</a></li>
-              <li><a href="<?=base_url('/package')?>" title="เติมเงิน / ซื้อแพ็คเกจ">เติมเงิน / ซื้อแพ็คเกจ</a></li>
+              <?php if(isset($memberLogin)&&$memberLogin){ ?>
+                <li><a href="<?=base_url('/package')?>" title="เติมเงิน / ซื้อแพ็คเกจ">เติมเงิน / ซื้อแพ็คเกจ</a></li>
+              <?php }else{ ?>
+                <li><a href="<?=base_url('/package')?>" class="lb-popup" rel="#popup-login" title="เติมเงิน / ซื้อแพ็คเกจ">เติมเงิน / ซื้อแพ็คเกจ</a></li>
+              <?php } ?>
+              
               <li><a href="<?=base_url('/help')?>" title="วิธีการรับชม">วิธีการรับชม</a></li>    
               <li><a href="<?=base_url('/aboutus')?>" title="เกี่ยวกับเรา">เกี่ยวกับเรา</a></li>
             </ul>
@@ -134,8 +139,8 @@
        if(!$('#nav-drop>li>a.selected').length){
           $("#nav-drop li a:first").addClass("selected");
        }
-       loginUrl = $('#formLogin').attr('action')+'?reurl='+encodeURI(window.location);
-       $('#formLogin').attr('action',loginUrl);
+       loginUrl = $('#header .formLogin').attr('action')+'?reurl='+encodeURI(window.location);
+       $('#header .formLogin').attr('action',loginUrl);
   });
   </script>
   <!-- /Header -->
