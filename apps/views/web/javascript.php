@@ -140,11 +140,11 @@ $(document).ready(function() {
                }else{
                   alert(resp.message);
                }
-               
             });
           }
           return false;
         });
+        return false;
     }else{
       $(target.attr('rel')+' li a').each(function(index,item){
        $(item).attr('href',$(item).attr('href').replace(/\/payment\/[a-z]+\/[0-9]+/,'/payment/'+channel+'/'+package_id));

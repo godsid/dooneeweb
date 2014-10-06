@@ -184,6 +184,10 @@ class Member extends CI_Controller {
         header("Content-type: Application/json; charset:utf8;");
         echo json_encode($user);
     }
+    public function changepassword(){
+        $this->load->view('web/member_changepassword');
+    }
+
     public function forgotpassword($option=""){
         if($this->memberLogin){
             redirect(home_url());
@@ -193,7 +197,17 @@ class Member extends CI_Controller {
         $view['member'] = array();
 
         if($option=='submit'){
-            
+            $email = $this->input->post('email');
+            $headers = "MIME-Version: 1.0 ".
+            "From: ".$this->config->item('email_contact')." \r\n" .
+            "Reply-To: ".$this->config->item('email_contact')." \r\n" .
+            "Content-type: text/html; charset=utf-8 \r\n".
+            "X-Mailer: PHP/" . phpversion();
+            $message= "
+
+
+            ";
+            mail($email,"แจ้งลืมรหัสผ่าน DooneeTV",$message,$headers);
         }
 
         $this->load->view('web/member_forgotpassword',$view);
