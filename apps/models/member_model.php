@@ -79,7 +79,7 @@ class Member_model extends ADODB_model {
 		return $this->adodb->GetRow($sql);
 	}
 	public function setMember($data){
-		$data['date_create'] = date('Y-m-d H:i:s');
+		$data['create_date'] = date('Y-m-d H:i:s');
 		if($this->adodb->AutoExecute($this->table('user'),$data,'INSERT')){
 			return $this->adodb->Insert_ID();
 		}else{
@@ -87,7 +87,7 @@ class Member_model extends ADODB_model {
 		}
 	}
 	public function updateMember($userID,$data){
-		$data['edit_date'] = date('Y-m-d H:i:s');
+		//$data['edit_date'] = date('Y-m-d H:i:s');
 		return $this->adodb->AutoExecute($this->table('user'),$data,'UPDATE',"user_id='".$userID."'");
 	}
 	public function isDuplicateEmail($email){

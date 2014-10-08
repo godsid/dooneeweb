@@ -43,7 +43,7 @@ class Prepaid extends CI_Controller {
 		$serialNumber = $this->input->get('q_serial');
 		$search = "serial_number='".str_replace(' ','',$serialNumber."'");
 		$view['prepaids'] = $this->mPrepaid->searchPrepaids($search,$this->page,$this->limit);
-		$view['prepaids']['pageing']['url'] = base_url('/prepaid');
+		$view['prepaids']['pageing']['url'] = backoffice_url('/prepaid');
 		$view['pageing'] = $this->load->view('pageing',$view['prepaids']['pageing'],true);
 		$this->load->view('prepaid',$view);
 	}
@@ -63,17 +63,18 @@ class Prepaid extends CI_Controller {
 		$expireDate = $this->input->post('expire_date');
 		$count = $this->input->post('count');
 		$export = $this->input->post('export');
-
-		$this->load->model('package_model','mPackage');
-		$package = $this->mPackage->getPackage($packageID);
-
-		$this->prepaidcard->generate($startDate,$expireDate,$package,$package['price'],$count,$userID,$export);
 		if($export){
 			header("Content-type: text/plain; charset=utf-8;");
 	    	header('Content-Transfer-Encoding: binary');
 	    	header('Accept-Ranges: bytes');
 	    	header('Content-Disposition: attachment; filename="prepaidCard-'.date('ymd').'.csv"');
-		}else{
+		}
+		$this->load->model('package_model','mPackage');
+		$package = $this->mPackage->getPackage($packageID);
+
+		$this->prepaidcard->generate($startDate,$expireDate,$package,$package['price'],$count,$userID,$export);
+		
+		if(!$export){
 			redirect(backoffice_url('/prepaid/create'));
 		}
 	}

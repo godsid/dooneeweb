@@ -11,7 +11,9 @@ class Package extends CI_Controller {
         $this->load->model('package_model','mPackage');
         $this->categories = $this->mCategory->getCategoriesMenu();
         $this->memberLogin = $this->mMember->getMemberLogin();
-
+        if(!$this->memberLogin){
+            redirect(base_url('/login?reurl='.urlencode(base_url('/package'))));
+        }
     }
 
     public function index(){
