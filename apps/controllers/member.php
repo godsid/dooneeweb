@@ -66,6 +66,7 @@ class Member extends CI_Controller {
         }
         $view['memberLogin'] = $this->memberLogin;
         $member = $this->input->post();
+        $member['email'] = strtolower($member['email']);
         $error = false;
         $message = array();
         if(empty($member['email'])){
@@ -183,6 +184,10 @@ class Member extends CI_Controller {
         header("Content-type: Application/json; charset:utf8;");
         echo json_encode($user);
     }
+    public function changepassword(){
+        $this->load->view('web/member_changepassword');
+    }
+
     public function forgotpassword($option=""){
         if($this->memberLogin){
             redirect(home_url());
@@ -192,7 +197,17 @@ class Member extends CI_Controller {
         $view['member'] = array();
 
         if($option=='submit'){
-            
+            $email = $this->input->post('email');
+            $headers = "MIME-Version: 1.0 ".
+            "From: ".$this->config->item('email_contact')." \r\n" .
+            "Reply-To: ".$this->config->item('email_contact')." \r\n" .
+            "Content-type: text/html; charset=utf-8 \r\n".
+            "X-Mailer: PHP/" . phpversion();
+            $message= "
+
+
+            ";
+            mail($email,"แจ้งลืมรหัสผ่าน DooneeTV",$message,$headers);
         }
 
         $this->load->view('web/member_forgotpassword',$view);
@@ -200,12 +215,13 @@ class Member extends CI_Controller {
     public function auth($option=""){
         $view['memberLogin'] = $this->memberLogin;
         $view['categories'] = $this->categories;
+        $view['reurl'] = $this->input->get('reurl');
         $email = $this->input->post('email');
         $password = $this->input->post('password');
         $autologin = $this->input->post('remember');
         
         if($email&&$password){
-            if($user = $this->mMember->login($email,md5($password))){
+            if($user = $this->mMember->login(strtolower($email),md5($password))){
                 $this->session->set_userdata(array('user_data'=>$user));
                 if($autologin=='yes'){
                     $rememberCode = $user['user_id']."|".md5($user['email'].md5($password));

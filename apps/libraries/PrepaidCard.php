@@ -28,7 +28,7 @@ class PrepaidCard {
 				'create_by'=>$create_by
 				))){
 				if($export){
-					echo $serial_number,",",$code,",",$price,",",$package['title'],",",$startDate,",",$expireDate,"\r\n";
+					echo substr(chunk_split($serial_number,4,'-'),0,-1),",",substr(chunk_split($code,4,'-'),0,-1),",",$price,",",$package['title'],",",$startDate,",",$expireDate,"\r\n";
 				}
 			}
 		}

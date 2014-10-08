@@ -41,7 +41,22 @@ class User_model extends ADODB_model {
 				FROM ".$this->table('user')." 
 				ORDER BY user_id DESC";
 		return $this->fetchPage($sql,$page,$limit);
-	}	
+	}
+	public function getUserPackage($userID){
+		$sql ="SELECT up.package_id,up.create_date,up.expire_date,p.title  
+				FROM ".$this->table('user_package','up')." 
+				LEFT JOIN ".$this->table('package','p')." ON up.package_id = p.package_id 
+				WHERE up.user_id = '".$userID."' 
+				ORDER BY id DESC";
+		return $this->adodb->GetAll($sql);
+	}
+	public function getUserInvoice($userID){
+		$sql ="SELECT * 
+				FROM ".$this->table('invoice')." 
+				WHERE user_id = '".$userID."' 
+				ORDER BY invoice_id DESC";
+		return $this->adodb->GetAll($sql);
+	}
 
 	public function searchUser($q,$page=1,$limit=30){
 		$sql ="SELECT * 

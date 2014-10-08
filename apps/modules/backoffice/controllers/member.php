@@ -69,6 +69,8 @@ class Member extends CI_Controller {
 		$this->breadcrumb[] = array('title'=>'Edit','url'=>backoffice_url('/member/edit/'.$memberID));
 		$data['breadcrumb'] = $this->breadcrumb;
 		$data['member'] = $data['members'] = $this->mUser->getUser($memberID);
+		$data['packages'] = $this->mUser->getUserPackage($memberID);
+		$data['invoices'] = $this->mUser->getUserInvoice($memberID);
 		$this->load->view('member_detail',$data);
 	}
 	public function search(){
