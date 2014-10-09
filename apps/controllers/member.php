@@ -24,6 +24,32 @@ class Member extends CI_Controller {
         $this->load->view('web/member_register',$view);
     }
 
+    public function addHistory(){
+        header("Content-type: Application/json; charset:utf8;");
+        $movieID = $this->input->post('movie_id');
+        $episodeID = $this->input->post('episode_id');
+        $last_time = $this->input->post('last_time');
+        if(!$this->memberLogin){
+            $status = 'error';
+            $message = 'คุณยังไม่ได้เข้าสู่ระบบค่ะ';
+        }else{
+            if($history_id = $this->mMember->setMemberHistory($this->memberLogin['user_id'],$movieID,$episodeID,$last_time)){
+                $status = 'success';
+                $message = '';
+                $items = array('history_id'=>$history_id,'movie_id'=>$movieID,'episode_id'=>$episodeID);
+            }else{
+                $status = 'error';
+                $message = 'เกิดข้อผิดพลาดกรุณาลองใหม่ค่ะ';
+            }
+        }
+        
+        $resp = array(
+                    'status'=>$status,
+                    'message'=>$message
+                );
+        echo json_encode($resp);
+    }
+
     public function favorite(){
         if(!$this->memberLogin){
             redirect(base_url('/login'));

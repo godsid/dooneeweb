@@ -6,7 +6,7 @@
         	<li>
             	<h2><a href="<?=base_url('/member/profile')?>" title="บัญชีของฉัน"><i class="icon-smile"></i> บัญชีของฉัน</a></h2>
                 <div class="inner ft-profile">
-                    <p><b>อีเมล์ : <?=$memberLogin['email']?></b></p>
+                    <p><b>อีเมล : <?=$memberLogin['email']?></b></p>
                     <p class="txt-big txt-blue">ดูหนังได้อีก <?php if(isset($memberLogin['expire_date'])){
                   $expireTime = strtotime($memberLogin['expire_date'])-time();
                   if($expireTime>0){
@@ -41,7 +41,7 @@
                 <ul class="inner _cd-col-xs-4 thm-mv-small">
                 <?php foreach($memberLogin['history'] as $history){?>
                 	<li>
-                    	<a title="<?=$history['title_en']?>" href="<?=base_url('/movie/'.$history['movie_id'])?>">
+                    	<a title="<?=$history['title_en']?>" href="<?=base_url('/movie/'.$history['movie_id'].(is_numeric($history['episode_id'])?"/".$history['episode_id']:""))?>">
                             <img alt="<?=$history['title']?>" src="<?=static_url($history['cover'])?>">
                             <h3><?=$history['title']?></h3>
                         </a>
