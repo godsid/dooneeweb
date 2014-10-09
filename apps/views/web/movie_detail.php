@@ -70,9 +70,10 @@
                 </div>
             </div>
           </article>
-          
+
           <div class="ctrl-player container">
-              <h2>ดูหนังออนไลน์ <?=$movie['title']?></h2>
+              <h2>ดูหนังออนไลน์ <?=$movie['title']?> <?=$thisEpisode['title']?> <?=($movie['is_soon']=='YES')?'<br/>Coming Soon':''?></h2>
+              <?php if($movie['is_soon']=='NO'){ ?> 
                 <div class="trailer" style="position:relative;">
                     <iframe width="984" height="560" frameborder="0" allowfullscreen="" src="<?=base_url('/movie/player/'.$movie['movie_id'].(isset($thisEpisode)?'/'.$thisEpisode['episode_id']:''))?>" class="mp4downloader_embedButtonInitialized mp4downloader_tagChecked "></iframe>
                     <?php 
@@ -85,8 +86,8 @@
                         <a href="<?=base_url('/login')?>"><div style="width:100%;height:100%;background-color:red;position:absolute;top:0px;opacity:0;">&nbsp;</div></a>
                     <?php }?>
                 </div>
+                <?php } ?>
           </div>
-          
           <div class="frame-fb container mb2">
               <div id="fb-root"></div>
               <script>(function(d, s, id) {

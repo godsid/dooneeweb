@@ -101,6 +101,18 @@ $(document).ready(function() {
     if($(target).is('img')){
       target = $(target).parent();
     }
+    if($(target).attr('rel')=='#popup-age'){
+      if($(target).hasClass('withlogin')){
+        $(target).attr('rel','#popup-login');
+        id = (new Date().getTime());
+        $('body').append('<a href="" id="'+id+'" rel="#popup-login"></a>');
+        $('#'+id).overlay({mask: '#FFF', opacity: 0.5, effect: 'apple'});
+        $('#confirm_rate').attr('href','javascript:$(\'a.close\').click();$(\'#'+id+'\').click();');
+      }else{
+        $('#confirm_rate').attr('href',$(target).attr('href'));
+      }
+    }
+
     loginUrl = $('.formLogin:first').attr('action');
     loginUrl = loginUrl.replace(/login.*/,'login?reurl='+encodeURI($(target).attr('href')));
     $('#popup-login .formLogin').attr('action',loginUrl);

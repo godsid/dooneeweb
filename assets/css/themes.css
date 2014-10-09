@@ -94,7 +94,7 @@ em,i,address{font-style:normal}
 #header .bar-login .bx-login{}
 .logo{padding:0;margin:0;position:relative;float:left;z-index:122}
 .logo a{position:absolute;top:0;left:0;right:0;bottom:0;display:block;width:100%;height:100%;text-indent:-9999px;z-index:2}
-.logo img{position:relative;z-index:1;margin:0}
+.logo img{position:relative;z-index:1;margin:12px 0 0}
 .btn-nv-m{display:none;position:absolute;top:10px;left:275px;z-index:102;padding:0;margin:0;background:none;border:none;cursor:pointer}
 .expand #navigation .btn-nv-m{position:fixed;right:auto;left:265px}
 .btn-nv-m a{position:relative;display:block;width:35px;height:30px;border-radius:.3em;-webkit-border-radius:.3em;behavior:url(/pie/PIE.htc);text-align:justify;text-indent:-9999px;overflow:hidden;box-shadow:0 0 4px rgba(0,0,0,0.75) inset;background:#212121}
@@ -119,7 +119,7 @@ em,i,address{font-style:normal}
 #header.small{min-height:40px;margin:0;position: fixed;}
 #header.small>.container{min-height:40px;border-bottom:5px solid #c7262c}
 #header.small .logo{margin:0 10px 0 50px}
-#header.small .logo img{display:block;height:40px}
+#header.small .logo img{display:block;height:40px;margin:0}
 #header.small .tools>*{padding-top:6px;margin-bottom:0}
 #header.small #searcharea form{position:relative}
 #header.small #searcharea form input,#header.small .select-cat>li>a{padding:0 5px;height:30px;line-height:30px}
@@ -793,8 +793,10 @@ form [type="submit"]{display:inline-block;padding:3px 20px;background:#31353e;co
 /*.thm-mv *>a:hover>img:first-child+*{opacity:1;visibility:visible}*/
 .thm-mv *>a>.type{display:block;position:absolute;top:0;left:0;height:24px;font:700 16px/26px "supermarket";color:#fff;background:#c7262c;padding:0 5px;min-width:50px;text-align:center;box-shadow:1px 1px 1px rgba(0,0,0,0.3);text-transform: uppercase;}
 .thm-mv *>a>.type.free{background:#5cc0e4}
+.thm-mv *>a>.type.soon{background:#666a6d}
 .thm-mv *>a>.type:after{content:"";display:block;position:absolute;top:0;right:-24px;border-left:24px solid #c7262c;border-bottom:24px solid transparent}
 .thm-mv *>a>.type.free:after{border-left-color:#5cc0e4}
+.thm-mv *>a>.type.soon:after{border-left-color:#666a6d}
 .thm-mv *>footer{position:relative;clear:both;padding:11px 0 0;text-align:center}
 .thm-mv * .rating{text-align:center}
 .thm-mv * .rating>i{display:inline-block;margin:0 3px;font-size:18px;color:#c7262c}
@@ -920,12 +922,12 @@ form [type="submit"]{display:inline-block;padding:3px 20px;background:#31353e;co
 .bx-contact .detail>address,.bx-contact .detail>p{line-height:22px}
 .bx-contact .detail>.call{font-size:22px}
 .bx-contact [class*="map"]{position:relative;clear:both}
-.bx-contact [class*="map"]>img:first-child{display:block;width:100%}
-.bx-contact [class*="map"]>img:first-child+div{position:relative;clear:both;padding:10px 10px 5px;background:#5792b2;font-size:13px;text-transform:uppercase;font-weight:700;color:#fff}
-.bx-contact [class*="map"]>img:first-child+div>*:first-child{font-size:14px;line-height:18px;color:#194f6b;text-shadow:0 1px 0 rgba(255,255,255,0.2);font-weight:700}
-.bx-contact [class*="map"]>img:first-child+div>*:first-child>i{font-size:16px;vertical-align:baseline}
-.bx-contact [class*="map"]>img:first-child+div>p{margin-left:10px;line-height:18px}
-.bx-contact [class*="map"]>img:first-child+div>.ui-btn{position:absolute;top:7px;right:10px;z-index:9;color:#fff;font:700 14px/30px "supermarket",tahoma;text-transform:uppercase;text-shadow:0 1px 0 rgba(0, 0, 0, 0.5);background:#5792b2;border:1px solid #75a5c0;border-radius:0.2em;-webkit-border-radius:0.2em;behavior:url(/pie/PIE.htc);}
+.bx-contact [class*="map"]>*:first-child{display:block;width:100%}
+.bx-contact [class*="map"]>*:first-child+div{position:relative;clear:both;padding:10px 10px 5px;background:#5792b2;font-size:13px;text-transform:uppercase;font-weight:700;color:#fff}
+.bx-contact [class*="map"]>*:first-child+div>*:first-child{font-size:14px;line-height:18px;color:#194f6b;text-shadow:0 1px 0 rgba(255,255,255,0.2);font-weight:700}
+.bx-contact [class*="map"]>*:first-child+div>*:first-child>i{font-size:16px;vertical-align:baseline}
+.bx-contact [class*="map"]>*:first-child+div>p{margin-left:10px;line-height:18px}
+.bx-contact [class*="map"]>*:first-child+div>.ui-btn{position:absolute;top:7px;right:10px;z-index:9;color:#fff;font:700 14px/30px "supermarket",tahoma;text-transform:uppercase;text-shadow:0 1px 0 rgba(0, 0, 0, 0.5);background:#5792b2;border:1px solid #75a5c0;border-radius:0.2em;-webkit-border-radius:0.2em;behavior:url(/pie/PIE.htc);}
 .form-contact fieldset *{font-size:16px;color:#333;width:100%;max-width:100%}
 .form-contact fieldset [class*="txt-"]{width:100%}
 .form-contact fieldset [class*="ui-btn"]{padding-right:40px;font-size:18px;margin-top:15px}
@@ -984,6 +986,17 @@ form [type="submit"]{display:inline-block;padding:3px 20px;background:#31353e;co
 [class*="thm-age"]>div>.btn-group>*{display:block}
 [class*="thm-age"]>div>.btn-group>*>a{display:block;padding:20px;font-size:27px;color:#333;text-shadow:0 1px 0 #fff;border-radius:.1em;-webkit-border-radius:.1em;box-shadow:0 -3px 0 rgba(0,0,0,0.3) inset}
 [class*="thm-age"]>div>.btn-group>*>a:hover{color:#fff;text-shadow:0 1px 0 rgba(0,0,0,0.5);background:#d3222a;opacity:1;filter:none}
+#popup-payment-prepaidcard.overlay{background:url(../img/bg-card-popup.png) 50% 0 no-repeat #5dc8d3!important;background-size:100%}
+#popup-payment-prepaidcard.overlay>p{background:none; height:79px; padding-top:20px; font-size:25px}
+#popup-payment-prepaidcard.overlay>p>i{text-indent:-9999;visibility:hidden}
+#popup-payment-prepaidcard.overlay>div{background:none;border:none;margin:0}
+#popup-payment-prepaidcard.overlay>div form .hd{visibility:hidden;height:40px}
+#popup-payment-prepaidcard.overlay>div form .hd+h3{font-size:20px}
+#popup-payment-prepaidcard.overlay>div form p[style*="width"]{text-align:center;width:auto!important}
+#popup-payment-prepaidcard.overlay>div form p[style*="width"]>*{display:inline-block;float:none}
+#popup-payment-prepaidcard.overlay>div form p[style*="width"]>span{padding:0;width:15px}
+#popup-payment-prepaidcard.overlay>div form p[style*="width"]>input{padding:5px}
+#popup-payment-prepaidcard.overlay>div form .ui-btn-balck{margin-top:10px}
 /*Check Max width*/
 [class*="_cd"][class*="-col"][class*="-xs"]>*,
 [class*="_sf"][class*="-col"][class*="-xs"]{float:left}
@@ -1005,7 +1018,7 @@ form [type="submit"]{display:inline-block;padding:3px 20px;background:#31353e;co
 #header{z-index:105;min-height:inherit;margin-bottom:0}
 #header> .container{min-height:50px;padding:0}
 #header .logo{position:relative;left:0;right:0;height:50px;max-height:50px;margin:0 0 0 50px!important;z-index:112}
-#header .logo img{display:block;margin:0 auto;height:45px!important;padding:0}
+#header .logo img{display:block;margin:0 auto;height:45px!important;padding:5px 0}
 #header .teaser{clear:both;height:auto;margin:0;color:#c00;font:700 11px/16px tahoma}
 #header #navigation{position:absolute;top:0px;bottom:0!important;left:-260px!important;width:260px;z-index:120;background:none;border:none}
 #header.expand #navigation{left:0!important}

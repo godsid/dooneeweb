@@ -80,7 +80,7 @@
              </nav>
              <div class="follow">
                 <a class="ln" href="javascript:;" title="line">line</a>
-                <a class="gg" href="javascript:;" title="google+">google+</a>
+                <a class="gg" href="https://plus.google.com/112188704808586278131" rel="publisher" title="google+">google+</a>
                 <a class="tw" href="javascript:;" title="twitter">twitter</a>
                 <a class="fb" href="https://www.facebook.com/pages/Dooneetv/541330282639237" title="facebook">facebook</a>
              </div>
@@ -139,8 +139,8 @@
     <p>ภาพและเนื้อหาต่อไปนี้ ไม่เหมาะสมแก่เด็ก และเยาวชนอายุต่ำกว่า 18 ปี</p>
     <h2>กรุณายืนยันอายุของคุณ</h2>
     <div class="btn-group _cd-col-xs-6">
-       <span><a id="confirm_rate" class="ui-btn-gray" title="over 18+" href="<?=base_url('/movie/')?>">ข้าพเจ้า 18+ แล้ว</a></span>
-       <span><a class="ui-btn-gray close" title="under 18+" href="javascript:;">ยังไม่ถึง 18 ปี</a></span>
+       <span><a id="confirm_rate" class="ui-btn-gray" title="over 18+" href="javascript:;">ข้าพเจ้า 18+ แล้ว</a></span>
+       <span><a class="ui-btn-gray close" title="under 18+" href="javascript:$('a.close').click();">ยังไม่ถึง 18 ปี</a></span>
     </div>
   </div>
 </div>

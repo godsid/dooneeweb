@@ -2,13 +2,16 @@
 <?php 
   $isLogin = (isset($memberLogin)&&$memberLogin)?'':' class="lb-popup" rel="#popup-login" ';
   foreach ($movies['items'] as $movie) {
+    $popup = ($movie['is_18']=='YES')?' class="lb-popup'.($isLogin?' withlogin ':'').'" rel="#popup-age" ':$isLogin;
 ?>
   <li>
     <article>
-        <a title="<?=$movie['title']?>" <?=$isLogin?> href="<?=base_url('/movie/'.$movie['movie_id'])?>">
+        <a title="<?=$movie['title']?>" <?=$popup?> href="<?=base_url('/movie/'.$movie['movie_id'])?>">
             <img alt="<?=$movie['title_en']?>" src="<?=static_url($movie['cover'])?>">
             <h3><?=$movie['title']?></h3>
-            <?php if($movie['is_free']=='YES'){?>
+            <?php if($movie['is_soon']=='YES'){?>
+            <span class="type soon">coming soon</span>
+            <?php }elseif($movie['is_free']=='YES'){?>
             <span class="type free">Free</span>
             <?php }elseif($movie['is_hd']=='YES'){?>
             <span class="type HD">HD</span>
