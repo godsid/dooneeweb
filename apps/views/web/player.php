@@ -93,7 +93,10 @@ jwplayer("container").setup({
     events: {
         onReady:function(){
             console.log('ready');
-            jwplayer().getPlugin("dock").setButton("quality",qualityHD,'<?=static_url('/img/qualityHD.png')?>','<?=static_url('/img/qualityHD.png')?>');
+            <?php if($movie['is_hd']=='YES'){ ?>
+                jwplayer().getPlugin("dock").setButton("quality",qualityHD,'<?=static_url('/img/qualityHD.png')?>','<?=static_url('/img/qualityHD.png')?>');
+            <?php } ?>
+            
             jwplayer().getPlugin("dock").setButton("sound",soundTha,'<?=static_url('/img/soundEng.png')?>','<?=static_url('/img/soundEng.png')?>');
         },
         onTime:function(resp){

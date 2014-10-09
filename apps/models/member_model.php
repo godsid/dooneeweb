@@ -105,10 +105,10 @@ class Member_model extends ADODB_model {
 	}
 
 	public function getMemberHistory($user_id,$page=1,$limit=30){
-		$sql = "SELECT m.movie_id,m.title,m.title_en,m.cover 
-				FROM ".$this->table('movie_history','mh')." 
-				LEFT JOIN ".$this->table('movie','m')." ON mh.movie_id = m.movie_id
-				WHERE mh.user_id = ".$user_id." 
+		$sql = "SELECT m.movie_id,h.episode_id,m.title,m.title_en,m.cover,h.last_time 
+				FROM ".$this->table('history','h')." 
+				LEFT JOIN ".$this->table('movie','m')." ON h.movie_id = m.movie_id
+				WHERE h.user_id = ".$user_id." 
 				AND m.status = 'ACTIVE' 
 				";
 		return $this->fetchPage($sql,$page,$limit);
