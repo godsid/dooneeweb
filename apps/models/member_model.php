@@ -105,13 +105,31 @@ class Member_model extends ADODB_model {
 	}
 
 	public function getMemberHistory($user_id,$page=1,$limit=30){
-		$sql = "SELECT m.movie_id,m.title,m.title_en,m.cover 
-				FROM ".$this->table('movie_history','mh')." 
-				LEFT JOIN ".$this->table('movie','m')." ON mh.movie_id = m.movie_id
-				WHERE mh.user_id = ".$user_id." 
+		$sql = "SELECT m.movie_id,h.episode_id,m.title,m.title_en,m.cover,h.last_time 
+				FROM ".$this->table('history','h')." 
+				LEFT JOIN ".$this->table('movie','m')." ON h.movie_id = m.movie_id
+				WHERE h.user_id = ".$user_id." 
 				AND m.status = 'ACTIVE' 
 				";
 		return $this->fetchPage($sql,$page,$limit);
+	}
+
+	public function setMemberHistory($user_id,$movie_id,$episode_id,$last_time){
+		$data = array(
+					'user_id'=>$user_id,
+					'movie_id'=>$movie_id,
+					'episode_id'=>$episode_id,
+					'last_time'=>$last_time
+				);
+		if($this->adodb->GetRow("SELECT * FROM ".$this->table('history')." WHERE user_id='".$user_id."' AND movie_id='".$movie_id."' ")){
+			return $this->adodb->AutoExecute($this->table('history'),array('episode_id'=>$episode_id,'last_time'=>$last_time),'UPDATE',"user_id='".$user_id."' AND movie_id='".$movie_id."'");
+		}else{
+			if($this->adodb->AutoExecute($this->table('history'),$data,'INSERT')){
+				return $this->adodb->Insert_ID();
+			}else{
+				return false;
+			}
+		}
 	}
 
 	public function getMemberFavorites($user_id,$page=1,$limit=30){

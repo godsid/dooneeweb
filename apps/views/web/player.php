@@ -28,10 +28,11 @@
 
 </script>-->
 */?>
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <script src="<?=static_url('/js/jwplayer/jwplayer.js')?>"></script>
 <div id="container">Loading the player ...</div>
 <script type="text/javascript">
+var durationCount = 0;
 //http://www.longtailvideo.com/support/jw5
 jwplayer("container").setup({
     flashplayer: "<?=static_url("/js/jwplayer/player.swf")?>",
@@ -92,8 +93,18 @@ jwplayer("container").setup({
     events: {
         onReady:function(){
             console.log('ready');
-            jwplayer().getPlugin("dock").setButton("quality",qualityHD,'<?=static_url('/img/qualityHD.png')?>','<?=static_url('/img/qualityHD.png')?>');
+            <?php if($movie['is_hd']=='YES'){ ?>
+                jwplayer().getPlugin("dock").setButton("quality",qualityHD,'<?=static_url('/img/qualityHD.png')?>','<?=static_url('/img/qualityHD.png')?>');
+            <?php } ?>
+            
             jwplayer().getPlugin("dock").setButton("sound",soundTha,'<?=static_url('/img/soundEng.png')?>','<?=static_url('/img/soundEng.png')?>');
+        },
+        onTime:function(resp){
+            durationCount++;
+            if((durationCount%50)==0){
+                $.post('<?=base_url('/member/addHistory')?>',{'movie_id':<?=$movie['movie_id']?>,'episode_id':<?=$thisEpisode['episode_id']?>,'last_time':resp.position});
+                console.log(resp.position);    
+            }
         },
     },
     
