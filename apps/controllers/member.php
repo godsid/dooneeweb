@@ -12,7 +12,6 @@ class Member extends CI_Controller {
         $this->load->model('category_model','mCategory');
         $this->categories = $this->mCategory->getCategoriesMenu();
     }
-
     public function history(){
         if(!$this->memberLogin){
             redirect(base_url('/login'));
@@ -206,7 +205,12 @@ class Member extends CI_Controller {
             }
         }
         $user = $this->mMember->login($member['email'],$member['password']);
-        $this->session->set_userdata(array('user_data'=>$user));
+        if($this->checkFirstLogin($user['user_id'])){
+            $this->session->set_userdata(array('user_data'=>$user));
+        }else{
+
+        }
+        
         header("Content-type: Application/json; charset:utf8;");
         echo json_encode($user);
     }
@@ -245,23 +249,27 @@ class Member extends CI_Controller {
         $email = $this->input->post('email');
         $password = $this->input->post('password');
         $autologin = $this->input->post('remember');
-        
         if($email&&$password){
             if($user = $this->mMember->login(strtolower($email),md5($password))){
-                $this->session->set_userdata(array('user_data'=>$user));
-                if($autologin=='yes'){
-                    $rememberCode = $user['user_id']."|".md5($user['email'].md5($password));
-                    $this->input->set_cookie('remember',$rememberCode,strtotime('+1 year'),$this->config->item('cookie_domain'),'/');
-                }
-                if($option=="afterRegister"){
-                    return true;
-                }
-                if($reurl = $this->input->get('reurl')){
-                    redirect($reurl);
+                if($device_code = $this->checkFirstLogin($user['user_id'])){
+                    $user['device'] = $device_code;
+                    $this->session->set_userdata(array('user_data'=>$user));
+                    if($autologin=='yes'){
+                        $rememberCode = $user['user_id']."|".md5($user['email'].md5($password));
+                        $this->input->set_cookie('remember',$rememberCode,strtotime('+1 year'),$this->config->item('cookie_domain'),'/');
+                    }
+                    if($option=="afterRegister"){
+                        return true;
+                    }
+                    if($reurl = $this->input->get('reurl')){
+                        redirect($reurl);
+                    }else{
+                        redirect(home_url());
+                    }
                 }else{
-                    redirect(home_url());
+                    $view['message'] = 'บัญชีนี้ถูกใช้งานจากเครื่องอื่นอยู่';
+                    $this->load->view('web/member_login',$view); 
                 }
-                
             }else{
                 $this->load->view('web/member_login',$view); 
             }
@@ -271,9 +279,39 @@ class Member extends CI_Controller {
     }
 
     public function logout(){
+        $user = $this->session->userdata('user_data');
+        $this->mMember->deleteMemberDevice($user['user_id']);
         $this->input->set_cookie('remember','',strtotime('-1 day'));
         $this->session->sess_destroy();
         redirect(home_url());
     }
-
+    private function checkFirstLogin($user_id){
+        $device = $this->mMember->getMemberDevice($user_id);
+        $device_code = $this->mMember->deviceEncode($user_id);
+        if($device){
+            if($device['last_active'] < date('Y-m-d H:i:s',time()-1800)){
+                $data = array(
+                            'device'=>$device_code,
+                            'device_detail'=>$this->agent->agent_string(),
+                            'ip_address'=>$this->input->ip_address(),
+                            'last_active'=>date('Y-m-d H:i:s')
+                        );
+                $this->mMember->updateMemberDevice($user_id,$data);
+                return $device_code;
+            }else{
+                return false;
+            }
+        }else{
+            $data = array(
+                        'user_id'=>$user_id,
+                        'device'=>$device_code,
+                        'device_detail'=>$this->agent->agent_string(),
+                        'ip_address'=>$this->input->ip_address(),
+                        'last_active'=>date('Y-m-d H:i:s')
+                    );
+            $this->mMember->setMemberDevice($data);
+            return $device_code;
+        }
+    }
+    
 }

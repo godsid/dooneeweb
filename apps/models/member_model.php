@@ -21,6 +21,7 @@ class Member_model extends ADODB_model {
 		$CI = & get_instance();
 		$CI->load->library('session');
 		$user = $CI->session->userdata('user_data');
+
 		if(!$user){
 			if($remember = $CI->input->cookie('remember')){
 				list($memberID,$code) = explode("|",$remember);
@@ -33,6 +34,17 @@ class Member_model extends ADODB_model {
 			}
 		}
 		if($user){
+			//Check fraud data
+			if(isset($user['device'])&&!$this->validateDeviceCode($user['user_id'],$user['device'])){
+				$CI->session->sess_destroy();
+				return false;
+			}
+			$memberDevice = $this->getMemberDevice($user['user_id']);
+			if(!$memberDevice||$memberDevice['device']!=$user['device']){
+				$CI->session->sess_destroy();
+				return false;
+			}
+
 			$history = $this->getMemberHistory($user['user_id'],1,3);
 			$user['history'] = $history['items'];
 			unset($history);
@@ -54,6 +66,21 @@ class Member_model extends ADODB_model {
 				ORDER BY up.expire_date DESC 
 				";
 		return $this->adodb->GetRow($sql);
+	}
+	public function getMemberDevice($user_id){
+		$sql = "SELECT * 
+				FROM ".$this->table('user_device')." 
+				WHERE user_id = '".$user_id."' ";
+		return $this->adodb->GetRow($sql);
+	}
+	public function setMemberDevice($data){
+		return $this->adodb->AutoExecute($this->table('user_device'),$data,'INSERT');
+	}
+	public function updateMemberDevice($user_id,$data){
+		return $this->adodb->AutoExecute($this->table('user_device'),$data,'UPDATE',"user_id='".$user_id."'");
+	}
+	public function deleteMemberDevice($user_id){
+		return $this->adodb->Execute("DELETE FROM ".$this->table('user_device')." WHERE user_id = '".$user_id."' ");
 	}
 	public function facebookLogin($facebook_id,$email){
 		$sql = "SELECT * 
@@ -160,6 +187,24 @@ class Member_model extends ADODB_model {
         $this->CI->session->set_userdata(array('user_data'=>$user));
     }
 
+    public function deviceEncode($user_id){
+    	$CI = & get_instance();
+        $device_section = substr(md5(time().random_string('alnum',5)),0,5);
+        $device_hash = md5($device_section.$user_id.$CI->input->ip_address().$CI->agent->agent_string());
+        $device_code = substr($device_hash,0,27).$device_section;
+        echo $device_code;
+        return $device_code;
+    }
+    public function validateDeviceCode($user_id,$deviceCode){
+    	$CI = & get_instance();
+        $device_section = substr($deviceCode,27,32);
+        $device_hash = md5($device_section.$user_id.$CI->input->ip_address().$CI->agent->agent_string());
+        if(substr($deviceCode,0,27)==substr($device_hash,0,27)){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 	/*
 
