@@ -39,8 +39,13 @@ class Member_model extends ADODB_model {
 				$CI->session->sess_destroy();
 				return false;
 			}
-			$memberDevice = $this->getMemberDevice($user['user_id']);
-			if(!$memberDevice||$memberDevice['device']!=$user['device']){
+
+			if($memberDevice = $this->getMemberDevice($user['user_id'])){
+				if($memberDevice['device']!=$user['device']){
+					$CI->session->sess_destroy();
+					return false;
+				}
+			}else{
 				$CI->session->sess_destroy();
 				return false;
 			}
@@ -192,7 +197,6 @@ class Member_model extends ADODB_model {
         $device_section = substr(md5(time().random_string('alnum',5)),0,5);
         $device_hash = md5($device_section.$user_id.$CI->input->ip_address().$CI->agent->agent_string());
         $device_code = substr($device_hash,0,27).$device_section;
-        echo $device_code;
         return $device_code;
     }
     public function validateDeviceCode($user_id,$deviceCode){

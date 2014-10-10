@@ -259,6 +259,8 @@ function login(){
         }else{
           window.location = '<?=home_url()?>';
         }
+      }else{
+        alert(resp.message);
       }
     });
   });

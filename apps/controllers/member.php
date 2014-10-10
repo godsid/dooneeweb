@@ -205,14 +205,17 @@ class Member extends CI_Controller {
             }
         }
         $user = $this->mMember->login($member['email'],$member['password']);
-        if($this->checkFirstLogin($user['user_id'])){
+        if($device_code = $this->checkFirstLogin($user['user_id'])){
+            $user['device'] = $device_code;
             $this->session->set_userdata(array('user_data'=>$user));
+            header("Content-type: Application/json; charset:utf8;");
+            echo json_encode($user);
         }else{
-
+            header("Content-type: Application/json; charset:utf8;");
+            echo json_encode(array('message'=>'บัญชีนี้ถูกใช้งานจากเครื่องอื่นอยู่'));
         }
         
-        header("Content-type: Application/json; charset:utf8;");
-        echo json_encode($user);
+        
     }
     public function changepassword(){
         $this->load->view('web/member_changepassword');
