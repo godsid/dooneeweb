@@ -95,6 +95,12 @@
 									    <label class="checkbox inline">
 											<input type="checkbox" value="YES" name="is_series" <?=(isset($movie['is_series'])&&$movie['is_series']=='YES'?'checked':'')?>> Series
 									    </label>
+									    <label class="checkbox inline">
+											<input type="checkbox" value="YES" name="is_18" <?=(isset($movie['is_18'])&&$movie['is_18']=='YES'?'checked':'')?>> 18+
+									    </label>
+									    <label class="checkbox inline">
+											<input type="checkbox" value="YES" name="is_soon" <?=(isset($movie['is_soon'])&&$movie['is_soon']=='YES'?'checked':'')?>> Coming Soon
+									    </label>
 									</div>
 								</div>
 								<?php if(isset($movie['is_series'])&&$movie['is_series']=='YES'){?>

@@ -12,6 +12,7 @@
           <div class="left form-contact-register _sf-col-xs-12-md-push-2-md-8">
               <form id="contact-doonee" name="contact-doonee" method="post" action="<?=base_url('/member/auth').((isset($reurl)&&$reurl)?'?reurl='.urlencode($reurl):'')?>">
                   <fieldset class="_sf-col-sm-push-1-sm-10 pd0">
+                    <?php if(isset($message)){ ?> <h3 class="error" style="color:red;"><?=$message?></h3> <?php }?>
                     <legend class="hid">เข้าสู่ระบบ</legend>
                     <?php if(isset($_GET['formregister'])){ ?><p class="success"> สมัครสมาชิกเรียบร้อยแล้ว กรุณาเข้าสู่ระบบ</p><?php }?>
                     <p>

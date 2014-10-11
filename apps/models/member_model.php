@@ -21,6 +21,7 @@ class Member_model extends ADODB_model {
 		$CI = & get_instance();
 		$CI->load->library('session');
 		$user = $CI->session->userdata('user_data');
+
 		if(!$user){
 			if($remember = $CI->input->cookie('remember')){
 				list($memberID,$code) = explode("|",$remember);
@@ -33,6 +34,22 @@ class Member_model extends ADODB_model {
 			}
 		}
 		if($user){
+			//Check fraud data
+			if(isset($user['device'])&&!$this->validateDeviceCode($user['user_id'],$user['device'])){
+				$CI->session->sess_destroy();
+				return false;
+			}
+
+			if($memberDevice = $this->getMemberDevice($user['user_id'])){
+				if($memberDevice['device']!=$user['device']){
+					$CI->session->sess_destroy();
+					return false;
+				}
+			}else{
+				$CI->session->sess_destroy();
+				return false;
+			}
+
 			$history = $this->getMemberHistory($user['user_id'],1,3);
 			$user['history'] = $history['items'];
 			unset($history);
@@ -54,6 +71,21 @@ class Member_model extends ADODB_model {
 				ORDER BY up.expire_date DESC 
 				";
 		return $this->adodb->GetRow($sql);
+	}
+	public function getMemberDevice($user_id){
+		$sql = "SELECT * 
+				FROM ".$this->table('user_device')." 
+				WHERE user_id = '".$user_id."' ";
+		return $this->adodb->GetRow($sql);
+	}
+	public function setMemberDevice($data){
+		return $this->adodb->AutoExecute($this->table('user_device'),$data,'INSERT');
+	}
+	public function updateMemberDevice($user_id,$data){
+		return $this->adodb->AutoExecute($this->table('user_device'),$data,'UPDATE',"user_id='".$user_id."'");
+	}
+	public function deleteMemberDevice($user_id){
+		return $this->adodb->Execute("DELETE FROM ".$this->table('user_device')." WHERE user_id = '".$user_id."' ");
 	}
 	public function facebookLogin($facebook_id,$email){
 		$sql = "SELECT * 
@@ -134,12 +166,36 @@ class Member_model extends ADODB_model {
 
 	public function getMemberFavorites($user_id,$page=1,$limit=30){
 		$sql = "SELECT m.movie_id,m.title,m.title_en,m.cover 
-				FROM ".$this->table('user_favorite','uf')." 
-				LEFT JOIN ".$this->table('movie','m')." ON uf.movie_id = m.movie_id
-				WHERE uf.user_id = ".$user_id." 
+				FROM ".$this->table('favorite','f')." 
+				LEFT JOIN ".$this->table('movie','m')." ON f.movie_id = m.movie_id
+				WHERE f.user_id = ".$user_id." 
 				AND m.status = 'ACTIVE' 
 				";
 		return $this->fetchPage($sql,$page,$limit);	
+	}
+	public function isMemberFavorites($user_id,$movie_id){
+		$sql = "SELECT favorite_id,movie_id  
+				FROM ".$this->table('favorite')." 
+				WHERE user_id = ".$user_id." 
+				AND movie_id IN (".$movie_id.") ";
+		return $this->adodb->GetAll($sql);	
+	}
+	
+
+	public function setMemberFavorite($user_id,$movie_id){
+		$data= array(
+				'user_id'=>$user_id,
+				'movie_id'=>$movie_id
+				);
+		if($this->adodb->AutoExecute($this->table('favorite'),$data,'INSERT')){
+			return $this->adodb->Insert_ID();
+		}else{
+			return false;
+		}
+	}
+
+	public function deleteMemberFavorite($user_id,$favorite_id){
+		return $this->adodb->Execute("DELETE FROM ".$this->table('favorite')." WHERE user_id='".$user_id."' AND favorite_id ='".$favorite_id."' ");
 	}
 	
 	public function setMemberPackage($userID,$packageID,$date){
@@ -160,6 +216,23 @@ class Member_model extends ADODB_model {
         $this->CI->session->set_userdata(array('user_data'=>$user));
     }
 
+    public function deviceEncode($user_id){
+    	$CI = & get_instance();
+        $device_section = substr(md5(time().random_string('alnum',5)),0,5);
+        $device_hash = md5($device_section.$user_id.$CI->input->ip_address().$CI->agent->agent_string());
+        $device_code = substr($device_hash,0,27).$device_section;
+        return $device_code;
+    }
+    public function validateDeviceCode($user_id,$deviceCode){
+    	$CI = & get_instance();
+        $device_section = substr($deviceCode,27,32);
+        $device_hash = md5($device_section.$user_id.$CI->input->ip_address().$CI->agent->agent_string());
+        if(substr($deviceCode,0,27)==substr($device_hash,0,27)){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 	/*
 

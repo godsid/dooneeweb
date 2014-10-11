@@ -12,7 +12,6 @@ class Member extends CI_Controller {
         $this->load->model('category_model','mCategory');
         $this->categories = $this->mCategory->getCategoriesMenu();
     }
-
     public function history(){
         if(!$this->memberLogin){
             redirect(base_url('/login'));
@@ -23,7 +22,6 @@ class Member extends CI_Controller {
 
         $this->load->view('web/member_register',$view);
     }
-
     public function addHistory(){
         header("Content-type: Application/json; charset:utf8;");
         $movieID = $this->input->post('movie_id');
@@ -49,7 +47,6 @@ class Member extends CI_Controller {
                 );
         echo json_encode($resp);
     }
-
     public function favorite(){
         if(!$this->memberLogin){
             redirect(base_url('/login'));
@@ -60,7 +57,39 @@ class Member extends CI_Controller {
 
         $this->load->view('web/member_register',$view);
     }
-
+    public function isFavorite(){
+        header("Content-type: Application/json;Charset: utf8;");
+        if($movie_id = $this->input->get('movie_id')){
+            $favorites = $this->mMember->isMemberFavorites($this->memberLogin['user_id'],$movie_id);
+            echo json_encode(array('status'=>'success','message'=>'','items'=>$favorites));
+        }else{
+            echo json_encode(array('status'=>'error','message'=>'Invalid movie_id'));
+        }
+    }
+    public function addFavorite(){
+        header("Content-type: Application/json;Charset: utf8;");
+        if($movie_id = $this->input->get('movie_id')){
+            if($favorite_id = $this->mMember->setMemberFavorite($this->memberLogin['user_id'],$movie_id)){
+                echo json_encode(array('status'=>'success','message'=>'','favorite_id'=>$favorite_id));    
+            }else{
+                echo json_encode(array('status'=>'error','message'=>'Insert fail'));    
+            }
+        }else{
+            echo json_encode(array('status'=>'error','message'=>'Invalid movie_id'));
+        }
+    }
+    public function deleteFavorite(){
+        header("Content-type: Application/json;Charset: utf8;");
+        if($favorite_id = $this->input->get('favorite_id')){
+            if($this->mMember->deleteMemberFavorite($this->memberLogin['user_id'],$favorite_id)){
+                echo json_encode(array('status'=>'success','message'=>''));    
+            }else{
+                echo json_encode(array('status'=>'error','message'=>'Delete fail'));
+            }
+        }else{
+            echo json_encode(array('status'=>'error','message'=>'Invalid favorite_id'));
+        }
+    }
     public function package(){
         $this->load->model('package_model','mPackage');
         if(!$this->memberLogin){
@@ -72,7 +101,6 @@ class Member extends CI_Controller {
         $view['package'] = $this->mPackage->getMemberPackage($this->memberLogin['user_id']);
         $this->load->view('web/member_package',$view);
     }
-
     public function register($option=""){
         if($this->memberLogin&&$option!="success"){
             redirect(home_url());
@@ -206,9 +234,17 @@ class Member extends CI_Controller {
             }
         }
         $user = $this->mMember->login($member['email'],$member['password']);
-        $this->session->set_userdata(array('user_data'=>$user));
-        header("Content-type: Application/json; charset:utf8;");
-        echo json_encode($user);
+        if($device_code = $this->checkFirstLogin($user['user_id'])){
+            $user['device'] = $device_code;
+            $this->session->set_userdata(array('user_data'=>$user));
+            header("Content-type: Application/json; charset:utf8;");
+            echo json_encode($user);
+        }else{
+            header("Content-type: Application/json; charset:utf8;");
+            echo json_encode(array('message'=>'บัญชีนี้ถูกใช้งานจากเครื่องอื่นอยู่'));
+        }
+        
+        
     }
     public function changepassword(){
         $this->load->view('web/member_changepassword');
@@ -245,23 +281,27 @@ class Member extends CI_Controller {
         $email = $this->input->post('email');
         $password = $this->input->post('password');
         $autologin = $this->input->post('remember');
-        
         if($email&&$password){
             if($user = $this->mMember->login(strtolower($email),md5($password))){
-                $this->session->set_userdata(array('user_data'=>$user));
-                if($autologin=='yes'){
-                    $rememberCode = $user['user_id']."|".md5($user['email'].md5($password));
-                    $this->input->set_cookie('remember',$rememberCode,strtotime('+1 year'),$this->config->item('cookie_domain'),'/');
-                }
-                if($option=="afterRegister"){
-                    return true;
-                }
-                if($reurl = $this->input->get('reurl')){
-                    redirect($reurl);
+                if($device_code = $this->checkFirstLogin($user['user_id'])){
+                    $user['device'] = $device_code;
+                    $this->session->set_userdata(array('user_data'=>$user));
+                    if($autologin=='yes'){
+                        $rememberCode = $user['user_id']."|".md5($user['email'].md5($password));
+                        $this->input->set_cookie('remember',$rememberCode,strtotime('+1 year'),$this->config->item('cookie_domain'),'/');
+                    }
+                    if($option=="afterRegister"){
+                        return true;
+                    }
+                    if($reurl = $this->input->get('reurl')){
+                        redirect($reurl);
+                    }else{
+                        redirect(home_url());
+                    }
                 }else{
-                    redirect(home_url());
+                    $view['message'] = 'บัญชีนี้ถูกใช้งานจากเครื่องอื่นอยู่';
+                    $this->load->view('web/member_login',$view); 
                 }
-                
             }else{
                 $this->load->view('web/member_login',$view); 
             }
@@ -271,9 +311,39 @@ class Member extends CI_Controller {
     }
 
     public function logout(){
+        $user = $this->session->userdata('user_data');
+        $this->mMember->deleteMemberDevice($user['user_id']);
         $this->input->set_cookie('remember','',strtotime('-1 day'));
         $this->session->sess_destroy();
         redirect(home_url());
     }
-
+    private function checkFirstLogin($user_id){
+        $device = $this->mMember->getMemberDevice($user_id);
+        $device_code = $this->mMember->deviceEncode($user_id);
+        if($device){
+            if($device['last_active'] < date('Y-m-d H:i:s',time()-1800)){
+                $data = array(
+                            'device'=>$device_code,
+                            'device_detail'=>$this->agent->agent_string(),
+                            'ip_address'=>$this->input->ip_address(),
+                            'last_active'=>date('Y-m-d H:i:s')
+                        );
+                $this->mMember->updateMemberDevice($user_id,$data);
+                return $device_code;
+            }else{
+                return false;
+            }
+        }else{
+            $data = array(
+                        'user_id'=>$user_id,
+                        'device'=>$device_code,
+                        'device_detail'=>$this->agent->agent_string(),
+                        'ip_address'=>$this->input->ip_address(),
+                        'last_active'=>date('Y-m-d H:i:s')
+                    );
+            $this->mMember->setMemberDevice($data);
+            return $device_code;
+        }
+    }
+    
 }

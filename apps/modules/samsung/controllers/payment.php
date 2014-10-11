@@ -57,16 +57,19 @@ class Payment extends SAMSUNG_Controller {
 				);
 			$this->mPayment->updateTransection($data['transactionId'],$transectionData);
 			if($data['status']==200){
-				$userData = $this->mUser->getUser($data['uId']);
-				$packageData = $this->mPackage->getPackageByName($data['cId']);
+				if($userData = $this->mUser->getUser($data['uId'])){
+					$packageData = $this->mPackage->getPackageByName($data['cId']);
 
-				$data = array(
-						'user_id'=>$userData['user_id'],
-						'package_id'=>$packageData['package_id'],
-						'create_date'=>date('Y-m-d H:i:s'),
-						'expire_date'=>date('Y-m-d H:i:s',strtotime('+'.$packageData['dayleft'].' day'))
-					);
-				$this->mPackage->setUserPackage($data);	
+					$data = array(
+							'user_id'=>$userData['user_id'],
+							'package_id'=>$packageData['package_id'],
+							'create_date'=>date('Y-m-d H:i:s'),
+							'expire_date'=>date('Y-m-d H:i:s',strtotime('+'.$packageData['dayleft'].' day'))
+						);
+					$this->mPackage->setUserPackage($data);
+				}else{
+					$this->samsungpayment->log(print_r($userData,true));
+				}
 			}
 			
 			echo json_encode($this->samsungpayment->getCode("20100"));

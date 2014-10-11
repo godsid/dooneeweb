@@ -95,8 +95,10 @@ class Movie_model extends ADODB_model {
 				LEFT JOIN ".$this->table('package_category','pc')." ON up.package_id = pc.package_id 
 				LEFT JOIN ".$this->table('movie_category','mc')." ON pc.category_id = mc.category_id 
 				WHERE up.user_id = ".$member_id." 
+				AND up.expire_date > NOW()
 				AND up.status = 'ACTIVE'
 				AND mc.movie_id = ".$movie_id." ";
+
 		$resp = $this->adodb->GetRow($sql);
 		if($resp['canwatch']>0){
 			return true;
