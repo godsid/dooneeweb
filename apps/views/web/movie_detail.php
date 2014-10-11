@@ -15,11 +15,22 @@
                       if(isset($memberLogin)&&$memberLogin){ 
                       // Member Can Watch
                         if(isset($memberLogin['canwatch'])&&$memberLogin['canwatch']){ ?>
-                          <!-- <a class="ui-btn btn-profile" href="#" title="เริ่มเล่นทันที">เริ่มเล่นทันที</a>  -->
-                        <?php }else{?>
+                          <?php if(strpos($movie['audio'], 'TH')!==false){ ?>
+                          <a class="ui-btn btn-profile" onclick="window.open(this.href);return false;" href="<?=base_url('/movie/player/'.$movie['movie_id'].(isset($thisEpisode)?'/'.$thisEpisode['episode_id']:''))?>?lang=th&autoplay=1" title="เริ่มเล่นพากษ์ไทย">เริ่มเล่นพากษ์ไทย</a>
+                          <?php } ?>
+                          <?php if(strpos($movie['audio'], 'EN')!==false){ ?>
+                          <a class="ui-btn btn-profile" onclick="window.open(this.href);return false;" href="<?=base_url('/movie/player/'.$movie['movie_id'].(isset($thisEpisode)?'/'.$thisEpisode['episode_id']:''))?>?lang=en&autoplay=1" title="Soundtrack">Soundtrack</a>
+                          <?php }?>
+                          <?php if(isset($memberLogin['is_favorite'])){ ?>
+                            <a class="ui-btn-red btn-fv" href="javascript:;" title="ลบ รายการโปรด"><i class="icon-heart"></i> รายการโปรด</a>
+                          <?php }else{ ?>
+                            <a class="ui-btn-grey btn-fv" href="javascript:;" title="รายการโปรด"><i class="icon-heart-empty"></i> รายการโปรด</a>
+                          <?php }?>
+                        <?php }else{ /* Not Login Member */ ?>
                             <a class="ui-btn-red btn-fill" href="<?=base_url('/package')?>" title="เติมเงินดูหนัง"><i class="icon-credit-card"></i> เติมเงินดูหนัง</a>
                         <?php }?>
-                        <a class="ui-btn-blue btn-fv" href="#" title="รายการโปรด"><i class="icon-heart-empty"></i> รายการโปรด</a>
+                        
+                        
                       <?php }else{?>
                           <a class="ui-btn btn-profile" href="<?=base_url('/login')?>" title="เข้าสู่ระบบ">เข้าสู่ระบบ</a>  
                       <?php } ?>
@@ -70,9 +81,10 @@
                 </div>
             </div>
           </article>
-          
+
           <div class="ctrl-player container">
-              <h2>ดูหนังออนไลน์ <?=$movie['title']?></h2>
+              <h2>ดูหนังออนไลน์ <?=$movie['title']?> <?=$thisEpisode['title']?> <?=($movie['is_soon']=='YES')?'<br/>Coming Soon':''?></h2>
+              <?php if($movie['is_soon']=='NO'){ ?> 
                 <div class="trailer" style="position:relative;">
                     <iframe width="984" height="560" frameborder="0" allowfullscreen="" src="<?=base_url('/movie/player/'.$movie['movie_id'].(isset($thisEpisode)?'/'.$thisEpisode['episode_id']:''))?>" class="mp4downloader_embedButtonInitialized mp4downloader_tagChecked "></iframe>
                     <?php 
@@ -85,8 +97,8 @@
                         <a href="<?=base_url('/login')?>"><div style="width:100%;height:100%;background-color:red;position:absolute;top:0px;opacity:0;">&nbsp;</div></a>
                     <?php }?>
                 </div>
+                <?php } ?>
           </div>
-          
           <div class="frame-fb container mb2">
               <div id="fb-root"></div>
               <script>(function(d, s, id) {
@@ -132,19 +144,28 @@
             <h2><a href="jaascript:;" title="ดูหนังเรื่องอื่นที่เกี่ยวข้อง">ดูหนังเรื่องอื่นที่เกี่ยวข้อง <i class="icon-double-angle-right"></i></a></h2>
             <ul class="thm-mv">
               <?php 
-               $isLogin = (isset($memberLogin)&&$memberLogin)?'':' class="lb-popup" rel="#popup-login" '; 
-              foreach($relates as $relate){ ?>
+               $isLogin = (isset($memberLogin)&&$memberLogin)?'':' class="lb-popup" rel="#popup-login" ';
+
+              foreach($relates as $relate){ 
+                $popup = ($relate['is_18']=='YES')?' class="lb-popup'.($isLogin?' withlogin ':'').'" rel="#popup-age" ':$isLogin;
+              ?>
               <li>
                 <article>
-                    <a title="<?=$relate['title']?>" <?=$isLogin?> href="<?=base_url('/movie/'.$relate['movie_id'])?>">
+                    <a title="<?=$relate['title']?>" <?=$popup?> href="<?=base_url('/movie/'.$relate['movie_id'])?>">
                         <img alt="<?=$relate['title_en']?>" src="<?=static_url($relate['cover'])?>">
                         <h3><?=$relate['title']?></h3>
-                        <span class="type <?=$relate['is_free']=='YES'?"Free":""; ?>"><?=$relate['is_free']=='YES'?"Free":($relate['is_hd']=='YES'?"HD":"");?></span>
+                        <?php if($relate['is_soon']=='YES'){?>
+                        <span class="type soon">coming soon</span>
+                        <?php }elseif($relate['is_free']=='YES'){?>
+                        <span class="type free">Free</span>
+                        <?php }elseif($relate['is_hd']=='YES'){?>
+                        <span class="type HD">HD</span>
+                        <?php }?>
                     </a>
                     <footer>
                         <p class="sm"><a href="javascript:;" title=""> <?=$relate['summary']?></a></p>
                         <p class="rating"><i class="icon-star<?=$relate['score']>1?"":" drop"?>"></i><i class="icon-star<?=$relate['score']>2?"":" drop"?>"></i><i class="icon-star<?=$relate['score']>3?"":" drop"?>"></i><i class="icon-star<?=$relate['score']>4?"":" drop"?>"></i><i class="icon-star<?=$relate['score']>5?"":"drop"?>"></i></p>
-                        <p class="fv"><a href="javascript:;" title="รายการโปรด"><i class="icon-heart-empty"></i> รายการโปรด</a></p>
+                        <p class="fv hid"><a href="javascript:;" class="movie<?=$relate['movie_id']?>" data-movie-id="<?=$relate['movie_id']?>" title="เพิ่ม รายการโปรด"><i class="icon-heart-empty"></i> รายการโปรด</a></p>
                     </footer>
                 </article>
             </li>

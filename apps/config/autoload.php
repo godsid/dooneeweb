@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('session','geoip_lib');
+$autoload['libraries'] = array('session','user_agent','geoip_lib');
 
 
 /*

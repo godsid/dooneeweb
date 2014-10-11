@@ -40,8 +40,8 @@ jwplayer("container").setup({
     height: "100%" ,
     primary: 'flash',
     aspectratio: '16:9',
-    autostart: 'false',
-    file: "<?=$moviePath?>th480.mp4",
+    autostart: <?=($this->input->get('autoplay')?'true':'false')?>,
+    file: "<?=$moviePath?><?=($this->input->get('lang')?strtolower($this->input->get('lang')):'th')?>480.mp4",
     <?php /*levels: [
         { bitrate: 600, file: "series/0fe066fc2cth480.mp4", width: 480 },
         { bitrate: 900, file: "series/0fe066fc2cth720.mp4", width: 720 },
@@ -142,7 +142,6 @@ function soundEng(){
     jwplayer().load(playlist).seek(position);
     console.log(jwplayer().getPlaylist());
 }
-
 
 </script>
 <script type="text/javascript">

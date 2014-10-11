@@ -11,13 +11,17 @@
         <ul class="slides thm-mv">
           <?php 
           $isLogin = (isset($memberLogin)&&$memberLogin)?'':' class="lb-popup" rel="#popup-login" ';
-          foreach ($moviesHot as $key => $movie) { ?>
+          foreach ($moviesHot as $key => $movie) { 
+            $popup = ($movie['is_18']=='YES')?' class="lb-popup'.($isLogin?' withlogin ':'').'" rel="#popup-age" ':$isLogin;
+          ?>
           <li>
               <article>
-                  <a title="<?=$movie['title']?>" <?=$isLogin?> href="<?=base_url('/movie/'.$movie['movie_id'])?>">
+                  <a title="<?=$movie['title']?>" <?=$popup?> href="<?=base_url('/movie/'.$movie['movie_id'])?>">
                       <img alt="<?=$movie['title_en']?>" class="lazy" src="img/blank.gif" data-src="<?=static_url($movie['cover'])?>">
                       <h3><?=$movie['title']?></h3>
-                      <?php if($movie['is_free']=='YES'){?>
+                      <?php if($movie['is_soon']=='YES'){?>
+                      <span class="type soon">coming soon</span>
+                      <?php }elseif($movie['is_free']=='YES'){?>
                       <span class="type free">free</span>
                       <?php }elseif($movie['is_hd']=='YES'){?>
                       <span class="type HD">HD</span>
@@ -26,7 +30,7 @@
                   <footer>
                     <p class="sm"><a href="javascript:;" title="รายการโปรด"> <?=$movie['summary']?></a></p>
                     <p class="rating"><i class="icon-star<?=$movie['score']>0?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>1?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>2?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>3?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>4?"":" drop"?>"></i></p>
-                    <p class="fv"><a href="javascript:;" title="รายการโปรด"><i class="icon-heart-empty"></i> รายการโปรด</a></p>
+                    <p class="fv hid"><a href="javascript:;" class="movie<?=$movie['movie_id']?>" data-movie-id="<?=$movie['movie_id']?>" title="เพิ่ม รายการโปรด"><i class="icon-heart-empty"></i> รายการโปรด</a></p>
                   </footer>
               </article>
           </li>
@@ -37,13 +41,17 @@
       <div class="container bx-all-movies">
         <h2><a href="<?=base_url('/movie')?>" title="หนังทั้งหมด">หนังทั้งหมด <i class="icon-double-angle-right"></i></a></h2>
         <ul class="thm-mv is-pageing">
-        <?php foreach ($movies['items'] as $key => $movie) { ?>
+        <?php foreach ($movies['items'] as $key => $movie) { 
+            $popup = ($movie['is_18']=='YES')?' class="lb-popup'.($isLogin?' withlogin ':'').'" rel="#popup-age" ':$isLogin;
+          ?>
           <li>
             <article>
-                <a title="<?=$movie['title']?>" <?=$isLogin?> href="<?=base_url('/movie/'.$movie['movie_id'])?>">
+                <a title="<?=$movie['title']?>" <?=$popup?> href="<?=base_url('/movie/'.$movie['movie_id'])?>">
                     <img alt="<?=$movie['title_en']?>" class="lazy" src="img/blank.gif" data-src="<?=static_url($movie['cover'])?>">
                     <h3><?=$movie['title']?></h3>
-                    <?php if($movie['is_free']=='YES'){?>
+                    <?php if($movie['is_soon']=='YES'){?>
+                    <span class="type soon">coming soon</span>
+                    <?php }elseif($movie['is_free']=='YES'){?>
                     <span class="type free">free</span>
                     <?php }elseif($movie['is_hd']=='YES'){?>
                     <span class="type HD">HD</span>
@@ -51,9 +59,9 @@
                     
                 </a>
                 <footer>
-                  <p class="sm"><a href="javascript:;" title="รายการโปรด"> <?=$movie['summary']?></a></p>
+                  <p class="sm"><a href="javascript:;" title="เพิ่ม รายการโปรด"> <?=$movie['summary']?></a></p>
                   <p class="rating"><i class="icon-star<?=$movie['score']>0?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>1?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>2?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>3?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>4?"":" drop"?>"></i></p>
-                  <p class="fv"><a href="javascript:;" title="รายการโปรด"><i class="icon-heart-empty"></i> รายการโปรด</a></p>
+                  <p class="fv hid"><a href="javascript:;" class="movie<?=$movie['movie_id']?>" data-movie-id="<?=$movie['movie_id']?>" title="เพิ่ม รายการโปรด"><i class="icon-heart-empty"></i> รายการโปรด</a></p>
                 </footer>
             </article>
           </li>  

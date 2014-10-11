@@ -137,7 +137,9 @@ class Movie extends CI_Controller {
 		$movie['is_hd'] = isset($movie['is_hd'])?$movie['is_hd']:'NO';
 		$movie['is_hot'] = isset($movie['is_hot'])?$movie['is_hot']:'NO';
 		$movie['is_series'] = isset($movie['is_series'])?$movie['is_series']:'NO';
-
+		$movie['is_18'] = isset($movie['is_18'])?$movie['is_18']:'NO';
+		$movie['is_soon'] = isset($movie['is_soon'])?$movie['is_soon']:'NO';
+		
 		//var_dump($_FILES["cover"]);
 		if(isset($_FILES["cover"])&&!empty($_FILES["cover"]['tmp_name'])){
 			//if($_FILES['cover']['error']){
@@ -196,10 +198,10 @@ class Movie extends CI_Controller {
 			$tags_delete = array();
 			$tags_insert = array();
 			$tags_tmp = json_decode($data['movie']['tags_tmp'],true);
-			var_dump($tags_tmp);
+			
 
 			$tags_search = $tags = explode(',',preg_replace('#\s*,\s*#',',',trim($data['movie']['tags'])));
-			var_dump($tags_search);
+			
 			foreach($tags_tmp as $tmp){
 				$found = array_search($tmp['tags_name'],$tags_search);
 				if($found===false){
@@ -207,9 +209,9 @@ class Movie extends CI_Controller {
 				}
 				unset($tags[$found]);
 			}
-			var_dump($tags);
+			
 			$tags_insert = $tags;
-			var_dump($movieID);
+			
 			if(sizeof($tags_delete)){
 				$this->mMovie->deleteTags($tags_delete);
 			}
@@ -217,7 +219,8 @@ class Movie extends CI_Controller {
 				$this->mMovie->insertTags($movieID,$insert);
 			}
 
-			redirect(backoffice_url('/movie'));	
+			//redirect(backoffice_url('/movie'));	
+			$this->edit($movieID);
 		}
 	}
 	

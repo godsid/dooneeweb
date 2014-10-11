@@ -8,9 +8,10 @@ RewriteRule (.*) http://dev.dooneetv.com/$1 [R=301,L]
 RewriteCond %{HTTP_HOST} ^(www.)?doonee.tv
 RewriteRule (.*) http://www.dooneetv.com/$1 [R=301,L]
 
-#RewriteCond %{REQUEST_FILENAME} !-f
-#RewriteCond %{REQUEST_URI} ^/assets/files
-#RewriteRule . /files/movies-default.jpg [L]
+RewriteCond %{HTTP_HOST} dev.dooneetv.com
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} ^/assets/files
+RewriteRule (.*) http://www.dooneetv.com/$1 [R=301,L]
 
 
 RewriteRule ^assets/files/(.*) /files/$1 [L]
