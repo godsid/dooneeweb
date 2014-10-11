@@ -166,12 +166,36 @@ class Member_model extends ADODB_model {
 
 	public function getMemberFavorites($user_id,$page=1,$limit=30){
 		$sql = "SELECT m.movie_id,m.title,m.title_en,m.cover 
-				FROM ".$this->table('user_favorite','uf')." 
-				LEFT JOIN ".$this->table('movie','m')." ON uf.movie_id = m.movie_id
-				WHERE uf.user_id = ".$user_id." 
+				FROM ".$this->table('favorite','f')." 
+				LEFT JOIN ".$this->table('movie','m')." ON f.movie_id = m.movie_id
+				WHERE f.user_id = ".$user_id." 
 				AND m.status = 'ACTIVE' 
 				";
 		return $this->fetchPage($sql,$page,$limit);	
+	}
+	public function isMemberFavorites($user_id,$movie_id){
+		$sql = "SELECT favorite_id,movie_id  
+				FROM ".$this->table('favorite')." 
+				WHERE user_id = ".$user_id." 
+				AND movie_id IN (".$movie_id.") ";
+		return $this->adodb->GetAll($sql);	
+	}
+	
+
+	public function setMemberFavorite($user_id,$movie_id){
+		$data= array(
+				'user_id'=>$user_id,
+				'movie_id'=>$movie_id
+				);
+		if($this->adodb->AutoExecute($this->table('favorite'),$data,'INSERT')){
+			return $this->adodb->Insert_ID();
+		}else{
+			return false;
+		}
+	}
+
+	public function deleteMemberFavorite($user_id,$favorite_id){
+		return $this->adodb->Execute("DELETE FROM ".$this->table('favorite')." WHERE user_id='".$user_id."' AND favorite_id ='".$favorite_id."' ");
 	}
 	
 	public function setMemberPackage($userID,$packageID,$date){

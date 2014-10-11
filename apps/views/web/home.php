@@ -30,7 +30,7 @@
                   <footer>
                     <p class="sm"><a href="javascript:;" title="รายการโปรด"> <?=$movie['summary']?></a></p>
                     <p class="rating"><i class="icon-star<?=$movie['score']>0?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>1?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>2?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>3?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>4?"":" drop"?>"></i></p>
-                    <p class="fv"><a href="javascript:;" title="รายการโปรด"><i class="icon-heart-empty"></i> รายการโปรด</a></p>
+                    <p class="fv hid"><a href="javascript:;" class="movie<?=$movie['movie_id']?>" data-movie-id="<?=$movie['movie_id']?>" title="เพิ่ม รายการโปรด"><i class="icon-heart-empty"></i> รายการโปรด</a></p>
                   </footer>
               </article>
           </li>
@@ -59,9 +59,9 @@
                     
                 </a>
                 <footer>
-                  <p class="sm"><a href="javascript:;" title="รายการโปรด"> <?=$movie['summary']?></a></p>
+                  <p class="sm"><a href="javascript:;" title="เพิ่ม รายการโปรด"> <?=$movie['summary']?></a></p>
                   <p class="rating"><i class="icon-star<?=$movie['score']>0?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>1?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>2?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>3?"":" drop"?>"></i><i class="icon-star<?=$movie['score']>4?"":" drop"?>"></i></p>
-                  <p class="fv"><a href="javascript:;" title="รายการโปรด"><i class="icon-heart-empty"></i> รายการโปรด</a></p>
+                  <p class="fv hid"><a href="javascript:;" class="movie<?=$movie['movie_id']?>" data-movie-id="<?=$movie['movie_id']?>" title="เพิ่ม รายการโปรด"><i class="icon-heart-empty"></i> รายการโปรด</a></p>
                 </footer>
             </article>
           </li>  

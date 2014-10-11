@@ -22,7 +22,6 @@ class Member extends CI_Controller {
 
         $this->load->view('web/member_register',$view);
     }
-
     public function addHistory(){
         header("Content-type: Application/json; charset:utf8;");
         $movieID = $this->input->post('movie_id');
@@ -48,7 +47,6 @@ class Member extends CI_Controller {
                 );
         echo json_encode($resp);
     }
-
     public function favorite(){
         if(!$this->memberLogin){
             redirect(base_url('/login'));
@@ -59,7 +57,39 @@ class Member extends CI_Controller {
 
         $this->load->view('web/member_register',$view);
     }
-
+    public function isFavorite(){
+        header("Content-type: Application/json;Charset: utf8;");
+        if($movie_id = $this->input->get('movie_id')){
+            $favorites = $this->mMember->isMemberFavorites($this->memberLogin['user_id'],$movie_id);
+            echo json_encode(array('status'=>'success','message'=>'','items'=>$favorites));
+        }else{
+            echo json_encode(array('status'=>'error','message'=>'Invalid movie_id'));
+        }
+    }
+    public function addFavorite(){
+        header("Content-type: Application/json;Charset: utf8;");
+        if($movie_id = $this->input->get('movie_id')){
+            if($favorite_id = $this->mMember->setMemberFavorite($this->memberLogin['user_id'],$movie_id)){
+                echo json_encode(array('status'=>'success','message'=>'','favorite_id'=>$favorite_id));    
+            }else{
+                echo json_encode(array('status'=>'error','message'=>'Insert fail'));    
+            }
+        }else{
+            echo json_encode(array('status'=>'error','message'=>'Invalid movie_id'));
+        }
+    }
+    public function deleteFavorite(){
+        header("Content-type: Application/json;Charset: utf8;");
+        if($favorite_id = $this->input->get('favorite_id')){
+            if($this->mMember->deleteMemberFavorite($this->memberLogin['user_id'],$favorite_id)){
+                echo json_encode(array('status'=>'success','message'=>''));    
+            }else{
+                echo json_encode(array('status'=>'error','message'=>'Delete fail'));
+            }
+        }else{
+            echo json_encode(array('status'=>'error','message'=>'Invalid favorite_id'));
+        }
+    }
     public function package(){
         $this->load->model('package_model','mPackage');
         if(!$this->memberLogin){
@@ -71,7 +101,6 @@ class Member extends CI_Controller {
         $view['package'] = $this->mPackage->getMemberPackage($this->memberLogin['user_id']);
         $this->load->view('web/member_package',$view);
     }
-
     public function register($option=""){
         if($this->memberLogin&&$option!="success"){
             redirect(home_url());

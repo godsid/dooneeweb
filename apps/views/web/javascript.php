@@ -265,4 +265,65 @@ function login(){
     });
   });
 }
+
+/* Favorite */
+movies_id = Array();
+<?php if(isset($memberLogin)&&$memberLogin){ ?>
+$('.fv a').each(function(index,item){
+  movies_id.push($(item).attr('data-movie-id'));
+});
+<?php }?>
+
+if(movies_id.length){
+  $.get('<?=base_url('/member/isFavorite')?>',{'movie_id':movies_id.join()},function(resp){
+    if(resp.status=='success'){
+      $('.fv a').click(function(){addFavorite(this);});
+      if(resp.items.length){
+        $.each(resp.items,function(index,item){
+          $('.movie'+item.movie_id)
+            .attr('title','ลบ รายการโปรด')
+            .attr('data-fav-id',item.favorite_id)
+            .unbind('click')
+            .click(function(){deleteFavorite(this);})
+            .find('i').attr('class','icon-heart');
+
+        });
+      }
+      $('.fv').show();
+    }else{
+      alert(resp.message);
+    }
+  });
+}
+function addFavorite(obj){
+  console.log('add Favorite');
+  $.get('<?=base_url('/member/addFavorite')?>',{'movie_id':$(obj).attr('data-movie-id')},function(resp){
+      if(resp.status=='success'){
+        $(obj)
+        .attr('title','ลบ รายการโปรด')
+        .attr('data-fav-id',resp.favorite_id)
+        .unbind('click')
+        .click(function(){deleteFavorite(this);})
+        .find('i').attr('class','icon-heart');
+      }else{
+
+      }
+  });
+  
+}
+function deleteFavorite(obj){
+  console.log('delete Favorite');
+  $.get('<?=base_url('/member/deleteFavorite')?>',{'favorite_id':$(obj).attr('data-fav-id'),'movie_id':$(obj).attr('data-movie-id')},function(resp){
+      if(resp.status=='success'){
+        $(obj)
+        .attr('title','เพิ่ม รายการโปรด')
+        .unbind('click')
+        .click(function(){addFavorite(this);})
+        .find('i').attr('class','icon-heart-empty');
+      }else{
+        
+      }
+  });
+}
+
 </script>

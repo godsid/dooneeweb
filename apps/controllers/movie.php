@@ -41,6 +41,11 @@ class movie extends CI_Controller {
 
         if($view['memberLogin'] = $this->mMember->getMemberLogin()){
             $view['memberLogin']['canwatch'] = ($this->mMovie->canWatch($view['memberLogin']['user_id'],$movieId)||$view['movie']['is_free']=='YES') ;
+            $is_favorite = $this->mMember->isMemberFavorites($view['memberLogin']['user_id'],$movieId);
+            if(is_array($is_favorite)&&sizeof($is_favorite)){
+                $view['memberLogin']['is_favorite'] = array_pop($is_favorite);
+            }
+            unset($is_favorite);
         }
         $view['categories'] = $this->categories;
 
@@ -52,6 +57,7 @@ class movie extends CI_Controller {
             if(is_numeric($episodeId)){
                 $view['thisEpisode'] = $this->mEpisode->getEpisode($episodeId);
             }else{
+                
                 $view['thisEpisode'] = $this->mEpisode->getEpisode($view['episodes'][0]['episode_id']);
             }
         }
