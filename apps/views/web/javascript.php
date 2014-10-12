@@ -286,7 +286,6 @@ if(movies_id.length){
             .unbind('click')
             .click(function(){deleteFavorite(this);})
             .find('i').attr('class','icon-heart');
-
         });
       }
       $('.fv').show();
@@ -296,8 +295,9 @@ if(movies_id.length){
   });
 }
 function addFavorite(obj){
-  console.log('add Favorite');
+  $(obj).find('i').addClass('rotate-left');
   $.get('<?=base_url('/member/addFavorite')?>',{'movie_id':$(obj).attr('data-movie-id')},function(resp){
+      $(obj).find('i').removeClass('rotate-left');
       if(resp.status=='success'){
         $(obj)
         .attr('title','ลบ รายการโปรด')
@@ -305,21 +305,34 @@ function addFavorite(obj){
         .unbind('click')
         .click(function(){deleteFavorite(this);})
         .find('i').attr('class','icon-heart');
-      }else{
+        if($(obj).hasClass('ui-btn-grey')){
+          $(obj)
+            .removeClass('ui-btn-grey')
+            .addClass('ui-btn-red')
+            .attr('onclick','');
 
+        }
+      }else{
       }
   });
   
 }
 function deleteFavorite(obj){
-  console.log('delete Favorite');
+  $(obj).find('i').addClass('rotate-right');
   $.get('<?=base_url('/member/deleteFavorite')?>',{'favorite_id':$(obj).attr('data-fav-id'),'movie_id':$(obj).attr('data-movie-id')},function(resp){
+      $(obj).find('i').removeClass('rotate-right');
       if(resp.status=='success'){
         $(obj)
         .attr('title','เพิ่ม รายการโปรด')
         .unbind('click')
         .click(function(){addFavorite(this);})
         .find('i').attr('class','icon-heart-empty');
+        if($(obj).hasClass('ui-btn-red')){
+          $(obj)
+            .addClass('ui-btn-grey')
+            .removeClass('ui-btn-red')
+            .attr('onclick','');
+        }
       }else{
         
       }
