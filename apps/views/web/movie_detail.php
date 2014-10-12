@@ -22,9 +22,9 @@
                           <a class="ui-btn btn-profile" onclick="window.open(this.href);return false;" href="<?=base_url('/movie/player/'.$movie['movie_id'].(isset($thisEpisode)?'/'.$thisEpisode['episode_id']:''))?>?lang=en&autoplay=1" title="Soundtrack">Soundtrack</a>
                           <?php }?>
                           <?php if(isset($memberLogin['is_favorite'])){ ?>
-                            <a class="ui-btn-red btn-fv" href="javascript:;" title="ลบ รายการโปรด"><i class="icon-heart"></i> รายการโปรด</a>
+                            <a class="ui-btn-red btn-fv" onclick="deleteFavorite(this);return false;" data-fav-id="<?=$memberLogin['is_favorite']['favorite_id']?>" data-movie-id="<?=$movie['movie_id']?>" href="javascript:;" title="ลบ รายการโปรด"><i class="icon-heart"></i> รายการโปรด</a>
                           <?php }else{ ?>
-                            <a class="ui-btn-grey btn-fv" href="javascript:;" title="รายการโปรด"><i class="icon-heart-empty"></i> รายการโปรด</a>
+                            <a class="ui-btn-grey btn-fv" onclick="addFavorite(this);return false;" data-movie-id="<?=$movie['movie_id']?>" href="javascript:;" title="รายการโปรด"><i class="icon-heart-empty"></i> รายการโปรด</a>
                           <?php }?>
                         <?php }else{ /* Not Login Member */ ?>
                             <a class="ui-btn-red btn-fill" href="<?=base_url('/package')?>" title="เติมเงินดูหนัง"><i class="icon-credit-card"></i> เติมเงินดูหนัง</a>
@@ -74,9 +74,9 @@
                 
                 <div class="share mt2">
                   <b class="fL">แชร์หนังเรื่องนี้ : </b> 
-                    <a class="btn-share fb" href="<?=base_url('/movie/'.$movie['movie_id'])?>"><i class="icon-facebook"></i></a>
-                    <a class="btn-share tw" href="<?=base_url('/movie/'.$movie['movie_id'])?>"><i class="icon-twitter"></i></a>
-                    <a class="btn-share gg" href="<?=base_url('/movie/'.$movie['movie_id'])?>"><i class="icon-google-plus"></i></a>
+                    <a class="btn-share fb" onclick="window.open(this.href);return false;" href="https://www.facebook.com/sharer/sharer.php?u=<?=urlencode(base_url('/movie/'.$movie['movie_id']))?>"><i class="icon-facebook"></i></a>
+                    <a class="btn-share tw" onclick="window.open(this.href);return false;" href="https://twitter.com/home?status=<?=urlencode("ดูหนังออนไลน์ ".$movie['title']."\r\n".base_url('/movie/'.$movie['movie_id']))?>"><i class="icon-twitter"></i></a>
+                    <a class="btn-share gg" onclick="window.open(this.href);return false;" href="https://plus.google.com/share?url=<?=urlencode(base_url('/movie/'.$movie['movie_id']))?>"><i class="icon-google-plus"></i></a>
                     <!--<div class="socialshare-mini"></div>-->
                 </div>
             </div>
@@ -105,7 +105,7 @@
                 var js, fjs = d.getElementsByTagName(s)[0];
                 if (d.getElementById(id)) return;
                 js = d.createElement(s); js.id = id;
-                js.src = "//connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v2.0";
+                js.src = "//connect.facebook.net/th_TH/sdk.js#xfbml=1&appId=<?=$this->config->item('facebook_appid')?>&version=v2.0";
                 fjs.parentNode.insertBefore(js, fjs);
               }(document, 'script', 'facebook-jssdk'));</script>
               <div class="fb-comments" data-href="<?=base_url('/movie/'.$movie['movie_id'])?>" data-width="1170" data-numposts="5" data-colorscheme="light"></div>
@@ -129,7 +129,7 @@
                         <span class="type <?=$movie['is_free']=='YES'?"Free":""; ?>"><?=$movie['is_free']=='YES'?"Free":($movie['is_hd']=='YES'?"HD":"");?></span>
                     </a>
                     <footer>
-                        <p class="sm"><a href="javascript:;" title="รายการโปรด"> <?=$episode['title']?></a></p>
+                        <p class="sm"><a href="javascript:;" title=""> <?=$episode['title']?></a></p>
                     </footer>
                 </article>
             </li>

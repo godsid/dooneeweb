@@ -1129,3 +1129,41 @@ span.error{color: red;padding: 5px 0 0 10px;display: inline-block;}
 @media (max-width:320px){body #header .tools>.select-cat{width:72%}body #header .select-cat>li>a{font-size:12px}#footer>section>ul>li .ft-profile p>[class*="ui-btn"]{min-width:138px}[class*="thm-login"]{max-height:100%}.reader>article>.detai .share b.fL{display:block;float:none;text-align:center}.reader>article>.detai .share{text-align:center}}
 form .has-error input,form .has-error textarea,form .has-error select{border-color: red;}
 
+.rotate-left{
+    -webkit-animation-name: spinright;
+    -webkit-animation-duration: 0.8s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: spinright;
+    -moz-animation-duration: 0.8s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -ms-animation-name: spinright;
+    -ms-animation-duration: 0.8s;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: linear;
+    overflow:hidden;
+}
+.rotate-right{
+    -webkit-animation-name: spinleft;
+    -webkit-animation-duration: 0.8s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: spinleft;
+    -moz-animation-duration: 0.8s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -ms-animation-name: spinleft;
+    -ms-animation-duration: 0.8s;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: linear;
+    overflow:hidden;
+}
+@-webkit-keyframes spinleft {
+  from {-webkit-transform:rotate(360deg);}
+  to {-webkit-transform:rotate(0deg);}
+}
+@-webkit-keyframes spinright {
+  from {-webkit-transform:rotate(0deg);}
+  to {-webkit-transform:rotate(360deg);}
+}
