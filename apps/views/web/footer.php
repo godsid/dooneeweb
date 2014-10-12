@@ -80,9 +80,9 @@
              </nav>
              <div class="follow">
                 <a class="ln" href="javascript:;" title="line">line</a>
-                <a class="gg" href="https://plus.google.com/112188704808586278131" rel="publisher" title="google+">google+</a>
+                <a class="gg" href="https://plus.google.com/112188704808586278131" onclick="window.open(this.href);return false;" rel="publisher" title="google+">google+</a>
                 <a class="tw" href="javascript:;" title="twitter">twitter</a>
-                <a class="fb" href="https://www.facebook.com/pages/Dooneetv/541330282639237" title="facebook">facebook</a>
+                <a class="fb" href="https://www.facebook.com/dooneetvfanpage" onclick="window.open(this.href);return false;" title="facebook">facebook</a>
              </div>
              <p id="back2top" class="btn-back2top"><a href="javascript:;" title="back to top"></a></p>
          </div>
