@@ -28,11 +28,12 @@
             <h2><a href="javascript:;" title="เติมเงิน"><i class="icon-money"></i> วิธีเติมเงิน</a></h2>
                 <div class="inner pay">
                     <ul class="ic-pay _cd-col-xs-6">
-                        <li><a href="<?=base_url('/payment/creditcard')?>" title="บัตรเครดิต"><i class="icon-credit-card"></i> บัตรเครดิต</a></li>
-                        <li><a href="<?=base_url('/payment/paypoint')?>" title="จุดรับชำระค่าบริการ"><i class="icon-usd"></i> จุดรับชำระค่าบริการ</a></li>
-                        <li><a href="<?=base_url('/payment/atm')?>" title="เอทีเอ็ม"><i class="icon-money"></i> เอทีเอ็ม</a></li> 
-                        <li><a href="<?=base_url('/payment/counter')?>" title="เคาน์เตอร์ธนาคาร"><i class="icon-laptop"></i> เคาน์เตอร์ธนาคาร</a></li>
-                        <li><a href="<?=base_url('/payment/ibanking')?>" title="ไอแบงก์กิ้ง"><i class="icon-btc"></i> ไอแบงก์กิ้ง</a></li>
+                        <li><a href="<?=base_url('/help/11')?>" title="บัตรเครดิต"><i class="icon-credit-card"></i> บัตรเครดิต</a></li>
+                        <li><a href="<?=base_url('/help/8')?>" title="จุดรับชำระค่าบริการ"><i class="icon-usd"></i> จุดรับชำระค่าบริการ</a></li>
+                        <li><a href="<?=base_url('/help/9')?>" title="เอทีเอ็ม"><i class="icon-money"></i> เอทีเอ็ม</a></li> 
+                        <li><a href="<?=base_url('/help/9')?>" title="เคาน์เตอร์ธนาคาร"><i class="icon-laptop"></i> เคาน์เตอร์ธนาคาร</a></li>
+                        <li><a href="<?=base_url('/help/9')?>" title="ไอแบงก์กิ้ง"><i class="icon-btc"></i> ไอแบงก์กิ้ง</a></li>
+                        <li><a href="<?=base_url('/help/10')?>" title="บัตรเติมเงิน"><i class="icon-credit-card"></i> บัตรเติมเงิน</a></li>
                     </ul>
                 </div>
             </li>
