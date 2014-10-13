@@ -64,6 +64,34 @@ class Home extends SAMSUNG_Controller {
 							'url'=>base_url('/samsung/movie/free')
 					);
 		
+
+
+        if($this->geoip_lib->InfoIP($this->input->ip_address())){
+            if($this->geoip_lib->result_country_code()!="TH"){
+            	$item = array();
+            	$item[] = array(
+						'id'=>0,
+							'type'=>'category',
+							'title'=>'Available in thailand only',
+							'description'=>'',
+							'icon'=>'',
+							'nextTo'=>'',
+							'url'=>''
+					);
+            }
+        }else{
+            $item = array();
+            $item[] = array(
+						'id'=>0,
+							'type'=>'category',
+							'title'=>'Available in thailand only',
+							'description'=>'',
+							'icon'=>'',
+							'nextTo'=>'',
+							'url'=>''
+					);
+        }
+
 		//$item = array();
 		//if($this->page==1){
 			//First page is hot movie

@@ -35,6 +35,7 @@ class Member_model extends ADODB_model {
 		}
 		if($user){
 			//Check fraud data
+			/*
 			if(isset($user['device'])&&!$this->validateDeviceCode($user['user_id'],$user['device'])){
 				$CI->session->sess_destroy();
 				return false;
@@ -49,7 +50,7 @@ class Member_model extends ADODB_model {
 				$CI->session->sess_destroy();
 				return false;
 			}
-
+			*/
 			$history = $this->getMemberHistory($user['user_id'],1,3);
 			$user['history'] = $history['items'];
 			unset($history);
