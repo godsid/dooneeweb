@@ -9,16 +9,14 @@
             <h2><a href="<?=base_url('/member/package')?>" title="แพคเกจของคุณ">แพคเกจของคุณ <i class="icon-double-angle-right"></i></a></h2>
             <div id="accordion" class="inner accordion">
         <!-- Package -->
-                <?php if(sizeof($package)){
-
-                  ?>
+                <?php if(sizeof($package)){ ?>
                 <div class="pk-1">
-                  <h2><b class="txt-black">Package ของคุณ เหลืออีก <?=$memberLogin['dayLeft']?> วัน : </b> <?=$package['title']?></h2>
-                    <p class="pic"><img src="<?=static_url($package['cover'])?>" alt="<?=$package['title']?>"></p>
+                  <h2><b class="txt-black">Package ของคุณ เหลืออีก <?=ceil((strtotime($memberLogin['expire_date'])-time())/86400)?> วัน : </b> <?=$package['title']?></h2>
+                    <p class="pic"><img src="<?=static_url($package['banner'])?>" alt="<?=$package['title']?>"></p>
                     <div class="row bar">
                         <div class="pay _sf-col-sm-push-3-xs-12-sm-9">
-                            <h3>เลือกวิธีการชำระเงิน</h3>
-                            <!--<ul class="ic-pay _cd-col-xs-6-sm-4-md-2">
+                            <!--<h3>เลือกวิธีการชำระเงิน</h3>
+                            <ul class="ic-pay _cd-col-xs-6-sm-4-md-2">
                                 <li><a href="#" title="บัตรเครดิต"><i class="icon-credit-card"></i> บัตรเครดิต</a></li>
                                 <li><a href="#" title="ATM"><i class="icon-money"></i> ATM</a></li>
                                 <li><a href="#" title="จุดรับชำระค่าบริการ"><i class="icon-usd"></i> จุดรับชำระค่าบริการ</a></li>

@@ -803,7 +803,7 @@ form [type="submit"]{display:inline-block;padding:3px 20px;background:#31353e;co
 .thm-mv * .rating>i[class*="drop"]{color:#afadae}
 .thm-mv * [class*="fv"]{font:13px/18px tahoma;color:#424344;text-decoration:none}
 .thm-mv * [class*="sm"]{font:13px/18px tahoma;color:#424344;text-decoration:none;font-weight: bold;}
-.thm-mv * [class*="fv"] i{color:#b8b9bc}
+.thm-mv * [class*="fv"] i{color:#5cc0e4}
 .thm-mv *:hover [class*="fv"] i{color:#424344}
 .thm-mv * [class*="fved"] i{color:#0eaadd}
 /*Detail*/
