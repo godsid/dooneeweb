@@ -10,13 +10,12 @@ class Init extends REST_Controller {
 		$this->load->model('api/package_model','mPackage');
 
 		$data = array();
-		$data['categories'] = $this->mCategory->getCategories();
+		$data['categories'] = $this->mCategory->getCategoriesMenu();
 		unset($data['categories']['pageing']);
 		$data['package'] = $this->mPackage->getPackages();
 		unset($data['package']['pageing']);
 		$this->response($data);
 	}
-	
 }
 
 /* End of file init.php */

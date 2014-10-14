@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
-require_once(BASEPATH.'libraries/REST_Controller.php');
+require_once(APPPATH.'libraries/REST_Controller.php');
 abstract class API_Controller extends REST_Controller
 {
 	public function __construct()
@@ -18,8 +18,10 @@ abstract class API_Controller extends REST_Controller
 
     public function error($message=""){
         $this->response(array('status'=>'error','message'=>$message),200);
+        exit;
     }
     public function success($data,$message=""){
         $this->response(array('status'=>'success','message'=>$message,'items'=>$data),200);
+        exit;
     }
 }

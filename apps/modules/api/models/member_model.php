@@ -62,13 +62,13 @@ class Member_model extends ADODB_model {
 		return $user;
 	}
 	public function login($email,$password){
-		$sql = "SELECT u.user_id,u.email,u.avatar,u.firstname,u.lastname,up.expire_date,0 as dayLeft 
+		$sql = "SELECT u.user_id,u.email,u.avatar,u.firstname,u.lastname,u.facebook_id,up.expire_date  
 				FROM ".$this->table('user','u')." 
 				LEFT JOIN  ".$this->table('user_package','up')." 
 					ON up.user_id = u.user_id
 				WHERE email='".$email."'
 				AND u.password='".$password."' 
-				AND u.status = 'ACTIVE' 
+				AND u.status = 'ACTIVE'
 				ORDER BY up.expire_date DESC 
 				";
 		return $this->adodb->GetRow($sql);
@@ -89,11 +89,14 @@ class Member_model extends ADODB_model {
 		return $this->adodb->Execute("DELETE FROM ".$this->table('user_device')." WHERE user_id = '".$user_id."' ");
 	}
 	public function facebookLogin($facebook_id,$email){
-		$sql = "SELECT * 
-				FROM ".$this->table('user')." 
-				WHERE email='".$email."' 
-				OR facebook_id='".$facebook_id."' 
-				AND status = 'ACTIVE' 
+		$sql = "SELECT u.user_id,u.email,u.avatar,u.firstname,u.lastname,u.facebook_id,up.expire_date 
+				FROM ".$this->table('user','u')." 
+				LEFT JOIN  ".$this->table('user_package','up')." 
+					ON up.user_id = u.user_id
+				WHERE u.email='".$email."' 
+				OR u.facebook_id='".$facebook_id."' 
+				AND u.status = 'ACTIVE' 
+				ORDER BY up.expire_date DESC 
 				";
 		return $this->adodb->GetRow($sql);	
 	}
@@ -113,6 +116,9 @@ class Member_model extends ADODB_model {
 	}
 	public function setMember($data){
 		$data['create_date'] = date('Y-m-d H:i:s');
+		$data['permission'] = 'USER';
+		$data['status'] = 'ACTIVE';
+
 		if($this->adodb->AutoExecute($this->table('user'),$data,'INSERT')){
 			return $this->adodb->Insert_ID();
 		}else{

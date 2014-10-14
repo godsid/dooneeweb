@@ -34,6 +34,21 @@ class Category_model extends ADODB_model {
 
 		return $this->adodb->Execute($sql)->GetAll();
 	}
+	public function getCategoriesMenu(){
+		$countMovie = "SELECT COUNT(*) 
+						FROM ".$this->table('movie_category','mc')." 
+						LEFT JOIN ".$this->table('movie','mo')." ON mc.movie_id = mo.movie_id 
+						WHERE c.category_id =  mc.category_id 
+						AND mo.status = 'ACTIVE' 
+						";
+		$sql ="SELECT *,(".$countMovie.") movie_item 
+				FROM ".$this->table('category','c')." 
+				WHERE status = 'ACTIVE'
+				AND c.category_id !=27 
+				AND c.parent_id != 27 
+				ORDER BY sort ASC ,category_id ASC ";
+		return $this->adodb->GetAll($sql);		
+	}
 }
 
 /* End of file category_model.php */
