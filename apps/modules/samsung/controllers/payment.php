@@ -57,7 +57,15 @@ class Payment extends SAMSUNG_Controller {
 				);
 			$this->mPayment->updateTransection($data['transactionId'],$transectionData);
 			if($data['status']==200){
-				if($userData = $this->mUser->getUser($data['uId'])){
+
+				$userData = $this->mUser->getUser($data['uId']);
+
+				if(!$userData){
+					$this->mUser->register($data['uId']);
+					$userData = $this->mUser->getUser($data['uId']);
+				}
+
+				if($userData){
 					$packageData = $this->mPackage->getPackageByName($data['cId']);
 
 					$data = array(
