@@ -16,9 +16,6 @@ class User_model extends ADODB_model {
 	}
 
 	public function getUser($uId=''){
-		if(empty($uId)){
-			return false;
-		}
 		$sql = "SELECT * 
 				FROM ".$this->table('user')." 
 				WHERE samsung_id = '".$uId."' 
