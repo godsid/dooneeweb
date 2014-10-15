@@ -46,7 +46,11 @@ class Movie extends REST_Controller {
 		$this->response($data);
 	}
 
-	
+	public function category_get($category_id){
+		$data = $this->mMovie->getCategoryMovie($category_id,$this->page,$this->limit);
+		$this->mMovie->rewiteData($data['items']);
+		$this->response($data);
+	}
 }
 
 /* End of file movie.php */

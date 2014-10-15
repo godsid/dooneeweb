@@ -56,6 +56,20 @@ class Movie_model extends ADODB_model {
 			}
 		}
 	}
+	public function getCategoryMovie($category_id,$page=1,$limit=30){
+		if(is_array($category_id)){
+			$category_id = "mc.category_id IN (".implode(',',$category_id).") ";
+		}else{
+			$category_id = "mc.category_id = '".$category_id."' ";
+		}
+		$sql ="SELECT m.* 
+				FROM ".$this->table('movie_category','mc')."  
+				LEFT JOIN ".$this->table('movie','m')." ON mc.movie_id = m.movie_id
+				WHERE ".$category_id." 
+				AND m.status = 'ACTIVE'
+				ORDER BY movie_id DESC ";
+		return $this->fetchPage($sql,$page,$limit);
+	}
 }
 
 /* End of file user.php */

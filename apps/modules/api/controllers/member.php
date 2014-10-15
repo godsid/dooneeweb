@@ -87,6 +87,40 @@ class Member extends API_Controller{
 		}
 	}
 
+	public function history_get(){
+		$this->load->model('movie_model','mMovie');
+		$member_id = $this->get('member_id');
+		if(!is_numeric($member_id)){
+			$this->error("Invalie member_id");
+		}
+		$history = $this->mMember->getMemberHistory($member_id,$this->page,$this->limit);
+		$this->mMovie->rewiteData($history['items']);
+		$this->success($history);
+
+	}
+	public function history_post(){
+
+	}
+	public function history_put($history_id){
+
+	}
+	public function favorite_get(){
+		$this->load->model('movie_model','mMovie');
+		$member_id = $this->get('member_id');
+		if(!is_numeric($member_id)){
+			$this->error("Invalie member_id");
+		}
+		$favorite = $this->mMember->getMemberFavorite($member_id,$this->page,$this->limit);
+		$this->mMovie->rewiteData($favorite['items']);
+		$this->success($favorite);
+	}
+	public function favorite_post(){
+
+	}
+	public function favorite_put($favorite_id){
+		
+	}
+
 	private function dayleft($expire_date){
 		 return is_null($expire_date)?0:ceil((strtotime($expire_date)-time())/86400);
 	}

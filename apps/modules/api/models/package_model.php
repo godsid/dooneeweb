@@ -11,6 +11,7 @@ class Package_model extends ADODB_model {
 		$sql = "SELECT * 
 				FROM ".$this->table('package')."
 				WHERE package_id = ".$packageID."
+				AND partner = 'DOONEE' 
 				AND status = 'ACTIVE' ";
 		return $this->adodb->GetRow($sql);
 	}

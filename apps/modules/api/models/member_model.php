@@ -171,7 +171,7 @@ class Member_model extends ADODB_model {
 		}
 	}
 
-	public function getMemberFavorites($user_id,$page=1,$limit=30){
+	public function getMemberFavorite($user_id,$page=1,$limit=30){
 		$sql = "SELECT m.movie_id,m.title,m.title_en,m.cover 
 				FROM ".$this->table('favorite','f')." 
 				LEFT JOIN ".$this->table('movie','m')." ON f.movie_id = m.movie_id
