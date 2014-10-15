@@ -326,10 +326,6 @@ class Movie extends SAMSUNG_Controller {
 			$data['total'] = count($episodes['items']);
 		}else{
 			$data['total'] = $episodes['pageing']['allItem'];
-			/* Fix ด็อกเตอร์ฮู ข้ามเวลากู้โลก ปี 1 Convert is 5 episode */
-			if($movieID==200){
-				$data['total'] = 5;
-			}
 		}
 		
 		
