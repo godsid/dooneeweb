@@ -24,7 +24,7 @@ class Package_model extends ADODB_model {
 		return $this->adodb->GetAll($sql);
 	}
 	public function setUserpackage($data){
-		
+		$data['create_date'] = date('Y-m-d H:i:s');
 		if($this->adodb->AutoExecute($this->table('user_package'),$data,'INSERT')){
 			return $this->adodb->Insert_ID();
 		}else{
