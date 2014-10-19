@@ -13,6 +13,7 @@ class Init extends REST_Controller {
 		$data['categories'] = $this->mCategory->getCategoriesMenu();
 		unset($data['categories']['pageing']);
 		$data['package'] = $this->mPackage->getPackages();
+		$this->mPackage->rewiteData($data['package']['items']);
 		unset($data['package']['pageing']);
 		$this->response($data);
 	}
