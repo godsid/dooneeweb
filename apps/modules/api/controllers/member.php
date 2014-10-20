@@ -49,16 +49,18 @@ class Member extends API_Controller{
 				$this->success($member);	
 			}
 		}
+		/*
 		if(empty($firstname)){
 			$this->error("Invalid firstname");exit;
 		}
 		if(empty($lastname)){
-			$this->error("Invalid lastn
-				.ame");exit;
+			$this->error("Invalid lastname");exit;
 		}
+		
 		if(!preg_match("#[MAIL|FEMAIL]#", $gender)){
 			$this->error("Invalid Gender MAIL|FEMAIL");exit;
 		}
+		*/
 
 		if(!preg_match("#^[0-9]{8,11}#", $phone)){
 			$this->error("Invalid phone");exit;
@@ -70,7 +72,7 @@ class Member extends API_Controller{
 
 		if($this->mMember->isDuplicateEmail($email)){
 			$this->error("Email duplicate");exit;
-		}
+		} 
 		$data = array(
 					'email'=>$email,
 					'password'=>md5($password),
