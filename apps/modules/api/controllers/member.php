@@ -101,10 +101,20 @@ class Member extends API_Controller{
 
 	}
 	public function history_post(){
+		$member_id = $this->post('member_id');
+		$movie_id = $this->post('movie_id');
 
-	}
-	public function history_put($history_id){
-
+		if(!is_numeric($member_id)){
+			$this->error("Invalid member_id");exit;
+		}
+		if(!is_numeric($movie_id)){
+			$this->error("Invalid movie_id");exit;
+		}
+		if($this->mMember->setMemberHistory($member_id,$movie_id,1,0)){
+			$this->success(array());
+		}else{
+			$this->error("Insert fail");exit;
+		}
 	}
 	public function favorite_get(){
 		$this->load->model('movie_model','mMovie');
@@ -117,10 +127,34 @@ class Member extends API_Controller{
 		$this->success($favorite);
 	}
 	public function favorite_post(){
-
+		$member_id = $this->post('member_id');
+		$movie_id = $this->post('movie_id');
+		if(!is_numeric($member_id)){
+			$this->error("Invalid member_id");exit;
+		}
+		if(!is_numeric($movie_id)){
+			$this->error("Invalid movie_id");exit;
+		}
+		if($favorite_id = $this->mMember->setMemberFavorite($member_id,$movie_id)){
+			$this->success(array('favorite_id'=>$favorite_id,'member_id'=>$member_id,'movie_id'=>$movie_id));
+		}else{
+			$this->error("Insert fail");exit;
+		}
 	}
-	public function favorite_put($favorite_id){
-		
+	public function favorite_delete(){
+		$member_id = $this->delete('member_id');
+		$favorite_id = $this->delete('favorite_id');
+		if(!is_numeric($member_id)){
+			$this->error("Invalid member_id");exit;
+		}
+		if(!is_numeric($favorite_id)){
+			$this->error("Invalid favorite_id");exit;
+		}
+		if($this->mMember->deleteMemberFavorite($member_id,$favorite_id)){
+			$this->success(array());
+		}else{
+			$this->error("delete fail");exit;
+		}
 	}
 
 	private function dayleft($expire_date){

@@ -20,6 +20,8 @@ class Package_model extends ADODB_model {
 		$sql ="SELECT * 
 				FROM ".$this->table('package')." 
 				WHERE status = 'ACTIVE'
+				AND partner = 'DOONEE' 
+				AND package_id != 5 
 				ORDER BY package_id DESC";
 		return $this->fetchPage($sql,$page,$limit);
 	}
