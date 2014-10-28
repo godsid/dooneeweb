@@ -47,7 +47,7 @@ abstract class SAMSUNG_Controller extends CI_Controller
         //$uri  = "$baseuri/playlist.m3u8"; // This is the file to send to the user. 
         //$uri    =  $_GET["contenturl"];  //change to your content location ex. "media.imovie.com/movie1.mp4"
         $e = time() + 6000; // At which point in time the file should expire. time() + x; would be the usual usage.
-        $rawhash=$secret . $basepath . $e . $_SERVER['REMOTE_ADDR'];
+        $rawhash=$secret . $basepath . $e . "203.151.27.70";//$_SERVER['REMOTE_ADDR'];
         //echo "<p>" . $rawhash . "</p>";
         $m = base64_encode(md5($rawhash , true)); // Using binary hashing.
         $m = strtr($m, '+/', '-_'); // + and / are considered special characters in URLs, see the wikipedia page linked in references.

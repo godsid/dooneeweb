@@ -300,7 +300,11 @@ class Movie extends SAMSUNG_Controller {
 		}
 
 		foreach($episodes['items'] as $episode){
+
 			$hash = $this->videoUrlHash("/series/".$episode['path'].$lang.$screen);
+			if(!isset($_GET['debug'])){
+				$hash['rawhash'] = "";
+			}
 			$series[] = array(
 								'id'=>$episode['movie_id'],
 								'type'=>'movie',
