@@ -43,20 +43,22 @@ class Twoc2p extends CI_Controller{
 				$updateData['status'] = 'ERROR';
 			}
 			if($this->mInvoice->updateInvoice($respData['uniqueTransactionCode'],$updateData)){
-				if($invoice = $this->mInvoice->getInvoice($respData['uniqueTransactionCode'])){
-					if($package = $this->mPackage->getPackage($invoice['package_id'])){
+				if($respData['respCode']=='00'){//Payment success
+					if($invoice = $this->mInvoice->getInvoice($respData['uniqueTransactionCode'])){
+						if($package = $this->mPackage->getPackage($invoice['package_id'])){
 
-						if($myPackage = $this->mPackage->getMemberPackage($invoice['user_id'])){
-                            $expireDate = date('Y-m-d H:i:s',strtotime($myPackage['expire_date'])+($package['dayleft']*86400));
-                        }else{
-                            $expireDate = date('Y-m-d H:i:s',strtotime('+'.$package['dayleft'].' day'));
-                        }
-                        $this->mMember->setMemberPackage(
-                            $invoice['user_id'],
-                            $package['package_id'],
-                            $expireDate
-                            );
-						$this->mMember->setMemberPackage($invoice['user_id'],$package['package_id'],$package['dayleft']);
+							if($myPackage = $this->mPackage->getMemberPackage($invoice['user_id'])){
+	                            $expireDate = date('Y-m-d H:i:s',strtotime($myPackage['expire_date'])+($package['dayleft']*86400));
+	                        }else{
+	                            $expireDate = date('Y-m-d H:i:s',strtotime('+'.$package['dayleft'].' day'));
+	                        }
+	                        $this->mMember->setMemberPackage(
+	                            $invoice['user_id'],
+	                            $package['package_id'],
+	                            $expireDate
+	                            );
+							$this->mMember->setMemberPackage($invoice['user_id'],$package['package_id'],$package['dayleft']);
+						}
 					}
 				}
 			}
