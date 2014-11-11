@@ -221,4 +221,20 @@ class movie extends CI_Controller {
 
         $this->load->view('web/player_mobile',$view);
     }
+    public function trailers($movie_id=""){
+        $movie = $this->mMovie->getMovie($movie_id);
+        echo '<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+            <script src="'.static_url('/js/jwplayer/jwplayer.js').'"></script>
+            <div id="container">Loading the player ...</div>
+            <script type="text/javascript">
+                jwplayer("container").setup({
+                    flashplayer: "'.static_url("/js/jwplayer/player.swf").'",
+                    autostart: true,
+                    width: "100%",
+                    height: "100%" ,
+                    file: "'.$movie['trailer'].'",
+                    skin:"'.static_url('/js/jwplayer/newtubedark.zip').'"
+                });
+            </script>';
+    }
 }
