@@ -11,6 +11,9 @@
                 <p class="_cd-col-xs-12">
 
                   <?php 
+                      if(!empty($movie['trailer'])){?>
+                        <a class="ui-btn btn-profile lb-popup" rel="popup-trailer" onclick="window.open(this.href);return false;" href="<?=base_url('/movie/trailers/'.$movie['movie_id'])?>" title="หนังตัวอย่าง">หนังตัวอย่าง</a>
+                  <?php }
                       // Member Login
                       if(isset($memberLogin)&&$memberLogin){ 
                       // Member Can Watch

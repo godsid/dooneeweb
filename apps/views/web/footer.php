@@ -146,4 +146,14 @@
   </div>
 </div>
 <!--/Age popup-->
+
+<!--Trailer popup-->  
+<div id="popup-trailer" class="overlay thm-age">
+<a class="close"></a>
+  <p class="Head"><i class="icm-group"></i> หนังตัวอย่าง</p>
+  <div>
+    
+  </div>
+</div>
+<!--/Trailer popup-->
 <div id="fb-root"></div>

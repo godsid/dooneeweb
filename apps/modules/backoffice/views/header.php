@@ -129,7 +129,7 @@
 					<ul class="nav nav-tabs nav-stacked main-menu">
 						<li class="nav-header hidden-tablet">Main</li>
 						<li><a class="ajax-link" href="<?=backoffice_url('/dashboard')?>"><i class="icon-home"></i><span class="hidden-tablet"> Dashboard</span></a></li>
-						<li><a class="ajax-link" href="<?=backoffice_url('/member')?>"><i class="icon-eye-open"></i><span class="hidden-tablet"> Members</span></a></li>
+						<li><a class="ajax-link" href="<?=backoffice_url('/member?type=doonee')?>"><i class="icon-eye-open"></i><span class="hidden-tablet"> Members</span></a></li>
 						<li><a class="ajax-link" href="<?=backoffice_url('/movie')?>"><i class="icon-eye-open"></i><span class="hidden-tablet"> Movies</span></a></li>
 						<li><a class="ajax-link" href="<?=backoffice_url('/package')?>"><i class="icon-eye-open"></i><span class="hidden-tablet"> Packages</span></a></li>
 						<li><a class="ajax-link" href="<?=backoffice_url('/banner')?>"><i class="icon-eye-open"></i><span class="hidden-tablet"> Banners</span></a></li>
