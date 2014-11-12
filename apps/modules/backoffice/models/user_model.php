@@ -36,9 +36,20 @@ class User_model extends ADODB_model {
 		return $this->adodb->GetRow($sql);
 	}
 
-	public function getUsers($page=1,$limit=30){
+	public function getUsers($page=1,$limit=30,$filter=array()){
+		$where = "";
+		if(isset($filter['type'])){
+			if($filter['type']=='samsung'){
+				$where = "WHERE samsung_id != '' ";
+			}elseif($filter['type']=='doonee'){
+				$where = "WHERE samsung_id = '' ";
+			}else{
+				$where = "";
+			}
+		}
 		$sql ="SELECT * 
 				FROM ".$this->table('user')." 
+				".$where." 
 				ORDER BY user_id DESC";
 		return $this->fetchPage($sql,$page,$limit);
 	}

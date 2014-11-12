@@ -12,9 +12,9 @@ class Member extends CI_Controller {
 		}
 
 		$this->page = $this->input->get('page');
-		$this->limit = $this->input->get('page');
+		$this->limit = $this->input->get('limit');
 		$this->page = $this->page?$this->page:1;
-		$this->limit = $this->limit?$this->limit:30;
+		$this->limit = $this->limit?$this->limit:50;
 
 		$this->breadcrumb[] = array('title'=>'Members','url'=>backoffice_url('/member'));
 
@@ -28,8 +28,12 @@ class Member extends CI_Controller {
 			$data['breadcrumb'] = $this->breadcrumb;	
 			$this->load->view('member_detail',$data);
 		}else{
-			$data['members'] = $this->mUser->getUsers($this->page,$this->limit);
-			$data['members']['pageing']['url'] = base_url('/member');
+			$filter = array();
+			if($type = $this->input->get('type')){
+				$filter['type'] = $type;
+			}
+			$data['members'] = $this->mUser->getUsers($this->page,$this->limit,$filter);
+			$data['members']['pageing']['url'] = backoffice_url('/member').(isset($filter['type'])?"?type=".$filter['type']:"");
 			$data['pageing'] = $this->load->view('pageing',$data['members']['pageing'],true);
 			$data['breadcrumb'] = $this->breadcrumb;
 			$this->load->view('member',$data);
