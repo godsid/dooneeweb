@@ -121,18 +121,50 @@ class Movie_model extends ADODB_model {
 
 		if(isset($movie['cover'])){
 			$movie['cover'] = static_url($movie['cover']);
-			
 		}
 		//https://cdn10-dooneetv.wisstream.com/series/5c991ac7d1en720/5c991ac7d1en720.m3u8
 		
 		for($i=0,$j=count($data);$i<$j;$i++){
-			if($movie['is_hd']=='YES'){
-				$data[$i]['url']['THHD'] = $cdnUrl.'series/'.$data[$i]['path'].'th720/'.$data[$i]['path'].'th720.m3u8'.$this->cdnHash('/series/'.$data[$i]['path'].'th720');
-				$data[$i]['url']['ENHD'] = $cdnUrl.'series/'.$data[$i]['path'].'en720/'.$data[$i]['path'].'en720.m3u8'.$this->cdnHash('/series/'.$data[$i]['path'].'en720');
+			if($movie['is_soon']=='YES'){
+				$data[$i]['url'] = array();
+			}else{
+				if($movie['is_hd']=='YES'){
+					$data[$i]['url']['THHD'] = $cdnUrl.'series/'.$data[$i]['path'].'th720/'.$data[$i]['path'].'th720.m3u8'.$this->cdnHash('/series/'.$data[$i]['path'].'th720');
+					$data[$i]['url']['ENHD'] = $cdnUrl.'series/'.$data[$i]['path'].'en720/'.$data[$i]['path'].'en720.m3u8'.$this->cdnHash('/series/'.$data[$i]['path'].'en720');
+				}
+				$data[$i]['url']['THSD'] = $cdnUrl.'series/'.$data[$i]['path'].'th480/'.$data[$i]['path'].'th480.m3u8'.$this->cdnHash('/series/'.$data[$i]['path'].'th480');
+				$data[$i]['url']['ENSD'] = $cdnUrl.'series/'.$data[$i]['path'].'en480/'.$data[$i]['path'].'en480.m3u8'.$this->cdnHash('/series/'.$data[$i]['path'].'en480');
 			}
-			$data[$i]['url']['THSD'] = $cdnUrl.'series/'.$data[$i]['path'].'th480/'.$data[$i]['path'].'th480.m3u8'.$this->cdnHash('/series/'.$data[$i]['path'].'th480');
-			$data[$i]['url']['ENSD'] = $cdnUrl.'series/'.$data[$i]['path'].'en480/'.$data[$i]['path'].'en480.m3u8'.$this->cdnHash('/series/'.$data[$i]['path'].'en480');
-		}		
+		}
+	}
+	public function getMovieRelate($movieID,$page=1,$limit=30){
+		$sql = "SELECT m.*
+				FROM ".$this->table('movie_tags','mt1')."
+				LEFT JOIN ".$this->table('movie','m')." ON mt1.movie_id = m.movie_id
+				WHERE mt1.tags_id IN (SELECT tags_id FROM ".$this->table('movie_tags','mt2')." WHERE mt2.movie_id = ".$movieID.")
+				AND mt1.movie_id != ".$movieID."
+				AND m.status = 'ACTIVE' 
+				GROUP BY m.movie_id 
+				ORDER BY m.movie_id DESC ";
+		;
+		return $this->fetchPage($sql,$page,$limit);
+	}
+	public function canWatch($member_id,$movie_id){
+		$sql ="SELECT COUNT(*) AS canwatch 
+				FROM ".$this->table('user_package','up')." 
+				LEFT JOIN ".$this->table('package_category','pc')." ON up.package_id = pc.package_id 
+				LEFT JOIN ".$this->table('movie_category','mc')." ON pc.category_id = mc.category_id 
+				WHERE up.user_id = ".$member_id." 
+				AND up.expire_date > NOW()
+				AND up.status = 'ACTIVE'
+				AND mc.movie_id = ".$movie_id." ";
+
+		$resp = $this->adodb->GetRow($sql);
+		if($resp['canwatch']>0){
+			return true;
+		}else{
+			return false;
+		}
 		
 	}
 
@@ -150,6 +182,7 @@ class Movie_model extends ADODB_model {
         //echo $rawhash;
         return ("?m=".$m."&e=".$e);
 	}
+	
 
 }
 

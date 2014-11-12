@@ -27,6 +27,9 @@ class Movie extends REST_Controller {
 			$data['episode'] = $data['episode']['items'];
 			$this->mMovie->rewriteEpisode($data['episode'],$data['movie']);
 
+			$data['relate'] = $this->mMovie->getMovieRelate($movieID,1,10);
+			$this->mMovie->rewiteData($data['relate']['items']);
+
 		}else{
 			$data['status'] = false;
 		}
@@ -61,6 +64,12 @@ class Movie extends REST_Controller {
 
 	public function category_get($category_id){
 		$data = $this->mMovie->getCategoryMovie($category_id,$this->page,$this->limit);
+		$this->mMovie->rewiteData($data['items']);
+		$this->response($data);
+	}
+
+	public function relate_get($movie_id){
+		$data = $this->mMovie->getMovieRelate($movie_id,$this->page,$this->limit);
 		$this->mMovie->rewiteData($data['items']);
 		$this->response($data);
 	}
