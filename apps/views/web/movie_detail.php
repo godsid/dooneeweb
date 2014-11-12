@@ -12,7 +12,7 @@
 
                   <?php 
                       if(!empty($movie['trailer'])){?>
-                        <a class="ui-btn btn-profile lb-popup" rel="popup-trailer" onclick="window.open(this.href);return false;" href="<?=base_url('/movie/player/'.$movie['movie_id'])?>?trailer=1&autoplay=1" title="หนังตัวอย่าง">หนังตัวอย่าง</a>
+                        <a class="ui-btn btn-profile lb-popup" rel="popup-trailer" onclick="window.open(this.href);return false;" href="<?=base_url('/movie/trailers/'.$movie['movie_id'])?>" title="หนังตัวอย่าง">หนังตัวอย่าง</a>
                   <?php }
                       // Member Login
                       if(isset($memberLogin)&&$memberLogin){ 

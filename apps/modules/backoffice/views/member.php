@@ -14,6 +14,8 @@
 								<input type="submit" value="Search" style="display:none;" />
 								<input type="text" name="q" value="<?=(isset($q)?$q:"")?>" > <a href="javascript:$('#searchForm').submit();" class="btn"><i class="glyphicon icon-search"></i> Search</a>
 							</form>
+							Filter<br/>
+							<a href="<?=backoffice_url('/member?type=doonee')?>">DooneeTV</a> | <a href="<?=backoffice_url('/member?type=samsung')?>">Samsung</a><br/><br/>
 						</div>		
 						<table class="table table-striped table-bordered bootstrap-datatable datatable">
 						  <thead>

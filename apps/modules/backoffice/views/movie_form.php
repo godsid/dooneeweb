@@ -60,6 +60,12 @@
 								</div>
 								<?php }?>
 								<div class="control-group">
+									<label class="control-label">URL หนังตัวอย่าง</label>
+									<div class="controls">
+										<input class="input-xlarge span6" type="text" name="trailer" value="<?=(isset($movie['trailer'])?$movie['trailer']:'')?>">
+									</div>
+								</div>
+								<div class="control-group">
 									<label class="control-label">คำบรรยายใต้ภาพ</label>
 									<div class="controls">
 										<input class="input-xlarge span6" type="text" name="summary" value="<?=(isset($movie['summary'])?$movie['summary']:'')?>">
