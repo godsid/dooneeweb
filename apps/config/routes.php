@@ -47,7 +47,7 @@ $route['(movie|news|help)/(:num)/(:num)'] = '$1/index/$2/$3';
 $route['(login|logout|register|facebookLogin)(.*)'] = 'member/$1$2';
 $route['(aboutus|conditions|privacy|conditions|contactus)(.*)'] = 'statics/$1$2';
 
-$route['api/(\w+)/(:num)'] = 'api/$1/index/$2';
+$route['api/(\w+)/(:num)(:any)'] = 'api/$1/index/$2$3';
 
 $route['samsung'] = 'samsung/home';
 $route['samsung/movie/(:num)/(:num)'] = 'samsung/movie/index/$1/$2';
