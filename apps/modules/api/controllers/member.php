@@ -14,6 +14,7 @@ class Member extends API_Controller{
 	
 		if($email&&$password){
 			if($member = $this->mMember->login($email,md5($password))){
+				$member['member_id'] = md5($member['member_id'].$member['email']);
 				$member['dayleft'] = $this->dayleft($member['expire_date']);
 				$this->success($member, 200);
 			}else{
@@ -45,6 +46,7 @@ class Member extends API_Controller{
 						$member['facebook_id'] = $facebook_id;
 					}
 				}
+				$member['member_id'] = md5($member['member_id'].$member['email']);
 				$member['dayleft'] = $this->dayleft($member['expire_date']);
 				$this->success($member);	
 			}
@@ -85,6 +87,7 @@ class Member extends API_Controller{
 		if($member_id = $this->mMember->setMember($data)){
 			$member = $this->mMember->login($email,md5($password));
 			$member['dayleft'] = $this->dayleft($member['expire_date']);
+			$member['member_id'] = md5($member['member_id'].$member['email']);
 			$this->success($member);
 		}
 	}
