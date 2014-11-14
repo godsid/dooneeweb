@@ -282,6 +282,19 @@ class Movie extends CI_Controller {
 		}
 	}
 
+	public function activeEpisode($episode_id=""){
+		$this->load->model('episode_model','mEpisode');
+		if(is_numeric($episode_id)){
+			$this->mEpisode->updateEpisode($episode_id,array('status'=>'ACTIVE'));
+		}
+	}
+	public function inactiveEpisode($episode_id=""){
+		$this->load->model('episode_model','mEpisode');
+		if(is_numeric($episode_id)){
+			$this->mEpisode->updateEpisode($episode_id,array('status'=>'INACTIVE'));
+		}
+	}
+
 	public function export($type=""){
 		//header("Content-type: application/force-download; charset=utf-8;");
 		header("Content-type: text/plain; charset=utf-8;");
