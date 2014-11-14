@@ -123,7 +123,14 @@
 												</div>
 												<div class="box-content hide">
 													<?php $i=1;foreach ($movie['episodes']['items'] as $episode) {?>
-													<p><?=($i++),".",$episode['title']?> ( /series/<?=$episode['path']?>.mp4) <a href="<?=backoffice_url('/movie/deleteEpisode/'.$episode['episode_id'])?>" onclick="if(window.confirm('ต้องการลบนี้ข้อมูลใช่หรือไม่')){deleteEpisode(this);return false;}else{return false;}" title="ลบ" class="btn btn-default"><i class="icon-trash"></i></a></p>
+													<p><?=($i++),".",$episode['title']?> ( /series/<?=$episode['path']?>.mp4) <a href="<?=backoffice_url('/movie/deleteEpisode/'.$episode['episode_id'])?>" onclick="if(window.confirm('ต้องการลบนี้ข้อมูลใช่หรือไม่')){deleteEpisode(this);return false;}else{return false;}" title="ลบ" class="btn btn-danger"><i class="icon-trash"></i></a>
+
+														<?php if($episode['status']=='ACTIVE'){ ?>
+															<a href="<?=backoffice_url('/movie/inactiveEpisode/'.$episode['episode_id'])?>" onclick="activeEpisode(this);return false;" title="ซ่อน" class="btn btn-success"><i class="icon-ok-circle"></i></a>
+														<?php }else{ ?>
+															<a href="<?=backoffice_url('/movie/activeEpisode/'.$episode['episode_id'])?>" onclick="activeEpisode(this);return false;" title="แสดง" class="btn btn-warning"><i class="icon-ban-circle"></i></a>
+														<?php }?>
+													</p>
 													<?php }?>
 													
 													<div class="control-group">
@@ -173,7 +180,33 @@
 												$(obj).parent().remove();
 											//}
 										});
+									}
+									function activeEpisode(obj){
+										/*
+											<a href="<?=backoffice_url('/movie/activeEpisode/'.$episode['episode_id'])?>" onclick="activeEpisode(this);return false;}" title="แสดง" class="btn btn-warning"><i class="icon-ban-circle"></i></a>
+										*/
+										$.get(obj.href,function(resp){
 
+											if($(obj).attr('href').match('inactive')){
+												
+												$(obj).attr('href',$(obj).attr('href').replace('inactive','active'));
+												$(obj).attr('title','แสดง')
+													   .removeClass('btn-success')
+													   .addClass('btn-warning');
+												$(obj).find('i').removeClass('icon-ok-circle')
+																.addClass('icon-ban-circle');
+											}else{
+												$(obj).attr('href',$(obj).attr('href').replace('active','inactive'));
+												
+												$(obj).attr('title','ซ่อน')
+														.removeClass('btn-warning')
+														.addClass('btn-success');
+												$(obj).find('i').removeClass('icon-ban-circle')
+																.addClass('icon-ok-circle');
+
+											}
+										});
+										
 									}
 								</script>
 								<?php }?>
