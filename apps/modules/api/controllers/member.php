@@ -160,6 +160,17 @@ class Member extends API_Controller{
 		}
 	}
 
+	public function package_get(){
+		$member_id = $this->get('member_id');
+		if(!is_numeric($member_id)){
+			$this->error("Invalid member_id");exit;
+		}else{
+			$package = $this->mMember->getMemberPackage($member_id,$this->page,$this->limit);
+			$this->success($package);
+		}
+		
+	}
+
 	private function dayleft($expire_date){
 		 return is_null($expire_date)?0:ceil((strtotime($expire_date)-time())/86400);
 	}

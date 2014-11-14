@@ -241,6 +241,17 @@ class Member_model extends ADODB_model {
         }
     }
 
+    public function getMemberPackage($user_id,$page=1,$limit=30){
+    	$sql = "SELECT p.package_id,p.title,p.banner,p.detail,p.conditions,p.price,p.dayleft,up.expire_date
+				FROM ".$this->table('user_package','up')." 
+				LEFT JOIN ".$this->table('package','p')." ON up.package_id = p.package_id
+				WHERE up.package_id = ".$user_id." 
+				AND up.status = 'ACTIVE' 
+				ORDER BY up.id DESC 
+				";
+		return $this->fetchPage($sql,$page,$limit);	
+    }
+
 }
 
 /* End of file member_model.php */

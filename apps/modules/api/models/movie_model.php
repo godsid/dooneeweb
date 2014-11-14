@@ -119,9 +119,6 @@ class Movie_model extends ADODB_model {
 		
 		$cdnUrl = $this->CI->config->item('samsung_cdn_url');
 
-		if(isset($movie['cover'])){
-			$movie['cover'] = static_url($movie['cover']);
-		}
 		//https://cdn10-dooneetv.wisstream.com/series/5c991ac7d1en720/5c991ac7d1en720.m3u8
 		
 		for($i=0,$j=count($data);$i<$j;$i++){
