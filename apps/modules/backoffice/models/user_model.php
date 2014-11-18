@@ -68,6 +68,13 @@ class User_model extends ADODB_model {
 				ORDER BY invoice_id DESC";
 		return $this->adodb->GetAll($sql);
 	}
+	public function getMovieHistory($userID,$page=1,$limit=30){
+		$sql ="SELECT m.movie_id,m.title  
+				FROM ".$this->table('history','h')." 
+				LEFT JOIN ".$this->table('movie','m')." ON h.movie_id = m.movie_id  
+				ORDER BY h.history_id DESC";
+		return $this->fetchPage($sql,$page,$limit);	
+	}
 
 	public function searchUser($q,$page=1,$limit=30){
 		$sql ="SELECT * 
@@ -90,6 +97,8 @@ class User_model extends ADODB_model {
 	public function delete($user_id){
 		return $this->adodb->AutoExecute($this->table('user'),array('status'=>'INACTIVE'),'UPDATE',"user_id='".$user_id."'");	
 	}
+
+
 }
 
 /* End of file user_model.php */
