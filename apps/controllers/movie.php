@@ -224,36 +224,39 @@ class movie extends CI_Controller {
         $this->load->view('web/player_mobile',$view);
     }
     public function trailers($movie_id=""){
+        $this->load->library('user_agent');
         $movie = $this->mMovie->getMovie($movie_id);
-        
-        /*echo '<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-            <script src="'.static_url('/js/jwplayer/jwplayer.js').'"></script>
-            <div id="container">Loading the player ...</div>
+
+        if($this->agent->is_mobile()){
+            echo '<center>
+            <video width="640" style="min-height:150px;height:480" controls id="video" autoplay>
+              <source src="http://122.155.197.142:1935/vod/_definst_/mp4:trailers/',$movie['trailer'],'/playlist.m3u8" autoplay/> 
+              <source src="rtsp://122.155.197.142:1935/vod/_definst_/mp4:trailers/',$movie['trailer'],'" autoplay /> 
+              Your browser does not support the video.
+            </video>
+            </center>';
+        }else{
+            echo '
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+            <script src="',static_url('/js/jwplayer/jwplayer.js'),'"></script>
+            <center><div id="container">Loading the player ...</div></center>
             <script type="text/javascript">
-                jwplayer("container").setup({
-                    flashplayer: "'.static_url("/js/jwplayer/player.swf").'",
-                    autostart: true,
-                    width: "100%",
-                    height: "100%" ,
-                    file: "'.$movie['trailer'].'",
-                    skin:"'.static_url('/js/jwplayer/newtubedark.zip').'"
-                });
-            </script>';
-            */
-        echo '<div id="playerfiQrAeklYZgB"></div>
-                <script src="http://jwpsrv.com/library/Oc_FXgzlEeSUiyIACtqXBA.js"></script>
-                <script type="text/javascript">
-                jwplayer("playerfiQrAeklYZgB").setup({
-                    primary: "flash",
-                    width: "100%",
-                    aspectratio: "16:9",
-                    autostart: true,
-                    sources:[
-                    {
-                        file: "'.$movie['trailer'].'"
-                    }],
-                });
-                </script> 
-            ';
+            jwplayer("container").setup({
+                flashplayer: "',static_url('/js/jwplayer/player.swf'),'",
+                width: "640",
+                height: "480" ,
+                primary: "flash",
+                aspectratio: "16:9",
+                autostart: true,
+                file: "trailers/',$movie['trailer'],'",
+                provider: "rtmp",
+                streamer: "rtmp://122.155.197.142:1935/vod/",
+                skin:"',static_url('/js/jwplayer/newtubedark.zip'),'",
+                abouttext:"DooneeTV 2014",
+                aboutlink:"',base_url('/privacy'),'",
+            });
+            </script>
+            '; 
+        }
     }
 }
