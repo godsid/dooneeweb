@@ -14,7 +14,7 @@ class Member extends API_Controller{
 	
 		if($email&&$password){
 			if($member = $this->mMember->login($email,md5($password))){
-				$member['member_id'] = md5($member['member_id'].$member['email']);
+				//$member['member_id'] = md5($member['member_id'].$member['email']);
 				$member['dayleft'] = $this->dayleft($member['expire_date']);
 				$this->success($member, 200);
 			}else{
