@@ -10,6 +10,7 @@ class Init extends REST_Controller {
 		$this->load->model('api/package_model','mPackage');
 
 		$data = array();
+		$data['settings'] = array('iosinapp'=>true);
 		$data['categories'] = $this->mCategory->getCategoriesMenu();
 		unset($data['categories']['pageing']);
 		$data['package'] = $this->mPackage->getPackages();

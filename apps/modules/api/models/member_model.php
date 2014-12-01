@@ -101,10 +101,14 @@ class Member_model extends ADODB_model {
 		return $this->adodb->GetRow($sql);	
 	}
 	public function getMember($userID){
-		$sql = "SELECT * 
-				FROM ".$this->table('user')."
-				WHERE user_id = ".$userID." 
-				AND status = 'ACTIVE' ";
+		$sql = "SELECT u.*,up.expire_date 
+				FROM ".$this->table('user','u')." 
+				LEFT JOIN  ".$this->table('user_package','up')." 
+					ON up.user_id = u.user_id
+				WHERE u.user_id = ".$userID." 
+				AND u.status = 'ACTIVE' 
+				ORDER BY up.expire_date DESC ";
+
 		return $this->adodb->GetRow($sql);
 	}
 	public function getMemberByEmail($email){

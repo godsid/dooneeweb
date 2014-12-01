@@ -16,8 +16,8 @@ abstract class API_Controller extends REST_Controller
         }
     }
 
-    public function error($message=""){
-        $this->response(array('status'=>'error','message'=>$message),200);
+    public function error($message="",$code=200){
+        $this->response(array('status'=>'error','message'=>$message),$code);
         exit;
     }
     public function success($data,$message=""){

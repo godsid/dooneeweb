@@ -8,6 +8,25 @@ class Member extends API_Controller{
 		$this->load->model('member_model','mMember');
 	}
 	
+
+	public function index_get($memberID=""){
+		if(is_numeric($memberID)){
+			if($member = $this->mMember->getMember($memberID)){
+				unset($member['password']);
+				if($member['expire_date']==null||strtotime($member['expire_date'])<time()){
+					$member['expire_date'] = "";
+					$member['dayleft'] = 0;
+				}else{
+					$member['dayleft'] = $this->dayleft($member['expire_date']);
+				}
+				$this->success($member);
+			}else{
+				$this->error("Missing memberID");
+			}
+		}else{
+			$this->error("Unknown method",404);
+		}
+	}
 	public function login_post(){
 		$email = $this->post('email');
 		$password = $this->post('password');
@@ -15,7 +34,13 @@ class Member extends API_Controller{
 		if($email&&$password){
 			if($member = $this->mMember->login($email,md5($password))){
 				//$member['member_id'] = md5($member['member_id'].$member['email']);
-				$member['dayleft'] = $this->dayleft($member['expire_date']);
+				if($member['expire_date']==null||strtotime($member['expire_date'])<time()){
+					$member['expire_date'] = "";
+					$member['dayleft'] = 0;
+				}else{
+					$member['dayleft'] = $this->dayleft($member['expire_date']);
+				}
+				
 				$this->success($member, 200);
 			}else{
 				$this->error("Invalid Email or Password");
@@ -47,7 +72,12 @@ class Member extends API_Controller{
 					}
 				}
 				$member['member_id'] = md5($member['member_id'].$member['email']);
-				$member['dayleft'] = $this->dayleft($member['expire_date']);
+				if($member['expire_date']==null||strtotime($member['expire_date'])<time()){
+					$member['expire_date'] = "";
+					$member['dayleft'] = 0;
+				}else{
+					$member['dayleft'] = $this->dayleft($member['expire_date']);
+				}
 				$this->success($member);	
 			}
 		}
@@ -86,8 +116,11 @@ class Member extends API_Controller{
 				);
 		if($member_id = $this->mMember->setMember($data)){
 			$member = $this->mMember->login($email,md5($password));
+			if($member['expire_date']==null){
+					$member['expire_date'] = "";
+			}
 			$member['dayleft'] = $this->dayleft($member['expire_date']);
-			$member['member_id'] = md5($member['member_id'].$member['email']);
+			//$member['member_id'] = md5($member['member_id'].$member['email']);
 			$this->success($member);
 		}
 	}

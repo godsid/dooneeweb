@@ -115,22 +115,27 @@ class Movie_model extends ADODB_model {
 		return $this->fetchPage($sql,1,50);
 	}
 
-	public function rewriteEpisode(&$data,&$movie){
+	public function rewriteEpisode(&$data,&$movie,$canwatch=false){
 		
 		$cdnUrl = $this->CI->config->item('samsung_cdn_url');
 
 		//https://cdn10-dooneetv.wisstream.com/series/5c991ac7d1en720/5c991ac7d1en720.m3u8
 		
 		for($i=0,$j=count($data);$i<$j;$i++){
-			if($movie['is_soon']=='YES'){
-				$data[$i]['url'] = array();
-			}else{
-				if($movie['is_hd']=='YES'){
-					$data[$i]['url']['THHD'] = $cdnUrl.'series/'.$data[$i]['path'].'th720/'.$data[$i]['path'].'th720.m3u8'.$this->cdnHash('/series/'.$data[$i]['path'].'th720');
-					$data[$i]['url']['ENHD'] = $cdnUrl.'series/'.$data[$i]['path'].'en720/'.$data[$i]['path'].'en720.m3u8'.$this->cdnHash('/series/'.$data[$i]['path'].'en720');
+			if($canwatch){
+				if($movie['is_soon']=='YES'){
+					$data[$i]['url'] = array();
+				}else{
+					if($movie['is_hd']=='YES'){
+						$data[$i]['url']['THHD'] = $cdnUrl.'series/'.$data[$i]['path'].'th720/'.$data[$i]['path'].'th720.m3u8'.$this->cdnHash('/series/'.$data[$i]['path'].'th720');
+						$data[$i]['url']['ENHD'] = $cdnUrl.'series/'.$data[$i]['path'].'en720/'.$data[$i]['path'].'en720.m3u8'.$this->cdnHash('/series/'.$data[$i]['path'].'en720');
+					}
+					$data[$i]['url']['THSD'] = $cdnUrl.'series/'.$data[$i]['path'].'th480/'.$data[$i]['path'].'th480.m3u8'.$this->cdnHash('/series/'.$data[$i]['path'].'th480');
+					$data[$i]['url']['ENSD'] = $cdnUrl.'series/'.$data[$i]['path'].'en480/'.$data[$i]['path'].'en480.m3u8'.$this->cdnHash('/series/'.$data[$i]['path'].'en480');
 				}
-				$data[$i]['url']['THSD'] = $cdnUrl.'series/'.$data[$i]['path'].'th480/'.$data[$i]['path'].'th480.m3u8'.$this->cdnHash('/series/'.$data[$i]['path'].'th480');
-				$data[$i]['url']['ENSD'] = $cdnUrl.'series/'.$data[$i]['path'].'en480/'.$data[$i]['path'].'en480.m3u8'.$this->cdnHash('/series/'.$data[$i]['path'].'en480');
+			}else{
+				$data[$i]['url'] = array();
+				unset($data[$i]['path']);
 			}
 		}
 	}

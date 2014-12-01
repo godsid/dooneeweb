@@ -2,10 +2,16 @@
 
 require_once(APPPATH.'libraries/REST_Controller.php');
 class Movie extends REST_Controller {
-
+	var $memberLogin;
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('api/movie_model','mMovie');
+		$this->load->model('api/member_model','mMember');
+		$member_id = $this->get('member_id');
+		if($member_id){
+			$this->memberLogin = $this->mMember->getMember($member_id);
+		}
+		
 	}
 
 	public function index_get($movieID="",$episodeID=""){
@@ -17,16 +23,18 @@ class Movie extends REST_Controller {
 	}
 
 	private function movie($movieID,$episodeID=""){
-		$data = array('status'=>false);
-
+		$data = array('status'=>false,'canwatch'=>false);
+		$data['member'] = $this->memberLogin;
 		$data['movie'] = $this->mMovie->getMovie($movieID);
 		if($data['movie']){
 			$data['status'] = true;
+			if($this->memberLogin){
+				$data['canwatch'] = ($this->mMovie->canWatch($this->memberLogin['user_id'],$movieID));
+			}
 			$this->mMovie->rewiteData($data['movie']);
 			$data['episode'] = $this->mMovie->getMovieEpisode($movieID,$episodeID);
 			$data['episode'] = $data['episode']['items'];
-			$this->mMovie->rewriteEpisode($data['episode'],$data['movie']);
-
+			$this->mMovie->rewriteEpisode($data['episode'],$data['movie'],$data['canwatch']);
 			$data['relate'] = $this->mMovie->getMovieRelate($movieID,1,10);
 			$this->mMovie->rewiteData($data['relate']['items']);
 

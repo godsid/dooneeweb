@@ -7,8 +7,6 @@ class Package extends CI_controller {
 		parent::__construct();
 		$this->load->model('api/package_model','mPackage');
 		$this->load->model('api/member_model','mMember');
-
-
 	}
 
 	public function index($package_id=""){
@@ -19,4 +17,5 @@ class Package extends CI_controller {
 		$view['package'] = $package;
 		$this->load->view('package',$view);
 	}
+
 }
