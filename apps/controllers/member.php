@@ -343,6 +343,7 @@ class Member extends CI_Controller {
         }
     }
     private function promotionRegister($member_id){
+        /*
         $this->load->model('package_model','mPackage');
         if($package = $this->mPackage->getPackage(5)){
             $now = date('Y-m-d H:i:s');
@@ -351,6 +352,7 @@ class Member extends CI_Controller {
             }
             
         }
+        */
     }
     
 }
