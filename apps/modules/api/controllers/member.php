@@ -71,7 +71,7 @@ class Member extends API_Controller{
 						$member['facebook_id'] = $facebook_id;
 					}
 				}
-				$member['member_id'] = md5($member['member_id'].$member['email']);
+				//$member['member_id'] = md5($member['member_id'].$member['email']);
 				if($member['expire_date']==null||strtotime($member['expire_date'])<time()){
 					$member['expire_date'] = "";
 					$member['dayleft'] = 0;
