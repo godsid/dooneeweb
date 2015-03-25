@@ -50,9 +50,9 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
-$db['default']['password'] = '';
+$db['default']['password'] = 'root';
 $db['default']['database'] = 'doonee';
-$db['default']['dbdriver'] = 'mysql';
+$db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = 'do_';
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = FALSE;
@@ -82,9 +82,10 @@ switch (ENVIRONMENT) {
 		$db['api'] = $db['default'];
 		$db['api']['hostname'] = 'localhost';
 		$db['api']['username'] = 'root';
-		$db['api']['password'] = '';
+		$db['api']['password'] = 'root';
 		$db['api']['database'] = 'doonee';
 		$db['api']['db_debug'] = TRUE;
+
 	default:
 		
 		break;

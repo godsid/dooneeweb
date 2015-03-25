@@ -30,7 +30,7 @@ class Payment extends API_controller {
 		$view = array();
 
 		$member_id = $this->get('member_id');
-		$view['member']['member_id'] = $member_id;
+		
 		if(!is_numeric($member_id)){
 			echo "กรุณาเข้าสู่ระบบก่อน";exit;
 		}		
@@ -44,6 +44,7 @@ class Payment extends API_controller {
 		}
 		$view['device'] = $this->get('device');
 		$view['package'] = $package;
+		$view['member']['member_id'] = $member_id;
 		return $view;
 	}
 
@@ -87,9 +88,40 @@ class Payment extends API_controller {
 	
 	public function atm_get($package_id=""){
 		$view = $this->initPaymentGet($package_id);
-		
-		$this->load->view('payment_bank',$view);
+		$this->load->view('payment_atm',$view);
 	}
+	public function atm_post(){
+		session_start();
+		$_SESSION['app_payment'] = '1';
+		$this->load->library('One23Payment');
+
+		$package_id = $this->input->post('package_id');
+		$member_id = $this->input->post('member_id');
+		$device = $this->input->post('device');
+		$agent = $this->input->post('agent');
+		$channel = "ATM";
+
+		$package = $this->mPackage->getPackage($package_id);
+
+		$messageID = $this->getMessageID();
+		
+		if($invoice_id = $this->createInvoice($member_id,$package,$channel,$device)){
+            $items[] = array('id'=>$package['package_id'],'name'=>$package['title'],'price'=>$package['price'],'quantity'=>1);
+            $view['form'] = $this->one23payment->createForm($messageID,$invoice_id,$package['price'],$package['title'],$items,$this->memberLogin['firstname'].' '.$this->memberLogin['lastname'],$this->memberLogin['email'],$channel,strtoupper($agent));
+            //$this->load->view('payment_123_submit',$view);
+        }else{
+        	$view['package'] = $package;
+        	$view['member']['member_id'] = $member_id;
+        	$view['device'] = $device;
+        	$this->load->view('payment_atm',$view);
+        	
+        }
+
+
+
+
+	}
+
 	public function paypoint_get($package_id=""){
 		$view = array();
 		
@@ -343,17 +375,30 @@ class Payment extends API_controller {
         return strtoupper('dooneetv'.random_string('alnum',32));
     }
 
-    private function createInvoice($member_id,$package,$channel,$device=''){
+    private function createInvoice($member_id,$package,$channel,$device='',$agent=''){
     	$this->load->model('api/invoice_model','mInvoice');
     	$data = array(
 				'user_id'=>$member_id,
 				'package_id'=>$package['package_id'],
 				'channel'=>$channel,
+				'agent'=>$agent,
 				'amount'=>$package['price'],
 				'title'=>$package['title'],
+				'description'=>'',
+				'resp_code'=>'',
+				'resp_pan'=>'',
+				'resp_unique_transaction'=>'',
+				'resp_tran_ref'=>'',
+				'resp_approval_code'=>'',
+				'resp_ref_number'=>'',
+				'resp_eci'=>'',
+				'resp_status'=>'',
+				'resp_fail_reason'=>'',
+				'resp_date'=>'0000-00-00 00:00:00',
 				'message_id'=>strtoupper(md5(time()+$member_id+$package['package_id'])),
 				'device'=>$device
 			);
+
 		if($invoice_id = $this->mInvoice->setInvoice($data)){
 			$resp = array(
 				'invoice_id'=>$invoice_id,
@@ -366,6 +411,7 @@ class Payment extends API_controller {
 				);
 			return $resp;
 		}else{
+			var_dump($invoice_id);exit;
 			return false;
 		}
     }

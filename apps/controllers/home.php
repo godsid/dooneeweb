@@ -8,17 +8,6 @@ class Home extends CI_Controller {
     var $limit;
 	public function __construct(){
         parent::__construct();
-        $allow = array('127.0.0.1');
-        if(!in_array($this->input->ip_address(),$allow)){
-            if($this->geoip_lib->InfoIP($this->input->ip_address())){
-                if($this->geoip_lib->result_country_code()!="TH"){
-                    show_404();
-                }
-            }else{
-                show_404();
-            }
-        }
-        
 
        // if($_SERVER['HTTP_HOST']=='doonee.tv'||$_SERVER['HTTP_HOST']=='www.doonee.tv')){
         //    redirect('');
@@ -33,18 +22,66 @@ class Home extends CI_Controller {
     }
 
     public function index(){
+    	if($_SERVER['HTTP_HOST']=='www.dooneetv.com'){
+    		header('location:https://www.doonee.com');
+			return;
+    	}
+		
+    	//check android device
+    	/*$ua = strtolower($_SERVER['HTTP_USER_AGENT']);
+		if(stripos($ua,'android') !== false) { 
+            // && stripos($ua,'mobile') !== false) {
+		    header("location:https://play.google.com/store/apps/details?id=th.co.mediaplex.dooneetvmobile");
+			return;
+		}*/
+		
         $this->load->model('member_model','mMember');
         $this->load->model('banner_model','mBanner');
         $this->load->model('movie_model','mMovie');
+		$this->load->model('article_model','mArticle');
 
         $view['memberLogin'] = $this->memberLogin;
         $view['categories'] = $this->categories;
         $view['banners'] = $this->mBanner->getBanners();
         $view['moviesHot'] = $this->mMovie->getMoviesHot(1,20);
         $view['moviesHot'] = $view['moviesHot']['items'];
+		$view['moviesFree'] = $this->mMovie->getMoviesFree(1,20);
+        $view['moviesFree'] = $view['moviesFree']['items'];
         $view['movies'] = $this->mMovie->getMovies($this->page,$this->limit);
+		$view['article'] = $this->mArticle->getLatestNews();
         $this->load->view('web/home',$view);
+    }
+	
+	public function index2(){
+    	if($_SERVER['HTTP_HOST']=='www.dooneetv.com'){
+    		header('location:https://www.doonee.com');
+			return;
+    	}
+		
+    	//check android device
+    	/*
+         $ua = strtolower($_SERVER['HTTP_USER_AGENT']);
+		if(stripos($ua,'android') !== false) { 
+        // && stripos($ua,'mobile') !== false) {
+		    header("location:https://play.google.com/store/apps/details?id=th.co.mediaplex.dooneetvmobile");
+			return;
+		}
+        */
+		
+        $this->load->model('member_model','mMember');
+        $this->load->model('banner_model','mBanner');
+        $this->load->model('movie_model','mMovie');
+		$this->load->model('article_model','mArticle');
 
-
+        $view['memberLogin'] = $this->memberLogin;
+        $view['categories'] = $this->categories;
+        $view['banners'] = $this->mBanner->getBanners();
+        $view['moviesHot'] = $this->mMovie->getMoviesHot(1,20);
+        $view['moviesHot'] = $view['moviesHot']['items'];
+		$view['moviesFree'] = $this->mMovie->getMoviesFree(1,20);
+        $view['moviesFree'] = $view['moviesFree']['items'];
+        $view['movies'] = $this->mMovie->getMovies($this->page,$this->limit);
+		$view['article'] = $this->mArticle->getLatestNews();
+        $this->load->view('web/home2',$view);
     }
 }
