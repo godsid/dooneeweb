@@ -32,6 +32,7 @@
 							<div><span class="span2">HD : </span><span class="span10"><?=$movie['is_hd']?></span></div>
 							<div><span class="span2">แนะนำ : </span><span class="span10"><?=$movie['is_hot']?></span></div>
 							<div><span class="span2">3D : </span><span class="span10"><?=$movie['is_3d']?></span></div>
+							<div><span class="span2">Order No : </span><span class="span10"><?=$movie['order_no']?></span></div>
 							<div><span class="span2">เมื่อ: </span><span class="span10"><?=$movie['create_date']?></span></div>
 							<div><span class="span2">แก้ไขล่าสุด: </span><span class="span10"><?=(is_null($movie['edit_date']))?'-':$movie['edit_date']?></span></div>
 					</div>

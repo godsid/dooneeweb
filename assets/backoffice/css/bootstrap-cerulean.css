@@ -1357,6 +1357,9 @@ table {
 .table tbody tr:hover th {
   background-color: #f5f5f5;
 }
+.table tbody tr.inactive td{
+  background-color: #dddddd;
+}
 table .span1 {
   float: none;
   width: 44px;

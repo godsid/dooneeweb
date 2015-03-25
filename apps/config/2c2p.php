@@ -12,8 +12,8 @@ $config['2c2p_secretkey'] = '4LpFOphCqLeE';
 $config['2c2p_merchant_publickey'] = APPPATH.'libraries/2c2ppay/demo2.crt';
 $config['2c2p_merchant_privatekey'] = APPPATH.'libraries/2c2ppay/demo2.pem';
 $config['2c2p_merchant_password'] = '2c2p';
-$config['2c2p_frontrespurl'] = 'http://dev.dooneetv.com/payment/response/creditcard3d';
-$config['2c2p_backrespurl'] = 'http://dev.dooneetv.com/twoc2p/devBackRespCyb5Z2Wnhu';
+$config['2c2p_frontrespurl'] = 'http://dev.doonee.com/payment/response/creditcard3d';
+$config['2c2p_backrespurl'] = 'http://dev.doonee.com/twoc2p/devBackRespCyb5Z2Wnhu';
 */
 
 //For Production
@@ -30,12 +30,19 @@ $config['2c2p_merchant_publickey'] = APPPATH.'libraries/2c2ppay/demo2.crt';
 $config['2c2p_merchant_privatekey'] = APPPATH.'libraries/2c2ppay/demo2.pem';
 $config['2c2p_merchant_password'] = '2c2p';
 //$config['2c2p_merchant_password'] = 'Media@plex';
-$config['2c2p_frontrespurl'] = 'http://www.dooneetv.com/payment/response/creditcard3d';
-$config['2c2p_backrespurl'] = 'http://www.dooneetv.com/twoc2p/proBackRespEcJz8eMMCE';
-
-
+$config['2c2p_frontrespurl'] = 'http://www.doonee.com/payment/response/creditcard3d';
+$config['2c2p_backrespurl'] = 'http://www.doonee.com/twoc2p/proBackRespEcJz8eMMCE';
 
 $config['2c2p_encrypt_path'] = APPPATH.'logs/encrypt/';
 $config['2c2p_decrypt_path'] = APPPATH.'logs/decrypt/';
 
 
+$config['2c_merchant_id'] = 446;
+//$config['2c_secret_key'] = '4LpFOphCqLeE'; //demo
+$config['2c_secret_key'] = 'yjc3ve4gwqxp';
+//$config['2c_merchant_requesturl'] = "http://demo2.2c2p.com/2C2PFrontEnd/SecurePayment/Payment.aspx";
+$config['2c_merchant_requesturl'] = "https://s.2c2p.com/2C2PFrontEnd/SecurePayment/Payment.aspx";
+
+$config['2c_merchant_publickey'] =  APPPATH.'libraries/2c2ppay/demo2.crt';
+$config['2c_merchant_privatekey'] = APPPATH.'libraries/2c2ppay/demo2.pem';
+$config['2c_merchant_password'] = '2c2p';

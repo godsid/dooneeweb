@@ -1,6 +1,30 @@
 <?php include('header.php'); ?>
 			<?php include('breadcrumb.php'); ?>
 			
+<?php
+function print_category_item($categories, $category, $level = 0){
+	$html = '';
+	foreach($categories['items'] as $item){
+		if(!empty($category)){
+			if($category == $item['category_id']){
+				$html .= '<option value="' . $item['category_id'] . '" selected="selected">' . (empty($level)? null: '--') . $item['title'] . '</option>';
+			}
+			else{
+				$html .= '<option value="' . $item['category_id'] . '">' . (empty($level)? null: '--') . $item['title'] . '</option>';
+			}
+		}
+		else{
+			$html .= '<option value="' . $item['category_id'] . '">' . (empty($level)? null: '--') . $item['title'] . '</option>';
+		}
+		
+		if(!empty($item['category'])){
+			$html .= print_category_item($item['category'],$category, $level+1);
+		}
+	}
+	return $html;
+}
+?>
+			
 			<div class="row-fluid sortable">		
 				<div class="box span12">
 					<div class="box-header well" data-original-title>
@@ -18,12 +42,21 @@
 						<div>
 							<form method="GET" id="searchForm" action="<?=backoffice_url('/movie/search')?>">
 								<input type="submit" value="Search" style="display:none;" />
-								<input type="text" name="q" value="<?=(isset($q)?$q:"")?>" > <a href="javascript:$('#searchForm').submit();" class="btn"><i class="glyphicon icon-search"></i> Search</a>
+								<input type="text" name="q" value="<?=(isset($q)?$q:"")?>" > 
+								<select id="category" name="category">
+									
+									<?php
+									echo '<option value="">Select Category</option>';
+									echo print_category_item($categories, $category);
+									?>
+								</select>
+								<a href="javascript:$('#searchForm').submit();" class="btn"><i class="glyphicon icon-search"></i> Search</a>
 							</form>
 						</div>		
 						<table class="table table-striped table-bordered">
 						  <thead>
 							  <tr>
+							  	  <th>Order No</th>
 								  <th>Name</th>
 								  <th>Cover</th>
 								  <th>View</th>
@@ -32,13 +65,16 @@
 								  <th>Subtitle</th>
 								  <th>Length</th>
 								  <th>Year</th>
-								  <th>CreateDate</th>
+								  <th>Status</th>
 								  <th>Action</th>
 							  </tr>
 						  </thead>   
 						  <tbody>
 						  <?php foreach($movies['items'] as $movie){ ?>
-							<tr>
+							<tr <?php if($movie['status']!='ACTIVE') echo 'class="inactive"';?>>
+								<td class="center">
+									<?=$movie['order_no']?>
+								</td>
 								<td><a href="<?=backoffice_url('/movie/'.$movie['movie_id'])?>"><?=$movie['title']?><br/><?=$movie['title_en']?></a></td>
 								<td class="center">
 									<img src="<?=$movie['cover']?>" width="80" />
@@ -63,7 +99,13 @@
 								<td class="center"><?=$movie['subtitle']?></td>
 								<td class="center"><?=($movie['length']/60)?> Min</td>
 								<td class="center"><?=$movie['year']?></td>
-								<td class="center"><?=$movie['create_date']?></td>
+								<td class="center">
+								<?php if($movie['status']=='ACTIVE'){?>
+									<span class="label label-success">Active</span>
+									<?php }else{?>
+									<span class="label">InActive</span>
+									<?php }?>
+								</td>
 								<td class="center">
 									<a class="btn btn-info" href="<?=backoffice_url('/movie/edit/'.$movie['movie_id'])?>">
 										<i class="icon-edit icon-white"></i>  

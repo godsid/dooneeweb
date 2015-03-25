@@ -51,7 +51,7 @@
 										<p class="help-block">ขนาด 258 x 386</p>
 									</div>
 								</div>
-								<?php if($movie['is_series']=='NO'){?>
+								<?php if(isset($movie['is_series'])&&$movie['is_series']=='NO'){?>
 								<div class="control-group">
 									<label class="control-label">ไฟล์วีดีโอ</label>
 									<div class="controls">
@@ -283,7 +283,7 @@
 								<div class="control-group">
 									<label class="control-label">ความยาว</label>
 									<div class="controls">
-										<input class="input-xlarge" type="text" name="length" value="<?=(isset($movie['length'])?$movie['length']:'')?>"> นาที
+										<input class="input-xlarge" type="text" name="length" value="<?=(isset($movie['length'])?($movie['length']/60):'')?>"> นาที
 									</div>
 
 								</div>
@@ -306,6 +306,12 @@
 									<div class="controls">
 										<input type="hidden" name="tags_tmp" value='<?=(isset($movie['tags'])?json_encode($movie['tags']):'[]')?>' />
 										<input class="input-xlarge" type="text" name="tags" value="<?=(isset($movie['tags'])?implode(', ',$tags_name):'')?>"><i> แยกคำด้วย คอมม่า (,) </i>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">ลำดับที่ (เรียงจากมากไปน้อย)</label>
+									<div class="controls">
+										<input class="input-xlarge" type="text" name="order_no" value="<?=(isset($movie['order_no'])?$movie['order_no']:'')?>"><i></i>
 									</div>
 								</div>
 								<div class="form-actions">

@@ -10,16 +10,12 @@ class User_model extends ADODB_model {
 		$sql = "SELECT * 
 				FROM ".$this->table('user_package','up')." 
 				WHERE user_id = '".$user_id."'
-				AND expire_date > '".date('Y-m-d H:i:s')."' 
-				ORDER BY expire_date DESC ";
+				AND expire_date > '".date('Y-m-d H:i:s')."' ";
 
 		return $this->adodb->GetRow($sql);
 	}
 
 	public function getUser($uId=''){
-		if(empty($uId)){
-			return false;
-		}
 		$sql = "SELECT * 
 				FROM ".$this->table('user')." 
 				WHERE samsung_id = '".$uId."' 

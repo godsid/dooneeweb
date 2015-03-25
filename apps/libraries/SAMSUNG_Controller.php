@@ -9,7 +9,7 @@ abstract class SAMSUNG_Controller extends CI_Controller
 			'backgroundColor'=>'#000000',
 			'backgroundImage'=>'',//252x449
 			'url'=>'',
-			'brandLogo'=>'http://www.dooneetv.com/assets/img/logo-thai-s1.png',
+			'brandLogo'=>'http://www.dooneetv.com/assets/img/logo-doonee-blue.png',
 			'appId'=>''
 
 		);

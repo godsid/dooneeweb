@@ -12,9 +12,9 @@ class Member extends CI_Controller {
 		}
 
 		$this->page = $this->input->get('page');
-		$this->limit = $this->input->get('limit');
+		$this->limit = $this->input->get('page');
 		$this->page = $this->page?$this->page:1;
-		$this->limit = $this->limit?$this->limit:50;
+		$this->limit = $this->limit?$this->limit:30;
 
 		$this->breadcrumb[] = array('title'=>'Members','url'=>backoffice_url('/member'));
 
@@ -28,12 +28,8 @@ class Member extends CI_Controller {
 			$data['breadcrumb'] = $this->breadcrumb;	
 			$this->load->view('member_detail',$data);
 		}else{
-			$filter = array();
-			if($type = $this->input->get('type')){
-				$filter['type'] = $type;
-			}
-			$data['members'] = $this->mUser->getUsers($this->page,$this->limit,$filter);
-			$data['members']['pageing']['url'] = backoffice_url('/member').(isset($filter['type'])?"?type=".$filter['type']:"");
+			$data['members'] = $this->mUser->getUsers($this->page,$this->limit);
+			$data['members']['pageing']['url'] = base_url('/member');
 			$data['pageing'] = $this->load->view('pageing',$data['members']['pageing'],true);
 			$data['breadcrumb'] = $this->breadcrumb;
 			$this->load->view('member',$data);
@@ -73,7 +69,6 @@ class Member extends CI_Controller {
 		$this->breadcrumb[] = array('title'=>'Edit','url'=>backoffice_url('/member/edit/'.$memberID));
 		$data['breadcrumb'] = $this->breadcrumb;
 		$data['member'] = $data['members'] = $this->mUser->getUser($memberID);
-		$data['historys'] = $this->mUser->getMovieHistory($memberID);
 		$data['packages'] = $this->mUser->getUserPackage($memberID);
 		$data['invoices'] = $this->mUser->getUserInvoice($memberID);
 		$this->load->view('member_detail',$data);

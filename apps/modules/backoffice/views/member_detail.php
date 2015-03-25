@@ -30,37 +30,6 @@
 				</div><!--/span-->
 			</div><!--/row-->
 
-
-            <div class="row-fluid sortable">        
-                <div class="box span12">
-                    <div class="box-header well" data-original-title>
-                        <h2><i class="icon-user"></i> Movie History</h2>
-                    </div>
-                    <div class="box-content">
-                        <div class="row-fluid">
-                            <table class="table table-striped table-bordered responsive">
-                        <thead>
-                        <tr>
-                            <th>id</th>
-                            <th>Title</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php foreach($historys['items'] as $history){ ?>
-                        <tr>
-                            <td><?=$history['movie_id']?></td>
-                            <td class="center"><a href="<?=base_url('/movie/'.$history['movie_id'])?>" target="_blank"><?=$history['title']?></a></td>
-                            
-                        </tr>
-                        <?php } ?>
-                        
-                        </tbody>
-                    </table>
-                        </div>
-                    </div>
-                </div><!--/span-->
-            </div><!--/row-->
-
 			<div class="row-fluid sortable">		
 				<div class="box span12">
 					<div class="box-header well" data-original-title>

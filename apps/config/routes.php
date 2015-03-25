@@ -44,15 +44,18 @@ $route['404_override'] = '';
 
 $route['(movie|news|help)/(:num)'] = '$1/index/$2';
 $route['(movie|news|help)/(:num)/(:num)'] = '$1/index/$2/$3';
-$route['(login|logout|register|facebookLogin)(.*)'] = 'member/$1$2';
+$route['(movie|news|help)/(:num)/(:num)/(:any)'] = '$1/index/$2/$3/$4';
+$route['(login|logout|register|register_fgf|facebookLogin)(.*)'] = 'member/$1$2';
 $route['(aboutus|conditions|privacy|conditions|contactus)(.*)'] = 'statics/$1$2';
 
-$route['api/(:any)/(:num)'] = 'api/$1/index/$2';
+$route['api/(\w+)/(:num)'] = 'api/$1/index/$2';
+$route['api/(\w+)/(:num)(:any)'] = 'api/$1/index/$2$3';
 
 $route['samsung'] = 'samsung/home';
 $route['samsung/movie/(:num)/(:num)'] = 'samsung/movie/index/$1/$2';
 $route['samsung/(a-Z)/(:num)'] = 'samsung/$1/index/$2';
 
+$route['movie/playlist.m3u8?(:any)'] = 'movie/playlist/m3u8/$1';
 
 $route['backoffice'] = 'backoffice/dashboard';
 $route['backoffice/([a-z]+)/(:num)'] = 'backoffice/$1/index/$2';

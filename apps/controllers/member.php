@@ -5,7 +5,7 @@ class Member extends CI_Controller {
     var $memberLogin;
     var $categories;
 
-    public function __construct(){
+	public function __construct(){
         parent::__construct();
         $this->load->model('member_model','mMember');
         $this->memberLogin = $this->mMember->getMemberLogin();
@@ -170,9 +170,14 @@ class Member extends CI_Controller {
             if($member_id = $this->mMember->setMember($member)){
                 
                 /* Promotion New Member to Package ID 5 ดูนี่ทีวีโปรโมชั่นดูฟรี 3วัน */
-                $this->promotionRegister($member_id);
-
-                
+                $this->load->model('package_model','mPackage');
+                if($package = $this->mPackage->getPackage(5)){
+                    $now = date('Y-m-d H:i:s');
+                    if($package['status']=='ACTIVE'&&$package['start_date'] < $now && $package['end_date'] > $now){
+                        $this->mMember->setMemberPackage($member_id,5,date('Y-m-d H:i:s',strtotime('+'.$package['dayleft'].' day')));
+                    }
+                    
+                }
                 /* End Promotion */
 
 
@@ -225,9 +230,7 @@ class Member extends CI_Controller {
                     'create_date'=>date('Y-m-d H:i:s')
                     ));
             if($member_id){
-
                 $member = $this->mMember->getMember($member_id);
-                $this->promotionRegister($member_id);
             }
         }
         $user = $this->mMember->login($member['email'],$member['password']);
@@ -341,18 +344,6 @@ class Member extends CI_Controller {
             $this->mMember->setMemberDevice($data);
             return $device_code;
         }
-    }
-    private function promotionRegister($member_id){
-        /*
-        $this->load->model('package_model','mPackage');
-        if($package = $this->mPackage->getPackage(5)){
-            $now = date('Y-m-d H:i:s');
-            if($package['status']=='ACTIVE'&&$package['start_date'] < $now && $package['end_date'] > $now){
-                $this->mMember->setMemberPackage($member_id,5,date('Y-m-d H:i:s',strtotime('+'.$package['dayleft'].' day')));
-            }
-            
-        }
-        */
     }
     
 }

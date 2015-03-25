@@ -190,7 +190,7 @@
                 <li>
                   	<article>
                         <a title="Immortal Masterpiece" class="lb-popup" href="javascript:;" rel="#popup-login">
-                            <img alt="Immortal Masterpiece" src="<? echo $img_url; ?>">
+                            <img alt="Immortal Masterpiece" class="lazy" data-src="<? echo $img_url; ?>" src="img/blank.gif">
                             <h3><? echo $name; ?></h3>
                             <span class="type <? if($i%5==0) { ?>free <? } ?>"><? echo $type; ?></span>
                         </a>
@@ -270,7 +270,7 @@
                 <li>
                   	<article>
                         <a title="Immortal Masterpiece" href="player.php">
-                            <img alt="Immortal Masterpiece" src="<? echo $img_url; ?>">
+                            <img alt="Immortal Masterpiece" class="lazy" data-src="<? echo $img_url; ?>" src="img/blank.gif">
                             <h3><? echo $name; ?></h3>
                             <span class="type <? if($i%5==0) { ?>free <? } ?>"><? echo $type; ?></span>
                         </a>

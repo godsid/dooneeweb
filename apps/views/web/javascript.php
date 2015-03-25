@@ -85,12 +85,6 @@ $(window).load(function() {
   });
   
 });
-function close18lgoin(id){
-  $('a.close').click();$('#'+id).click();
-}
-function close18(){
-  $('a.close').click();
-}
 $(document).ready(function() {
 	/*accordion*/
 	/*$("#accordion").tabs(
@@ -113,7 +107,7 @@ $(document).ready(function() {
         id = (new Date().getTime());
         $('body').append('<a href="" id="'+id+'" rel="#popup-login"></a>');
         $('#'+id).overlay({mask: '#FFF', opacity: 0.5, effect: 'apple'});
-        $('#confirm_rate').attr('href','javascript:close18lgoin(id);');
+        $('#confirm_rate').attr('href','javascript:$(\'a.close\').click();$(\'#'+id+'\').click();');
       }else{
         $('#confirm_rate').attr('href',$(target).attr('href'));
       }

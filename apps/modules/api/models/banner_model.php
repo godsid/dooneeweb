@@ -22,6 +22,7 @@ class Banner_model extends ADODB_model {
 	public function rewiteData(&$data){
 		if(isset($data['cover'])){
 			$data['cover'] = static_url($data['cover']);
+			$data['cover_ios'] = str_replace(array('.png','.jpg'),array('_ios.png','_ios.jpg'),$data['cover']);
 			
 		}else{
 			for($i=0,$j=count($data);$i<$j;$i++){

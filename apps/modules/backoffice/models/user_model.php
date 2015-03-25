@@ -36,20 +36,9 @@ class User_model extends ADODB_model {
 		return $this->adodb->GetRow($sql);
 	}
 
-	public function getUsers($page=1,$limit=30,$filter=array()){
-		$where = "";
-		if(isset($filter['type'])){
-			if($filter['type']=='samsung'){
-				$where = "WHERE samsung_id != '' ";
-			}elseif($filter['type']=='doonee'){
-				$where = "WHERE samsung_id = '' ";
-			}else{
-				$where = "";
-			}
-		}
+	public function getUsers($page=1,$limit=30){
 		$sql ="SELECT * 
 				FROM ".$this->table('user')." 
-				".$where." 
 				ORDER BY user_id DESC";
 		return $this->fetchPage($sql,$page,$limit);
 	}
@@ -67,13 +56,6 @@ class User_model extends ADODB_model {
 				WHERE user_id = '".$userID."' 
 				ORDER BY invoice_id DESC";
 		return $this->adodb->GetAll($sql);
-	}
-	public function getMovieHistory($userID,$page=1,$limit=30){
-		$sql ="SELECT m.movie_id,m.title  
-				FROM ".$this->table('history','h')." 
-				LEFT JOIN ".$this->table('movie','m')." ON h.movie_id = m.movie_id  
-				ORDER BY h.history_id DESC";
-		return $this->fetchPage($sql,$page,$limit);	
 	}
 
 	public function searchUser($q,$page=1,$limit=30){
@@ -97,8 +79,6 @@ class User_model extends ADODB_model {
 	public function delete($user_id){
 		return $this->adodb->AutoExecute($this->table('user'),array('status'=>'INACTIVE'),'UPDATE',"user_id='".$user_id."'");	
 	}
-
-
 }
 
 /* End of file user_model.php */

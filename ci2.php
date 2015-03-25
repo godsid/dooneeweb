@@ -18,7 +18,7 @@
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-if($_SERVER['HTTP_HOST']=='www.dooneetv.com'){
+if($_SERVER['HTTP_HOST']=='www.doonee.tv'||$_SERVER['HTTP_HOST']=='www.dooneetv.com' ||$_SERVER['HTTP_HOST']=='www.doonee.com'){
 	define('ENVIRONMENT', 'production');
 }else{
 	define('ENVIRONMENT', 'development');
@@ -42,9 +42,17 @@ if (defined('ENVIRONMENT'))
 		break;
 		case 'testing':
 		case 'production':
-			//error_reporting(0);
-			error_reporting(E_ALL);
-			ini_set("display_errors", 1);
+			error_reporting(0);
+			//error_reporting(E_ALL);
+			//ini_set("display_errors", 1);
+
+			if($_SERVER['HTTP_HOST']=='www.dooneetv.com'&&!isset($_SERVER['HTTPS'])){
+				header("Location: https://www.dooneetv.com");exit;
+			}
+			if($_SERVER['HTTP_HOST']=='www.doonee.com'&&!isset($_SERVER['HTTPS'])){
+				header("Location: https://www.doonee.com");exit;
+			}
+
 		break;
 
 		default:

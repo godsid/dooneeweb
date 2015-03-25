@@ -36,7 +36,7 @@
                         <p class="call txt-red">Call Center 0-2xxx-xxxx</p>
                     </div>
                     <div class="map">
-                    	<img src="img/staticmap.png" alt="Software Park">
+                    	<iframe width="100%" height="185" frameborder="0" style="border:0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15499.994798596088!2d100.476209!3d13.778951750000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDQ2JzQ0LjIiTiAxMDDCsDI4JzM0LjQiRQ!5e0!3m2!1sen!2sus!4v1409736517344"></iframe>
                         <div>
                             <h2><i class="icon-map-marker"></i> MY location</h2>
                             <p>Bangkok, thailand</p>

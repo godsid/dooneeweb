@@ -7,6 +7,16 @@ class movie extends CI_Controller {
     var $limit;
 	public function __construct(){
         parent::__construct();
+        $allow = array('127.0.0.1');
+        if(!in_array($this->input->ip_address(),$allow)){
+            if($this->geoip_lib->InfoIP($this->input->ip_address())){
+                if($this->geoip_lib->result_country_code()!="TH"){
+                    show_404();
+                }
+            }else{
+                show_404();
+            }
+        }
         $this->load->model('member_model','mMember');
         $this->load->model('category_model','mCategory');
         $this->load->model('movie_model','mMovie');
@@ -148,29 +158,14 @@ class movie extends CI_Controller {
     public function player($movieId="",$episodeId=""){
         $this->load->library('user_agent');
         $this->load->model('episode_model','mEpisode');
-
-        $allow = array('127.0.0.1');
-        if(!in_array($this->input->ip_address(),$allow)){
-            if($this->geoip_lib->InfoIP($this->input->ip_address())){
-                if($this->geoip_lib->result_country_code()!="TH"){
-                    show_404();
-                }
-            }else{
-                show_404();
-            }
-        }
-
-
         if(!$view['movie'] = $this->mMovie->getMovie($movieId)){
-            exit;
-            //redirect(home_url('/'));
+            redirect(home_url('/'));
         }
 
         if($view['memberLogin'] = $this->mMember->getMemberLogin()){
             $view['memberLogin']['canwatch'] = ($this->mMovie->canWatch($view['memberLogin']['user_id'],$movieId)) ;
         }else{
-            exit;
-			//redirect(home_url('/'));
+			redirect(home_url('/'));
 		}
 
         //Series Episode
@@ -222,41 +217,5 @@ class movie extends CI_Controller {
         
 
         $this->load->view('web/player_mobile',$view);
-    }
-    public function trailers($movie_id=""){
-        $this->load->library('user_agent');
-        $movie = $this->mMovie->getMovie($movie_id);
-
-        if($this->agent->is_mobile()){
-            echo '<center>
-            <video width="640" style="min-height:150px;height:480" controls id="video" autoplay>
-              <source src="http://122.155.197.142:1935/vod/_definst_/mp4:trailers/',$movie['trailer'],'/playlist.m3u8" autoplay/> 
-              <source src="rtsp://122.155.197.142:1935/vod/_definst_/mp4:trailers/',$movie['trailer'],'" autoplay /> 
-              Your browser does not support the video.
-            </video>
-            </center>';
-        }else{
-            echo '
-            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-            <script src="',static_url('/js/jwplayer/jwplayer.js'),'"></script>
-            <center><div id="container">Loading the player ...</div></center>
-            <script type="text/javascript">
-            jwplayer("container").setup({
-                flashplayer: "',static_url('/js/jwplayer/player.swf'),'",
-                width: "640",
-                height: "480" ,
-                primary: "flash",
-                aspectratio: "16:9",
-                autostart: true,
-                file: "trailers/',$movie['trailer'],'",
-                provider: "rtmp",
-                streamer: "rtmp://122.155.197.142:1935/vod/",
-                skin:"',static_url('/js/jwplayer/newtubedark.zip'),'",
-                abouttext:"DooneeTV 2014",
-                aboutlink:"',base_url('/privacy'),'",
-            });
-            </script>
-            '; 
-        }
     }
 }

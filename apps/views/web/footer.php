@@ -84,12 +84,9 @@
                 <a class="gg" href="https://plus.google.com/112188704808586278131" onclick="window.open(this.href);return false;" rel="publisher" title="google+">google+</a>
                 <a class="tw" href="javascript:;" title="twitter">twitter</a>
                 <a class="fb" href="https://www.facebook.com/dooneetvfanpage" onclick="window.open(this.href);return false;" title="facebook">facebook</a>
-				<a class="yt icon-youtube-sign" href="http://www.youtube.com/channel/UCO3sNKV6Q3edWmAA6aXS0AA" target="_blank" title="youtube">youtube</a>
-               
              </div>
              <p id="back2top" class="btn-back2top"><a href="javascript:;" title="back to top"></a></p>
          </div>
-         <div class="truehit"><?php @include('truehit.php');?></div>
      </div>
 </footer>
 
@@ -144,7 +141,7 @@
     <h2>กรุณายืนยันอายุของคุณ</h2>
     <div class="btn-group _cd-col-xs-6">
        <span><a id="confirm_rate" class="ui-btn-gray" title="over 18+" href="javascript:;">ข้าพเจ้า 18+ แล้ว</a></span>
-       <span><a class="ui-btn-gray close" title="under 18+" href="javascript:close18();">ยังไม่ถึง 18 ปี</a></span>
+       <span><a class="ui-btn-gray close" title="under 18+" href="javascript:$('a.close').click();">ยังไม่ถึง 18 ปี</a></span>
     </div>
   </div>
 </div>

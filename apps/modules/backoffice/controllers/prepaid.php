@@ -19,16 +19,16 @@ class Prepaid extends CI_Controller {
 
 
 		$this->page = $this->input->get('page');
-		$this->limit = $this->input->get('limit');
+		$this->limit = $this->input->get('page');
 		$this->page = $this->page?$this->page:1;
-		$this->limit = $this->limit?$this->limit:50;
+		$this->limit = $this->limit?$this->limit:30;
 
 		$this->breadcrumb[] = array('title'=>'Members','url'=>backoffice_url('/member'));
 	}
 	public function index($serial_number=""){
 		//$this->prepaidcard->generate(date('Y-m-d'),date('Y-m-d',strtotime('+100 day')),1,199,5);
 		$view['prepaids'] = $this->mPrepaid->getPrepaids($this->page,$this->limit);
-		$view['prepaids']['pageing']['url'] = backoffice_url('/prepaid');
+		$view['prepaids']['pageing']['url'] = base_url('/prepaid');
 		$view['pageing'] = $this->load->view('pageing',$view['prepaids']['pageing'],true);
 		$this->load->view('prepaid',$view);
 	}

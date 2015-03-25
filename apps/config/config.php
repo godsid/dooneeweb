@@ -14,10 +14,11 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://'.$_SERVER['HTTP_HOST'];
+$config['protocal']	= isset($_SERVER['HTTPS'])?'https://':'http://';
+$config['base_url']	= $config['protocal'].$_SERVER['HTTP_HOST'];
 $config['home_url']	= $config['base_url'].'/home';
-$config['static_url']	= 'http://'.$_SERVER['HTTP_HOST'].'/assets';
-$config['backoffice_url']	= 'http://'.$_SERVER['HTTP_HOST'].'/backoffice';
+$config['static_url']	= $config['protocal'].$_SERVER['HTTP_HOST'].'/assets';
+$config['backoffice_url']	= $config['protocal'].$_SERVER['HTTP_HOST'].'/backoffice';
 
 $config['static_path'] = 'files';
 
@@ -372,7 +373,12 @@ $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
 
-$config['email_contact'] = 'info@mediaplex.co.th';
+$config['email_contact'] = 'webmaster@dooneetv.com';
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */
+
+/*-------year package----------*/
+$config['year_package'] = 11; //id
+$config['fgf_package'] = 12; //id
+$config['recurring_package'] = 3;

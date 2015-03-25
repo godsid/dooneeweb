@@ -2,26 +2,50 @@
 
 require_once(APPPATH.'libraries/REST_Controller.php');
 class Movie extends REST_Controller {
-
+	var $memberLogin;
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('api/movie_model','mMovie');
+		$this->load->model('api/member_model','mMember');
+		$member_id = $this->get('member_id');
+		if($member_id){
+			$this->memberLogin = $this->mMember->getMember($member_id);
+		}
+		
 	}
 
-	public function index_get($movieID=""){
+	public function index_get($movieID="",$episodeID=""){
 		if(is_numeric($movieID)){
-			$this->movie($movieID);
+			$this->movie($movieID,$episodeID);
 		}else{
 			$this->movies();
 		}
 	}
 
-	public function movie($movieID){
-		$data = $this->mMovie->getMovie($movieID);
-		$this->mMovie->rewiteData($data);
+	private function movie($movieID,$episodeID=""){
+		$data = array('status'=>false,'canwatch'=>false);
+		$data['member'] = $this->memberLogin;
+		$data['movie'] = $this->mMovie->getMovie($movieID);
+		if($data['movie']){
+			$data['status'] = true;
+			if($this->memberLogin){
+				$data['canwatch'] = ($this->mMovie->canWatch($this->memberLogin['user_id'],$movieID));
+			}
+			$this->mMovie->rewiteData($data['movie']);
+			$data['episode'] = $this->mMovie->getMovieEpisode($movieID,$episodeID,$this->memberLogin['user_id']);
+			$data['episode'] = $data['episode']['items'];
+			$this->mMovie->rewriteEpisode($data['episode'],$data['movie'],$data['canwatch']);
+			$data['relate'] = $this->mMovie->getMovieRelate($movieID,1,10);
+			$this->mMovie->rewiteData($data['relate']['items']);
+
+		}else{
+			$data['status'] = false;
+		}
+		
 		$this->response($data);
+
 	} 
-	public function movies(){
+	private function movies(){
 		$data = $this->mMovie->getMovies($this->page,$this->limit);
 		$this->mMovie->rewiteData($data['items']);
 		$this->response($data);
@@ -46,7 +70,42 @@ class Movie extends REST_Controller {
 		$this->response($data);
 	}
 
-	
+	public function category_get($category_id){
+		$data = $this->mMovie->getCategoryMovie($category_id,$this->page,$this->limit);
+		$this->mMovie->rewiteData($data['items']);
+		$this->response($data);
+	}
+
+	public function relate_get($movie_id){
+		$data = $this->mMovie->getMovieRelate($movie_id,$this->page,$this->limit);
+		$this->mMovie->rewiteData($data['items']);
+		$this->response($data);
+	}
+
+	public function episode_get($movie_id=""){
+		$data = array('status'=>false);
+
+		$data['movie'] = $this->mMovie->getMovie($movie_id);
+		if($data['movie']){
+			$data['status'] = true;
+			$this->mMovie->rewiteData($data['movie']);
+			$data['episode'] = $this->mMovie->getMovieEpisode($movie_id);
+			$data['episode'] = $data['episode']['items'];
+			$this->mMovie->rewriteEpisode($data['episode'],$data['movie']);
+
+		}else{
+			$data['status'] = false;
+		}
+		
+		$this->response($data);
+	}
+
+	public function view_post($movieID,$episodeID=""){
+		$data = array('status'=>true);
+		$this->mMovie->updateView($movieID);
+		$this->response($data);
+	}
+
 }
 
 /* End of file movie.php */

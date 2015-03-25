@@ -1,0 +1,8 @@
+.movie-category{
+	list-style: outside;
+	list-style-type:none;
+	clear:both;
+}
+.movie-category li{list-style-type:none; width:40%; float:left; margin-left: 20px;}
+.movie-category li.parent{width:100%; margin:0px;}
+.movie-category li span{font-weight:normal;}
