@@ -1,7 +1,8 @@
+<script src="<?=static_url('/js/jquery-1.10.1.min.js')?>"></script>
 <script type="text/javascript">
 //<![CDATA[
-document.write('<link href="http://doonee.tv/assets/fonts/fontface.css" rel="stylesheet">');
-document.write('<link href="http://doonee.tv/assets/css/font-awesome.min.css" rel="stylesheet">');
+document.write('<link href="<?=static_url("/fonts/fontface.css")?>" rel="stylesheet">');
+document.write('<link href="<?=static_url("/css/font-awesome.min.css")?>" rel="stylesheet">');
 //]]>
 </script>
 <style>

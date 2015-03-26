@@ -72,7 +72,7 @@ form [type="submit"]{display:inline-block;padding:3px 20px;background:#31353e;co
 <div id="popup-payment-bank" class="overlay thm-login"><a class="close"></a>
   <p class="Head"><i class="icm-group"></i> ชำระเงินผ่านตู้เอทีเอ็ม</p>
   <div class="_cd-col-xs-12-sm-12">
-  <form action="<?=base_url('/api/payment/atm')?>" method="post" id="formPayment">
+  <form action="<?=base_url('/api/payment/ibanking')?>" method="post" id="formPayment">
     <div class="z-login form-control">
         <fieldset>
           <legend class="hd"><i class="gly-log-in"></i> เลือกธนาคาร</legend>
@@ -92,7 +92,7 @@ form [type="submit"]{display:inline-block;padding:3px 20px;background:#31353e;co
           <input type="hidden" name="package_id" value="<?=$package['package_id']?>" />
           <input type="hidden" name="member_id" value="<?=$member['member_id']?>" />
           <input type="hidden" name="device" value="android" />
-          <input type="hidden" name="channel" value="atm" />
+          <input type="hidden" name="channel" value="ibanking" />
           <input type="hidden" name="agent" value="" id="agent" />
           <input type="submit" value="submit" style="display:none;">
         </fieldset>

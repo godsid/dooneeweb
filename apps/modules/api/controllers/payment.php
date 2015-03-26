@@ -91,55 +91,32 @@ class Payment extends API_controller {
 		$this->load->view('payment_atm',$view);
 	}
 	public function atm_post(){
-		session_start();
-		$_SESSION['app_payment'] = '1';
-		$this->load->library('One23Payment');
-
-		$package_id = $this->input->post('package_id');
-		$member_id = $this->input->post('member_id');
-		$device = $this->input->post('device');
-		$agent = $this->input->post('agent');
-		$channel = "ATM";
-
-		$package = $this->mPackage->getPackage($package_id);
-
-		$messageID = $this->getMessageID();
-		
-		if($invoice_id = $this->createInvoice($member_id,$package,$channel,$device)){
-            $items[] = array('id'=>$package['package_id'],'name'=>$package['title'],'price'=>$package['price'],'quantity'=>1);
-            $view['form'] = $this->one23payment->createForm($messageID,$invoice_id,$package['price'],$package['title'],$items,$this->memberLogin['firstname'].' '.$this->memberLogin['lastname'],$this->memberLogin['email'],$channel,strtoupper($agent));
-            //$this->load->view('payment_123_submit',$view);
-        }else{
-        	$view['package'] = $package;
-        	$view['member']['member_id'] = $member_id;
-        	$view['device'] = $device;
-        	$this->load->view('payment_atm',$view);
-        	
-        }
-
-
-
-
+		$this->one23Submit('atm');
 	}
 
 	public function paypoint_get($package_id=""){
-		$view = array();
-		
+		$view = $this->initPaymentGet($package_id);
 		$this->load->view('payment_paypoint',$view);
 	}
+	public function paypoint_post(){
+		$this->one23Submit('paypoint');
+	}
 	public function bankcounter_get($package_id=""){
-		$view = array();
-		
-		$this->load->view('payment_bank',$view);
+		$view = $this->initPaymentGet($package_id);
+		$this->load->view('payment_bankcounter',$view);
+	}
+	public function bankcounter_post(){
+		$this->one23Submit('bankcounter');
 	}
 	public function ibanking_get($package_id=""){
-		$view = array();
-		
-		$this->load->view('payment_bank',$view);
+		$view = $this->initPaymentGet($package_id);
+		$this->load->view('payment_ibanking',$view);
+	}
+	public function ibanking_post(){
+		$this->one23Submit('ibanking');
 	}
 	public function prepaidcard_get(){
 		$view = array();
-		
 		$this->load->view('payment_prepaidcard',$view);
 	}
 	public function prepaidcard_post(){
@@ -156,7 +133,7 @@ class Payment extends API_controller {
         $this->load->model('card_model','mCard');
         
         $output = array('status'=>'','message'=>'');
-        
+        	
         $this->mCard->insertCardLog(array(
                             'code'=>$code,
                             'user_id'=>$member_id,
@@ -342,6 +319,32 @@ class Payment extends API_controller {
 		}
 	}
 
+	private function one23Submit($channel){
+		session_start();
+		$_SESSION['app_payment'] = '1';
+		$this->load->library('One23Payment');
+
+		$package_id = $this->input->post('package_id');
+		$member_id = $this->input->post('member_id');
+		$device = $this->input->post('device');
+		$agent = $this->input->post('agent');
+
+		$package = $this->mPackage->getPackage($package_id);
+		$member = $this->mMember->getMember($member_id);
+		$messageID = $this->getMessageID();
+		
+		if($invoice = $this->createInvoice($member_id,$package,strtoupper($channel),$device)){
+
+            $items[] = array('id'=>$package['package_id'],'name'=>$package['title'],'price'=>$package['price'],'quantity'=>1);
+            $view['form'] = $this->one23payment->createForm($messageID,$invoice['invoice_id'],$package['price'],$package['title'],$items,$member['firstname'].' '.$member['lastname'],$member['email'],strtoupper($channel),strtoupper($agent));
+            $this->load->view('payment_123_submit',$view);
+        }else{
+        	$view['package'] = $package;
+        	$view['member']['member_id'] = $member_id;
+        	$view['device'] = $device;
+        	$this->load->view('payment_'.strtolower($channel),$view);
+        }
+	}
 
 	private function setUserPackage($invoice){
 		if($package = $this->mPackage->getPackage($invoice['package_id'])){
@@ -411,7 +414,6 @@ class Payment extends API_controller {
 				);
 			return $resp;
 		}else{
-			var_dump($invoice_id);exit;
 			return false;
 		}
     }

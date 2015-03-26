@@ -1,7 +1,8 @@
+<script src="<?=static_url('/js/jquery-1.10.1.min.js')?>"></script>
 <script type="text/javascript">
 //<![CDATA[
-document.write('<link href="http://doonee.tv/assets/fonts/fontface.css" rel="stylesheet">');
-document.write('<link href="http://doonee.tv/assets/css/font-awesome.min.css" rel="stylesheet">');
+document.write('<link href="<?=static_url("/fonts/fontface.css")?>" rel="stylesheet">');
+document.write('<link href="<?=static_url("/css/font-awesome.min.css")?>" rel="stylesheet">');
 //]]>
 </script>
 <style>
@@ -53,7 +54,7 @@ body{padding:0;margin:0;font-family:"supermarket",tahoma;font-size:13px;backgrou
 [class*="thm-age"]>div>.btn-group>*{display:block}
 [class*="thm-age"]>div>.btn-group>*>a{display:block;padding:20px;font-size:27px;color:#333;text-shadow:0 1px 0 #fff;border-radius:.1em;-webkit-border-radius:.1em;box-shadow:0 -3px 0 rgba(0,0,0,0.3) inset}
 [class*="thm-age"]>div>.btn-group>*>a:hover{color:#fff;text-shadow:0 1px 0 rgba(0,0,0,0.5);background:#d3222a;opacity:1;filter:none}
-#popup-payment-prepaidcard.overlay{background:url(http://doonee.tv/assets/img/bg-card-popup.png) 50% 0 no-repeat #5dc8d3!important;background-size:100%}
+#popup-payment-prepaidcard.overlay{background:url(<?=static_url('/img/bg-card-popup.png')?>) 50% 0 no-repeat #5dc8d3!important;background-size:100%}
 #popup-payment-prepaidcard.overlay>p{background:none;height:79px;padding-top:20px;font-size:25px}
 #popup-payment-prepaidcard.overlay>p>i{text-indent:-9999;visibility:hidden}
 #popup-payment-prepaidcard.overlay>div{background:none;border:none;margin:0}
@@ -70,22 +71,37 @@ form [type="submit"]{display:inline-block;padding:3px 20px;background:#31353e;co
 <div id="popup-payment-paypoint" class="overlay thm-login"><a class="close"></a>
   <p class="Head"><i class="icm-group"></i> ชำระเงินผ่าน</p>
   <div class="_cd-col-xs-12-sm-12">
+    <form action="<?=base_url('/api/payment/paypoint')?>" method="post" id="formPayment">
     <div class="z-login form-control">
         <fieldset>
           <legend class="hd"><i class="gly-log-in"></i> เลือกจุดชำระเงิน</legend>
           <ul class="section-regis">
             <li style="text-align:center;">
-            <a href="<?=base_url('/payment/channel/0/MPAY')?>"><img src="<?=static_url("/img/bank/m-pay.png")?>" ></a>
-            <!--<a href="<?=base_url('/payment/channel/0/7ELEVEN')?>"><img src="<?=static_url("/img/bank/7ELEVEN.jpg")?>" ></a>
-            <a href="<?=base_url('/payment/channel/0/TRUEMONEY')?>"><img src="<?=static_url("/img/bank/TRUEMONEY.jpg")?>" ></a>-->
-            <a href="<?=base_url('/payment/channel/0/TOT')?>"><img src="<?=static_url("/img/bank/just-pay.png")?>" ></a>
-            <a href="<?=base_url('/payment/channel/0/TESCO')?>"><img src="<?=static_url("/img/bank/tesco-lotus.png")?>" ></a>
-            
-            <a href="<?=base_url('/payment/channel/0/PAYATPOST')?>"><img src="<?=static_url("/img/bank/thailand-post.png")?>" ></a>
-            
-            <a href="<?=base_url('/payment/channel/0/BIGC')?>"><img src="<?=static_url("/img/bank/big-c.png")?>" ></a></li>
+            <a href="javascript:submit('MPAY');"><img src="<?=static_url("/img/bank/m-pay.png")?>" ></a>
+            <!--<a href="javascript:submit('7ELEVEN');"><img src="<?=static_url("/img/bank/7ELEVEN.jpg")?>" ></a>
+            <a href="javascript:submit('TRUEMONEY';"><img src="<?=static_url("/img/bank/TRUEMONEY.jpg")?>" ></a>-->
+            <a href="javascript:submit('TOT');"><img src="<?=static_url("/img/bank/just-pay.png")?>" ></a>
+            <a href="javascript:submit('TESCO');"><img src="<?=static_url("/img/bank/tesco-lotus.png")?>" ></a>
+            <a href="javascript:submit('PAYATPOST');"><img src="<?=static_url("/img/bank/thailand-post.png")?>" ></a>
+            <a href="javascript:submit('BIGC');"><img src="<?=static_url("/img/bank/big-c.png")?>" ></a></li>
           </ul>
+          <input type="hidden" name="package_id" value="<?=$package['package_id']?>" />
+          <input type="hidden" name="member_id" value="<?=$member['member_id']?>" />
+          <input type="hidden" name="device" value="android" />
+          <input type="hidden" name="channel" value="paypoint" />
+          <input type="hidden" name="agent" value="" id="agent" />
+          <input type="submit" value="submit" style="display:none;">
         </fieldset>
+        <script type="text/javascript">
+      $(document).ready(function(){
+
+      });
+      function submit(agent){
+          $("#agent").val(agent);
+          $("#formPayment").submit();
+      }
+    </script>
     </div>
+    </form>
   </div>
 </div>

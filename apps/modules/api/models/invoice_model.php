@@ -18,6 +18,7 @@ class invoice_model extends ADODB_model {
 		if($this->adodb->AutoExecute($this->table('invoice'),$data,'INSERT')){
 			return $this->adodb->Insert_ID();
 		}else{
+			error_log($this->adodb->ErrorMsg());
 			return false;
 		}
 	}
